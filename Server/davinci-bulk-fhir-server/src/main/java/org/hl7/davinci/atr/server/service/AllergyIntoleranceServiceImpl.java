@@ -38,7 +38,7 @@ public class AllergyIntoleranceServiceImpl implements AllergyIntoleranceService 
 		if(dafAllergyIntoleranceList != null && !dafAllergyIntoleranceList.isEmpty()) {
 			for(DafAllergyIntolerance dafAllergyIntolerance : dafAllergyIntoleranceList) {
 				allergyIntolerance = jsonParser.parseResource(AllergyIntolerance.class, dafAllergyIntolerance.getData());
-				allergyIntolerance.setId(new IdType(RESOURCE_TYPE, allergyIntolerance.getId()));
+				allergyIntolerance.setId(allergyIntolerance.getId());
 				allergyIntoleranceList.add(allergyIntolerance);
 			}
 		}
@@ -64,7 +64,7 @@ public class AllergyIntoleranceServiceImpl implements AllergyIntoleranceService 
 		DafAllergyIntolerance dafAllergyIntolerance = allergyIntoleranceDao.getAllergyIntoleranceByVersionId(theId, versionId);
 		if(dafAllergyIntolerance != null) {
 			allergyIntolerance = jsonParser.parseResource(AllergyIntolerance.class, dafAllergyIntolerance.getData());
-			allergyIntolerance.setId(new IdType(RESOURCE_TYPE, allergyIntolerance.getId()));
+			allergyIntolerance.setId(allergyIntolerance.getId());
 		}
 		return allergyIntolerance;
 	}
@@ -97,7 +97,7 @@ public class AllergyIntoleranceServiceImpl implements AllergyIntoleranceService 
 		if(dafAllergyIntoleranceList != null && !dafAllergyIntoleranceList.isEmpty()) {
 			for(DafAllergyIntolerance dafAllergyIntolerance : dafAllergyIntoleranceList) {
 				allergyIntolerance = jsonParser.parseResource(AllergyIntolerance.class, dafAllergyIntolerance.getData());
-				allergyIntolerance.setId(new IdType(RESOURCE_TYPE, allergyIntolerance.getId()));
+				allergyIntolerance.setId(allergyIntolerance.getId());
 				allergyIntoleranceList.add(allergyIntolerance);
 			}
 		}

@@ -36,7 +36,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 		DafProcedure dafProcedure = procedureDao.getProcedureById(theId);
 		if(dafProcedure != null) {
 			procedure = jsonParser.parseResource(Procedure.class, dafProcedure.getData());
-			procedure.setId(new IdType(RESOURCE_TYPE, procedure.getId()));
+			procedure.setId(procedure.getId());
 		}
 		return procedure;
     }
@@ -49,7 +49,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 		DafProcedure dafProcedure = procedureDao.getProcedureByVersionId(theId, versionId);
 		if(dafProcedure != null) {
 			procedure = jsonParser.parseResource(Procedure.class, dafProcedure.getData());
-			procedure.setId(new IdType(RESOURCE_TYPE, procedure.getId()));
+			procedure.setId(procedure.getId());
 		}
 		return procedure;
 	}
@@ -64,7 +64,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 		if(dafProcedureList != null && !dafProcedureList.isEmpty()) {
 			for(DafProcedure dafProcedure : dafProcedureList) {
 				procedure = jsonParser.parseResource(Procedure.class, dafProcedure.getData());
-				procedure.setId(new IdType(RESOURCE_TYPE, procedure.getId()));
+				procedure.setId(procedure.getId());
 				procedureList.add(procedure);
 			}
 		}
@@ -100,7 +100,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 		if(dafProcedureList != null && !dafProcedureList.isEmpty()) {
 			for(DafProcedure dafProcedure : dafProcedureList) {
 				procedure = jsonParser.parseResource(Procedure.class, dafProcedure.getData());
-				procedure.setId(new IdType(RESOURCE_TYPE, procedure.getId()));
+				procedure.setId(procedure.getId());
 				procedureList.add(procedure);
 			}
 		}

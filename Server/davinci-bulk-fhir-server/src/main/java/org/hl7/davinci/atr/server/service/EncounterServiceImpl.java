@@ -36,7 +36,7 @@ public class EncounterServiceImpl implements EncounterService {
 		DafEncounter dafEncounter = encounterDao.getEncounterById(id);
 		if(dafEncounter != null) {
 			encounter = jsonParser.parseResource(Encounter.class, dafEncounter.getData());
-			encounter.setId(new IdType(RESOURCE_TYPE, encounter.getId()));
+			encounter.setId(encounter.getId());
 		}
 		return encounter;
     }
@@ -49,7 +49,7 @@ public class EncounterServiceImpl implements EncounterService {
 		DafEncounter dafEncounter = encounterDao.getEncounterByVersionId(theId, versionId);
 		if(dafEncounter != null) {
 			encounter = jsonParser.parseResource(Encounter.class, dafEncounter.getData());
-			encounter.setId(new IdType(RESOURCE_TYPE, encounter.getId()));
+			encounter.setId(encounter.getId());
 		}
 		return encounter;
 	}
@@ -64,7 +64,7 @@ public class EncounterServiceImpl implements EncounterService {
 		if(dafEncounterList != null && !dafEncounterList.isEmpty()) {
 			for(DafEncounter dafEncounter : dafEncounterList) {
 				encounter = jsonParser.parseResource(Encounter.class, dafEncounter.getData());
-				encounter.setId(new IdType(RESOURCE_TYPE, encounter.getId()));
+				encounter.setId(encounter.getId());
 				encounterList.add(encounter);
 			}
 		}
@@ -99,7 +99,7 @@ public class EncounterServiceImpl implements EncounterService {
 		if(dafEncounterList != null && !dafEncounterList.isEmpty()) {
 			for(DafEncounter dafEncounter : dafEncounterList) {
 				encounter = jsonParser.parseResource(Encounter.class, dafEncounter.getData());
-				encounter.setId(new IdType(RESOURCE_TYPE, encounter.getId()));
+				encounter.setId(encounter.getId());
 				encounterList.add(encounter);
 			}
 		}

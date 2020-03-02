@@ -36,7 +36,7 @@ public class FamilyMemberHistoryServiceImpl implements FamilyMemberHistoryServic
 		DafFamilyMemberHistory dafFamilyMemberHistory = familyMemberHistoryDao.getFamilyMemberHistoryById(id);
 		if(dafFamilyMemberHistory != null) {
 			familyMemberHistory = jsonParser.parseResource(FamilyMemberHistory.class, dafFamilyMemberHistory.getData());
-			familyMemberHistory.setId(new IdType(RESOURCE_TYPE, familyMemberHistory.getId()));
+			familyMemberHistory.setId(familyMemberHistory.getId());
 		}
 		return familyMemberHistory;
     }
@@ -49,7 +49,7 @@ public class FamilyMemberHistoryServiceImpl implements FamilyMemberHistoryServic
 		DafFamilyMemberHistory dafFamilyMemberHistory = familyMemberHistoryDao.getFamilyMemberHistoryByVersionId(theId, versionId);
 		if(dafFamilyMemberHistory != null) {
 			familyMemberHistory = jsonParser.parseResource(FamilyMemberHistory.class, dafFamilyMemberHistory.getData());
-			familyMemberHistory.setId(new IdType(RESOURCE_TYPE, familyMemberHistory.getId()));
+			familyMemberHistory.setId(familyMemberHistory.getId());
 		}
 		return familyMemberHistory;
 	}
@@ -64,7 +64,7 @@ public class FamilyMemberHistoryServiceImpl implements FamilyMemberHistoryServic
 		if(dafFamilyMemberHistoryList != null && !dafFamilyMemberHistoryList.isEmpty()) {
 			for(DafFamilyMemberHistory dafFamilyMemberHistory : dafFamilyMemberHistoryList) {
 				familyMemberHistory = jsonParser.parseResource(FamilyMemberHistory.class, dafFamilyMemberHistory.getData());
-				familyMemberHistory.setId(new IdType(RESOURCE_TYPE, familyMemberHistory.getId()));
+				familyMemberHistory.setId(familyMemberHistory.getId());
 				familyMemberHistoryList.add(familyMemberHistory);
 			}
 		}
@@ -100,7 +100,7 @@ public class FamilyMemberHistoryServiceImpl implements FamilyMemberHistoryServic
 		if(dafFamilyMemberHistoryList != null && !dafFamilyMemberHistoryList.isEmpty()) {
 			for(DafFamilyMemberHistory dafFamilyMemberHistory : dafFamilyMemberHistoryList) {
 				familyMemberHistory = jsonParser.parseResource(FamilyMemberHistory.class, dafFamilyMemberHistory.getData());
-				familyMemberHistory.setId(new IdType(RESOURCE_TYPE, familyMemberHistory.getId()));
+				familyMemberHistory.setId(familyMemberHistory.getId());
 				familyMemberHistoryList.add(familyMemberHistory);
 			}
 		}

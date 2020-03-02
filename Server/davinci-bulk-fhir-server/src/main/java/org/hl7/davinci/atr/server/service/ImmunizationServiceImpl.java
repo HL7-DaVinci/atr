@@ -36,7 +36,7 @@ public class ImmunizationServiceImpl implements ImmunizationService {
 		DafImmunization dafImmunization = immunizationDao.getImmunizationById(id);
 		if(dafImmunization != null) {
 			immunization = jsonParser.parseResource(Immunization.class, dafImmunization.getData());
-			immunization.setId(new IdType(RESOURCE_TYPE, immunization.getId()));
+			immunization.setId(immunization.getId());
 		}
 		return immunization;
     }
@@ -49,7 +49,7 @@ public class ImmunizationServiceImpl implements ImmunizationService {
 		DafImmunization dafImmunization = immunizationDao.getImmunizationByVersionId(theId, versionId);
 		if(dafImmunization != null) {
 			immunization = jsonParser.parseResource(Immunization.class, dafImmunization.getData());
-			immunization.setId(new IdType(RESOURCE_TYPE, immunization.getId()));
+			immunization.setId(immunization.getId());
 		}
 		return immunization;
 	}
@@ -64,7 +64,7 @@ public class ImmunizationServiceImpl implements ImmunizationService {
 		if(dafImmunizationList != null && !dafImmunizationList.isEmpty()) {
 			for(DafImmunization dafImmunization : dafImmunizationList) {
 				immunization = jsonParser.parseResource(Immunization.class, dafImmunization.getData());
-				immunization.setId(new IdType(RESOURCE_TYPE, immunization.getId()));
+				immunization.setId(immunization.getId());
 				immunizationList.add(immunization);
 			}
 		}
@@ -100,7 +100,7 @@ public class ImmunizationServiceImpl implements ImmunizationService {
 		if(dafImmunizationList != null && !dafImmunizationList.isEmpty()) {
 			for(DafImmunization dafImmunization : dafImmunizationList) {
 				immunization = jsonParser.parseResource(Immunization.class, dafImmunization.getData());
-				immunization.setId(new IdType(RESOURCE_TYPE, immunization.getId()));
+				immunization.setId(immunization.getId());
 				immunizationList.add(immunization);
 			}
 		}

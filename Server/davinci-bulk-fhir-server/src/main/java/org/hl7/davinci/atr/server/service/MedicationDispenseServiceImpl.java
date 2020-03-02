@@ -36,7 +36,7 @@ public class MedicationDispenseServiceImpl implements MedicationDispenseService 
 		DafMedicationDispense dafMedicationDispense = medicationDispenseDao.getMedicationDispenseById(id);
 		if(dafMedicationDispense != null) {
 			medicationDispense = jsonParser.parseResource(MedicationDispense.class, dafMedicationDispense.getData());
-			medicationDispense.setId(new IdType(RESOURCE_TYPE, medicationDispense.getId()));
+			medicationDispense.setId(medicationDispense.getId());
 		}
 		return medicationDispense;
 	}
@@ -49,7 +49,7 @@ public class MedicationDispenseServiceImpl implements MedicationDispenseService 
 		DafMedicationDispense dafMedicationDispense = medicationDispenseDao.getMedicationDispenseByVersionId(theId, versionId);
 		if(dafMedicationDispense != null) {
 			medicationDispense = jsonParser.parseResource(MedicationDispense.class, dafMedicationDispense.getData());
-			medicationDispense.setId(new IdType(RESOURCE_TYPE, medicationDispense.getId()));
+			medicationDispense.setId(medicationDispense.getId());
 		}
 		return medicationDispense;
 	}
@@ -64,7 +64,7 @@ public class MedicationDispenseServiceImpl implements MedicationDispenseService 
 		if(dafMedicationDispenseList != null && !dafMedicationDispenseList.isEmpty()) {
 			for(DafMedicationDispense dafMedicationDispense : dafMedicationDispenseList) {
 				medicationDispense = jsonParser.parseResource(MedicationDispense.class, dafMedicationDispense.getData());
-				medicationDispense.setId(new IdType(RESOURCE_TYPE, medicationDispense.getId()));
+				medicationDispense.setId(medicationDispense.getId());
 				medicationDispenseList.add(medicationDispense);
 			}
 		}
@@ -99,7 +99,7 @@ public class MedicationDispenseServiceImpl implements MedicationDispenseService 
 		if(dafMedicationDispenseList != null && !dafMedicationDispenseList.isEmpty()) {
 			for(DafMedicationDispense dafMedicationDispense : dafMedicationDispenseList) {
 				medicationDispense = jsonParser.parseResource(MedicationDispense.class, dafMedicationDispense.getData());
-				medicationDispense.setId(new IdType(RESOURCE_TYPE, medicationDispense.getId()));
+				medicationDispense.setId(medicationDispense.getId());
 				medicationDispenseList.add(medicationDispense);
 			}
 		}

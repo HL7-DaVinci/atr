@@ -35,7 +35,7 @@ public class CoverageServiceImpl implements CoverageService{
 		DafCoverage dafCoverage = coverageDao.getCoverageByVersionId(id, versionIdPart);
 		if(dafCoverage != null) {
 			coverage = jsonParser.parseResource(Coverage.class, dafCoverage.getData());
-			coverage.setId(new IdType(RESOURCE_TYPE, coverage.getId()));
+			coverage.setId(coverage.getId());
 		}
 		return coverage;
 	}
@@ -47,7 +47,7 @@ public class CoverageServiceImpl implements CoverageService{
 		DafCoverage dafCoverage = coverageDao.getCoverageById(theId);
 		if(dafCoverage != null) {
 			coverage = jsonParser.parseResource(Coverage.class, dafCoverage.getData());
-			coverage.setId(new IdType(RESOURCE_TYPE, coverage.getId()));
+			coverage.setId(coverage.getId());
 		}
 		return coverage;
 	}
@@ -61,7 +61,7 @@ public class CoverageServiceImpl implements CoverageService{
 		if(dafCoverageList != null && !dafCoverageList.isEmpty()) {
 			for(DafCoverage dafCoverage : dafCoverageList) {
 				coverage = jsonParser.parseResource(Coverage.class, dafCoverage.getData());
-				coverage.setId(new IdType(RESOURCE_TYPE, coverage.getId()));
+				coverage.setId(coverage.getId());
 				CoverageList.add(coverage);
 			}
 		}
@@ -96,7 +96,7 @@ public class CoverageServiceImpl implements CoverageService{
 		if(dafCoverageList != null && !dafCoverageList.isEmpty()) {
 			for(DafCoverage dafCoverage : dafCoverageList) {
 				coverage = jsonParser.parseResource(Coverage.class, dafCoverage.getData());
-				coverage.setId(new IdType(RESOURCE_TYPE, coverage.getId()));
+				coverage.setId(coverage.getId());
 				coverageList.add(coverage);
 			}
 		}

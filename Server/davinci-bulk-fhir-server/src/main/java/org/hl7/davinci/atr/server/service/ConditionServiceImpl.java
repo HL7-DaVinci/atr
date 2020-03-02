@@ -36,7 +36,7 @@ public class ConditionServiceImpl implements ConditionService {
 		DafCondition dafCondition = conditionDao.getConditionById(theId);
 		if(dafCondition != null) {
 			condition = jsonParser.parseResource(Condition.class, dafCondition.getData());
-			condition.setId(new IdType(RESOURCE_TYPE, condition.getId()));
+			condition.setId(condition.getId());
 		}
 		return condition;
 	}
@@ -49,7 +49,7 @@ public class ConditionServiceImpl implements ConditionService {
 		DafCondition dafCondition = conditionDao.getConditionByVersionId(theId, versionId);
 		if(dafCondition != null) {
 			condition = jsonParser.parseResource(Condition.class, dafCondition.getData());
-			condition.setId(new IdType(RESOURCE_TYPE, condition.getId()));
+			condition.setId(condition.getId());
 		}
 		return condition;
 	}
@@ -64,7 +64,7 @@ public class ConditionServiceImpl implements ConditionService {
 		if(dafConditionList != null && !dafConditionList.isEmpty()) {
 			for(DafCondition dafCondition : dafConditionList) {
 				condition = jsonParser.parseResource(Condition.class, dafCondition.getData());
-				condition.setId(new IdType(RESOURCE_TYPE, condition.getId()));
+				condition.setId(condition.getId());
 				conditionList.add(condition);
 			}
 		}
@@ -99,7 +99,7 @@ public class ConditionServiceImpl implements ConditionService {
 		if(dafConditionList != null && !dafConditionList.isEmpty()) {
 			for(DafCondition dafCondition : dafConditionList) {
 				condition = jsonParser.parseResource(Condition.class, dafCondition.getData());
-				condition.setId(new IdType(RESOURCE_TYPE, condition.getId()));
+				condition.setId(condition.getId());
 				conditionList.add(condition);
 			}
 		}

@@ -39,7 +39,7 @@ public class RelatedPersonServiceImpl implements RelatedPersonService {
 		if(dafRelatedPersonList != null && !dafRelatedPersonList.isEmpty()) {
 			for(DafRelatedPerson dafRelatedPerson : dafRelatedPersonList) {
 				relatedPerson = jsonParser.parseResource(RelatedPerson.class, dafRelatedPerson.getData());
-				relatedPerson.setId(new IdType(RESOURCE_TYPE, relatedPerson.getId()));
+				relatedPerson.setId(relatedPerson.getId());
 				relatedPersonList.add(relatedPerson);
 			}
 		}
@@ -53,7 +53,7 @@ public class RelatedPersonServiceImpl implements RelatedPersonService {
 		DafRelatedPerson dafRelatedPerson = relatedPersonDao.getRelatedPersonByVersionId(id, versionIdPart);
 		if(dafRelatedPerson != null) {
 			relatedPerson = jsonParser.parseResource(RelatedPerson.class, dafRelatedPerson.getData());
-			relatedPerson.setId(new IdType(RESOURCE_TYPE, relatedPerson.getId()));
+			relatedPerson.setId(relatedPerson.getId());
 		}
 		return relatedPerson;
 	}
@@ -65,7 +65,7 @@ public class RelatedPersonServiceImpl implements RelatedPersonService {
 		DafRelatedPerson dafRelatedPerson = relatedPersonDao.getRelatedPersonById(theId);
 		if(dafRelatedPerson != null) {
 			relatedPerson = jsonParser.parseResource(RelatedPerson.class, dafRelatedPerson.getData());
-			relatedPerson.setId(new IdType(RESOURCE_TYPE, relatedPerson.getId()));
+			relatedPerson.setId(relatedPerson.getId());
 		}
 		return relatedPerson;
 	}
@@ -93,7 +93,7 @@ public class RelatedPersonServiceImpl implements RelatedPersonService {
 		if(dafRelatedPersonList != null && !dafRelatedPersonList.isEmpty()) {
 			for(DafRelatedPerson dafRelatedPerson : dafRelatedPersonList) {
 				relatedPerson = jsonParser.parseResource(RelatedPerson.class, dafRelatedPerson.getData());
-				relatedPerson.setId(new IdType(RESOURCE_TYPE, relatedPerson.getId()));
+				relatedPerson.setId(relatedPerson.getId());
 				relatedPersonList.add(relatedPerson);
 			}
 		}

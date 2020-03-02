@@ -35,7 +35,7 @@ public class GoalServiceImpl implements GoalService {
 		DafGoal dafGoal = goalDao.getGoalById(id);
 		if(dafGoal != null) {
 			goal = jsonParser.parseResource(Goal.class, dafGoal.getData());
-			goal.setId(new IdType(RESOURCE_TYPE, goal.getId()));
+			goal.setId(goal.getId());
 		}
 		return goal;
 	}
@@ -47,7 +47,7 @@ public class GoalServiceImpl implements GoalService {
 		DafGoal dafGoal = goalDao.getGoalByVersionId(theId, versionId);
 		if(dafGoal != null) {
 			goal = jsonParser.parseResource(Goal.class, dafGoal.getData());
-			goal.setId(new IdType(RESOURCE_TYPE, goal.getId()));
+			goal.setId(goal.getId());
 		}
 		return goal;
 	}
@@ -61,7 +61,7 @@ public class GoalServiceImpl implements GoalService {
 		if(dafGoalList != null && !dafGoalList.isEmpty()) {
 			for(DafGoal dafGoal : dafGoalList) {
 				goal = jsonParser.parseResource(Goal.class, dafGoal.getData());
-				goal.setId(new IdType(RESOURCE_TYPE, goal.getId()));
+				goal.setId(goal.getId());
 				goalList.add(goal);
 			}
 		}
@@ -97,7 +97,7 @@ public class GoalServiceImpl implements GoalService {
 		if(dafGoalList != null && !dafGoalList.isEmpty()) {
 			for(DafGoal dafGoal : dafGoalList) {
 				goal = jsonParser.parseResource(Goal.class, dafGoal.getData());
-				goal.setId(new IdType(RESOURCE_TYPE, goal.getId()));
+				goal.setId(goal.getId());
 				goalList.add(goal);
 			}
 		}

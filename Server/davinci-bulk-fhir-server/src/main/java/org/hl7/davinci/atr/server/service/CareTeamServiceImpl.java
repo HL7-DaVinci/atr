@@ -36,7 +36,7 @@ public class CareTeamServiceImpl implements CareTeamService {
 		DafCareTeam dafCareTeam = careTeamDao.getCareTeamById(theId);
 		if(dafCareTeam != null) {
 			careTeam = jsonParser.parseResource(CareTeam.class, dafCareTeam.getData());
-			careTeam.setId(new IdType(RESOURCE_TYPE, careTeam.getId()));
+			careTeam.setId(careTeam.getId());
 		}
 		return careTeam;
 	}
@@ -49,7 +49,7 @@ public class CareTeamServiceImpl implements CareTeamService {
 		DafCareTeam dafCareTeam = careTeamDao.getCareTeamByVersionId(theId, versionId);
 		if(dafCareTeam != null) {
 			careTeam = jsonParser.parseResource(CareTeam.class, dafCareTeam.getData());
-			careTeam.setId(new IdType(RESOURCE_TYPE, careTeam.getId()));
+			careTeam.setId(careTeam.getId());
 		}
 		return careTeam;
 	}
@@ -64,7 +64,7 @@ public class CareTeamServiceImpl implements CareTeamService {
 		if(dafCareTeamList != null && !dafCareTeamList.isEmpty()) {
 			for(DafCareTeam dafCareTeam : dafCareTeamList) {
 				careTeam = jsonParser.parseResource(CareTeam.class, dafCareTeam.getData());
-				careTeam.setId(new IdType(RESOURCE_TYPE, careTeam.getId()));
+				careTeam.setId(careTeam.getId());
 				careTeamList.add(careTeam);
 			}
 		}
@@ -100,7 +100,7 @@ public class CareTeamServiceImpl implements CareTeamService {
 		if(dafCareTeamList != null && !dafCareTeamList.isEmpty()) {
 			for(DafCareTeam dafCareTeam : dafCareTeamList) {
 				careTeam = jsonParser.parseResource(CareTeam.class, dafCareTeam.getData());
-				careTeam.setId(new IdType(RESOURCE_TYPE, careTeam.getId()));
+				careTeam.setId(careTeam.getId());
 				careTeamList.add(careTeam);
 			}
 		}

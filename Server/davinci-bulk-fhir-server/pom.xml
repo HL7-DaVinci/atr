@@ -76,11 +76,11 @@
 			<artifactId>h2</artifactId>
 		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/net.bitnine/agensgraph-jdbc -->
-		<dependency>
+		<!-- <dependency>
 		    <groupId>net.bitnine</groupId>
 		    <artifactId>agensgraph-jdbc</artifactId>
 		    <version>1.4.1</version>
-		</dependency>
+		</dependency> -->
 			<!-- Used for CORS support -->
 		<dependency>
 			<groupId>org.ebaysf.web</groupId>
@@ -94,10 +94,10 @@
 			</exclusions>
 		</dependency>
 		<!--Postgresql database -->
-		<!--<dependency>
+		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-		</dependency>-->
+		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>

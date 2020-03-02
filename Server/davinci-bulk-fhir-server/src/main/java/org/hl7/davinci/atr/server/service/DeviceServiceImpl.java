@@ -37,7 +37,7 @@ public  class DeviceServiceImpl implements DeviceService{
 		DafDevice dafDevice = deviceDao.getDeviceById(theId);
 		if(dafDevice != null) {
 			device = jsonParser.parseResource(Device.class, dafDevice.getData());
-			device.setId(new IdType(RESOURCE_TYPE, device.getId()));
+			device.setId(device.getId());
 		}
 		return device;
     }
@@ -50,7 +50,7 @@ public  class DeviceServiceImpl implements DeviceService{
 		DafDevice dafDevice = deviceDao.getDeviceByVersionId(theId, versionId);
 		if(dafDevice != null) {
 			device = jsonParser.parseResource(Device.class, dafDevice.getData());
-			device.setId(new IdType(RESOURCE_TYPE, device.getId()));
+			device.setId(device.getId());
 		}
 		return device;
 	}
@@ -65,7 +65,7 @@ public  class DeviceServiceImpl implements DeviceService{
 		if(dafDeviceList != null && !dafDeviceList.isEmpty()) {
 			for(DafDevice dafDevice : dafDeviceList) {
 				device = jsonParser.parseResource(Device.class, dafDevice.getData());
-				device.setId(new IdType(RESOURCE_TYPE, device.getId()));
+				device.setId(device.getId());
 				deviceList.add(device);
 			}
 		}
@@ -102,7 +102,7 @@ public  class DeviceServiceImpl implements DeviceService{
 		if(dafDeviceList != null && !dafDeviceList.isEmpty()) {
 			for(DafDevice dafDevice : dafDeviceList) {
 				device = jsonParser.parseResource(Device.class, dafDevice.getData());
-				device.setId(new IdType(RESOURCE_TYPE, device.getId()));
+				device.setId(device.getId());
 				deviceList.add(device);
 			}
 		}

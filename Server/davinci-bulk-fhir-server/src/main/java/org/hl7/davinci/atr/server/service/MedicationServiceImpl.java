@@ -35,7 +35,7 @@ public class MedicationServiceImpl implements MedicationService {
 		DafMedication dafMedication = medicationDao.getMedicationById(theId);
 		if(dafMedication != null) {
 			medication = jsonParser.parseResource(Medication.class, dafMedication.getData());
-			medication.setId(new IdType(RESOURCE_TYPE, medication.getId()));
+			medication.setId(medication.getId());
 		}
 		return medication;
     }
@@ -47,7 +47,7 @@ public class MedicationServiceImpl implements MedicationService {
 		DafMedication dafMedication = medicationDao.getMedicationByVersionId(theId, versionId);
 		if(dafMedication != null) {
 			medication = jsonParser.parseResource(Medication.class, dafMedication.getData());
-			medication.setId(new IdType(RESOURCE_TYPE, medication.getId()));
+			medication.setId(medication.getId());
 		}
 		return medication;
 	}
@@ -61,7 +61,7 @@ public class MedicationServiceImpl implements MedicationService {
 		if(dafMedicationList != null && !dafMedicationList.isEmpty()) {
 			for(DafMedication dafMedication : dafMedicationList) {
 				medication = jsonParser.parseResource(Medication.class, dafMedication.getData());
-				medication.setId(new IdType(RESOURCE_TYPE, medication.getId()));
+				medication.setId(medication.getId());
 				medicationList.add(medication);
 			}
 		}
@@ -87,7 +87,7 @@ public class MedicationServiceImpl implements MedicationService {
 		if(dafMedicationList != null && !dafMedicationList.isEmpty()) {
 			for(DafMedication dafMedication : dafMedicationList) {
 				medication = jsonParser.parseResource(Medication.class, dafMedication.getData());
-				medication.setId(new IdType(RESOURCE_TYPE, medication.getId()));
+				medication.setId(medication.getId());
 				medicationList.add(medication);
 			}
 		}

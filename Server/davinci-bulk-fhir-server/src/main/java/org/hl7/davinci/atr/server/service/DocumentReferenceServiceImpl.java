@@ -36,7 +36,7 @@ public class DocumentReferenceServiceImpl implements DocumentReferenceService {
 		DafDocumentReference dafDocumentReference = documentReferenceDao.getDocumentReferenceById(id);
 		if(dafDocumentReference != null) {
 			documentReference = jsonParser.parseResource(DocumentReference.class, dafDocumentReference.getData());
-			documentReference.setId(new IdType(RESOURCE_TYPE, documentReference.getId()));
+			documentReference.setId(documentReference.getId());
 		}
 		return documentReference;
     }
@@ -49,7 +49,7 @@ public class DocumentReferenceServiceImpl implements DocumentReferenceService {
 		DafDocumentReference dafDocumentReference = documentReferenceDao.getDocumentReferenceByVersionId(theId, versionId);
 		if(dafDocumentReference != null) {
 			documentReference = jsonParser.parseResource(DocumentReference.class, dafDocumentReference.getData());
-			documentReference.setId(new IdType(RESOURCE_TYPE, documentReference.getId()));
+			documentReference.setId(documentReference.getId());
 		}
 		return documentReference;	
 	}
@@ -64,7 +64,7 @@ public class DocumentReferenceServiceImpl implements DocumentReferenceService {
 		if(dafDocumentReferenceList != null && !dafDocumentReferenceList.isEmpty()) {
 			for(DafDocumentReference dafDocumentReference : dafDocumentReferenceList) {
 				documentReference = jsonParser.parseResource(DocumentReference.class, dafDocumentReference.getData());
-				documentReference.setId(new IdType(RESOURCE_TYPE, documentReference.getId()));
+				documentReference.setId(documentReference.getId());
 				documentReferenceList.add(documentReference);
 			}
 		}
@@ -99,7 +99,7 @@ public class DocumentReferenceServiceImpl implements DocumentReferenceService {
 		if(dafDocumentReferenceList != null && !dafDocumentReferenceList.isEmpty()) {
 			for(DafDocumentReference dafDocumentReference : dafDocumentReferenceList) {
 				documentReference = jsonParser.parseResource(DocumentReference.class, dafDocumentReference.getData());
-				documentReference.setId(new IdType(RESOURCE_TYPE, documentReference.getId()));
+				documentReference.setId(documentReference.getId());
 				documentReferenceList.add(documentReference);
 			}
 		}

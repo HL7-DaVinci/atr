@@ -1,0 +1,8 @@
+<li class="mat-list-item" *ngFor="let link of sidemenus;" [ngClass]="routerLinkActive ? 'active':''" routerLinkActive="active">    
+    <a class="mat-list-item" routerLink="{{link.routerLink}}" [ngClass]="routerLinkActive ? 'active':''" routerlinkactive="active">
+        <div class="mat-list-item-content">
+            <mat-icon class="mat-icon material-icons" role="img" aria-hidden="true">{{link.linkIconName}}</mat-icon>
+            <span >{{link.linkName}}</span>
+        </div>
+    </a>
+</li>

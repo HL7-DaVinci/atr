@@ -36,7 +36,7 @@ public static final String RESOURCE_TYPE = "Claim";
 		DafClaim dafClaim = claimDao.getClaimByVersionId(id, versionIdPart);
 		if(dafClaim != null) {
 			claim = jsonParser.parseResource(Claim.class, dafClaim.getData());
-			claim.setId(new IdType(RESOURCE_TYPE, claim.getId()));
+			claim.setId(claim.getId());
 		}
 		return claim;
 	}
@@ -48,7 +48,7 @@ public static final String RESOURCE_TYPE = "Claim";
 		DafClaim dafClaim = claimDao.getClaimById(id);
 		if(dafClaim != null) {
 			claim = jsonParser.parseResource(Claim.class, dafClaim.getData());
-			claim.setId(new IdType(RESOURCE_TYPE, claim.getId()));
+			claim.setId(claim.getId());
 		}
 		return claim;
 	}
@@ -71,7 +71,7 @@ public static final String RESOURCE_TYPE = "Claim";
 		if(dafClaimList != null && !dafClaimList.isEmpty()) {
 			for(DafClaim dafClaim : dafClaimList) {
 				claim = jsonParser.parseResource(Claim.class, dafClaim.getData());
-				claim.setId(new IdType(RESOURCE_TYPE, claim.getId()));
+				claim.setId(claim.getId());
 				claimList.add(claim);
 			}
 		}
@@ -87,7 +87,7 @@ public static final String RESOURCE_TYPE = "Claim";
 		if(dafClaimList != null && !dafClaimList.isEmpty()) {
 			for(DafClaim dafClaim : dafClaimList) {
 				claim = jsonParser.parseResource(Claim.class, dafClaim.getData());
-				claim.setId(new IdType(RESOURCE_TYPE, claim.getId()));
+				claim.setId(claim.getId());
 				ClaimList.add(claim);
 			}
 		}

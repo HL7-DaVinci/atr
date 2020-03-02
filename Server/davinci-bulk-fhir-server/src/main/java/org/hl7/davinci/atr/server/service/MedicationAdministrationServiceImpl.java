@@ -36,7 +36,7 @@ public class MedicationAdministrationServiceImpl implements MedicationAdministra
 		DafMedicationAdministration dafMedicationAdministration = medicationAdministrationDao.getMedicationAdministrationById(id);
 		if(dafMedicationAdministration != null) {
 			medicationAdministration = jsonParser.parseResource(MedicationAdministration.class, dafMedicationAdministration.getData());
-			medicationAdministration.setId(new IdType(RESOURCE_TYPE, medicationAdministration.getId()));
+			medicationAdministration.setId(medicationAdministration.getId());
 		}
 		return medicationAdministration;
 	}
@@ -49,7 +49,7 @@ public class MedicationAdministrationServiceImpl implements MedicationAdministra
 		DafMedicationAdministration dafMedicationAdministration = medicationAdministrationDao.getMedicationAdministrationByVersionId(theId, versionId);
 		if(dafMedicationAdministration != null) {
 			medicationAdministration = jsonParser.parseResource(MedicationAdministration.class, dafMedicationAdministration.getData());
-			medicationAdministration.setId(new IdType(RESOURCE_TYPE, medicationAdministration.getId()));
+			medicationAdministration.setId(medicationAdministration.getId());
 		}
 		return medicationAdministration;
 	}
@@ -63,7 +63,7 @@ public class MedicationAdministrationServiceImpl implements MedicationAdministra
 		if(dafMedicationAdministrationList != null && !dafMedicationAdministrationList.isEmpty()) {
 			for(DafMedicationAdministration dafMedicationAdministration : dafMedicationAdministrationList) {
 				medicationAdministration = jsonParser.parseResource(MedicationAdministration.class, dafMedicationAdministration.getData());
-				medicationAdministration.setId(new IdType(RESOURCE_TYPE, medicationAdministration.getId()));
+				medicationAdministration.setId(medicationAdministration.getId());
 				medicationAdministrationList.add(medicationAdministration);
 			}
 		}
@@ -100,7 +100,7 @@ public class MedicationAdministrationServiceImpl implements MedicationAdministra
 		if(dafMedicationAdministrationList != null && !dafMedicationAdministrationList.isEmpty()) {
 			for(DafMedicationAdministration dafMedicationAdministration : dafMedicationAdministrationList) {
 				medicationAdministration = jsonParser.parseResource(MedicationAdministration.class, dafMedicationAdministration.getData());
-				medicationAdministration.setId(new IdType(RESOURCE_TYPE, medicationAdministration.getId()));
+				medicationAdministration.setId(medicationAdministration.getId());
 				medicationAdministrationList.add(medicationAdministration);
 			}
 		}
