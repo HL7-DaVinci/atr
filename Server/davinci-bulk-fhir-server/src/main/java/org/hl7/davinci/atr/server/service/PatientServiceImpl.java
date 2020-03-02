@@ -35,7 +35,7 @@ public class PatientServiceImpl implements PatientService {
 		DafPatient dafPatient = patientDao.getPatientByVersionId(theId, versionId);
 		if(dafPatient != null) {
 			patient = jsonParser.parseResource(Patient.class, dafPatient.getData());
-			patient.setId(new IdType(RESOURCE_TYPE, patient.getId()));
+			patient.setId(patient.getId());
 		}
 		return patient;
 	}
@@ -47,7 +47,7 @@ public class PatientServiceImpl implements PatientService {
 		DafPatient dafPatient = patientDao.getPatientById(theId);
 		if(dafPatient != null) {
 			patient = jsonParser.parseResource(Patient.class, dafPatient.getData());
-			patient.setId(new IdType(RESOURCE_TYPE, patient.getId()));
+			patient.setId(patient.getId());
 		}
 		return patient;
 	}
@@ -71,7 +71,7 @@ public class PatientServiceImpl implements PatientService {
 		if(dafPatientList != null && !dafPatientList.isEmpty()) {
 			for(DafPatient dafPatient : dafPatientList) {
 				patient = jsonParser.parseResource(Patient.class, dafPatient.getData());
-				patient.setId(new IdType(RESOURCE_TYPE, patient.getId()));
+				patient.setId(patient.getId());
 				patientList.add(patient);
 			}
 		}
@@ -99,7 +99,7 @@ public class PatientServiceImpl implements PatientService {
 		if(dafPatientList != null && !dafPatientList.isEmpty()) {
 			for(DafPatient dafPatient : dafPatientList) {
 				patient = jsonParser.parseResource(Patient.class, dafPatient.getData());
-				patient.setId(new IdType(RESOURCE_TYPE, patient.getId()));
+				patient.setId(patient.getId());
 				patientList.add(patient);
 			}
 		}

@@ -37,7 +37,7 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		DafPractitionerRole dafPractitioner = practitionerRoleDao.getPractitionerRoleByVersionId(id, versionIdPart);
 		if(dafPractitioner != null) {
 			practitionerRole = jsonParser.parseResource(PractitionerRole.class, dafPractitioner.getData());
-			practitionerRole.setId(new IdType(RESOURCE_TYPE, practitionerRole.getId()));
+			practitionerRole.setId(practitionerRole.getId());
 		}
 		return practitionerRole;
 	}
@@ -49,7 +49,7 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		DafPractitionerRole dafPractitioner = practitionerRoleDao.getPractitionerRoleById(id);
 		if(dafPractitioner != null) {
 			practitionerRole = jsonParser.parseResource(PractitionerRole.class, dafPractitioner.getData());
-			practitionerRole.setId(new IdType(RESOURCE_TYPE, practitionerRole.getId()));
+			practitionerRole.setId(practitionerRole.getId());
 		}
 		return practitionerRole;
 	}
@@ -63,7 +63,7 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		if(dafPractitionerRoleList != null && !dafPractitionerRoleList.isEmpty()) {
 			for(DafPractitionerRole dafPractitioner : dafPractitionerRoleList) {
 				practitionerRole = jsonParser.parseResource(PractitionerRole.class, dafPractitioner.getData());
-				practitionerRole.setId(new IdType(RESOURCE_TYPE, practitionerRole.getId()));
+				practitionerRole.setId(practitionerRole.getId());
 				practitionerRoleList.add(practitionerRole);
 			}
 		}
@@ -79,7 +79,7 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		if(dafPractitionerRoleList != null && !dafPractitionerRoleList.isEmpty()) {
 			for(DafPractitionerRole dafPractitioner : dafPractitionerRoleList) {
 				practitionerRole = jsonParser.parseResource(PractitionerRole.class, dafPractitioner.getData());
-				practitionerRole.setId(new IdType(RESOURCE_TYPE, practitionerRole.getId()));
+				practitionerRole.setId(practitionerRole.getId());
 				practitionerRoleList.add(practitionerRole);
 			}
 		}

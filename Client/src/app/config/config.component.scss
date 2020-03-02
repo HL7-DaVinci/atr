@@ -1,0 +1,111 @@
+.mat-card-title{
+    display: flex;
+    justify-content: space-between;
+    
+    .contentHeader{
+        font-size: 2.5rem;
+        font-weight: 400;
+        width: 100%;
+
+        p{
+            margin: 0px;
+            float: left;
+        }
+        button{
+            float: right;
+            margin-left: 20px;
+            // background-color: #33454D !important;
+        }
+    }
+}
+.mat-card-content{
+    .payerConfig{
+        width: 100%;
+        .subForm{
+            display: flex;
+            flex-direction: row-reverse;
+            .delPayer{
+                width: 10%;
+                margin: 2px;
+
+                .mat-fab{
+                    margin: 15px 0px;
+                    width: 38px;
+                    height: 38px;
+                    float: right;
+
+                    ::ng-deep .mat-button-wrapper {
+                        padding: unset;
+                        line-height: unset;
+                        font-size: 30px;
+                    }
+                }
+            }
+            .payerForm{
+                width: 90%;
+                margin: 2px;
+
+                .payerLable{
+                    margin: 15px 0px;
+                }
+            }
+        }
+    }
+    .title{
+        font-size: 1.5em;
+        font-family: inherit;
+    }
+    .colums{
+        display: flex;
+        margin-top: 20px;
+
+        ::ng-deep .md-button.md-small {
+            min-width: 1%;
+            height: 33px;
+            width: 33px;
+        }
+        ::ng-deep .md-button.md-small.pull-right{
+            float: right;
+        }
+        .width-50{
+            width:50%;
+            padding: 0px 10px;
+        }
+        .type-button{
+            display: flex;
+            justify-content: center;
+            button{
+                margin: 0px 15px;
+            }
+        }
+    }
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        .mat-radio-group{
+            margin: 15px 0px;
+            .mat-radio-button {
+                margin-right: 30px;
+            }
+        }
+        .select-file{
+            display: flex;
+            align-items: center;
+            margin: 15px 0px;
+
+            button{
+                display: flex;
+                align-items: center;
+            }
+        }
+      }
+      
+    .form-container > * {
+        width: 100%;
+
+        .mode {
+            padding: 10px;
+        }
+    }
+
+}

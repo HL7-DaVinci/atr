@@ -35,7 +35,7 @@ public class MedicationRequestServiceImpl implements MedicationRequestService {
 		DafMedicationRequest dafMedicationRequest = medicationRequestDao.getMedicationRequestById(id);
 		if(dafMedicationRequest != null) {
 			medicationRequest = jsonParser.parseResource(MedicationRequest.class, dafMedicationRequest.getData());
-			medicationRequest.setId(new IdType(RESOURCE_TYPE, medicationRequest.getId()));
+			medicationRequest.setId(medicationRequest.getId());
 		}
 		return medicationRequest;
     }
@@ -47,7 +47,7 @@ public class MedicationRequestServiceImpl implements MedicationRequestService {
 		DafMedicationRequest dafMedicationRequest = medicationRequestDao.getMedicationRequestByVersionId(theId, versionId);
 		if(dafMedicationRequest != null) {
 			medicationRequest = jsonParser.parseResource(MedicationRequest.class, dafMedicationRequest.getData());
-			medicationRequest.setId(new IdType(RESOURCE_TYPE, medicationRequest.getId()));
+			medicationRequest.setId(medicationRequest.getId());
 		}
 		return medicationRequest;
 	}
@@ -61,7 +61,7 @@ public class MedicationRequestServiceImpl implements MedicationRequestService {
 		if(dafMedicationRequestList != null && !dafMedicationRequestList.isEmpty()) {
 			for(DafMedicationRequest dafMedicationRequest : dafMedicationRequestList) {
 				medicationRequest = jsonParser.parseResource(MedicationRequest.class, dafMedicationRequest.getData());
-				medicationRequest.setId(new IdType(RESOURCE_TYPE, medicationRequest.getId()));
+				medicationRequest.setId(medicationRequest.getId());
 				medicationRequestList.add(medicationRequest);
 			}
 		}
@@ -96,7 +96,7 @@ public class MedicationRequestServiceImpl implements MedicationRequestService {
 		if(dafMedicationRequestList != null && !dafMedicationRequestList.isEmpty()) {
 			for(DafMedicationRequest dafMedicationRequest : dafMedicationRequestList) {
 				medicationRequest = jsonParser.parseResource(MedicationRequest.class, dafMedicationRequest.getData());
-				medicationRequest.setId(new IdType(RESOURCE_TYPE, medicationRequest.getId()));
+				medicationRequest.setId(medicationRequest.getId());
 				medicationRequestList.add(medicationRequest);
 			}
 		}

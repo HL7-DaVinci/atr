@@ -36,7 +36,7 @@ public class PractitionerServiceImpl implements PractitionerService {
 		DafPractitioner dafPractitioner = practitionerDao.getPractitionerByVersionId(theId, versionId);
 		if(dafPractitioner != null) {
 			practitioner = jsonParser.parseResource(Practitioner.class, dafPractitioner.getData());
-			practitioner.setId(new IdType(RESOURCE_TYPE, practitioner.getId()));
+			practitioner.setId(practitioner.getId());
 		}
 		return practitioner;
 	}
@@ -48,7 +48,7 @@ public class PractitionerServiceImpl implements PractitionerService {
 		DafPractitioner dafPractitioner = practitionerDao.getPractitionerById(theId);
 		if(dafPractitioner != null) {
 			practitioner = jsonParser.parseResource(Practitioner.class, dafPractitioner.getData());
-			practitioner.setId(new IdType(RESOURCE_TYPE, practitioner.getId()));
+			practitioner.setId(practitioner.getId());
 		}
 		return practitioner;
 	}
@@ -72,7 +72,7 @@ public class PractitionerServiceImpl implements PractitionerService {
 		if(dafPractitionerList != null && !dafPractitionerList.isEmpty()) {
 			for(DafPractitioner dafPractitioner : dafPractitionerList) {
 				practitioner = jsonParser.parseResource(Practitioner.class, dafPractitioner.getData());
-				practitioner.setId(new IdType(RESOURCE_TYPE, practitioner.getId()));
+				practitioner.setId(practitioner.getId());
 				practitionerList.add(practitioner);
 			}
 		}
@@ -89,7 +89,7 @@ public class PractitionerServiceImpl implements PractitionerService {
 		if(dafPractitionerList != null && !dafPractitionerList.isEmpty()) {
 			for(DafPractitioner dafPractitioner : dafPractitionerList) {
 				practitioner = jsonParser.parseResource(Practitioner.class, dafPractitioner.getData());
-				practitioner.setId(new IdType(RESOURCE_TYPE, practitioner.getId()));
+				practitioner.setId(practitioner.getId());
 				practitionerList.add(practitioner);
 			}
 		}

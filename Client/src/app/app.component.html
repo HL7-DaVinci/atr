@@ -1,0 +1,16 @@
+<app-header></app-header>
+<mat-sidenav-container class="main-container">
+  <!-- <mat-sidenav-container class="main-container"> -->
+  <mat-sidenav #sidenav class="mat-sidenav" mode="side" opened="false">
+    <mat-nav-list>
+      <app-sidebar></app-sidebar>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-content">
+    <mat-card class="mat-card pageContent">
+      <router-outlet></router-outlet>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+<app-footer></app-footer>
+<ng4-loading-spinner> </ng4-loading-spinner>

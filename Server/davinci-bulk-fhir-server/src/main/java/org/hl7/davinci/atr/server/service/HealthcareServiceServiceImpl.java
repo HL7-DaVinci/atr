@@ -35,7 +35,7 @@ public class HealthcareServiceServiceImpl implements HealthcareServiceService {
 		DafHealthcareService dafHealthcareService = healthcareServiceDao.getHealthcareServiceById(id);
 		if(dafHealthcareService != null) {
 			healthcareService = jsonParser.parseResource(HealthcareService.class, dafHealthcareService.getData());
-			healthcareService.setId(new IdType(RESOURCE_TYPE, healthcareService.getId()));
+			healthcareService.setId(healthcareService.getId());
 		}
 		return healthcareService;
 	}
@@ -48,7 +48,7 @@ public class HealthcareServiceServiceImpl implements HealthcareServiceService {
 		DafHealthcareService dafHealthcareService = healthcareServiceDao.getHealthcareServiceByVersionId(theId, versionId);
 		if(dafHealthcareService != null) {
 			healthcareService = jsonParser.parseResource(HealthcareService.class, dafHealthcareService.getData());
-			healthcareService.setId(new IdType(RESOURCE_TYPE, healthcareService.getId()));
+			healthcareService.setId(healthcareService.getId());
 		}
 		return healthcareService;
 	}
@@ -72,7 +72,7 @@ public class HealthcareServiceServiceImpl implements HealthcareServiceService {
 		if(dafHealthcareServiceList != null && !dafHealthcareServiceList.isEmpty()) {
 			for(DafHealthcareService dafHealthcareService : dafHealthcareServiceList) {
 				healthcareService = jsonParser.parseResource(HealthcareService.class, dafHealthcareService.getData());
-				healthcareService.setId(new IdType(RESOURCE_TYPE, healthcareService.getId()));
+				healthcareService.setId(healthcareService.getId());
 				healthcareServiceList.add(healthcareService);
 			}
 		}

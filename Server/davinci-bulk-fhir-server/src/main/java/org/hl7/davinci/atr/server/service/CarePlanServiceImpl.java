@@ -36,7 +36,7 @@ public class CarePlanServiceImpl implements CarePlanService {
 		DafCarePlan dafCarePlan = carePlanDao.getCarePlanById(theId);
 		if(dafCarePlan != null) {
 			carePlan = jsonParser.parseResource(CarePlan.class, dafCarePlan.getData());
-			carePlan.setId(new IdType(RESOURCE_TYPE, carePlan.getId()));
+			carePlan.setId(carePlan.getId());
 		}
 		return carePlan;
 	}
@@ -49,7 +49,7 @@ public class CarePlanServiceImpl implements CarePlanService {
 		DafCarePlan dafCarePlan = carePlanDao.getCarePlanByVersionId(theId, versionId);
 		if(dafCarePlan != null) {
 			carePlan = jsonParser.parseResource(CarePlan.class, dafCarePlan.getData());
-			carePlan.setId(new IdType(RESOURCE_TYPE, carePlan.getId()));
+			carePlan.setId(carePlan.getId());
 		}
 		return carePlan;
 	}
@@ -63,7 +63,7 @@ public class CarePlanServiceImpl implements CarePlanService {
 		if(dafCarePlanList != null && !dafCarePlanList.isEmpty()) {
 			for(DafCarePlan dafCarePlan : dafCarePlanList) {
 				carePlan = jsonParser.parseResource(CarePlan.class, dafCarePlan.getData());
-				carePlan.setId(new IdType(RESOURCE_TYPE, carePlan.getId()));
+				carePlan.setId(carePlan.getId());
 				carePlanList.add(carePlan);
 			}
 		}
@@ -98,7 +98,7 @@ public class CarePlanServiceImpl implements CarePlanService {
 		if(dafCarePlanList != null && !dafCarePlanList.isEmpty()) {
 			for(DafCarePlan dafCarePlan : dafCarePlanList) {
 				carePlan = jsonParser.parseResource(CarePlan.class, dafCarePlan.getData());
-				carePlan.setId(new IdType(RESOURCE_TYPE, carePlan.getId()));
+				carePlan.setId(carePlan.getId());
 				carePlanList.add(carePlan);
 			}
 		}

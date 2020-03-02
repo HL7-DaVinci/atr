@@ -36,7 +36,7 @@ public class ObservationServiceImpl implements ObservationService {
 		DafObservation  dafObservation  = observationDao.getObservationById(id);
 		if(dafObservation  != null) {
 			observation  = jsonParser.parseResource(Observation.class, dafObservation.getData());
-			observation.setId(new IdType(RESOURCE_TYPE, observation.getId()));
+			observation.setId(observation.getId());
 		}
 		return observation;
     }
@@ -49,7 +49,7 @@ public class ObservationServiceImpl implements ObservationService {
 		DafObservation  dafObservation  = observationDao.getObservationByVersionId(theId, versionId);
 		if(dafObservation  != null) {
 			observation  = jsonParser.parseResource(Observation.class, dafObservation.getData());
-			observation.setId(new IdType(RESOURCE_TYPE, observation.getId()));
+			observation.setId(observation.getId());
 		}
 		return observation;
 	}
@@ -64,7 +64,7 @@ public class ObservationServiceImpl implements ObservationService {
 		if(dafObservationList != null && !dafObservationList.isEmpty()) {
 			for(DafObservation dafObservation : dafObservationList) {
 				observation = jsonParser.parseResource(Observation.class, dafObservation.getData());
-				observation.setId(new IdType(RESOURCE_TYPE, observation.getId()));
+				observation.setId(observation.getId());
 				observationList.add(observation);
 			}
 		}
@@ -101,7 +101,7 @@ public class ObservationServiceImpl implements ObservationService {
 		if(dafObservationList != null && !dafObservationList.isEmpty()) {
 			for(DafObservation dafObservation : dafObservationList) {
 				observation = jsonParser.parseResource(Observation.class, dafObservation.getData());
-				observation.setId(new IdType(RESOURCE_TYPE, observation.getId()));
+				observation.setId(observation.getId());
 				observationList.add(observation);
 			}
 		}

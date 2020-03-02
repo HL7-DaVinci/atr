@@ -36,7 +36,7 @@ public static final String RESOURCE_TYPE = "Organization";
 		DafOrganization dafOrganization = organizationDao.getOrganizationById(id);
 		if(dafOrganization != null) {
 			organization = jsonParser.parseResource(Organization.class, dafOrganization.getData());
-			organization.setId(new IdType(RESOURCE_TYPE, organization.getId()));
+			organization.setId(organization.getId());
 		}
 		return organization;
     }
@@ -49,7 +49,7 @@ public static final String RESOURCE_TYPE = "Organization";
 		DafOrganization dafOrganization = organizationDao.getOrganizationByVersionId(theId, versionId);
 		if(dafOrganization != null) {
 			organization = jsonParser.parseResource(Organization.class, dafOrganization.getData());
-			organization.setId(new IdType(RESOURCE_TYPE, organization.getId()));
+			organization.setId(organization.getId());
 		}
 		return organization;
 	}
@@ -64,7 +64,7 @@ public static final String RESOURCE_TYPE = "Organization";
 		if(dafOrganizationList != null && !dafOrganizationList.isEmpty()) {
 			for(DafOrganization dafOrganization : dafOrganizationList) {
 				organization = jsonParser.parseResource(Organization.class, dafOrganization.getData());
-				organization.setId(new IdType(RESOURCE_TYPE, organization.getId()));
+				organization.setId(organization.getId());
 				organizationList.add(organization);
 			}
 		}
@@ -91,7 +91,7 @@ public static final String RESOURCE_TYPE = "Organization";
 		if(dafOrganizationList != null && !dafOrganizationList.isEmpty()) {
 			for(DafOrganization dafOrganization : dafOrganizationList) {
 				organization = jsonParser.parseResource(Organization.class, dafOrganization.getData());
-				organization.setId(new IdType(RESOURCE_TYPE, organization.getId()));
+				organization.setId(organization.getId());
 				organizationList.add(organization);
 			}
 		}

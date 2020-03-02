@@ -35,7 +35,7 @@ public class MedicationStatementServiceImpl implements MedicationStatementServic
 		DafMedicationStatement dafMedicationStatement = medicationStatementDao.getMedicationStatementById(theId);
 		if(dafMedicationStatement != null) {
 			medicationStatement = jsonParser.parseResource(MedicationStatement.class, dafMedicationStatement.getData());
-			medicationStatement.setId(new IdType(RESOURCE_TYPE, medicationStatement.getId()));
+			medicationStatement.setId(medicationStatement.getId());
 		}
 		return medicationStatement;
 	}
@@ -47,7 +47,7 @@ public class MedicationStatementServiceImpl implements MedicationStatementServic
 		DafMedicationStatement dafMedicationStatement = medicationStatementDao.getMedicationStatementByVersionId(theId, versionId);
 		if(dafMedicationStatement != null) {
 			medicationStatement = jsonParser.parseResource(MedicationStatement.class, dafMedicationStatement.getData());
-			medicationStatement.setId(new IdType(RESOURCE_TYPE, medicationStatement.getId()));
+			medicationStatement.setId(medicationStatement.getId());
 		}
 		return medicationStatement;
 	}
@@ -62,7 +62,7 @@ public class MedicationStatementServiceImpl implements MedicationStatementServic
 		if(dafMedicationStatementList != null && !dafMedicationStatementList.isEmpty()) {
 			for(DafMedicationStatement dafMedication : dafMedicationStatementList) {
 				medicationStatement = jsonParser.parseResource(MedicationStatement.class, dafMedication.getData());
-				medicationStatement.setId(new IdType(RESOURCE_TYPE, medicationStatement.getId()));
+				medicationStatement.setId(medicationStatement.getId());
 				medicationStatementList.add(medicationStatement);
 			}
 		}
@@ -97,7 +97,7 @@ public class MedicationStatementServiceImpl implements MedicationStatementServic
 		if(dafMedicationStatementList != null && !dafMedicationStatementList.isEmpty()) {
 			for(DafMedicationStatement dafMedication : dafMedicationStatementList) {
 				medicationStatement = jsonParser.parseResource(MedicationStatement.class, dafMedication.getData());
-				medicationStatement.setId(new IdType(RESOURCE_TYPE, medicationStatement.getId()));
+				medicationStatement.setId(medicationStatement.getId());
 				medicationStatementList.add(medicationStatement);
 			}
 		}

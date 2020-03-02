@@ -36,7 +36,7 @@ public class LocationServiceImpl implements LocationService {
 		DafLocation dafLocation = locationDao.getLocationById(id);
 		if(dafLocation != null) {
 			location = jsonParser.parseResource(Location.class, dafLocation.getData());
-			location.setId(new IdType(RESOURCE_TYPE, location.getId()));
+			location.setId(location.getId());
 		}
 		return location;
 	}
@@ -49,7 +49,7 @@ public class LocationServiceImpl implements LocationService {
 		DafLocation dafLocation = locationDao.getLocationByVersionId(theId, versionId);
 		if(dafLocation != null) {
 			location = jsonParser.parseResource(Location.class, dafLocation.getData());
-			location.setId(new IdType(RESOURCE_TYPE, location.getId()));
+			location.setId(location.getId());
 		}
 		return location;
 	}
@@ -64,7 +64,7 @@ public class LocationServiceImpl implements LocationService {
 		if(dafLocationList != null && !dafLocationList.isEmpty()) {
 			for(DafLocation dafLocation : dafLocationList) {
 				location = jsonParser.parseResource(Location.class, dafLocation.getData());
-				location.setId(new IdType(RESOURCE_TYPE, location.getId()));
+				location.setId(location.getId());
 				locationList.add(location);
 			}
 		}
@@ -89,7 +89,7 @@ public class LocationServiceImpl implements LocationService {
 		if(dafLocationList != null && !dafLocationList.isEmpty()) {
 			for(DafLocation dafLocation : dafLocationList) {
 				location = jsonParser.parseResource(Location.class, dafLocation.getData());
-				location.setId(new IdType(RESOURCE_TYPE, location.getId()));
+				location.setId(location.getId());
 				locationList.add(location);
 			}
 		}

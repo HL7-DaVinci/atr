@@ -36,7 +36,7 @@ public class DiagnosticReportServiceImpl implements DiagnosticReportService {
 		DafDiagnosticReport dafDiagnosticReport = diagnosticReportDao.getDiagnosticReportById(id);
 		if(dafDiagnosticReport != null) {
 			diagnosticReport = jsonParser.parseResource(DiagnosticReport.class, dafDiagnosticReport.getData());
-			diagnosticReport.setId(new IdType(RESOURCE_TYPE, diagnosticReport.getId()));
+			diagnosticReport.setId(diagnosticReport.getId());
 		}
 		return diagnosticReport;
 	}
@@ -49,7 +49,7 @@ public class DiagnosticReportServiceImpl implements DiagnosticReportService {
 		DafDiagnosticReport dafDiagnosticReport = diagnosticReportDao.getDiagnosticReportByVersionId(theId, versionId);
 		if(dafDiagnosticReport != null) {
 			diagnosticReport = jsonParser.parseResource(DiagnosticReport.class, dafDiagnosticReport.getData());
-			diagnosticReport.setId(new IdType(RESOURCE_TYPE, diagnosticReport.getId()));
+			diagnosticReport.setId(diagnosticReport.getId());
 		}
 		return diagnosticReport;
 	}
@@ -64,7 +64,7 @@ public class DiagnosticReportServiceImpl implements DiagnosticReportService {
 		if(dafDiagnosticReportList != null && !dafDiagnosticReportList.isEmpty()) {
 			for(DafDiagnosticReport dafDiagnosticReport : dafDiagnosticReportList) {
 				diagnosticReport = jsonParser.parseResource(DiagnosticReport.class, dafDiagnosticReport.getData());
-				diagnosticReport.setId(new IdType(RESOURCE_TYPE, diagnosticReport.getId()));
+				diagnosticReport.setId(diagnosticReport.getId());
 				diagnosticReportList.add(diagnosticReport);
 			}
 		}
@@ -98,7 +98,7 @@ public class DiagnosticReportServiceImpl implements DiagnosticReportService {
 		if(dafDiagnosticReportList != null && !dafDiagnosticReportList.isEmpty()) {
 			for(DafDiagnosticReport dafDiagnosticReport : dafDiagnosticReportList) {
 				diagnosticReport = jsonParser.parseResource(DiagnosticReport.class, dafDiagnosticReport.getData());
-				diagnosticReport.setId(new IdType(RESOURCE_TYPE, diagnosticReport.getId()));
+				diagnosticReport.setId(diagnosticReport.getId());
 				diagnosticReportList.add(diagnosticReport);
 			}
 		}

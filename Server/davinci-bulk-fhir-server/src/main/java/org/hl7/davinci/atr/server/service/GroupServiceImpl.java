@@ -55,7 +55,7 @@ public class GroupServiceImpl implements GroupService {
 		if(dafGroupList != null && !dafGroupList.isEmpty()) {
 			for(DafGroup dafGroup : dafGroupList) {
 				group = jsonParser.parseResource(Group.class, dafGroup.getData());
-				group.setId(new IdType(RESOURCE_TYPE, group.getId()));
+				group.setId(group.getId());
 				groupList.add(group);
 			}
 		}
