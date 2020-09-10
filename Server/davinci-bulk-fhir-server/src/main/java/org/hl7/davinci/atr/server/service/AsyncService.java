@@ -2,6 +2,8 @@ package org.hl7.davinci.atr.server.service;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Future;
@@ -59,6 +61,7 @@ import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.Practitioner;
 import org.hl7.fhir.r4.model.PractitionerRole;
 import org.hl7.fhir.r4.model.Procedure;
+import org.hl7.fhir.r4.model.Reference;
 import org.hl7.fhir.r4.model.RelatedPerson;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,11 +145,10 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 
@@ -169,21 +171,20 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
 	
 	@Async("asyncExecutor")
 	public Future<Long> processPractitionerData(DafBulkDataRequest bdr, File destDir, FhirContext ctx,
-			List<String> patientList, Date start, Date end) {
+			List<String> practitionerIdList, Date start, Date end) {
 		String fileName = "Practitioner.ndjson";
 		try {
-			List<Practitioner> practitionerList = practitionerResourceProvider.getPractitionerForBulkDataRequest(patientList, start, end);
+			List<Practitioner> practitionerList = practitionerResourceProvider.getPractitionerForBulkDataRequest(practitionerIdList, start, end);
 
 			File ndJsonFile = new File(destDir.getAbsolutePath() + "/" + fileName);
 			PrintWriter pw = new PrintWriter(ndJsonFile);
@@ -195,21 +196,39 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 	
 	@Async("asyncExecutor")
 	public Future<Long> processPractitionerRoleData(DafBulkDataRequest bdr, File destDir, FhirContext ctx,
-			List<String> patientList, Date start, Date end) {
+			List<String> patientList, Date start, Date end, String type) {
 		String fileName = "PractitionerRole.ndjson";
 		try {
 			List<PractitionerRole> practitionerRoleList = practitionerRoleResourceProvider.getPractitionerRoleForBulkDataRequest(patientList, start, end);
-
+			if (Arrays.asList(type.split(",")).contains("Location")) {
+				List<String> locationIds = new ArrayList<>();
+				for(PractitionerRole c:practitionerRoleList) {
+					if(c.hasLocation()) {
+						List<Reference> referenceList = c.getLocation();
+						for(Reference reference : referenceList) {
+							if(reference.hasReferenceElement() && 
+									reference.getReferenceElement().hasResourceType()) {
+								 if(reference.getReferenceElement().getResourceType().equalsIgnoreCase("Location")
+										 && reference.getReferenceElement().hasIdPart()) {
+									 locationIds.add(reference.getReferenceElement().getIdPart());
+								 } 
+							 }
+						}
+					}
+				}
+				if(locationIds != null && !locationIds.isEmpty()) {
+					processLocationData(bdr, destDir, ctx, locationIds, start, end);
+				}
+			}
 			File ndJsonFile = new File(destDir.getAbsolutePath() + "/" + fileName);
 			PrintWriter pw = new PrintWriter(ndJsonFile);
 			for (int i = 0; i < practitionerRoleList.size(); i++) {
@@ -220,11 +239,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 
@@ -247,11 +266,10 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -274,13 +292,11 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
-
 	}
 
 	@Async("asyncExecutor")
@@ -301,11 +317,10 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -327,11 +342,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -354,12 +369,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 
@@ -381,11 +395,10 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -409,11 +422,11 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -436,11 +449,10 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -462,11 +474,10 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -493,11 +504,11 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -522,11 +533,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 
@@ -549,11 +560,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -578,11 +589,11 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -607,11 +618,11 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -635,11 +646,11 @@ public class AsyncService {
 			}
 
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 
 	}
@@ -664,11 +675,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 
@@ -692,11 +703,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 
@@ -720,11 +731,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 
@@ -749,21 +760,38 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 	
 	@Async("asyncExecutor")
-	public Future<Long> processCoverageData(DafBulkDataRequest bdr, File destDir, FhirContext ctx, List<String> patientList, Date start, Date end) {
+	public Future<Long> processCoverageData(DafBulkDataRequest bdr, File destDir, FhirContext ctx, List<String> patientList, Date start, Date end, String type) {
 		String fileName = "Coverage.ndjson";
 		try {
 			List<Coverage> procedureList = coverageResourceProvider.getCoverageForBulkDataRequest(patientList,
 					start, end);
-
+			if(Arrays.asList(type.split(",")).contains("RelatedPerson")) {
+				List<String> relatedPerson = new ArrayList<>();
+				for(Coverage c:procedureList) {
+					if(c.hasPolicyHolder()) {
+						Reference reference = c.getPolicyHolder();
+						if(reference.hasReferenceElement() && 
+								reference.getReferenceElement().hasResourceType()) {
+							 if(reference.getReferenceElement().getResourceType().equalsIgnoreCase("RelatedPerson")
+									 && reference.getReferenceElement().hasIdPart()) {
+								 relatedPerson.add(reference.getReferenceElement().getIdPart());
+							 } 
+						 }
+					}
+				}
+				if(relatedPerson != null && !relatedPerson.isEmpty()) {
+					processRelatedPersonData(bdr, destDir, ctx, relatedPerson, start, end);
+				}
+			}
 			File ndJsonFile = new File(destDir.getAbsolutePath() + "/" + fileName);
 			PrintWriter pw = new PrintWriter(ndJsonFile);
 
@@ -775,11 +803,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 	
@@ -801,11 +829,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 	
@@ -828,11 +856,11 @@ public class AsyncService {
 				}
 			}
 			pw.close();
-			
+			bdd.setNDJSONFile(fileName);
+
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
-		bdd.seta();
 		return new AsyncResult<>(System.nanoTime());
 	}
 }

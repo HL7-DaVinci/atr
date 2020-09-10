@@ -19,7 +19,7 @@ public interface RelatedPersonDao {
 
 	List<DafRelatedPerson> search(SearchParameterMap paramMap);
 
-	List<DafRelatedPerson> getRelatedPersonForPatientsBulkData(String id, Date start, Date end);
+	DafRelatedPerson getRelatedPersonForPatientsBulkData(String id, Date start, Date end);
 
 	List<DafRelatedPerson> getRelatedPersonForBulkData(Date start, Date end);
 }

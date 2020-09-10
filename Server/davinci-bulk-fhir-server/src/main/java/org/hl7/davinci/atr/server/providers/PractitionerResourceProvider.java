@@ -317,9 +317,9 @@ public class PractitionerResourceProvider extends AbstractJaxRsResourceProvider<
 		return retVal;
     }
     
-    public List<Practitioner> getPractitionerForBulkDataRequest(List<String> patients, Date start, Date end) {
+    public List<Practitioner> getPractitionerForBulkDataRequest(List<String> practitioners, Date start, Date end) {
     	
-		List<Practitioner> docPracList = service.getPractitionerForBulkData(patients, start, end);
+		List<Practitioner> docPracList = service.getPractitionerForBulkData(practitioners, start, end);
 		return docPracList;
 	}
 }

@@ -86,8 +86,8 @@ public class CoverageServiceImpl implements CoverageService{
 		List<DafCoverage> dafCoverageList  = new ArrayList<>();
 		if(patients != null) {
 			for(String id : patients) {
-				List<DafCoverage> dafCoverageObj = coverageDao.getCoverageForPatientsBulkData(id, start, end);
-				dafCoverageList.addAll(dafCoverageObj);
+				DafCoverage dafCoverage = coverageDao.getCoverageForPatientsBulkData(id, start, end);
+				dafCoverageList.add(dafCoverage);
 			}
 		}
 		else {

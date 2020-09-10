@@ -19,5 +19,5 @@ public interface PractitionerDao {
 
 	List<DafPractitioner> search(SearchParameterMap paramMap);
 
-	List<DafPractitioner> getPractitionerForBulkData(List<String> patients, Date start, Date end);
+	DafPractitioner getPractitionerForBulkData(String patients, Date start, Date end);
 }

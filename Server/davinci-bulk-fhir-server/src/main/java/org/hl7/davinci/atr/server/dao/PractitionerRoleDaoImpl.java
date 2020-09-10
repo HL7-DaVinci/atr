@@ -128,15 +128,18 @@ public class PractitionerRoleDaoImpl extends AbstractDao implements Practitioner
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<DafPractitionerRole> getPractitionerRoleForBulkData(List<String> patientList, Date start, Date end) {
+	public DafPractitionerRole getPractitionerRoleForBulkData(String practitionerRoles, Date start, Date end) {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = getSession().createCriteria(DafPractitionerRole.class);
+		if(practitionerRoles!=null) {
+			criteria.add(Restrictions.sqlRestriction("{alias}.data->>'id' = '"+ practitionerRoles+"' order by {alias}.data->'meta'->>'versionId' desc"));
+		}
 		if(start != null) {
 			criteria.add(Restrictions.ge("timestamp", start));
 		}
 		if(end != null) {
 			criteria.add(Restrictions.le("timestamp", end));
 		}
-    	return criteria.list();
+    	return (DafPractitionerRole) criteria.list().get(0);
 	}
 }

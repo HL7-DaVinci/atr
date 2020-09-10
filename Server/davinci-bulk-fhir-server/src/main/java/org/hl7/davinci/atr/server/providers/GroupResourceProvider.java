@@ -49,6 +49,7 @@ import ca.uhn.fhir.rest.api.server.IBundleProvider;
 import ca.uhn.fhir.rest.api.server.RequestDetails;
 import ca.uhn.fhir.rest.param.DateRangeParam;
 import ca.uhn.fhir.rest.param.StringAndListParam;
+import ca.uhn.fhir.rest.param.StringParam;
 import ca.uhn.fhir.rest.param.TokenAndListParam;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
@@ -177,20 +178,6 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
   	 * @param theId
   	 * @param theIdentifier
   	 * @param theName
-  	 * @param theFamily
-  	 * @param theGiven
-  	 * @param theOrganization
-  	 * @param theTelecom
-  	 * @param theAddress
-  	 * @param theAddressCity
-  	 * @param theAddressState
-  	 * @param theAddressPostalcode
-  	 * @param theAddressCountry
-  	 * @param theGender
-  	 * @param theLanguage
-  	 * @param theBirthdate
-  	 * @param theActive
-  	 * @param theLink
   	 * @param theIncludes
   	 * @param theSort
   	 * @param theCount
@@ -203,7 +190,11 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
           @Description(shortDefinition = "The resource identity")
           @OptionalParam(name = Group.SP_RES_ID)
           StringAndListParam theId,
-
+          
+          @Description(shortDefinition = "Group Name") 
+          @OptionalParam(name = "name") 
+          StringParam theName,
+          
           @Description(shortDefinition = "A patient identifier")
           @OptionalParam(name = Group.SP_IDENTIFIER)
           TokenAndListParam theIdentifier,
@@ -219,6 +210,7 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
       ) {
           SearchParameterMap paramMap = new SearchParameterMap();
           paramMap.add(Group.SP_RES_ID, theId);
+          paramMap.add("name", theName);
           paramMap.add(Group.SP_IDENTIFIER, theIdentifier);
           paramMap.setIncludes(theIncludes);
           paramMap.setSort(theSort);

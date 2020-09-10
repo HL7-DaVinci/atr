@@ -49,7 +49,8 @@ public class BulkDataRequestProvider {
 
 	Logger log = (Logger) LoggerFactory.getLogger(BulkDataRequestProvider.class);
 
-	private static int a=0;
+	//private static int a=0;
+	private static List<String> ndjsonFiles = new ArrayList<>();
 
 	@Autowired
 	private BulkDataRequestService bdrService;
@@ -62,10 +63,19 @@ public class BulkDataRequestProvider {
 	
 	@Autowired
 	private GroupService groupService;
-
-	public void seta()
-	{
-		a+=1;
+//
+//	public void seta()
+//	{
+//		a+=1;
+//	}
+//	
+	/**
+	 * Set ndjsonFiles
+	 * 
+	 * @param fileName
+	 */
+	public void setNDJSONFile(String fileName) {
+		ndjsonFiles.add(fileName);
 	}
 
 	@RequestMapping(value = "/{requestId}", method = RequestMethod.GET)
@@ -215,6 +225,10 @@ public class BulkDataRequestProvider {
 	public void processBulkDataRequest(DafBulkDataRequest bdr) throws IOException, InterruptedException {
 
 		List<String> patientList = null;
+		List<String> coverageList = null;
+		List<String> organizationList = null;
+		List<String> practitionerList = null;
+		List<String> practitionerRoleList = null;
 		Date start = null;
 		Date end = null;
 		if (bdr.getStart() != null) {
@@ -234,7 +248,7 @@ public class BulkDataRequestProvider {
 		bdr.setProcessedFlag(true);
 		bdrService.saveBulkDataRequest(bdr);
 
-		List<String> files = new ArrayList<String>();
+		//List<String> files = new ArrayList<String>();
 
 		if (!destDir.exists()) {
 			destDir.mkdirs();
@@ -245,7 +259,11 @@ public class BulkDataRequestProvider {
 			DafGroup dafGroup = groupService.getGroupById(bdr.getResourceId());
 
 			if (dafGroup != null) {
-				patientList = new ArrayList<String>();
+				patientList = new ArrayList<>();
+				coverageList = new ArrayList<>();
+				practitionerList = new ArrayList<>();
+				practitionerRoleList = new ArrayList<>();
+				organizationList = new ArrayList<>();
 				JSONObject jsonData = new JSONObject(dafGroup.getData());
 				if(!jsonData.isNull("member")) {
 					JSONArray jsonArr = jsonData.getJSONArray("member");
@@ -255,12 +273,39 @@ public class BulkDataRequestProvider {
 							String resourceId = jsonObj.getJSONObject("entity").getString("reference").split("/")[1];
 							//Integer patientId = Integer.parseInt(referenceId);
 							//String referenceId = "Patient/"+resourceId;
-							System.out.println("Patient id ::: "+resourceId);
+							//System.out.println("Patient id ::: "+resourceId);
 							patientList.add(resourceId);
+						}
+						if (jsonObj.getJSONArray("extension") != null) {
+							JSONArray memberExtensions = jsonObj.getJSONArray("extension");
+							for(int j = 0; j < memberExtensions.length(); j++) {
+								JSONObject extObj = memberExtensions.getJSONObject(j);
+								String url = extObj.getString("url");
+								if(url.equalsIgnoreCase("http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference")) {
+									String coverageId = extObj.getJSONObject("valueReference").getString("reference").split("/")[1];
+									coverageList.add(coverageId);
+								}
+								if(url.equalsIgnoreCase("http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider")) {
+									String reference = extObj.getJSONObject("valueReference").getString("reference");
+									String providerResource = reference.split("/")[0];
+									String providerId = reference.split("/")[1];
+									if(providerResource.equalsIgnoreCase("Practitioner")) {
+										practitionerList.add(providerId);
+									}
+									if (providerResource.equalsIgnoreCase("PractitionerRole")) {
+										practitionerRoleList.add(providerId);
+									}
+									if (providerResource.equalsIgnoreCase("Organzation")) {
+										organizationList.add(providerId);
+									}
+								}
+								System.out.println("practitionerList "+practitionerList);
+								System.out.println("practitionerRoleList "+practitionerRoleList);
+								System.out.println("organizationList "+organizationList);
+							}
 						}
 					}
 				}
-				
 			}
 
 		}
@@ -273,7 +318,8 @@ public class BulkDataRequestProvider {
 		}*/
 
 
-		a = 0 ;
+		//a = 0;
+		List<String> files = new ArrayList<>();
 		if (type == null || Arrays.asList(type.split(",")).contains("Patient")) {
 			Future<Long> patient = service.processPatientData(bdr, destDir, ctx, patientList, start, end);
 			files.add("Patient.ndjson");
@@ -297,24 +343,24 @@ public class BulkDataRequestProvider {
 		
 		// Process Practitioner Bulk data request
 		Future<Long> practitioner = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("Practitioner")) {
-			practitioner = service.processPractitionerData(bdr, destDir, ctx, patientList, start, end);
+		if (type == null || Arrays.asList(type.split(",")).contains("Practitioner") && practitionerList != null && !practitionerList.isEmpty()) {
+			practitioner = service.processPractitionerData(bdr, destDir, ctx, practitionerList, start, end);
 			files.add("Practitioner.ndjson");
 		}
 		
 		// Process Coverage Bulk data request
 		Future<Long> coverage = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("Coverage")) {
-			coverage = service.processCoverageData(bdr, destDir, ctx, patientList, start, end);
+		if (type == null || Arrays.asList(type.split(",")).contains("Coverage") && coverageList != null && !coverageList.isEmpty()) {
+			coverage = service.processCoverageData(bdr, destDir, ctx, coverageList, start, end, type);
 			files.add("Coverage.ndjson");
 		}
 		
 		// Process Person Bulk data request
-		Future<Long> person = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("RelatedPerson")) {
-			person = service.processRelatedPersonData(bdr, destDir, ctx, patientList, start, end);
-			files.add("RelatedPerson.ndjson");
-		}
+//		Future<Long> person = null;
+//		if (Arrays.asList(type.split(",")).contains("RelatedPerson")) {
+//			person = service.processRelatedPersonData(bdr, destDir, ctx, patientList, start, end);
+//			files.add("RelatedPerson.ndjson");
+//		}
 		// Process Encounter Bulk data request
 		Future<Long> encounter = null;
 		if (type == null || Arrays.asList(type.split(",")).contains("Encounter")) {
@@ -384,12 +430,12 @@ public class BulkDataRequestProvider {
 		}
 
 		// Process Location Bulk data request
-		Future<Long> location = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("Location")) {
-
-			location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
-			files.add("Location.ndjson");
-		}
+//		Future<Long> location = null;
+//		if (Arrays.asList(type.split(",")).contains("Location")) {
+//
+//			location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
+//			files.add("Location.ndjson");
+//		}
 
 		// Process MedicationAdministration Bulk data request
 		Future<Long> medicationadministration = null;
@@ -409,9 +455,9 @@ public class BulkDataRequestProvider {
 
 		// Process PractitionerRole Bulk data request
 		Future<Long> practitionerRole = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("PractitionerRole")) {
+		if (type == null || Arrays.asList(type.split(",")).contains("PractitionerRole") && practitionerRoleList != null && !practitionerRoleList.isEmpty()) {
 
-			practitionerRole = service.processPractitionerRoleData(bdr, destDir, ctx, patientList, start, end);
+			practitionerRole = service.processPractitionerRoleData(bdr, destDir, ctx, practitionerRoleList, start, end, type);
 			files.add("PractitionerRole.ndjson");
 		}
 		
@@ -441,9 +487,9 @@ public class BulkDataRequestProvider {
 
 		// Process Organization Bulk data request
 		Future<Long> organization = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("Organization")) {
+		if (type == null || Arrays.asList(type.split(",")).contains("Organization") && organizationList != null && !organizationList.isEmpty()) {
 
-			organization = service.processOrganizationData(bdr, destDir, ctx, patientList, start, end);
+			organization = service.processOrganizationData(bdr, destDir, ctx, organizationList, start, end);
 			files.add("Organization.ndjson");
 		}
 
@@ -472,20 +518,67 @@ public class BulkDataRequestProvider {
 		}
 
 		//wait until async processes gets complete
-		while(true)
-		{
-			if(a == files.size())
-			{
-				String strFiles = StringUtils.join(files, ',');
-				bdr.setStatus("Completed");
-				bdr.setFiles(strFiles);
-				bdrService.saveBulkDataRequest(bdr);
-				System.out.println("\n\n Task complete!.................. \n\n");
-				log.info("request with id : " + bdr.getRequestId() + " - is processed. The  time is : '"
-						+ System.nanoTime() + "' in nano seconds");
+//		while(true)
+//		{
+//			if(a == files.size())
+//			{
+//				String strFiles = StringUtils.join(files, ',');
+//				bdr.setStatus("Completed");
+//				bdr.setFiles(strFiles);
+//				bdrService.saveBulkDataRequest(bdr);
+//				System.out.println("\n\n Task complete!.................. \n\n");
+//				log.info("request with id : " + bdr.getRequestId() + " - is processed. The  time is : '"
+//						+ System.nanoTime() + "' in nano seconds");
+//				break;
+//			}
+//			Thread.sleep(100);
+//		}
+		while (true) {
+			boolean checkFilesCreated = checkFilesInDestination(bdr, ndjsonFiles);
+			if (checkFilesCreated) {
+				updateBulkdataRequests(bdr);
 				break;
 			}
 			Thread.sleep(100);
+		}
+	}
+	
+	/**
+	 * Set and update bulk data request
+	 * 
+	 * @param bdr
+	 */
+	private void updateBulkdataRequests(DafBulkDataRequest bdr) {
+		String createdFiles = StringUtils.join(ndjsonFiles, ',');
+		bdr.setStatus("Completed");
+		bdr.setFiles(createdFiles);
+		bdrService.saveBulkDataRequest(bdr);
+		ndjsonFiles = new ArrayList<>();
+		log.info("\n\n Task complete!.................. \n\n");
+		log.info("Request with id : " + bdr.getRequestId() + " - is processed. The  time is : '"
+				+ System.nanoTime() + "' in nano seconds");
+		log.info("**************Updating the Bulk Data Request Status to {} for Request Id: {}",
+				"Completed", bdr.getRequestId());
+		
+	}
+	
+	/**
+	 * Check files in destination path
+	 * @param bdr
+	 * @param ndjsonfiles
+	 * @return
+	 */
+	public boolean checkFilesInDestination(DafBulkDataRequest bdr, List<String> ndjsonfiles) {
+		String contextPath = System.getProperty("catalina.base");
+		String destFilePath = contextPath + "/bulk data" + "/" + bdr.getRequestId() + "/";
+		log.info("Verifying the NDSJSON files in directory ----->" + destFilePath);
+		String[] destFilesList = new File(destFilePath).list();
+		log.info("No. of NDJSON files created in " + destFilePath + " is:" + ndjsonfiles.size());
+		log.info("No. of NDJSON files Found in " + destFilePath + " is:" + destFilesList.length);
+		if (ndjsonfiles.size() == destFilesList.length) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

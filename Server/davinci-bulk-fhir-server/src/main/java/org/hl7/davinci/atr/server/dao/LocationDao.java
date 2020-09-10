@@ -19,5 +19,5 @@ public interface LocationDao {
 
 	DafLocation updateLocationById(int id, Location theLocation);
 	
-	List<DafLocation> getLocationForBulkData(List<String> patients, Date start, Date end);
+	DafLocation getLocationForBulkData(String patients, Date start, Date end);
 }

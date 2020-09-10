@@ -97,5 +97,16 @@ public class CommonUtil {
 		return 404;	
 		}
 }
+	
+	/**
+	 * To check if a String contains a substring.
+	 * 
+	 * @param str
+	 * @param subString
+	 * @return
+	 */
+	public static boolean containsIgnoreCase(String str, String subString) {
+        return str.toLowerCase().contains(subString.toLowerCase());
+    }
 
 }

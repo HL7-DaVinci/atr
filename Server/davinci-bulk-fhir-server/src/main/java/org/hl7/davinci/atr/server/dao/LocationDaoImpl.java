@@ -732,7 +732,7 @@ public class LocationDaoImpl extends AbstractDao implements LocationDao {
 	}
 	
 	@SuppressWarnings({"unchecked", "deprecation"})
-	public List<DafLocation> getLocationForBulkData(List<String> patients, Date start, Date end){
+	public DafLocation getLocationForBulkData(String patients, Date start, Date end){
 	
 		Criteria criteria = getSession().createCriteria(DafLocation.class, "location");
 		//criteria.add(Restrictions.sqlRestriction("{alias}.data->>'patient' IS NOT NULL"));
@@ -740,12 +740,15 @@ public class LocationDaoImpl extends AbstractDao implements LocationDao {
 		/*if(patients!=null) {
         	criteria.add(Restrictions.in("dp.id", patients));
 		}*/
+		if(patients!=null) {
+			criteria.add(Restrictions.sqlRestriction("{alias}.data->>'id' = '"+ patients+"' order by {alias}.data->'meta'->>'versionId' desc"));
+		}
 		if(start != null) {
 			criteria.add(Restrictions.ge("timestamp", start));
 		}
 		if(end != null) {
 			criteria.add(Restrictions.le("timestamp", end));
 		}
-    	return criteria.list();
+    	return (DafLocation) criteria.list().get(0);
 	}
 }

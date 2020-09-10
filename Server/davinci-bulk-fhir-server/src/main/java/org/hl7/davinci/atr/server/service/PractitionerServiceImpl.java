@@ -81,11 +81,15 @@ public class PractitionerServiceImpl implements PractitionerService {
 	
 	@Override
     @Transactional
-    public List<Practitioner> getPractitionerForBulkData(List<String> patients, Date start, Date end){
+    public List<Practitioner> getPractitionerForBulkData(List<String> practitioners, Date start, Date end){
     	Practitioner practitioner = null;
 		List<Practitioner> practitionerList = new ArrayList<>();
 		IParser jsonParser = fhirContext.newJsonParser();
-		List<DafPractitioner> dafPractitionerList = practitionerDao.getPractitionerForBulkData(patients, start, end);
+		List<DafPractitioner> dafPractitionerList = new ArrayList<>();
+		for(String id : practitioners) {
+			DafPractitioner dafPractitioner = practitionerDao.getPractitionerForBulkData(id, start, end);
+			dafPractitionerList.add(dafPractitioner);
+		}
 		if(dafPractitionerList != null && !dafPractitionerList.isEmpty()) {
 			for(DafPractitioner dafPractitioner : dafPractitionerList) {
 				practitioner = jsonParser.parseResource(Practitioner.class, dafPractitioner.getData());

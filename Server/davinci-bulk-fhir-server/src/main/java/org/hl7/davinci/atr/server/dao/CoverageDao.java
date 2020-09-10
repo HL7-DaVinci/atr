@@ -9,7 +9,7 @@ import org.hl7.fhir.r4.model.Coverage;
 
 public interface CoverageDao {
 
-	List<DafCoverage> getCoverageForPatientsBulkData(String id, Date start, Date end);
+	DafCoverage getCoverageForPatientsBulkData(String patients, Date start, Date end);
 
 	List<DafCoverage> getCoverageForBulkData(Date start, Date end);
 

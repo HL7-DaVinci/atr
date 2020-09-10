@@ -1,14 +1,12 @@
 package org.hl7.davinci.atr.server.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Restrictions;
 import org.hl7.davinci.atr.server.model.DafGroup;
+import org.hl7.davinci.atr.server.util.CommonUtil;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
 import org.hl7.fhir.r4.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.IQueryParameterType;
 import ca.uhn.fhir.parser.IParser;
+import ca.uhn.fhir.rest.param.StringParam;
 import ca.uhn.fhir.rest.param.TokenParam;
 
 @Repository("groupDao")
@@ -67,47 +66,90 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 
 	@Override
 	public List<DafGroup> search(SearchParameterMap paramMap) {
-		Criteria criteria = getSession().createCriteria(DafGroup.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		List<DafGroup> groupList = new ArrayList<>();
+		StringBuffer query = new StringBuffer();
+		query.append("select * from groups");
+		query = buildIdentifierQuery(paramMap, query);
+		query = buildNameQuery(paramMap, query);
+		final String finalQuery = query.toString();
+		System.out.println("GROUP QUERY IS :: "+finalQuery);
+		groupList = getSession().createNativeQuery(finalQuery,DafGroup.class).getResultList();
+		return groupList;
+	}
+	
+	private StringBuffer buildNameQuery(SearchParameterMap paramMap, StringBuffer query) {
+		List<List<? extends IQueryParameterType>> list = paramMap.get("name");
+		if (list != null) {
+			for (List<? extends IQueryParameterType> values : list) {
+				for (IQueryParameterType params : values) {
+					StringParam groupName = (StringParam) params;
+					if(groupName.getValue() != null && !groupName.getValue().isEmpty()) {
+						if(!CommonUtil.containsIgnoreCase(query.toString(), "WHERE")) {
+ 	                		query.append(" WHERE ");
+ 	                	}
+						
+						if(CommonUtil.containsIgnoreCase(query.toString(), ".")) {
+ 	                		query.append("AND ");
+ 	                	}
+						query.append("data->>'name' like '%"+groupName.getValue()+"%' ");
+					}
+				}
+			}
+		}
+		return query;
+	}
 
-	    List<List<? extends IQueryParameterType>> list = paramMap.get("identifier");
-		
+	private StringBuffer buildIdentifierQuery(SearchParameterMap paramMap, StringBuffer query) {
+		List<List<? extends IQueryParameterType>> list = paramMap.get("identifier");
 	    if (list != null) {
+	    	int i = 0;
 	        for (List<? extends IQueryParameterType> values : list) {
-	            Disjunction disjunction = Restrictions.disjunction();
 	            for (IQueryParameterType params : values) {
 	                TokenParam identifier = (TokenParam) params;
-	                Criterion andCondOne= null;
-	                Criterion andCondTwo= null;
-	                if (identifier.getValue() != null && identifier.getSystem() != null) {
-	                	String valuePair = identifier.getValue();
-	                	 String valueAndType[] = null;
-	                	 String type = null;
-	                	 String value = null;
-	                	 valueAndType = valuePair.split("\\|");
-	                	 if(valueAndType.length == 2) {
-	                		 type = valueAndType[0];
-	                		 value = valueAndType[1];
-	                	 }
-	                	 if (value.endsWith("|")) {
-	             			value = value.substring(0, value.length() - 1);
-	             		 }
-	                	 andCondOne = Restrictions.and(
-	                    			Restrictions.sqlRestriction("{alias}.data->'identifier'->0->'type'->'coding'->0->>'system' = '" + identifier.getSystem() + "'"),
-	                    			Restrictions.sqlRestriction("{alias}.data->'identifier'->0->>'value' = '" + value + "'"),
-	                    			Restrictions.sqlRestriction("{alias}.data->'identifier'->0->'type'->'coding'->0->>'code' = '" + type + "'")
-	                			);
-	                	 andCondTwo = Restrictions.and(
-	                    			Restrictions.sqlRestriction("{alias}.data->'identifier'->1->'type'->'coding'->0->>'system' = '" + identifier.getSystem() + "'"),
-	                    			Restrictions.sqlRestriction("{alias}.data->'identifier'->1->>'value' = '" + value + "'"),
-	                    			Restrictions.sqlRestriction("{alias}.data->'identifier'->1->'type'->'coding'->0->>'code' = '" + type + "'")
-	                			);
-	                } 
-	                disjunction.add(andCondOne);
-	                disjunction.add(andCondTwo);
+	                if (identifier.getValue() != null) {
+ 	                	if(CommonUtil.containsIgnoreCase(query.toString(), ".")) {
+ 	                		query.append("AND ");
+ 	                	}
+ 	                	String valuePair = identifier.getValue();
+	                	String valueAndType[] = null;
+	                	valueAndType = valuePair.split("\\|");
+	                	if(valueAndType.length == 2) {
+	                		//query.append(", json_array_elements(data->'identifier') obj, json_array_elements(obj->'type'->'coding') obj2 ");
+	 	                	if(!CommonUtil.containsIgnoreCase(query.toString(), "WHERE")) {
+	 	                		query.append(" WHERE ");
+	 	                	}
+	                		String type = valueAndType[0];
+	                		String value = valueAndType[1];
+	                		if (value.endsWith("|")) {
+		             			value = value.substring(0, value.length() - 1);
+		             		}
+	                		
+	                		query.append("data->'identifier'->"+i+"->'type'->'coding'->0->>'system' = '" + identifier.getSystem() + "' ");
+	                		query.append("AND data->'identifier'->"+i+"->>'value' = '" + value + "' ");
+	                		query.append("AND data->'identifier'->"+i+"->'type'->'coding'->0->>'code' = '" + type + "' ");
+	                		
+	                		query.append("OR data->'identifier'->1->'type'->'coding'->0->>'system' = '" + identifier.getSystem() + "' ");
+	                		query.append("AND data->'identifier'->1->>'value' = '" + value + "' ");
+	                		query.append("AND data->'identifier'->1->'type'->'coding'->0->>'code' = '" + type + "' ");
+
+	                	}
+	                	else {
+	 	                	if(!CommonUtil.containsIgnoreCase(query.toString(), "WHERE")) {
+	 	                		query.append(" WHERE ");
+	 	                	}
+	                		query.append("data->'identifier'->"+i+"->>'value' = '" + identifier.getValue() + "' ");
+	                		query.append("OR data->'identifier'->1->>'value' = '" + identifier.getValue() + "' ");
+	 	                	if(identifier.getSystem() != null) {
+	 	                		query.append("AND data->'identifier'->"+i+"->>'system' = '"+identifier.getSystem()+"' ");
+	 	                		query.append("OR data->'identifier'->1->>'system' = '"+identifier.getSystem()+"' ");
+	 	                	}
+
+	                	}
+ 	                }
+	                i++;
 	            }
-	            criteria.add(disjunction);
 	        }
 	    }
-		return criteria.list();
+	    return query;
 	}
 }

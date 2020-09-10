@@ -19,5 +19,5 @@ public interface OrganizationDao {
 
 	DafOrganization updateOrganizationById(int id, Organization theOrganization);
 	
-	List<DafOrganization> getOrganizationForBulkData(List<String> patients, Date start, Date end);
+	DafOrganization getOrganizationForBulkData(String patients, Date start, Date end);
 }

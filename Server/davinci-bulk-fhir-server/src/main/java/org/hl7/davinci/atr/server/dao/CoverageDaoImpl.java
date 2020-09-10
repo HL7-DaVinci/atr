@@ -32,11 +32,14 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
     private SessionFactory sessionFactory;
 	
 	@SuppressWarnings({"unchecked", "deprecation"})
-	public List<DafCoverage> getCoverageForPatientsBulkData(String patientId, Date start, Date end){
+	public DafCoverage getCoverageForPatientsBulkData(String coverageIds, Date start, Date end){
     	
 		Criteria criteria = getSession().createCriteria(DafCoverage.class);
-		if(patientId!=null) {
-			criteria.add(Restrictions.sqlRestriction("{alias}.data->'subscriber'->>'reference' = 'Patient/"+patientId+"'"));
+//		if(patientId!=null) {
+//			criteria.add(Restrictions.sqlRestriction("{alias}.data->'subscriber'->>'reference' = 'Patient/"+patientId+"'"));
+//		}
+		if(coverageIds!=null) {
+			criteria.add(Restrictions.sqlRestriction("{alias}.data->>'id' = '"+ coverageIds+"' order by {alias}.data->'meta'->>'versionId' desc"));
 		}
 		if(start != null) {
 			criteria.add(Restrictions.ge("timestamp", start));
@@ -44,7 +47,7 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 		if(end != null) {
 			criteria.add(Restrictions.le("timestamp", end));
 		}
-    	return criteria.list();
+    	return (DafCoverage) criteria.list().get(0);
     }
 	
 	@SuppressWarnings({"unchecked", "deprecation"})

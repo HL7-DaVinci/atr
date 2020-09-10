@@ -86,8 +86,12 @@ public static final String RESOURCE_TYPE = "Organization";
     public List<Organization> getOrganizationForBulkData(List<String> patients, Date start, Date end) {
     	Organization organization = null;
 		List<Organization> organizationList = new ArrayList<>();
+		List<DafOrganization> dafOrganizationList = new ArrayList<>();
 		IParser jsonParser = fhirContext.newJsonParser();
-		List<DafOrganization> dafOrganizationList = organizationDao.getOrganizationForBulkData(patients, start, end);
+		for(String id: patients) {
+			DafOrganization dafOrganization = organizationDao.getOrganizationForBulkData(id, start, end);
+			dafOrganizationList.add(dafOrganization);
+		}
 		if(dafOrganizationList != null && !dafOrganizationList.isEmpty()) {
 			for(DafOrganization dafOrganization : dafOrganizationList) {
 				organization = jsonParser.parseResource(Organization.class, dafOrganization.getData());

@@ -880,14 +880,17 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
     
     @SuppressWarnings({"unchecked", "deprecation"})
 	@Override
-    public List<DafPractitioner> getPractitionerForBulkData(List<String> patients, Date start, Date end) {
+    public DafPractitioner getPractitionerForBulkData(String practitioners, Date start, Date end) {
 		Criteria criteria = getSession().createCriteria(DafPractitioner.class);
+		if(practitioners!=null) {
+			criteria.add(Restrictions.sqlRestriction("{alias}.data->>'id' = '"+ practitioners+"' order by {alias}.data->'meta'->>'versionId' desc"));
+		}
 		if(start != null) {
 			criteria.add(Restrictions.ge("timestamp", start));
 		}
 		if(end != null) {
 			criteria.add(Restrictions.le("timestamp", end));
 		}
-    	return criteria.list();
+    	return (DafPractitioner) criteria.list().get(0);
 	}
 }

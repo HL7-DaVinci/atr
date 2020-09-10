@@ -188,11 +188,11 @@ public class RelatedPersonDaoImpl extends AbstractDao implements RelatedPersonDa
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<DafRelatedPerson> getRelatedPersonForPatientsBulkData(String id, Date start, Date end) {
+	public DafRelatedPerson getRelatedPersonForPatientsBulkData(String id, Date start, Date end) {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = getSession().createCriteria(DafRelatedPerson.class);
-		if(id != null) {
-			criteria.add(Restrictions.sqlRestriction("{alias}.data->'patient'->>'reference' = 'Patient/"+id+"'"));
+		if(id!=null) {
+			criteria.add(Restrictions.sqlRestriction("{alias}.data->>'id' = '"+ id+"' order by {alias}.data->'meta'->>'versionId' desc"));
 		}
 		if(start != null) {
 			criteria.add(Restrictions.ge("timestamp", start));
@@ -200,7 +200,7 @@ public class RelatedPersonDaoImpl extends AbstractDao implements RelatedPersonDa
 		if(end != null) {
 			criteria.add(Restrictions.le("timestamp", end));
 		}
-	    return criteria.list();    
+	    return (DafRelatedPerson) criteria.list().get(0);   
 	}
 
 	@SuppressWarnings("unchecked")

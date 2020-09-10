@@ -75,7 +75,11 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		PractitionerRole practitionerRole = null;
 		List<PractitionerRole> practitionerRoleList = new ArrayList<>();
 		IParser jsonParser = fhirContext.newJsonParser();
-		List<DafPractitionerRole> dafPractitionerRoleList = practitionerRoleDao.getPractitionerRoleForBulkData(patientList, start, end);
+		List<DafPractitionerRole> dafPractitionerRoleList = new ArrayList<>();
+		for(String id: patientList) {
+			DafPractitionerRole dafPractitionerRole = practitionerRoleDao.getPractitionerRoleForBulkData(id, start, end);
+			dafPractitionerRoleList.add(dafPractitionerRole);
+		}
 		if(dafPractitionerRoleList != null && !dafPractitionerRoleList.isEmpty()) {
 			for(DafPractitionerRole dafPractitioner : dafPractitionerRoleList) {
 				practitionerRole = jsonParser.parseResource(PractitionerRole.class, dafPractitioner.getData());

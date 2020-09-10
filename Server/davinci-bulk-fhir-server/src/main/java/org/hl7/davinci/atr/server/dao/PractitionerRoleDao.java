@@ -14,5 +14,5 @@ public interface PractitionerRoleDao {
 
 	List<DafPractitionerRole> search(SearchParameterMap paramMap);
 
-	List<DafPractitionerRole> getPractitionerRoleForBulkData(List<String> patientList, Date start, Date end);
+	DafPractitionerRole getPractitionerRoleForBulkData(String patientList, Date start, Date end);
 }

@@ -698,16 +698,18 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
 	}
 	
 	@SuppressWarnings({"unchecked", "deprecation"})
-	public List<DafOrganization> getOrganizationForBulkData(List<String> patients, Date start, Date end){
+	public DafOrganization getOrganizationForBulkData(String organizations, Date start, Date end){
 	
 		Criteria criteria = getSession().createCriteria(DafOrganization.class);
-    
+		if(organizations!=null) {
+			criteria.add(Restrictions.sqlRestriction("{alias}.data->>'id' = '"+ organizations+"' order by {alias}.data->'meta'->>'versionId' desc"));
+		}
 		if(start != null) {
 			criteria.add(Restrictions.ge("timestamp", start));
 		}
 		if(end != null) {
 			criteria.add(Restrictions.le("timestamp", end));
 		}
-    	return criteria.list();
+    	return (DafOrganization) criteria.list().get(0);
 	}
 }

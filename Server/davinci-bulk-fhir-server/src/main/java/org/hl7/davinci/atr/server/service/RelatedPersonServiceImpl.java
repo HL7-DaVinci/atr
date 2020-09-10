@@ -83,8 +83,8 @@ public class RelatedPersonServiceImpl implements RelatedPersonService {
 		List<DafRelatedPerson> dafRelatedPersonList = new ArrayList<>();
 		if(patients != null) {
 			for(String id:patients) {
-				List<DafRelatedPerson> list = relatedPersonDao.getRelatedPersonForPatientsBulkData(id, start, end);
-				dafRelatedPersonList.addAll(list);
+				DafRelatedPerson dafRelatedPerson = relatedPersonDao.getRelatedPersonForPatientsBulkData(id, start, end);
+				dafRelatedPersonList.add(dafRelatedPerson);
 			}
 		}
 		else {

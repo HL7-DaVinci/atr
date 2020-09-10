@@ -85,7 +85,11 @@ public class LocationServiceImpl implements LocationService {
 		Location location = null;
 		List<Location> locationList = new ArrayList<>();
 		IParser jsonParser = fhirContext.newJsonParser();
-		List<DafLocation> dafLocationList = locationDao.getLocationForBulkData(patients, start, end);
+		List<DafLocation> dafLocationList = new ArrayList<>();
+		for(String id: patients) {
+			DafLocation dafLocation = locationDao.getLocationForBulkData(id, start, end);
+			dafLocationList.add(dafLocation);
+		}
 		if(dafLocationList != null && !dafLocationList.isEmpty()) {
 			for(DafLocation dafLocation : dafLocationList) {
 				location = jsonParser.parseResource(Location.class, dafLocation.getData());
