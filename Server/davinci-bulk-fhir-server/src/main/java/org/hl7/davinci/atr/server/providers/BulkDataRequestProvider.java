@@ -25,6 +25,7 @@ import org.hl7.davinci.atr.server.service.AsyncService;
 import org.hl7.davinci.atr.server.service.BulkDataRequestService;
 import org.hl7.davinci.atr.server.service.GroupService;
 import org.hl7.davinci.atr.server.util.CommonUtil;
+import org.hl7.fhir.r4.model.OperationOutcome;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -41,14 +42,16 @@ import com.google.gson.Gson;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.primitive.DateDt;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
+import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
 import ch.qos.logback.classic.Logger;
 
 @Controller
 @RequestMapping("/bulkdata")
 public class BulkDataRequestProvider {
-
+	
 	Logger log = (Logger) LoggerFactory.getLogger(BulkDataRequestProvider.class);
-
+	@Autowired
+	FhirContext fhirContext;
 	//private static int a=0;
 	private static List<String> ndjsonFiles = new ArrayList<>();
 
@@ -82,71 +85,81 @@ public class BulkDataRequestProvider {
 	@ResponseBody
 	public String getContentLocationResponse(@PathVariable Integer requestId, HttpServletRequest request,
 			HttpServletResponse response) {
-
 		String body = "";
-		DafBulkDataRequest bdr = bdrService.getBulkDataRequestById(requestId);
-		if (bdr != null) {
+		if(request.getHeader("Accept") != null && request.getHeader("Accept").equals("application/json")) {
+			
+			DafBulkDataRequest bdr = bdrService.getBulkDataRequestById(requestId);
+			if (bdr != null) {
 
-			if (bdr.getStatus().equalsIgnoreCase("In Progress")) {
-				response.setHeader("X-Progress", "In Progress");
-				response.setStatus(202);
-			}
+				if (bdr.getStatus().equalsIgnoreCase("In Progress")) {
+					response.setHeader("X-Progress", "In Progress");
+					response.setStatus(202);
+				}
 
-			if (bdr.getStatus().equalsIgnoreCase("Accepted")) {
-				response.setHeader("X-Progress", "Accepted");
-				response.setStatus(202);
-			}
-			if (bdr.getStatus().equalsIgnoreCase("Completed")) {
+				if (bdr.getStatus().equalsIgnoreCase("Accepted")) {
+					response.setHeader("X-Progress", "Accepted");
+					response.setStatus(202);
+				}
+				if (bdr.getStatus().equalsIgnoreCase("Completed")) {
 
-				BulkDataOutput bdo = new BulkDataOutput();
+					BulkDataOutput bdo = new BulkDataOutput();
 
-				GregorianCalendar cal = new GregorianCalendar();
-				cal.setTime(new Date());
-				cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-				cal.add(Calendar.DATE, 10);
-				String dt = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz").format(cal.getTime());
-				bdo.setTransactionStartTime(dt);
+					GregorianCalendar cal = new GregorianCalendar();
+					cal.setTime(new Date());
+					cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+					cal.add(Calendar.DATE, 10);
+					String dt = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz").format(cal.getTime());
+					bdo.setTransactionStartTime(dt);
 
-				bdo.setRequest(bdr.getRequestResource());
-				bdo.setSecure("false");
+					bdo.setRequest(bdr.getRequestResource());
+					bdo.setSecure("false");
 
-				String[] links = bdr.getFiles().split(",");
-				StringBuilder linksHeader = new StringBuilder();
-				String uri = request.getScheme() + "://" + request.getServerName()
-				+ ("http".equals(request.getScheme()) && request.getServerPort() == 80
-				|| "https".equals(request.getScheme()) && request.getServerPort() == 443 ? ""
-						: ":" + request.getServerPort())
-				+ request.getContextPath();
+					String[] links = bdr.getFiles().split(",");
+					StringBuilder linksHeader = new StringBuilder();
+					String uri = request.getScheme() + "://" + request.getServerName()
+					+ ("http".equals(request.getScheme()) && request.getServerPort() == 80
+					|| "https".equals(request.getScheme()) && request.getServerPort() == 443 ? ""
+							: ":" + request.getServerPort())
+					+ request.getContextPath();
 
-				for (int i = 0; i < links.length; i++) {
+					for (int i = 0; i < links.length; i++) {
 
-					if (links[i] != null && !links[i].equals("null")) {
+						if (links[i] != null && !links[i].equals("null")) {
 
-						BulkDataOutputInfo bdoi = new BulkDataOutputInfo();
+							BulkDataOutputInfo bdoi = new BulkDataOutputInfo();
 
-						String linkForBody = uri + "/bulkdata/download/" + bdr.getRequestId() + "/" + links[i];
-						String l = "<" + uri + "/bulkdata/download/" + bdr.getRequestId() + "/" + links[i] + ">";
-						bdoi.setUrl(linkForBody);
-						bdo.add(bdoi);
+							String linkForBody = uri + "/bulkdata/download/" + bdr.getRequestId() + "/" + links[i];
+							String l = "<" + uri + "/bulkdata/download/" + bdr.getRequestId() + "/" + links[i] + ">";
+							bdoi.setUrl(linkForBody);
+							bdo.add(bdoi);
 
-						linksHeader.append(l);
+							linksHeader.append(l);
 
-						if (i < links.length - 1) {
-							linksHeader.append(",");
+							if (i < links.length - 1) {
+								linksHeader.append(",");
+							}
 						}
 					}
+					Gson g = new Gson();
+					body = g.toJson(bdo);
+
+					response.setHeader("Link", linksHeader.toString());
+					//response.setHeader("Content-Type", "application/json");
 				}
-				Gson g = new Gson();
-				body = g.toJson(bdo);
-
-				response.setHeader("Link", linksHeader.toString());
+			} else {
+				response.setStatus(404);
+				throw new ResourceNotFoundException(
+						"The requested Content-Location was not found. Please contact the Admin.");
 			}
-		} else {
-			response.setStatus(404);
-			throw new ResourceNotFoundException(
-					"The requested Content-Location was not found. Please contact the Admin.");
+		}	
+		else {
+			OperationOutcome oo = new OperationOutcome();
+			oo.addIssue().setSeverity(org.hl7.fhir.r4.model.OperationOutcome.IssueSeverity.ERROR)
+			.setDiagnostics("Invalid header values!");
+			body = fhirContext.newJsonParser().setPrettyPrint(true).encodeResourceToString(oo);
+			response.setStatus(422);
+			//throw new UnprocessableEntityException(body);
 		}
-
 		return body;
 	}
 
@@ -154,11 +167,14 @@ public class BulkDataRequestProvider {
 	@ResponseBody
 	public int downloadFile(@PathVariable Integer id, @PathVariable String fileName, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-
-		String contextPath = System.getProperty("catalina.base");
-		String destDir = contextPath + "/bulk data/" + id + "/";
-		return CommonUtil.downloadFIleByName(new File(destDir + fileName), response);
-
+		if(request.getHeader("Accept") != null && request.getHeader("Accept").equals("application/fhir+ndjson")) {
+			String contextPath = System.getProperty("catalina.base");
+			String destDir = contextPath + "/bulk data/" + id + "/";
+			return CommonUtil.downloadFIleByName(new File(destDir + fileName), response);
+		}	
+		else {
+			throw new UnprocessableEntityException("Invalid header values!");
+		}
 	}
 
 	// delete content-location request
