@@ -10,6 +10,18 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  private selectedLink: string="NPITAXID";  
+  selection: string="NPITAXID";      
+    setradio(e: string): void{  
+        this.selectedLink = e;
+    }  
+    isSelected(name: string): boolean{  
+        if (!this.selectedLink) {
+            return false;  
+    }  
+   return (this.selectedLink === name);   
+    }   
+    show = false;
 
   @ViewChildren('patientTable') patientTable;
   payerList: any = [];
@@ -36,9 +48,11 @@ export class HomeComponent implements OnInit {
     var table = 'payerInfo';
     if (localStorage.getItem(table) !== null) {
       this.payerList = JSON.parse(localStorage.getItem(table));
+      // console.log(this.payerList)
     }
 
     this.addPayerView();
+    // localStorage.removeItem('acesstoken')
   }
 
   removePayerForm(index) {
@@ -54,34 +68,59 @@ export class HomeComponent implements OnInit {
     this.payerViewList.push({ index: count, groupDetails: [], patientDetails: [] });
     // console.log(this.patientColumns);
   }
-  submitPayer(index, form) {
+  submitPayer(index, form, event: Event) {
     this.spinnerService.show();
     let npi = form.value.npi;
     let taxId = form.value.taxId;
     let payerUrl = form.value.payerName.payerUrl;
-
-    this._payers.getMemberInformation(npi, taxId, payerUrl).subscribe(res => {
+    let groupName = form.value.groupName;
+    let identifier = form.value.identifier;
+    let tin =form.value.tin;
+    let NpI = form.value.NpI;
+    let tokenPoint = form.value.payerName.tokenPoint;
+    let authValue = form.value.payerName.authValue;
+    
+    // console.log(tokenPoint)
+    // console.log(authValue)
+    // console.log(groupName)
+event.preventDefault();
+    this._payers.getMemberInformation(npi, taxId, payerUrl, groupName, tokenPoint, authValue,identifier,tin,NpI).subscribe(res => {
       const result = res.body;
+      console.log(result)
       if (res.status == 200) {
         const groupDetails = [];
+        console.log(groupDetails)
         var i = 1;
-        for (let entry of res.body.entry) {
-          const obj = {
-            position: i,
-            groupId: entry.resource.id,
-            groupName: entry.resource.name,
-            contractInfo: entry.resource.characteristic[0].valueReference.display,
-            member: entry.resource.member,
-            memberLength: entry.resource.member.length,
-            contentLocation: '',
-            pArray: []
-          };
-          groupDetails.push(obj);
-          i++;
+        if (res.body.entry) {
+          for (let entry of res.body.entry) {
+            var groupContractInfo = '';
+            if (entry.resource.characteristic) {
+              groupContractInfo = entry.resource.characteristic[0].valueReference ? entry.resource.characteristic[0].valueReference.display ? entry.resource.characteristic[0].valueReference.display : '' : ''
+            ||entry.resource.characteristic[0].code ? entry.resource.characteristic[0].code.text ? entry.resource.characteristic[0].code.text : '' : ''
+            }
+            console.log(groupDetails)
+            const obj = {
+              position: i,
+              groupId: entry.resource.id,
+              groupName: entry.resource.name,
+              contractInfo: groupContractInfo,
+              member: entry.resource.member,
+              memberLength: entry.resource.member.length,
+              contentLocation: '',
+              pArray: []
+            };
+            console.log(obj)
+            groupDetails.push(obj);
+            i++;
+          }
+          // console.log(groupDetails); 
+          this.payerViewList[index].groupDetails = groupDetails;
+          this.spinnerService.hide();
+        } else {
+          alert("No Groups were found with the specified data")
         }
-        // console.log(groupDetails); 
-        this.payerViewList[index].groupDetails = groupDetails;
-        this.spinnerService.hide();
+      } else {
+        alert("Error in getting Group Details")
       }
     });
   }
@@ -117,27 +156,29 @@ export class HomeComponent implements OnInit {
     let updateGroup = this.payerViewList[viewIndex].groupDetails.find(detail => detail.groupId === gId);
     let index = this.payerViewList[viewIndex].groupDetails.indexOf(updateGroup);
     const bulkData = this.payerViewList[viewIndex].groupDetails[index].pArray;
-    // console.log(bulkData);
     let pData = bulkData.find(p => p.type == 'Patient');
     const patientDetails = [];
-
     for (let p of pData.data) {
+      console.log(p)
 
       let member = this.payerViewList[viewIndex].groupDetails[index].member.filter(m => m.entity.reference == 'Patient/' + p.id);
       let startDate = member[0].period.start;
       let coverage = bulkData.filter(c => { if (c.type == 'Coverage') { return true; } });
       let cData = coverage[0].data.filter(cd => cd.subscriber.reference == 'Patient/' + p.id)
-      console.log(cData[0].period.end);
-      let endDate = cData[0].period.end;
-      let subscriberId = cData[0].subscriberId;
+      let endDate = cData[0] ? cData[0].period ? cData[0].period.end : '' : '';
+      let subscriberId = cData[0] ? cData[0].subscriberId : '';
 
       let practitioner = bulkData.filter(c => { if (c.type == 'Practitioner') { return true; } });
-      let prData = practitioner[0].data.filter(pr => 'Practitioner/' + pr.id == p.generalPractitioner[0].reference);
+      console.log(practitioner)
+      let prData = practitioner[0].data.filter(pr => 'Practitioner/' + pr.id);
+      console.log(prData)
       var organizationName = '';
       if ("managingOrganization" in p && "reference" in p.managingOrganization) {
         let organization = bulkData.filter(c => { if (c.type == 'Organization') { return true; } });
+        console.log(organization)
         let orgData = organization[0].data.filter(or => 'Organization/' + or.id == p.managingOrganization.reference);
-        organizationName = orgData[0].name;
+        console.log(orgData)
+        organizationName =  organization[0].data[0].name;
         // console.log(organizationName);
       }
       // console.log(orgData);

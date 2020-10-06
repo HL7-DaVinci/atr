@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpResponse, HttpErrorResponse ,HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError, map, retry } from 'rxjs/operators';
 
@@ -7,7 +7,7 @@ import { tap, catchError, map, retry } from 'rxjs/operators';
 export class InterceptorService implements HttpInterceptor {
 
 
-  constructor(){}
+  constructor( private http: HttpClient){}
   
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
   
@@ -17,8 +17,7 @@ export class InterceptorService implements HttpInterceptor {
 
     if (!request.headers.has('Accept')) {
       request = request.clone({ setHeaders: {"Accept": 'application/json'} });
-    }
-    
+    }    
     return next.handle(request).pipe( 
       retry(2),
       catchError((error: HttpErrorResponse) => {

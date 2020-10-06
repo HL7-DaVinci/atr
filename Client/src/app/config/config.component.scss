@@ -46,7 +46,9 @@
                 margin: 2px;
 
                 .payerLable{
-                    margin: 15px 0px;
+                    position: absolute;
+                    margin-left: -8%;
+                    margin-top: 3%;
                 }
             }
         }
@@ -81,6 +83,7 @@
     }
     .form-container {
         display: flex;
+        position: absolute;
         flex-direction: column;
         .mat-radio-group{
             margin: 15px 0px;
@@ -98,6 +101,47 @@
                 align-items: center;
             }
         }
+      }
+      .mat-divider{
+        margin-top: 9%;
+    }
+      .mat-card-auth{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 10%;
+          .contentHeaderauth{
+            font-size: 2.1rem;
+            font-weight: 400;
+            margin-left: -289%;
+            margin-top: 41%;
+        p{
+            margin-top: 13%;
+            float: left;
+            margin-left: -110%;
+        }
+          }
+      }
+      .form-accordian{
+        left: 20%;
+        margin-top: 16%;
+        min-width: 86% ; 
+        position: relative;
+        float: left;
+        .form-extension{
+            .form-containerr{
+                width: 100%;
+                align-items: center;
+                .mat-field{
+                    margin-left: 16%;
+                    margin-top: 1%;
+                    .payerLable{
+                        margin-left: -149px;
+                        margin-top: -1%;
+                    }
+                }
+            }
+        }
+        
       }
       
     .form-container > * {

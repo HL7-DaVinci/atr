@@ -19,16 +19,17 @@
                     (click)="removePayerForm(viewIndex)">-</button>
             </div>
             <div class="payerForm">
-                <form #payer="ngForm" name="payer{{viewIndex}}" (submit)="submitPayer(viewIndex,payer)" class="form">
+                <form #payer="ngForm" name="payer{{viewIndex}}" (submit)="submitPayer(viewIndex,payer,$event)"  class="form">
                     <div class="selectPayer">
                         <mat-form-field class="mat-form-field mode" appearance="outline">
                             <mat-label>Select Payer</mat-label>
-                            <mat-select placeholder="Select Payer *" name="payerName" ngModel required>
-                                <mat-option *ngFor="let payer of payerList;" [value]="payer">
+                            <mat-select placeholder="Select Payer *" name="payerName" [(ngModel)]="selvaluee" (change)="selection = null">
+                                <mat-option *ngFor="let payer of payerList;" [value]="payer" >
                                     {{payer.payerName}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <mat-form-field class="mat-form-field mode" appearance="outline">
+                    </div>
+                        <!-- <mat-form-field class="mat-form-field mode" appearance="outline">
                             <mat-label>Provider NPI</mat-label>
                             <input matInput type="text" [value]="1316206220" placeholder="Provider NPI *" name="npi"
                                 ngModel required>
@@ -37,11 +38,77 @@
                             <mat-label>Provider TAX Id</mat-label>
                             <input matInput type="text" [value]="789456231" placeholder="Provider TAX Id *" name="taxId"
                                 ngModel required>
-                        </mat-form-field>
+                        </mat-form-field> -->
+                        <div *ngIf="!selvaluee ==''">
+                        <!-- <mat-card style="margin-top: -4%; background-color: blanchedalmond;">Search by NPI and TAXID or Search By Group name</mat-card> -->
+                        <mat-radio-group class="mat-radio group" [(ngModel)]="selection" name="group" color="primary">
+                          <mat-radio-button class="mat-button1" value="NPITAXID" (click)="setradio('NPITAXID')" >
+                            Search by NPI and TAXID
+                          </mat-radio-button>
+                          <mat-radio-button class="mat-button2" value="GroupName" (click)="setradio('Groupname')">
+                            Search By Group Name
+                          </mat-radio-button>
+                          <mat-radio-button class="mat-button3" value="Identifier" (click)="setradio('Identifier')">
+                            Search with Identifier
+                          </mat-radio-button>
+                          <mat-radio-button class="mat-button4" value="Tin" (click)="setradio('tin')">
+                            Search With TIN
+                          </mat-radio-button>
+                          <mat-radio-button class="mat-button5" value="NPi" (click)="setradio('npi')">
+                            Search with NPI
+                          </mat-radio-button>
+                        </mat-radio-group>
+
+
+                        <div *ngIf="isSelected('NPITAXID')" class="form-field" >  
+                            <mat-form-field class="mat-form-npi mode" appearance="outline">
+                                <mat-label>Provider NPI</mat-label>
+                                <input matInput type="text" [value]="1316206220" placeholder="Provider NPI *" name="npi"
+                                    ngModel required>
+                            </mat-form-field>
+                            <mat-form-field class="mat-form-tax mode" appearance="outline">
+                                <mat-label>Provider TAX ID</mat-label>
+                                <input matInput type="text" [value]="789456231" placeholder="Provider TAX Id *" name="taxId"
+                                    ngModel required>
+                            </mat-form-field>
+                          </div>  
+                         
+                          <div *ngIf="isSelected('Groupname')" class="form-field-group">  
+                            <mat-form-field class="mat-form-group mode" appearance="outline">
+                                <mat-label>Provider GROUP NAME</mat-label>
+                                <input matInput type="text" placeholder="Provider GROUP NAME *" name="groupName"
+                                    ngModel required>
+                            </mat-form-field>
+                          </div> 
+                          <div *ngIf="isSelected('Identifier')" class="form-field-group">  
+                            <mat-form-field class="mat-form-group mode" appearance="outline">
+                                <mat-label>Provider IDENTIFIER</mat-label>
+                                <input matInput type="text" placeholder="Provider IDENTIFIER *" name="identifier"
+                                    ngModel required>
+                            </mat-form-field>
+                          </div>   
+                          <div *ngIf="isSelected('tin')" class="form-field-group">  
+                            <mat-form-field class="mat-form-group mode" appearance="outline">
+                                <mat-label>Provider TIN</mat-label>
+                                <input matInput type="text" placeholder="Provider TIN *" name="tin"
+                                    ngModel required>
+                            </mat-form-field>
+                          </div>   
+                          <div *ngIf="isSelected('npi')" class="form-field-group">  
+                            <mat-form-field class="mat-form-group mode" appearance="outline">
+                                <mat-label>Provider NPI</mat-label>
+                                <input matInput type="text" placeholder="Provider NPI *" name="NpI"
+                                    ngModel required>
+                            </mat-form-field>
+                          </div>
+                        <!-- </div> -->
+                          
                         <div class="form-element">
                             <button mat-raised-button color="primary" type="submit" class="button"
-                                [disabled]="payer.value.payerName == '' || payer.value.npi == '' || payer.value.taxId == ''">Discover
-                                MAL</button>
+                                [disabled]="payer.value.payerName == '' || payer.value.npi == '' || payer.value.taxId == ''
+                                || payer.value.groupName == '' || payer.value.identifier == '' || payer.value.tin == ''
+                                || payer.value.NpI == ''" >Discover MAL
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -82,7 +149,7 @@
                             <button mat-raised-button color="primary" class="button"
                                 [disabled]="element.contentLocation != ''"
                                 (click)="getLocation(viewIndex,element.groupId)">Download</button>
-                            <button mat-raised-button color="primary" class="button"
+                            <button mat-raised-button color="primary" class="button" 
                                 [disabled]="element.contentLocation == ''"
                                 (click)="getPatientDetail(viewIndex,element.groupId)">View</button>
                         </td>

@@ -11,23 +11,23 @@
         </button>
     </div>
 </mat-card-title>
-<!-- <mat-divider class="mat-divider"></mat-divider> -->
+<mat-divider class="mat-divider"></mat-divider>
 <mat-card-content class="mat-card-content">
     <div class="payerConfig">
         <form [formGroup]="payersForm" (submit)="submitPayer(payersForm.value)" class="form">
             <div *ngFor="let payer of p.controls; let i = index" class="subForm">
-                <div class="delPayer">
+                <!-- <div class="delPayer">
                     <button class="md-button md-small del-payer" *ngIf="p.length > 1" mat-fab color="warn"
                         (click)="removePayerForm(i)">-</button>
-                </div>
+                </div> -->
                 <div [formGroup]="payer" class="form-container payerForm">
                     <label class="payerLable">Payer {{i+1}}</label>
                     <mat-grid-list cols="2">
-                        <mat-form-field class="mat-form-field mode" appearance="outline" style="width: 45%;">
+                        <mat-form-field class="mat-form-field mode" appearance="outline" style="width: 43%;">
                             <mat-label>Payer Name *</mat-label>
                             <input matInput type="text" placeholder="Payer Name *" formControlName="payerName">
                         </mat-form-field>
-                        <mat-form-field class="mat-form-field mode" appearance="outline" style="width: 45%;">
+                        <mat-form-field class="mat-form-field mode" appearance="outline" style="width: 43%;">
                             <mat-label>Payer URL *</mat-label>
                             <input matInput type="text" placeholder="Payer URL *" formControlName="payerUrl">
                         </mat-form-field>
@@ -55,10 +55,49 @@
                         <textarea matInput placeholder="Private Key" formControlName="privateKey"></textarea>
                     </mat-form-field>                     -->
                 </div>
+                <div class="delPayer" style="position: absolute;">
+                    <button class="md-button md-small del-payer" *ngIf="p.length > 1" mat-fab color="warn"
+                        (click)="removePayerForm(i)">-</button>
+                </div>
+
                 <mat-divider class="mat-divider"></mat-divider>
+                
+                <mat-card-title class="mat-card-auth">
+                    <div class="contentHeaderauth">
+                        <p>Authorization Settings</p>
+                    </div>
+                </mat-card-title>
+                <!-- <mat-divider class="mat-divider"></mat-divider> -->
+                <mat-accordion class="form-accordian">
+                    <mat-expansion-panel class="form-extension">
+                      <mat-expansion-panel-header style="background-color: antiquewhite;">
+                        <mat-panel-title>
+                         APIGEE oAuth Details
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      
+                      <div [formGroup]="payer" class="form-containerr payerForm">
+                        <mat-grid-list cols="2">
+                            <mat-form-field class="mat-field mode" appearance="outline" style="width: 53%;">
+                                <label class="payerLable">Token Endpoint:</label>
+                                <mat-label>Token Endpoint *</mat-label>
+                                <input matInput type="text" placeholder="token Point *" formControlName="tokenPoint">
+                            </mat-form-field>
+                            <mat-form-field class="mat-field mode" appearance="outline" style="width: 53%;">
+                                <label class="payerLable">Authorization Value:</label>
+                                <mat-label>Authorization Value *</mat-label>
+                                <input matInput type="text" placeholder="auth Value *" formControlName="authValue">
+                            </mat-form-field>
+                        </mat-grid-list>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+
+                <!-- <mat-divider class="mat-divider"></mat-divider> -->
             </div>
             <div class="form-element">
-                <button mat-raised-button color="primary" type="submit" class="button submitBtn"
+                <!-- (click)="openSnackBar()" -->
+                <button mat-raised-button color="primary" type="submit" class="button submitBtn" style="left: 93%; margin-top: 1%;"
                     [disabled]="!payersForm.valid">Save</button>
             </div>
         </form>

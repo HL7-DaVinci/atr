@@ -46,6 +46,8 @@ export class ConfigComponent implements OnInit {
     this.p.push(this.formBuilder.group({
       'payerName': ['', Validators.required],
       'payerUrl': [''],
+      'tokenPoint':[''],
+      'authValue':[''],
       'clientId': [''],
       'tokenEndpoint': [''],
       'jwksUrl': [''],
@@ -63,10 +65,19 @@ export class ConfigComponent implements OnInit {
       this._snackBar.open('You cant remove All');
     }
   }
+  // openSnackBar() {
+  //   this._snackBar.open('Successfully Saved Payer Config Settings!!', 'X', {
+  //     duration: 13700,
+  //     verticalPosition: 'top',
+  //     horizontalPosition: 'end',
+  //     panelClass: ['mat-toolbar', 'mat-warn'],
+  //   });
+  // }
 
   submitPayer(values){
     if(this.payersForm.valid){
       for(let payer of values.payers){
+        console.log('payer', payer)
         var table = 'payerInfo';
         if (localStorage.getItem(table) === null) {
           const dataApi = [payer];
