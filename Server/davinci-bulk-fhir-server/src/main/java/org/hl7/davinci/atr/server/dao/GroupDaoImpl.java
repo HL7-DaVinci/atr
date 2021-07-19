@@ -6,9 +6,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hl7.davinci.atr.server.model.DafGroup;
+import org.hl7.davinci.atr.server.model.DafPatient;
 import org.hl7.davinci.atr.server.util.CommonUtil;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
 import org.hl7.fhir.r4.model.Group;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,37 +23,46 @@ import ca.uhn.fhir.rest.param.TokenParam;
 
 @Repository("groupDao")
 public class GroupDaoImpl extends AbstractDao implements GroupDao {
-	
+	private static final Logger logger = LoggerFactory.getLogger(GroupDaoImpl.class);    
+
 	@Autowired
     private SessionFactory sessionFactory;
 	
 	@Autowired
 	private FhirContext fhirContext;
 
-	@Override
 	public DafGroup getGroupById(String id) {
-		List<DafGroup> list = getSession().createNativeQuery(
-			"select * from groups where data->>'id' = '" + id +
-			"' order by data->'meta'->>'versionId' desc",
-			DafGroup.class).getResultList();
-		return list.get(0);
-	}
-
-	@Override
-	public DafGroup createGroup(Group theGroup) {
-		DafGroup dafGroup = new DafGroup();
-		IParser jsonParser = fhirContext.newJsonParser();
-		jsonParser.encodeResourceToString(theGroup);
-		dafGroup.setData(jsonParser.encodeResourceToString(theGroup));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.save(dafGroup);
-		session.getTransaction().commit();
-		session.close();
+		DafGroup dafGroup = null;
+		try {
+			List<DafGroup> list = getSession().createNativeQuery(
+					"select * from groups where data->>'id' = '" + id +
+					"' order by data->'meta'->>'versionId' desc",
+					DafGroup.class).getResultList();
+			if(list != null && !list.isEmpty()) {
+				dafGroup = new DafGroup();
+				dafGroup = list.get(0);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("Exception in getGroupById of GroupDaoImpl ", ex);
+		}
 		return dafGroup;
 	}
 
-	@Override
+	public DafGroup createGroup(Group theGroup) {
+		DafGroup dafGroup = new DafGroup();
+		IParser jsonParser = fhirContext.newJsonParser();
+		if(!theGroup.hasIdElement()) {
+			String id = CommonUtil.getUniqueUUID();
+			theGroup.setId(id);
+			logger.info(" setting the uuid ");
+		}
+		jsonParser.encodeResourceToString(theGroup);
+		dafGroup.setData(jsonParser.encodeResourceToString(theGroup));
+		getSession().saveOrUpdate(dafGroup);
+		return dafGroup;
+	}
+
 	public DafGroup updateGroupById(int id, Group theGroup) {
 		DafGroup dafGroup = new DafGroup();
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -64,7 +76,6 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 		return dafGroup;
 	}
 
-	@Override
 	public List<DafGroup> search(SearchParameterMap paramMap) {
 		List<DafGroup> groupList = new ArrayList<>();
 		StringBuffer query = new StringBuffer();
@@ -151,5 +162,11 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 	        }
 	    }
 	    return query;
+	}
+
+	public DafGroup getGroupByVersionId(String idPart, String versionIdPart) {
+		return getSession().createNativeQuery(
+				"select * from groups where data->>'id' = '"+idPart+"' and data->'meta'->>'versionId' = '"+versionIdPart+"'", 
+					DafGroup.class).getSingleResult();
 	}
 }

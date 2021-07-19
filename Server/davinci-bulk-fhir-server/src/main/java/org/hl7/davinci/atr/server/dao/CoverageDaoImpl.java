@@ -11,10 +11,16 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
 import org.hl7.davinci.atr.server.model.DafCondition;
 import org.hl7.davinci.atr.server.model.DafCoverage;
+import org.hl7.davinci.atr.server.model.DafPatient;
+import org.hl7.davinci.atr.server.util.CommonUtil;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
 import org.hl7.fhir.r4.model.Coverage;
+import org.hl7.fhir.r4.model.Meta;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.IQueryParameterType;
@@ -25,13 +31,10 @@ import ca.uhn.fhir.rest.param.TokenParam;
 
 @Repository("coverageDao")
 public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
+	private static final Logger logger = LoggerFactory.getLogger(CoverageDaoImpl.class);    
 	@Autowired
 	FhirContext fhirContext;
 	
-	@Autowired
-    private SessionFactory sessionFactory;
-	
-	@SuppressWarnings({"unchecked", "deprecation"})
 	public DafCoverage getCoverageForPatientsBulkData(String coverageIds, Date start, Date end){
     	
 		Criteria criteria = getSession().createCriteria(DafCoverage.class);
@@ -50,7 +53,6 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
     	return (DafCoverage) criteria.list().get(0);
     }
 	
-	@SuppressWarnings({"unchecked", "deprecation"})
 	public List<DafCoverage> getCoverageForBulkData(Date start, Date end){
     	
 		Criteria criteria = getSession().createCriteria(DafCoverage.class);
@@ -64,43 +66,65 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
     	return criteria.list();
     }
 
-	@Override
 	public DafCoverage updateCoverageById(int theId, Coverage theCoverage) {
 		DafCoverage dafCoverage = new DafCoverage();
 		IParser jsonParser = fhirContext.newJsonParser();
 		dafCoverage.setId(theId);
 		dafCoverage.setData(jsonParser.encodeResourceToString(theCoverage));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.update(dafCoverage);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafCoverage);
 		return dafCoverage;
 	}
 
-	@Override
-	public DafCoverage createCoverage(Coverage theCoverage) {
-		Session session = sessionFactory.openSession();
+	public Coverage createCoverage(Coverage theCoverage) {
 		DafCoverage dafCoverage = new DafCoverage();
-		IParser jsonParser = fhirContext.newJsonParser();;
+		IParser jsonParser = fhirContext.newJsonParser();
+		Meta meta = new Meta();
+		if(theCoverage.hasMeta()) {
+			if(!theCoverage.getMeta().hasVersionId()) {
+        		meta.setVersionId("1");
+        		theCoverage.setMeta(meta);
+
+			}
+			if(!theCoverage.getMeta().hasLastUpdated()) {
+				Date date = new Date();
+        		meta.setLastUpdated(date);
+        		theCoverage.setMeta(meta);
+			}
+		}
+		else {
+    		meta.setVersionId("1");
+    		Date date = new Date();
+    		meta.setLastUpdated(date);
+    		theCoverage.setMeta(meta);
+		}
+		if(!theCoverage.hasIdElement()) {
+			String id = CommonUtil.getUniqueUUID();
+			theCoverage.setId(id);
+			logger.info(" setting the uuid ");
+		}
 		dafCoverage.setData(jsonParser.encodeResourceToString(theCoverage));
-		session.beginTransaction();
-		session.save(dafCoverage);
-		session.getTransaction().commit();
-		session.close();
-		return dafCoverage;
+		getSession().saveOrUpdate(dafCoverage);
+		return theCoverage;
 	}
 
-	@Override
-	public DafCoverage getCoverageById(int id) {
-		List<DafCoverage> list = getSession().createNativeQuery(
-			"select * from coverage where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", DafCoverage.class)
-				.getResultList();
-			return list.get(0);
+	public DafCoverage getCoverageById(String id) {
+		DafCoverage dafCoverage = null;
+		try {
+			List<DafCoverage> list = getSession().createNativeQuery(
+					"select * from coverage where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", DafCoverage.class)
+						.getResultList();
+			if(list != null && !list.isEmpty()) {
+				dafCoverage = new DafCoverage();
+				dafCoverage = list.get(0);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("Exception in getCoverageById of CoverageDaoImpl ", ex);
+		}
+		return dafCoverage;
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<DafCoverage> search(SearchParameterMap theMap) {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = getSession().createCriteria(DafCondition.class)
@@ -208,10 +232,39 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 	}
 
 	@Override
-	public DafCoverage getCoverageByVersionId(int id, String versionIdPart) {
+	public DafCoverage getCoverageByVersionId(String id, String versionIdPart) {
 		return getSession().createNativeQuery(
 				"select * from coverage where data->>'id' = '"+id+"' "
 						+ "and data->'meta'->>'versionId' = '"+versionIdPart+"'", DafCoverage.class)
 					.getSingleResult();
+	}
+
+	public DafCoverage getCoverageByPatientReference(String patientMemberId) {
+		DafCoverage dafCoverage = null;
+		try {
+			//select id as id, data as data, last_updated_ts as last_upd from patient where id in (select distinct(id) from patient r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+memberId+"'  and  segment ->>'system' = '"+TextConstants.MEMBERID_SYSTEM+"' ) )
+			List<DafCoverage> list = getSession().createNativeQuery("select * from coverage where data->'beneficiary'->>'reference'='Patient/"+patientMemberId+"' order by data->'meta'->>'versionId' desc", DafCoverage.class).getResultList();	
+			if(list != null && !list.isEmpty()) {
+				dafCoverage = list.get(0);
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getCoverageByPatientReference of CoverageDaoImpl ", e);
+		}
+		return dafCoverage;
+	}
+
+	public DafCoverage getCoverageByIdentifier(String system, String value) {
+		DafCoverage dafCoverage = null;
+		try {
+			List<DafCoverage> list = getSession().createNativeQuery("select * from coverage where id in (select distinct(id) from coverage r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+value+"'  and  segment ->>'system' = '"+system+"' ) ) order by data->'meta'->>'versionId' desc ", DafCoverage.class).getResultList();	
+			if(list != null && !list.isEmpty()) {
+				dafCoverage = list.get(0);
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getCoverageByIdentifier of CoverageDaoImpl ", e);
+		}
+		return dafCoverage;
 	}
 }

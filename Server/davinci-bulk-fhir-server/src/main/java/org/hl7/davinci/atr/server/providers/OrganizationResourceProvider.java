@@ -20,6 +20,8 @@ import org.hl7.davinci.atr.server.service.OrganizationService;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,12 +32,15 @@ import java.util.Set;
 
 @Component
 public class OrganizationResourceProvider extends AbstractJaxRsResourceProvider<Organization> {
+	private static final Logger logger = LoggerFactory.getLogger(OrganizationResourceProvider.class);    
 
 	public static final String RESOURCE_TYPE = "Organization";
 	public static final String VERSION_ID = "1";
 	
 	@Autowired
 	OrganizationService service;
+	@Autowired
+    FhirContext fhirContext;
 
 	public OrganizationResourceProvider(FhirContext fhirContext) {
         super(fhirContext);
@@ -66,11 +71,11 @@ public class OrganizationResourceProvider extends AbstractJaxRsResourceProvider<
 	 */
 	@Read(version = true)
 	public Organization readOrVread(@IdParam IdType theId) {
-		int id;
+		String id;
 		Organization organization;
 		try {
-			id = theId.getIdPartAsLong().intValue();
-		} catch (NumberFormatException e) {
+			id = theId.getIdPart();
+		} catch (Exception e) {
 			/*
 			 * If we can't parse the ID as a long, it's not valid so this is an unknown
 			 * resource
@@ -102,13 +107,15 @@ public class OrganizationResourceProvider extends AbstractJaxRsResourceProvider<
      */
     @Create
     public MethodOutcome createOrganization(@ResourceParam Organization theOrganization) {
-         
-    	// Save this Organization to the database...
-    	DafOrganization dafOrganization = service.createOrganization(theOrganization);
-     
 		MethodOutcome retVal = new MethodOutcome();
-		retVal.setId(new IdType(RESOURCE_TYPE, dafOrganization.getId() + "", VERSION_ID));
-  
+    	try {
+    		// Save this Organization to the database...
+        	Organization organization = service.createOrganization(theOrganization);
+    		retVal.setId(new IdType(RESOURCE_TYPE, organization.getIdElement().getIdPart(), organization.getMeta().getVersionId()));    		
+    	}
+    	catch(Exception e) {
+    		logger.error("Exception in createPatient of PatientResourceProvider ", e);
+    	}
 		return retVal;
     }
 

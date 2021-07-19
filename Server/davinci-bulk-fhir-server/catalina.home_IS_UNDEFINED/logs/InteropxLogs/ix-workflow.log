@@ -1,0 +1,26 @@
+Monday July 19 2021 10:00:32.937 PM India Standard Time [main] [INFO] [o.h.d.a.s.DavinciFHIRApplicationTests] - Starting DavinciFHIRApplicationTests on 62PCB53 with PID 6280 (started by Admin in C:\XYRAMWorkspace\Projects\davinci-atr\atr\Server\davinci-bulk-fhir-server)
+Monday July 19 2021 10:00:32.939 PM India Standard Time [main] [DEBUG] [o.h.d.a.s.DavinciFHIRApplicationTests] - Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE
+Monday July 19 2021 10:00:32.939 PM India Standard Time [main] [INFO] [o.h.d.a.s.DavinciFHIRApplicationTests] - No active profile set, falling back to default profiles: default
+Monday July 19 2021 10:00:35.807 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - session factory Method in HibernateConfiguration 
+Monday July 19 2021 10:00:35.810 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - datasource Method in HibernateConfiguration 
+Monday July 19 2021 10:00:35.820 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - dataSource Method in HibernateConfiguration 
+Monday July 19 2021 10:00:35.883 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - hibernateProperties Method in HibernateConfiguration 
+Monday July 19 2021 10:00:35.883 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - hibernateProperties Method in HibernateConfiguration 
+Monday July 19 2021 10:00:35.884 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - session factory Method in HibernateConfiguration 
+Monday July 19 2021 10:00:39.572 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - transactionManager Method in HibernateConfiguration 
+Monday July 19 2021 10:00:39.573 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - transactionManager Method in HibernateConfiguration 
+Monday July 19 2021 10:00:41.020 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.SchedulerConfig$$EnhancerBySpringCGLIB$$80f37823] - Schudule the time, SchedulerConfig-> configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar)
+Monday July 19 2021 10:00:41.028 PM India Standard Time [main] [INFO] [o.h.d.a.s.DavinciFHIRApplicationTests] - Started DavinciFHIRApplicationTests in 8.323 seconds (JVM running for 9.654)
+Monday July 19 2021 10:01:00.558 PM India Standard Time [main] [INFO] [o.h.d.a.s.DavinciFHIRApplication] - Starting DavinciFHIRApplication on 62PCB53 with PID 12024 (C:\XYRAMWorkspace\Projects\davinci-atr\atr\Server\davinci-bulk-fhir-server\target\classes started by Admin in C:\XYRAMWorkspace\Projects\davinci-atr\atr\Server\davinci-bulk-fhir-server)
+Monday July 19 2021 10:01:00.560 PM India Standard Time [main] [DEBUG] [o.h.d.a.s.DavinciFHIRApplication] - Running with Spring Boot v2.2.1.RELEASE, Spring v5.2.1.RELEASE
+Monday July 19 2021 10:01:00.561 PM India Standard Time [main] [INFO] [o.h.d.a.s.DavinciFHIRApplication] - No active profile set, falling back to default profiles: default
+Monday July 19 2021 10:01:03.232 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - session factory Method in HibernateConfiguration 
+Monday July 19 2021 10:01:03.234 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - datasource Method in HibernateConfiguration 
+Monday July 19 2021 10:01:03.239 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - dataSource Method in HibernateConfiguration 
+Monday July 19 2021 10:01:03.249 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - hibernateProperties Method in HibernateConfiguration 
+Monday July 19 2021 10:01:03.250 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - hibernateProperties Method in HibernateConfiguration 
+Monday July 19 2021 10:01:03.250 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - session factory Method in HibernateConfiguration 
+Monday July 19 2021 10:01:05.141 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Entry - transactionManager Method in HibernateConfiguration 
+Monday July 19 2021 10:01:05.142 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.HibernateConfiguration] - Exit - transactionManager Method in HibernateConfiguration 
+Monday July 19 2021 10:01:05.550 PM India Standard Time [main] [INFO] [o.h.d.a.s.c.SchedulerConfig$$EnhancerBySpringCGLIB$$7bce9613] - Schudule the time, SchedulerConfig-> configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar)
+Monday July 19 2021 10:01:05.634 PM India Standard Time [main] [INFO] [o.h.d.a.s.DavinciFHIRApplication] - Started DavinciFHIRApplication in 5.319 seconds (JVM running for 6.152)

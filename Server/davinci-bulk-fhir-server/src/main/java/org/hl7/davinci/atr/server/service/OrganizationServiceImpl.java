@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hl7.davinci.atr.server.dao.OrganizationDao;
 import org.hl7.davinci.atr.server.model.DafOrganization;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
-import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Organization;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,17 +22,15 @@ import ca.uhn.fhir.parser.IParser;
 @Transactional
 public class OrganizationServiceImpl implements OrganizationService {
 
-public static final String RESOURCE_TYPE = "Organization";
-	
+	private static final Logger logger = LoggerFactory.getLogger(OrganizationServiceImpl.class);    
+
 	@Autowired
 	FhirContext fhirContext;
 
 	@Autowired
     private OrganizationDao organizationDao;
 	
-	@Override
-    @Transactional
-    public Organization getOrganizationById(int id) {
+    public Organization getOrganizationById(String id) {
 		Organization organization = null;
 		IParser jsonParser = fhirContext.newJsonParser();
 		DafOrganization dafOrganization = organizationDao.getOrganizationById(id);
@@ -41,9 +41,7 @@ public static final String RESOURCE_TYPE = "Organization";
 		return organization;
     }
 
-	@Override
-	@Transactional
-	public Organization getOrganizationByVersionId(int theId, String versionId) {
+	public Organization getOrganizationByVersionId(String theId, String versionId) {
 		Organization organization = null;
 		IParser jsonParser = fhirContext.newJsonParser();
 		DafOrganization dafOrganization = organizationDao.getOrganizationByVersionId(theId, versionId);
@@ -54,8 +52,6 @@ public static final String RESOURCE_TYPE = "Organization";
 		return organization;
 	}
 
-	@Override
-	@Transactional
 	public List<Organization> search(SearchParameterMap searchParameterMap) {
 		Organization organization = null;
 		List<Organization> organizationList = new ArrayList<>();
@@ -71,18 +67,14 @@ public static final String RESOURCE_TYPE = "Organization";
 		return organizationList;
 	}
 
-	@Override
-	public DafOrganization createOrganization(Organization theOrganization) {
+	public Organization createOrganization(Organization theOrganization) {
 		return organizationDao.createOrganization(theOrganization);
 	}
 
-	@Override
 	public DafOrganization updateOrganizationById(int id, Organization theOrganization) {
 		return organizationDao.updateOrganizationById(id, theOrganization);
 	}
 	
-	@Override
-    @Transactional
     public List<Organization> getOrganizationForBulkData(List<String> patients, Date start, Date end) {
     	Organization organization = null;
 		List<Organization> organizationList = new ArrayList<>();
@@ -100,5 +92,38 @@ public static final String RESOURCE_TYPE = "Organization";
 			}
 		}
 		return organizationList;
+    }
+
+	public Organization getOrganizationByProviderIdentifier(String system, String value) {
+		Organization organization = null;
+		try {
+			DafOrganization dafOrganization = organizationDao.getOrganizationByProviderIdentifier(system, value);
+			if(dafOrganization != null) {
+				organization = parseOrganization(dafOrganization.getData());
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getOrganizationByProviderNpi of OrganizationServiceImpl ", e);
+	  	}
+		return organization;
+	}
+	
+	/**
+     * Parses the string data to fhir Practitioner resource data
+     * @param data
+     * @return
+     */
+    private Organization parseOrganization(String data) {
+    	Organization organization = null;
+    	try {
+			if(StringUtils.isNotBlank(data)) {
+	    		IParser jsonParser = fhirContext.newJsonParser();
+	    		organization = jsonParser.parseResource(Organization.class, data);
+			}
+    	}
+  	  	catch(Exception e) {
+  	  		logger.error("Exception in parsePractitioner of OrganizationServiceImpl ", e);
+  	  	}
+  	  	return organization;
     }
 }

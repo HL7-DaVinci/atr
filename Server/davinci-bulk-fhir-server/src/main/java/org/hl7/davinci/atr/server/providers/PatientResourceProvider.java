@@ -23,6 +23,8 @@ import org.hl7.fhir.r4.model.Binary;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Meta;
 import org.hl7.fhir.r4.model.Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -59,7 +61,9 @@ public class PatientResourceProvider extends AbstractJaxRsResourceProvider<Patie
 	
 	public static final String RESOURCE_TYPE = "Patient";
     public static final String VERSION_ID = "1";
-
+	private static final Logger logger = LoggerFactory.getLogger(PatientResourceProvider.class);    
+	@Autowired
+    FhirContext fhirContext;
     @Autowired
 	private PatientService service;
     
@@ -90,13 +94,21 @@ public class PatientResourceProvider extends AbstractJaxRsResourceProvider<Patie
      */
     @Create
     public MethodOutcome createPatient(@ResourceParam Patient thePatient) {
-         
-    	// Save this patient to the database...
-    	DafPatient dafPatient = service.createPatient(thePatient);
-     
-		MethodOutcome retVal = new MethodOutcome();
-		retVal.setId(new IdType(RESOURCE_TYPE, dafPatient.getId() + "", VERSION_ID));
-  
+		MethodOutcome retVal = null;
+    	try {
+        	// Save this patient to the database...
+    		Patient newPatient = service.createPatient(thePatient);
+//        	IParser jsonParser = fhirContext.newJsonParser();
+//        	Patient patient = null;
+//			if(newPatient != null) {
+//				patient = jsonParser.parseResource(Patient.class, jsonParser.encodeResourceToString(newPatient)); 
+//			}
+        	retVal = new MethodOutcome();
+    		retVal.setId(new IdType(RESOURCE_TYPE, thePatient.getIdElement().getIdPart(), thePatient.getMeta().getVersionId()));    		
+    	}
+    	catch(Exception e) {
+    		logger.error("Exception in createPatient of PatientResourceProvider ", e);
+    	}
 		return retVal;
     }
 
@@ -114,10 +126,10 @@ public class PatientResourceProvider extends AbstractJaxRsResourceProvider<Patie
 	 */
 	@Read(version=true)
     public Patient readOrVread(@IdParam IdType theId) {
-		int id;
+		String id;
 		Patient thePatient = null;
 		try {
-		    id = theId.getIdPartAsLong().intValue();
+		    id = theId.getIdPart();
 		} catch (NumberFormatException e) {
 		    /*
 		     * If we can't parse the ID as a long, it's not valid so this is an unknown resource

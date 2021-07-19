@@ -15,12 +15,15 @@ public interface CoverageDao {
 
 	DafCoverage updateCoverageById(int id, Coverage theCoverage);
 
-	DafCoverage createCoverage(Coverage theCoverage);
+	Coverage createCoverage(Coverage theCoverage);
 
-	DafCoverage getCoverageById(int theId);
+	DafCoverage getCoverageById(String theId);
 
 	List<DafCoverage> search(SearchParameterMap paramMap);
 
-	DafCoverage getCoverageByVersionId(int id, String versionIdPart);
+	DafCoverage getCoverageByVersionId(String id, String versionIdPart);
 
+	DafCoverage getCoverageByPatientReference(String patientMemberId);
+
+	DafCoverage getCoverageByIdentifier(String system, String value);
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{EEEEEE MMMM dd yyyy hh:mm:ss.SSS a zzzz} [%t] [%level] [%logger{36}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="RollingAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${catalina.home}/logs/InteropxLogs/ix-workflow.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${catalina.home}/logs/InteropxLogs/bulk-api-r4_%d{dd-MM-yyyy}_%i.gz</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<!-- total size of all archive files, if total size > 2GB, it will delete old archived file -->
+            <totalSizeCap>2GB</totalSizeCap>
+            <!-- 10 days to keep -->
+            <maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{EEEEEE MMMM dd yyyy hh:mm:ss.SSS a zzzz} [%t] [%level] [%logger{36}] - %msg%n</Pattern>
+		</encoder>
+	</appender>
+
+	<!-- Logging custom package -->
+	<logger name="org.hl7.davinci.atr.server" level="ALL" additivity="false">
+		<appender-ref ref="RollingAppender"/>
+		<appender-ref ref="ConsoleAppender"/>
+	</logger>
+	<!-- Logging spring boot package -->
+	<logger name="org.springframework.boot" level="ERROR" additivity="false">
+		<appender-ref ref="RollingAppender"/>
+		<appender-ref ref="ConsoleAppender"/>
+	</logger>
+	<root level="ERROR">
+		<appender-ref ref="RollingAppender"/>
+		<appender-ref ref="ConsoleAppender"/>`
+	</root>
+</configuration>

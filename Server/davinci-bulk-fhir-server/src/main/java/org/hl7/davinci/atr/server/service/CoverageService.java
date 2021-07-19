@@ -9,16 +9,19 @@ import org.hl7.fhir.r4.model.Coverage;
 
 public interface CoverageService {
 
-	Coverage getCoverageByVersionId(int id, String versionIdPart);
+	Coverage getCoverageByVersionId(String id, String versionIdPart);
 
-	Coverage getCoverageById(int id);
+	Coverage getCoverageById(String id);
 
 	List<Coverage> search(SearchParameterMap paramMap);
 
-	DafCoverage createCoverage(Coverage theCoverage);
+	Coverage createCoverage(Coverage theCoverage);
 
 	DafCoverage updateCoverageById(int id, Coverage theCoverage);
 
 	List<Coverage> getCoverageForBulkData(List<String> patients, Date start, Date end);
 
+	Coverage getCoverageByIdentifier(String system, String value);
+
+	Coverage getCoverageByPatientReference(String id);
 }

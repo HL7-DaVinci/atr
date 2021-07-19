@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hl7.davinci.atr.server.dao.PatientDao;
 import org.hl7.davinci.atr.server.model.DafPatient;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
-import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +21,7 @@ import ca.uhn.fhir.parser.IParser;
 @Service("patientService")
 @Transactional
 public class PatientServiceImpl implements PatientService {
-	
+	private static final Logger logger = LoggerFactory.getLogger(PatientServiceImpl.class);    
 	public static final String RESOURCE_TYPE = "Patient";
 
 	@Autowired
@@ -28,8 +30,7 @@ public class PatientServiceImpl implements PatientService {
 	@Autowired
 	FhirContext fhirContext;
 	
-	@Override
-	public Patient getPatientByVersionId(int theId, String versionId) {
+	public Patient getPatientByVersionId(String theId, String versionId) {
 		Patient patient = null;
 		IParser jsonParser = fhirContext.newJsonParser();
 		DafPatient dafPatient = patientDao.getPatientByVersionId(theId, versionId);
@@ -40,8 +41,7 @@ public class PatientServiceImpl implements PatientService {
 		return patient;
 	}
 
-	@Override
-	public Patient getPatientById(int theId) {
+	public Patient getPatientById(String theId) {
 		Patient patient = null;
 		IParser jsonParser = fhirContext.newJsonParser();
 		DafPatient dafPatient = patientDao.getPatientById(theId);
@@ -52,17 +52,14 @@ public class PatientServiceImpl implements PatientService {
 		return patient;
 	}
 
-	@Override
-	public DafPatient createPatient(Patient thePatient) {
+	public Patient createPatient(Patient thePatient) {
 		return patientDao.createPatient(thePatient);
 	}
 
-	@Override
 	public DafPatient updatePatientById(int id, Patient thePatient) {
 		return patientDao.updatePatientById(id, thePatient);
 	}
 
-	@Override
 	public List<Patient> search(SearchParameterMap paramMap) {
 		Patient patient = null;
 		List<Patient> patientList = new ArrayList<>();
@@ -78,8 +75,6 @@ public class PatientServiceImpl implements PatientService {
 		return patientList;
 	}
 	
-	@Override
-	@Transactional
     public List<Patient> getPatientJsonForBulkData(List<String> patients, Date start, Date end) {
     	Patient patient = null;
 		List<Patient> patientList = new ArrayList<>();
@@ -104,5 +99,38 @@ public class PatientServiceImpl implements PatientService {
 			}
 		}
 		return patientList;
+    }
+
+	public Patient getPatientByMemeberId(String memberSystem, String memberId) {
+		Patient patient = null;
+		try {
+			DafPatient dafPatient = patientDao.getPatientByMemeberId(memberSystem, memberId);
+			if(dafPatient != null) {
+				patient = parsePatient(dafPatient.getData());
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getPatientByMemeberId of PatientServiceImpl ", e);
+	  	}
+		return patient;
+	}
+	
+	/**
+     * Parses the string data to fhir Patient resource data
+     * @param data
+     * @return
+     */
+    private Patient parsePatient(String data) {
+    	Patient patient = null;
+    	try {
+			if(StringUtils.isNotBlank(data)) {
+	    		IParser jsonParser = fhirContext.newJsonParser();
+				patient = jsonParser.parseResource(Patient.class, data);
+			}
+    	}
+  	  	catch(Exception e) {
+  	  		logger.error("Exception in parsePatient of PatientServiceImpl ", e);
+  	  	}
+  	  	return patient;
     }
 }

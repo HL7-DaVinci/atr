@@ -10,9 +10,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.hl7.davinci.atr.server.constants.TextConstants;
 import org.hl7.davinci.atr.server.model.DafPractitioner;
+import org.hl7.davinci.atr.server.model.DafPractitionerRole;
+import org.hl7.davinci.atr.server.util.CommonUtil;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
+import org.hl7.fhir.r4.model.Meta;
 import org.hl7.fhir.r4.model.Practitioner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,25 +32,32 @@ import ca.uhn.fhir.rest.param.TokenParamModifier;
 
 @Repository("practitionerDao")
 public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao {
-	
+	private static final Logger logger = LoggerFactory.getLogger(PractitionerDaoImpl.class);    
+
 	@Autowired
 	FhirContext fhirContext;
 
-	@Autowired
-    private SessionFactory sessionFactory;
-	
 	/**
 	 * This method builds criteria for fetching practitioner record by id.
 	 * @param id : ID of the resource
 	 * @return : DafPractitioner object
 	 */
-	@Override
-	public DafPractitioner getPractitionerById(int id) {
-		List<DafPractitioner> list = getSession().createNativeQuery(
-			"select * from practitioner where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", 
-			DafPractitioner.class)
-				.getResultList();
-		return list.get(0);
+	public DafPractitioner getPractitionerById(String id) {
+		DafPractitioner dafPractitioner = null;
+		try {
+			List<DafPractitioner> list = getSession().createNativeQuery(
+					"select * from practitioner where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", 
+					DafPractitioner.class)
+						.getResultList();
+			if(list != null && !list.isEmpty()) {
+				dafPractitioner = new DafPractitioner();
+				dafPractitioner = list.get(0);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("Exception in getPractitionerById of PractitionerDaoImpl ", ex);
+		}
+		return dafPractitioner;
     }
 
 	/**
@@ -54,9 +67,7 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
 	 * @param versionId : version of the practitioner record
 	 * @return : DafPractitioner object
 	 */
-	@Override
-	@Transactional 
-	public DafPractitioner getPractitionerByVersionId(int theId, String versionId) {
+	public DafPractitioner getPractitionerByVersionId(String theId, String versionId) {
 		return getSession().createNativeQuery(
 			"select * from practitioner where id = '"+theId+"' and data->'meta'->>'versionId' = '"+versionId+"'", 
 			DafPractitioner.class).getSingleResult();
@@ -66,34 +77,52 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
      * This method builds criteria for creating the practitioner
      * @return : practitioner record
      */
-    @Override
-    @Transactional
-	public DafPractitioner createPractitioner(Practitioner thePractitioner) {
-		Session session = sessionFactory.openSession();
+	public Practitioner createPractitioner(Practitioner thePractitioner) {
 		DafPractitioner dafPractitioner = new DafPractitioner();
-		IParser jsonParser = fhirContext.newJsonParser();;
-		dafPractitioner.setData(jsonParser.encodeResourceToString(thePractitioner));
-		session.beginTransaction();
-		session.save(dafPractitioner);
-		session.getTransaction().commit();
-		session.close();
-		return dafPractitioner;
+    	try {
+    		IParser jsonParser = fhirContext.newJsonParser();
+    		Meta meta = new Meta();
+    		if(thePractitioner.hasMeta()) {
+    			if(!thePractitioner.getMeta().hasVersionId()) {
+            		meta.setVersionId("1");
+            		thePractitioner.setMeta(meta);
+
+    			}
+    			if(!thePractitioner.getMeta().hasLastUpdated()) {
+    				Date date = new Date();
+            		meta.setLastUpdated(date);
+            		thePractitioner.setMeta(meta);
+    			}
+    		}
+    		else {
+        		meta.setVersionId("1");
+        		Date date = new Date();
+        		meta.setLastUpdated(date);
+        		thePractitioner.setMeta(meta);
+    		}
+    		if(!thePractitioner.hasIdElement()) {
+    			String id = CommonUtil.getUniqueUUID();
+    			thePractitioner.setId(id);
+    			logger.info(" setting the uuid ");
+    		}
+    		dafPractitioner.setData(jsonParser.encodeResourceToString(thePractitioner));
+    		getSession().saveOrUpdate(dafPractitioner);
+    	}
+    	catch(Exception e) {
+    		logger.error("Exception in createPractitioner of PractitionerDaoImpl ", e);
+    	}
+		return thePractitioner;
 	}
     
     /**
      * 
      */
-	@Override
 	public DafPractitioner updatePractitionerById(int theId, Practitioner thePractitioner) {
 		DafPractitioner dafPractitioner = new DafPractitioner();
 		IParser jsonParser = fhirContext.newJsonParser();
 		dafPractitioner.setId(theId);
 		dafPractitioner.setData(jsonParser.encodeResourceToString(thePractitioner));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.update(dafPractitioner);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafPractitioner);
 		return dafPractitioner;
 	}
 	
@@ -878,8 +907,6 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
     	}
     }
     
-    @SuppressWarnings({"unchecked", "deprecation"})
-	@Override
     public DafPractitioner getPractitionerForBulkData(String practitioners, Date start, Date end) {
 		Criteria criteria = getSession().createCriteria(DafPractitioner.class);
 		if(practitioners!=null) {
@@ -892,5 +919,20 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
 			criteria.add(Restrictions.le("timestamp", end));
 		}
     	return (DafPractitioner) criteria.list().get(0);
+	}
+
+	public DafPractitioner getPractitionerByProviderNpi(String providerNpiSystem,String providerNpi) {
+		DafPractitioner dafPractitioner = null;
+		try {
+			//select id as id, data as data, last_updated_ts as last_upd from patient where id in (select distinct(id) from patient r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+memberId+"'  and  segment ->>'system' = '"+TextConstants.MEMBERID_SYSTEM+"' ) )
+			List<DafPractitioner> list = getSession().createNativeQuery("select * from practitioner where id in (select distinct(id) from practitioner r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+providerNpi+"'  and  segment ->>'system' = '"+providerNpiSystem+"' ) ) order by data->'meta'->>'versionId' desc", DafPractitioner.class).getResultList();	
+			if(list != null && !list.isEmpty()) {
+				dafPractitioner = list.get(0);
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getPractitionerByProviderNpi of PractitionerDaoImpl ", e);
+		}
+		return dafPractitioner;
 	}
 }

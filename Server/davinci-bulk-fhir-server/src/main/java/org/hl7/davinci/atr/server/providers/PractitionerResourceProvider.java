@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.hl7.davinci.atr.server.model.DafPatient;
 import org.hl7.davinci.atr.server.model.DafPractitioner;
 import org.hl7.davinci.atr.server.service.PractitionerService;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
@@ -12,6 +13,8 @@ import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Meta;
 import org.hl7.fhir.r4.model.Practitioner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +45,8 @@ public class PractitionerResourceProvider extends AbstractJaxRsResourceProvider<
 	
 	public static final String RESOURCE_TYPE = "Practitioner";
     public static final String VERSION_ID = "1";
-    
+	private static final Logger logger = LoggerFactory.getLogger(PractitionerResourceProvider.class);    
+
     @Autowired
     PractitionerService service;
     
@@ -69,10 +73,10 @@ public class PractitionerResourceProvider extends AbstractJaxRsResourceProvider<
 	 */
 	@Read(version=true)
     public Practitioner readOrVread(@IdParam IdType theId) {
-		int id;
+		String id;
 		Practitioner thePractitioner;
 		try {
-		    id = theId.getIdPartAsLong().intValue();
+		    id = theId.getIdPart();
 		} catch (NumberFormatException e) {
 		    /*
 		     * If we can't parse the ID as a long, it's not valid so this is an unknown resource
@@ -270,13 +274,16 @@ public class PractitionerResourceProvider extends AbstractJaxRsResourceProvider<
      */
     @Create
     public MethodOutcome createPractitioner(@ResourceParam Practitioner thePractitioner) {
-         
-    	// Save this Practitioner to the database...
-    	DafPractitioner dafPractitioner = service.createPractitioner(thePractitioner);
-     
-		MethodOutcome retVal = new MethodOutcome();
-		retVal.setId(new IdType(RESOURCE_TYPE, dafPractitioner.getId() + "", VERSION_ID));
-  
+		MethodOutcome retVal = null;
+    	try {
+        	// Save this Practitioner to the database...
+    		Practitioner practitioner = service.createPractitioner(thePractitioner);
+        	retVal = new MethodOutcome();
+    		retVal.setId(new IdType(RESOURCE_TYPE, thePractitioner.getIdElement().getIdPart(), thePractitioner.getMeta().getVersionId()));    		
+    	}
+    	catch(Exception e) {
+    		logger.error("Exception in createPractitioner of PractitionerResourceProvider ", e);
+    	}
 		return retVal;
     }
 

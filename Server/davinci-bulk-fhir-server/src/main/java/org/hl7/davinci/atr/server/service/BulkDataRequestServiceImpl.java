@@ -24,13 +24,11 @@ public class BulkDataRequestServiceImpl implements BulkDataRequestService {
 		return bdrDao.getBulkDataRequestById(id);
 	}
 
-	@Override
 	public List<DafBulkDataRequest> getBulkDataRequestsByProcessedFlag(Boolean flag) {
 		
 		return bdrDao.getBulkDataRequestsByProcessedFlag(flag);
 	}
 
-	@Override
 	public Integer deleteRequestById(Integer id) {
 		
 		return bdrDao.deleteRequestById(id);

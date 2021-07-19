@@ -13,9 +13,15 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.hl7.davinci.atr.server.constants.TextConstants;
 import org.hl7.davinci.atr.server.model.DafOrganization;
+import org.hl7.davinci.atr.server.model.DafPractitioner;
+import org.hl7.davinci.atr.server.util.CommonUtil;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
+import org.hl7.fhir.r4.model.Meta;
 import org.hl7.fhir.r4.model.Organization;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,25 +31,33 @@ import java.util.List;
 
 @Repository("organizationDao")
 public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao {
+	private static final Logger logger = LoggerFactory.getLogger(OrganizationDaoImpl.class);    
 
 	@Autowired
 	FhirContext fhirContext;
 
-	@Autowired
-    private SessionFactory sessionFactory;
-	
 	/**
 	 * This method builds criteria for fetching organization record by id.
 	 * 
 	 * @param id : ID of the resource
 	 * @return : DAF object of the organization
 	 */
-	public DafOrganization getOrganizationById(int id) {
-		List<DafOrganization> list = getSession().createNativeQuery(
-				"select * from organization where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", 
-				DafOrganization.class)
-					.getResultList();
-			return list.get(0);
+	public DafOrganization getOrganizationById(String id) {
+		DafOrganization dafOrganization = null;
+		try {
+			List<DafOrganization> list = getSession().createNativeQuery(
+					"select * from organization where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", 
+					DafOrganization.class)
+						.getResultList();
+			if(list != null && !list.isEmpty()) {
+				dafOrganization = new DafOrganization();
+				dafOrganization = list.get(0);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("Exception in getOrganizationById of OrganizationDaoImpl ", ex);
+		}
+		return dafOrganization;
 	}
 
 	/**
@@ -54,8 +68,7 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
 	 * @param versionId : version of the organization record
 	 * @return : DAF object of the organization
 	 */
-	@Override
-	public DafOrganization getOrganizationByVersionId(int theId, String versionId) {
+	public DafOrganization getOrganizationByVersionId(String theId, String versionId) {
 		return getSession().createNativeQuery(
 				"select * from organization where id = '"+theId+"' and data->'meta'->>'versionId' = '"+versionId+"'", 
 				DafOrganization.class).getSingleResult();
@@ -669,35 +682,52 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
      * This method builds criteria for creating the patient
      * @return : patient record
      */
-    @Override
-    @Transactional
-	public DafOrganization createOrganization(Organization theOrganization) {
-		Session session = sessionFactory.openSession();
+	public Organization createOrganization(Organization theOrganization) {
 		DafOrganization dafOrganization = new DafOrganization();
-		IParser jsonParser = fhirContext.newJsonParser();;
-		dafOrganization.setData(jsonParser.encodeResourceToString(theOrganization));
-		session.beginTransaction();
-		session.save(dafOrganization);
-		session.getTransaction().commit();
-		session.close();
-		return dafOrganization;
+    	try {
+    		IParser jsonParser = fhirContext.newJsonParser();
+    		Meta meta = new Meta();
+    		if(theOrganization.hasMeta()) {
+    			if(!theOrganization.getMeta().hasVersionId()) {
+            		meta.setVersionId("1");
+            		theOrganization.setMeta(meta);
+
+    			}
+    			if(!theOrganization.getMeta().hasLastUpdated()) {
+    				Date date = new Date();
+            		meta.setLastUpdated(date);
+            		theOrganization.setMeta(meta);
+    			}
+    		}
+    		else {
+        		meta.setVersionId("1");
+        		Date date = new Date();
+        		meta.setLastUpdated(date);
+        		theOrganization.setMeta(meta);
+    		}
+    		if(!theOrganization.hasIdElement()) {
+    			String id = CommonUtil.getUniqueUUID();
+    			theOrganization.setId(id);
+    			logger.info(" setting the uuid ");
+    		}
+    		dafOrganization.setData(jsonParser.encodeResourceToString(theOrganization));
+    		getSession().saveOrUpdate(dafOrganization);
+    	}
+    	catch(Exception e) {
+    		logger.error("Exception in createOrganization of OrganizationDaoImpl ", e);
+    	}
+		return theOrganization;
 	}
 
-	@Override
 	public DafOrganization updateOrganizationById(int theId, Organization theDafOrganization) {
 		DafOrganization dafOrganization = new DafOrganization();
 		IParser jsonParser = fhirContext.newJsonParser();
 		dafOrganization.setId(theId);
 		dafOrganization.setData(jsonParser.encodeResourceToString(theDafOrganization));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.update(dafOrganization);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafOrganization);
 		return dafOrganization;
 	}
 	
-	@SuppressWarnings({"unchecked", "deprecation"})
 	public DafOrganization getOrganizationForBulkData(String organizations, Date start, Date end){
 	
 		Criteria criteria = getSession().createCriteria(DafOrganization.class);
@@ -711,5 +741,20 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
 			criteria.add(Restrictions.le("timestamp", end));
 		}
     	return (DafOrganization) criteria.list().get(0);
+	}
+
+	public DafOrganization getOrganizationByProviderIdentifier(String theSystem, String theValue) {
+		DafOrganization dafOrganization = null;
+		try {
+			//select id as id, data as data, last_updated_ts as last_upd from patient where id in (select distinct(id) from patient r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+memberId+"'  and  segment ->>'system' = '"+TextConstants.MEMBERID_SYSTEM+"' ) )
+			List<DafOrganization> list = getSession().createNativeQuery("select * from organization where id in (select distinct(id) from organization r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+theValue+"'  and  segment ->>'system' = '"+theSystem+"' ) ) order by data->'meta'->>'versionId' desc", DafOrganization.class).getResultList();	
+			if(list != null && !list.isEmpty()) {
+				dafOrganization = list.get(0);
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getOrganizationByProviderIdentifier of OrganizationDaoImpl ", e);
+		}
+		return dafOrganization;
 	}
 }

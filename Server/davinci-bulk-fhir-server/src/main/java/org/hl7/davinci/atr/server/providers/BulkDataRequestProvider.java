@@ -167,9 +167,10 @@ public class BulkDataRequestProvider {
 	@ResponseBody
 	public int downloadFile(@PathVariable Integer id, @PathVariable String fileName, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
+		log.info("Received request to download the file");
 		if(request.getHeader("Accept") != null && request.getHeader("Accept").equals("application/fhir+ndjson")) {
 			String contextPath = System.getProperty("catalina.base");
-			String destDir = contextPath + "/bulk data/" + id + "/";
+			String destDir = contextPath + "/bulkdata/" + id + "/";
 			return CommonUtil.downloadFIleByName(new File(destDir + fileName), response);
 		}	
 		else {
@@ -188,7 +189,7 @@ public class BulkDataRequestProvider {
 		// delete folder with files
 		if (res > 0) {
 			String contextPath = System.getProperty("catalina.base");
-			String destDir = contextPath + "/bulk data/" + requestId + "/";
+			String destDir = contextPath + "/bulkdata/" + requestId + "/";
 			File directory = new File(destDir);
 			if (directory.exists()) {
 				FileUtils.deleteDirectory(directory);
@@ -259,7 +260,7 @@ public class BulkDataRequestProvider {
 		}
 
 		String contextPath = System.getProperty("catalina.base");
-		File destDir = new File(contextPath + "/bulk data/" + bdr.getRequestId() + "/");
+		File destDir = new File(contextPath + "/bulkdata/" + bdr.getRequestId() + "/");
 		bdr.setStatus("In Progress");
 		bdr.setProcessedFlag(true);
 		bdrService.saveBulkDataRequest(bdr);
@@ -586,7 +587,7 @@ public class BulkDataRequestProvider {
 	 */
 	public boolean checkFilesInDestination(DafBulkDataRequest bdr, List<String> ndjsonfiles) {
 		String contextPath = System.getProperty("catalina.base");
-		String destFilePath = contextPath + "/bulk data" + "/" + bdr.getRequestId() + "/";
+		String destFilePath = contextPath + "/bulkdata" + "/" + bdr.getRequestId() + "/";
 		log.info("Verifying the NDSJSON files in directory ----->" + destFilePath);
 		String[] destFilesList = new File(destFilePath).list();
 		log.info("No. of NDJSON files created in " + destFilePath + " is:" + ndjsonfiles.size());
