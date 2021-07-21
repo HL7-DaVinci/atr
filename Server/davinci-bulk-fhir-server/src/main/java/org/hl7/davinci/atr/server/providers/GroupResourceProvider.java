@@ -209,6 +209,8 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 			@Description(shortDefinition = "Group Name") @OptionalParam(name = "name") StringParam theName,
 
 			@Description(shortDefinition = "A patient identifier") @OptionalParam(name = Group.SP_IDENTIFIER) TokenAndListParam theIdentifier,
+			
+			@Description(shortDefinition = "Search by Group.period") @OptionalParam(name = "period") DateRangeParam dateParam,
 
 			@IncludeParam(allow = { "*" }) Set<Include> theIncludes,
 
