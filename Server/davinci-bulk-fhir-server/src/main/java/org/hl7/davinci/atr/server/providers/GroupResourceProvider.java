@@ -57,6 +57,7 @@ import ca.uhn.fhir.rest.param.StringAndListParam;
 import ca.uhn.fhir.rest.param.StringParam;
 import ca.uhn.fhir.rest.param.TokenAndListParam;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
+import ca.uhn.fhir.rest.server.exceptions.UnclassifiedServerFailureException;
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
 
 @Component
@@ -271,7 +272,7 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 		Binary retVal = new Binary();
 		if (requestDetails.getHeader("Prefer") != null && requestDetails.getHeader("Accept") != null) {
 			if (requestDetails.getHeader("Prefer").equals("respond-async")
-					&& requestDetails.getHeader("Accept").equals("application/fhir+json")) {
+					&& (requestDetails.getHeader("Accept").equals("application/fhir+json") || requestDetails.getHeader("Accept").equals("application/json"))) {
 				String resourceId = groupId.getIdPart();
 				Date start = null;
 				DafBulkDataRequest bdr = new DafBulkDataRequest();
@@ -312,10 +313,12 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 				retVal.setContentType("application/json+fhir");
 				return retVal;
 			} else {
-				throw new UnprocessableEntityException("Invalid header values!");
+				//throw new UnprocessableEntityException("Invalid header values!");
+				throw new UnclassifiedServerFailureException(400, "Invalid header values!");
 			}
 		} else {
-			throw new UnprocessableEntityException("Prefer or Accepted Header is missing!");
+			//throw new UnprocessableEntityException("Prefer or Accepted Header is missing!");
+			throw new UnclassifiedServerFailureException(400, "Prefer or Accepted Header is missing!");
 		}
 	}
 

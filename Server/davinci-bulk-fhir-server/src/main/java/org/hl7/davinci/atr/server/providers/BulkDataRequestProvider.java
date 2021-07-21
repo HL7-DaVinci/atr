@@ -42,6 +42,7 @@ import com.google.gson.Gson;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.primitive.DateDt;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
+import ca.uhn.fhir.rest.server.exceptions.UnclassifiedServerFailureException;
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
 import ch.qos.logback.classic.Logger;
 
@@ -157,24 +158,28 @@ public class BulkDataRequestProvider {
 			oo.addIssue().setSeverity(org.hl7.fhir.r4.model.OperationOutcome.IssueSeverity.ERROR)
 			.setDiagnostics("Invalid header values!");
 			body = fhirContext.newJsonParser().setPrettyPrint(true).encodeResourceToString(oo);
-			response.setStatus(422);
+			response.setStatus(400);
 			//throw new UnprocessableEntityException(body);
 		}
 		return body;
 	}
 
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/download/{id}/{fileName:.+}", method = RequestMethod.GET)
 	@ResponseBody
 	public int downloadFile(@PathVariable Integer id, @PathVariable String fileName, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		log.info("Received request to download the file");
-		if(request.getHeader("Accept") != null && request.getHeader("Accept").equals("application/fhir+ndjson")) {
+		if(request.getHeader("Accept") != null && (request.getHeader("Accept").equals("application/fhir+ndjson") || request.getHeader("Accept").equals("application/fhir+json"))) {
 			String contextPath = System.getProperty("catalina.base");
 			String destDir = contextPath + "/bulkdata/" + id + "/";
 			return CommonUtil.downloadFIleByName(new File(destDir + fileName), response);
 		}	
 		else {
-			throw new UnprocessableEntityException("Invalid header values!");
+			//throw new UnprocessableEntityException("Invalid header values!");
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid header values!");
+			//response.setStatus(400, body);
+			return 400;
 		}
 	}
 
