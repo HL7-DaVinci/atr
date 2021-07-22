@@ -272,7 +272,7 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 		Binary retVal = new Binary();
 		if (requestDetails.getHeader("Prefer") != null && requestDetails.getHeader("Accept") != null) {
 			if (requestDetails.getHeader("Prefer").equals("respond-async")
-					&& (requestDetails.getHeader("Accept").equals("application/fhir+json") || requestDetails.getHeader("Accept").equals("application/json"))) {
+					&& (requestDetails.getHeader("Accept").contains("application/fhir+json") || requestDetails.getHeader("Accept").contains("application/json"))) {
 				String resourceId = groupId.getIdPart();
 				Date start = null;
 				DafBulkDataRequest bdr = new DafBulkDataRequest();

@@ -87,7 +87,7 @@ public class BulkDataRequestProvider {
 	public String getContentLocationResponse(@PathVariable Integer requestId, HttpServletRequest request,
 			HttpServletResponse response) {
 		String body = "";
-		if(request.getHeader("Accept") != null && request.getHeader("Accept").equals("application/json")) {
+		if(request.getHeader("Accept") != null && (request.getHeader("Accept").contains("application/json")|| request.getHeader("Accept").contains("application/fhir+json"))) {
 			
 			DafBulkDataRequest bdr = bdrService.getBulkDataRequestById(requestId);
 			if (bdr != null) {
@@ -170,7 +170,7 @@ public class BulkDataRequestProvider {
 	public int downloadFile(@PathVariable Integer id, @PathVariable String fileName, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		log.info("Received request to download the file");
-		if(request.getHeader("Accept") != null && (request.getHeader("Accept").equals("application/fhir+ndjson") || request.getHeader("Accept").equals("application/fhir+json"))) {
+		if(request.getHeader("Accept") != null && (request.getHeader("Accept").contains("application/fhir+ndjson") || request.getHeader("Accept").contains("application/fhir+json"))) {
 			String contextPath = System.getProperty("catalina.base");
 			String destDir = contextPath + "/bulkdata/" + id + "/";
 			return CommonUtil.downloadFIleByName(new File(destDir + fileName), response);
@@ -452,12 +452,12 @@ public class BulkDataRequestProvider {
 		}
 
 		// Process Location Bulk data request
-//		Future<Long> location = null;
-//		if (Arrays.asList(type.split(",")).contains("Location")) {
-//
-//			location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
-//			files.add("Location.ndjson");
-//		}
+		// Future<Long> location = null;
+		// if (Arrays.asList(type.split(",")).contains("Location")) {
+
+			// location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
+			// files.add("Location.ndjson");
+		// }
 
 		// Process MedicationAdministration Bulk data request
 		Future<Long> medicationadministration = null;
