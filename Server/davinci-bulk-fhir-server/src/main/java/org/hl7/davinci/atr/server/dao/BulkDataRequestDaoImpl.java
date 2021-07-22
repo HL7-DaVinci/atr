@@ -8,7 +8,6 @@ import org.hibernate.criterion.Restrictions;
 import org.hl7.davinci.atr.server.model.DafBulkDataRequest;
 import org.springframework.stereotype.Repository;
 
-@SuppressWarnings("deprecation")
 @Repository("bulkDataRequestDao")
 public class BulkDataRequestDaoImpl extends AbstractDao implements BulkDataRequestDao {
 
@@ -23,15 +22,12 @@ public class BulkDataRequestDaoImpl extends AbstractDao implements BulkDataReque
 		return bdr;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<DafBulkDataRequest> getBulkDataRequestsByProcessedFlag(Boolean flag) {
 		Criteria crit = getSession().createCriteria(DafBulkDataRequest.class);
 		crit.add(Restrictions.eq("processedFlag", flag));
 		return crit.list();
 	}
 
-	@Override
 	public Integer deleteRequestById(Integer id) {
 		Query qry = getSession().createQuery("delete from DafBulkDataRequest d where d.requestId=:id");
 			qry.setParameter("id",id);

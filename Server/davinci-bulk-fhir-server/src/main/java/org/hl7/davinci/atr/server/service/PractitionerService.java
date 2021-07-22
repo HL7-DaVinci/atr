@@ -9,15 +9,17 @@ import org.hl7.fhir.r4.model.Practitioner;
 
 public interface PractitionerService {
 
-	Practitioner getPractitionerByVersionId(int id, String versionIdPart);
+	Practitioner getPractitionerByVersionId(String id, String versionIdPart);
 
-	Practitioner getPractitionerById(int id);
+	Practitioner getPractitionerById(String id);
 
-	public DafPractitioner createPractitioner(Practitioner thePatient);
+	Practitioner createPractitioner(Practitioner thePatient);
 
 	public DafPractitioner updatePractitionerById(int id, Practitioner thePatient);
 
 	List<Practitioner> search(SearchParameterMap paramMap);
 
 	List<Practitioner> getPractitionerForBulkData(List<String> patients, Date start, Date end);
+
+	Practitioner getPractitionerByProviderNpi(String provideSystem, String providerNpi);
 }

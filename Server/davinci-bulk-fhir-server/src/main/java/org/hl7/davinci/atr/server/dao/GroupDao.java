@@ -15,4 +15,6 @@ public interface GroupDao {
 	DafGroup updateGroupById(int id, Group theGroup);
 
 	List<DafGroup> search(SearchParameterMap paramMap);
+
+	DafGroup getGroupByVersionId(String idPart, String versionIdPart);
 }

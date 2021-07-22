@@ -64,10 +64,10 @@ public class PractitionerRoleResourceProvider extends AbstractJaxRsResourceProvi
 	 */
 	@Read(version=true)
     public PractitionerRole readOrVread(@IdParam IdType theId) {
-		int id;
+		String id;
 		PractitionerRole practitionerRole;
 		try {
-		    id = theId.getIdPartAsLong().intValue();
+		    id = theId.getIdPart();
 		} catch (NumberFormatException e) {
 		    /*
 		     * If we can't parse the ID as a long, it's not valid so this is an unknown resource

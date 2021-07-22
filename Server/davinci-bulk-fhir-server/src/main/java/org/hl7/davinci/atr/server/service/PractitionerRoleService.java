@@ -8,11 +8,13 @@ import org.hl7.fhir.r4.model.PractitionerRole;
 
 public interface PractitionerRoleService {
 
-	PractitionerRole getPractitionerRoleByVersionId(int id, String versionIdPart);
+	PractitionerRole getPractitionerRoleByVersionId(String id, String versionIdPart);
 
-	PractitionerRole getPractitionerRoleById(int id);
+	PractitionerRole getPractitionerRoleById(String id);
 
 	List<PractitionerRole> search(SearchParameterMap paramMap);
 
 	List<PractitionerRole> getPractitionerRoleForBulkData(List<String> patientList, Date start, Date end);
+
+	PractitionerRole getPractitionerRoleByIdentifier(String system, String value);
 }

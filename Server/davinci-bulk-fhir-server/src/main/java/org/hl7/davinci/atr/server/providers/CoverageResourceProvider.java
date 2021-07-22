@@ -68,11 +68,11 @@ public class CoverageResourceProvider extends AbstractJaxRsResourceProvider<Cove
 	 */
 	@Read(version = true)
 	public Coverage readOrVread(@IdParam IdType theId) {
-		int id;
+		String id;
 		Coverage coverage;
 		try {
-			id = theId.getIdPartAsLong().intValue();
-		} catch (NumberFormatException e) {
+			id = theId.getIdPart();
+		} catch (Exception e) {
 			/*
 			 * If we can't parse the ID as a long, it's not valid so this is an unknown
 			 * resource
@@ -183,10 +183,10 @@ public class CoverageResourceProvider extends AbstractJaxRsResourceProvider<Cove
     public MethodOutcome createCoverage(@ResourceParam Coverage theCoverage) {
          
     	// Save this Coverage to the database...
-    	DafCoverage dafCoverage = service.createCoverage(theCoverage);
+    	Coverage dafCoverage = service.createCoverage(theCoverage);
      
 		MethodOutcome retVal = new MethodOutcome();
-		retVal.setId(new IdType(RESOURCE_TYPE, dafCoverage.getId() + "", VERSION_ID));
+		retVal.setId(new IdType(RESOURCE_TYPE, dafCoverage.getIdElement().getIdPart(), dafCoverage.getMeta().getVersionId()));
   
 		return retVal;
     }

@@ -9,15 +9,17 @@ import org.hl7.fhir.r4.model.Patient;
 
 public interface PatientService {
 	
-	Patient getPatientById(int id);
+	Patient getPatientById(String id);
 
-	Patient getPatientByVersionId(int id, String versionIdPart);
+	Patient getPatientByVersionId(String id, String versionIdPart);
 
-	DafPatient createPatient(Patient thePatient);
+	Patient createPatient(Patient thePatient);
 
 	DafPatient updatePatientById(int id, Patient thePatient);
 
 	List<Patient> search(SearchParameterMap paramMap);
 	
 	List<Patient> getPatientJsonForBulkData(List<String> patients, Date start, Date end);
+	
+	Patient getPatientByMemeberId(String memberSystem, String memberId);
 }

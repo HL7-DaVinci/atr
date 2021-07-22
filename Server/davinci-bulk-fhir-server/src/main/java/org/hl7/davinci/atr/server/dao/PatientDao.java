@@ -9,11 +9,11 @@ import org.hl7.fhir.r4.model.Patient;
 
 public interface PatientDao {
 	
-	DafPatient getPatientById(int id);
+	DafPatient getPatientById(String id);
 
-	DafPatient getPatientByVersionId(int theId, String versionId);
+	DafPatient getPatientByVersionId(String theId, String versionId);
 
-	DafPatient createPatient(Patient thePatient);
+	Patient createPatient(Patient thePatient);
 
 	DafPatient updatePatientById(int id, Patient thePatient);
 
@@ -22,4 +22,6 @@ public interface PatientDao {
 	DafPatient getPatientJsonForBulkData(String patientId, Date start, Date end);
 	
 	List<DafPatient> getAllPatientJsonForBulkData(Date start, Date end);
+
+	DafPatient getPatientByMemeberId(String memberSystem, String memberId);
 }

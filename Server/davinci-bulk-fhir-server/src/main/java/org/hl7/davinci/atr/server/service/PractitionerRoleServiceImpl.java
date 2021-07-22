@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.hl7.davinci.atr.server.dao.PractitionerRoleDao;
-import org.hl7.davinci.atr.server.model.DafPractitioner;
 import org.hl7.davinci.atr.server.model.DafPractitionerRole;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
-import org.hl7.fhir.r4.model.IdType;
-import org.hl7.fhir.r4.model.Practitioner;
 import org.hl7.fhir.r4.model.PractitionerRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +21,7 @@ import ca.uhn.fhir.parser.IParser;
 @Service("practitionerRoleService")
 @Transactional
 public class PractitionerRoleServiceImpl implements PractitionerRoleService {
+	private static final Logger logger = LoggerFactory.getLogger(PractitionerRoleServiceImpl.class);    
 
 	public static final String RESOURCE_TYPE = "PractitionerRole";
 	
@@ -30,8 +31,7 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 	@Autowired
 	FhirContext fhirContext;
 	
-	@Override
-	public PractitionerRole getPractitionerRoleByVersionId(int id, String versionIdPart) {
+	public PractitionerRole getPractitionerRoleByVersionId(String id, String versionIdPart) {
 		PractitionerRole practitionerRole = null;
 		IParser jsonParser = fhirContext.newJsonParser();
 		DafPractitionerRole dafPractitioner = practitionerRoleDao.getPractitionerRoleByVersionId(id, versionIdPart);
@@ -42,8 +42,7 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		return practitionerRole;
 	}
 
-	@Override
-	public PractitionerRole getPractitionerRoleById(int id) {
+	public PractitionerRole getPractitionerRoleById(String id) {
 		PractitionerRole practitionerRole = null;
 		IParser jsonParser = fhirContext.newJsonParser();
 		DafPractitionerRole dafPractitioner = practitionerRoleDao.getPractitionerRoleById(id);
@@ -54,7 +53,6 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		return practitionerRole;
 	}
 
-	@Override
 	public List<PractitionerRole> search(SearchParameterMap paramMap) {
 		PractitionerRole practitionerRole = null;
 		List<PractitionerRole> practitionerRoleList = new ArrayList<>();
@@ -70,7 +68,6 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		return practitionerRoleList;
 	}
 
-	@Override
 	public List<PractitionerRole> getPractitionerRoleForBulkData(List<String> patientList, Date start, Date end) {
 		PractitionerRole practitionerRole = null;
 		List<PractitionerRole> practitionerRoleList = new ArrayList<>();
@@ -89,4 +86,37 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		}
 		return practitionerRoleList;
 	}
+
+	public PractitionerRole getPractitionerRoleByIdentifier(String system, String value) {
+		PractitionerRole practitionerRole = null;
+		try {
+			DafPractitionerRole dafPractitionerRole = practitionerRoleDao.getPractitionerRoleByIdentifier(system, value);
+			if(dafPractitionerRole != null) {
+				practitionerRole = parsePractitionerRole(dafPractitionerRole.getData());
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getPractitionerRoleByProviderNpi of PractitionerRoleServiceImpl ", e);
+	  	}
+		return practitionerRole;
+	}
+	
+	/**
+     * Parses the string data to fhir PractitionerRole resource data
+     * @param data
+     * @return
+     */
+    private PractitionerRole parsePractitionerRole(String data) {
+    	PractitionerRole practitionerRole = null;
+    	try {
+			if(StringUtils.isNotBlank(data)) {
+	    		IParser jsonParser = fhirContext.newJsonParser();
+	    		practitionerRole = jsonParser.parseResource(PractitionerRole.class, data);
+			}
+    	}
+  	  	catch(Exception e) {
+  	  		logger.error("Exception in parsePractitionerRole of PractitionerRoleServiceImpl ", e);
+  	  	}
+  	  	return practitionerRole;
+    }
 }

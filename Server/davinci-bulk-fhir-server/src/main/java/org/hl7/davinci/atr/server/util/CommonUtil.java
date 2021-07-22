@@ -2,18 +2,22 @@ package org.hl7.davinci.atr.server.util;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
 public class CommonUtil {
     private static final String CHAR_LIST =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_";
+	private static final Logger logger = LoggerFactory.getLogger(CommonUtil.class);    
 
     // private static final int RANDOM_STRING_LENGTH = 250;
 
@@ -72,6 +76,7 @@ public class CommonUtil {
 			String headerKey = "Content-Disposition";
 			String headerValue = String.format("attachment; filename=\"%s\"",downloadFile.getName());
 			response.setHeader(headerKey, headerValue);
+			response.setHeader("Content-Type", "application/fhir+ndjson");
  
 			// Write response
 			outStream = response.getOutputStream();
@@ -108,5 +113,15 @@ public class CommonUtil {
 	public static boolean containsIgnoreCase(String str, String subString) {
         return str.toLowerCase().contains(subString.toLowerCase());
     }
-
+	
+	public static String getUniqueUUID() {
+		UUID uuid = null;
+		try {
+			uuid = UUID.randomUUID();
+		}
+		catch(Exception e) {
+			logger.error("Exception in getUniqueUUID of CommonUtil ", e);
+		}
+        return uuid.toString();
+	}
 }

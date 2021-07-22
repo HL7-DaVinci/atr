@@ -42,6 +42,7 @@ import com.google.gson.Gson;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.primitive.DateDt;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
+import ca.uhn.fhir.rest.server.exceptions.UnclassifiedServerFailureException;
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
 import ch.qos.logback.classic.Logger;
 
@@ -86,7 +87,7 @@ public class BulkDataRequestProvider {
 	public String getContentLocationResponse(@PathVariable Integer requestId, HttpServletRequest request,
 			HttpServletResponse response) {
 		String body = "";
-		if(request.getHeader("Accept") != null && request.getHeader("Accept").equals("application/json")) {
+		if(request.getHeader("Accept") != null && (request.getHeader("Accept").contains("application/json")|| request.getHeader("Accept").contains("application/fhir+json"))) {
 			
 			DafBulkDataRequest bdr = bdrService.getBulkDataRequestById(requestId);
 			if (bdr != null) {
@@ -157,23 +158,28 @@ public class BulkDataRequestProvider {
 			oo.addIssue().setSeverity(org.hl7.fhir.r4.model.OperationOutcome.IssueSeverity.ERROR)
 			.setDiagnostics("Invalid header values!");
 			body = fhirContext.newJsonParser().setPrettyPrint(true).encodeResourceToString(oo);
-			response.setStatus(422);
+			response.setStatus(400);
 			//throw new UnprocessableEntityException(body);
 		}
 		return body;
 	}
 
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/download/{id}/{fileName:.+}", method = RequestMethod.GET)
 	@ResponseBody
 	public int downloadFile(@PathVariable Integer id, @PathVariable String fileName, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		if(request.getHeader("Accept") != null && request.getHeader("Accept").equals("application/fhir+ndjson")) {
+		log.info("Received request to download the file");
+		if(request.getHeader("Accept") != null && (request.getHeader("Accept").contains("application/fhir+ndjson") || request.getHeader("Accept").contains("application/fhir+json"))) {
 			String contextPath = System.getProperty("catalina.base");
-			String destDir = contextPath + "/bulk data/" + id + "/";
+			String destDir = contextPath + "/bulkdata/" + id + "/";
 			return CommonUtil.downloadFIleByName(new File(destDir + fileName), response);
 		}	
 		else {
-			throw new UnprocessableEntityException("Invalid header values!");
+			//throw new UnprocessableEntityException("Invalid header values!");
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid header values!");
+			//response.setStatus(400, body);
+			return 400;
 		}
 	}
 
@@ -188,7 +194,7 @@ public class BulkDataRequestProvider {
 		// delete folder with files
 		if (res > 0) {
 			String contextPath = System.getProperty("catalina.base");
-			String destDir = contextPath + "/bulk data/" + requestId + "/";
+			String destDir = contextPath + "/bulkdata/" + requestId + "/";
 			File directory = new File(destDir);
 			if (directory.exists()) {
 				FileUtils.deleteDirectory(directory);
@@ -259,7 +265,7 @@ public class BulkDataRequestProvider {
 		}
 
 		String contextPath = System.getProperty("catalina.base");
-		File destDir = new File(contextPath + "/bulk data/" + bdr.getRequestId() + "/");
+		File destDir = new File(contextPath + "/bulkdata/" + bdr.getRequestId() + "/");
 		bdr.setStatus("In Progress");
 		bdr.setProcessedFlag(true);
 		bdrService.saveBulkDataRequest(bdr);
@@ -446,12 +452,12 @@ public class BulkDataRequestProvider {
 		}
 
 		// Process Location Bulk data request
-//		Future<Long> location = null;
-//		if (Arrays.asList(type.split(",")).contains("Location")) {
-//
-//			location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
-//			files.add("Location.ndjson");
-//		}
+		// Future<Long> location = null;
+		// if (Arrays.asList(type.split(",")).contains("Location")) {
+
+			// location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
+			// files.add("Location.ndjson");
+		// }
 
 		// Process MedicationAdministration Bulk data request
 		Future<Long> medicationadministration = null;
@@ -586,7 +592,7 @@ public class BulkDataRequestProvider {
 	 */
 	public boolean checkFilesInDestination(DafBulkDataRequest bdr, List<String> ndjsonfiles) {
 		String contextPath = System.getProperty("catalina.base");
-		String destFilePath = contextPath + "/bulk data" + "/" + bdr.getRequestId() + "/";
+		String destFilePath = contextPath + "/bulkdata" + "/" + bdr.getRequestId() + "/";
 		log.info("Verifying the NDSJSON files in directory ----->" + destFilePath);
 		String[] destFilesList = new File(destFilePath).list();
 		log.info("No. of NDJSON files created in " + destFilePath + " is:" + ndjsonfiles.size());

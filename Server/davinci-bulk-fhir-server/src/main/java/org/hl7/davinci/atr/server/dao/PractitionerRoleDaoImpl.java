@@ -7,10 +7,14 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Restrictions;
+import org.hl7.davinci.atr.server.constants.TextConstants;
 import org.hl7.davinci.atr.server.model.DafPractitionerRole;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.IQueryParameterType;
@@ -19,28 +23,35 @@ import ca.uhn.fhir.rest.param.TokenParam;
 
 @Repository("practitionerRoleDao")
 public class PractitionerRoleDaoImpl extends AbstractDao implements PractitionerRoleDao {
+	private static final Logger logger = LoggerFactory.getLogger(PractitionerRoleDaoImpl.class);    
 
 	@Autowired
 	FhirContext fhirContext;
 
-	@Override
-	public DafPractitionerRole getPractitionerRoleByVersionId(int id, String versionIdPart) {
+	public DafPractitionerRole getPractitionerRoleByVersionId(String id, String versionIdPart) {
 		return getSession().createNativeQuery(
 				"select * from practitionerrole where id = '"+id+"' and data->'meta'->>'versionId' = '"+versionIdPart+"'", 
 				DafPractitionerRole.class).getSingleResult();
 	}
 
-	@Override
-	public DafPractitionerRole getPractitionerRoleById(int id) {
-		List<DafPractitionerRole> list = getSession().createNativeQuery(
-				"select * from practitionerrole where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", 
-				DafPractitionerRole.class)
-					.getResultList();
-		return list.get(0);
+	public DafPractitionerRole getPractitionerRoleById(String id) {
+		DafPractitionerRole dafPractitionerRole = null;
+		try {
+			List<DafPractitionerRole> list = getSession().createNativeQuery(
+					"select * from practitionerrole where data->>'id' = '"+id+"' order by data->'meta'->>'versionId' desc", 
+					DafPractitionerRole.class)
+						.getResultList();
+			if(list != null && !list.isEmpty()) {
+				dafPractitionerRole = new DafPractitionerRole();
+				dafPractitionerRole = list.get(0);
+			}
+		}
+		catch(Exception ex) {
+			logger.error("Exception in getPractitionerRoleById of PractitionerRoleDaoImpl ", ex);
+		}
+		return dafPractitionerRole;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
 	public List<DafPractitionerRole> search(SearchParameterMap paramMap) {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = getSession().createCriteria(DafPractitionerRole.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -126,8 +137,6 @@ public class PractitionerRoleDaoImpl extends AbstractDao implements Practitioner
 	    }
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
 	public DafPractitionerRole getPractitionerRoleForBulkData(String practitionerRoles, Date start, Date end) {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = getSession().createCriteria(DafPractitionerRole.class);
@@ -141,5 +150,20 @@ public class PractitionerRoleDaoImpl extends AbstractDao implements Practitioner
 			criteria.add(Restrictions.le("timestamp", end));
 		}
     	return (DafPractitionerRole) criteria.list().get(0);
+	}
+
+	public DafPractitionerRole getPractitionerRoleByIdentifier(String theSystem, String theValue) {
+		DafPractitionerRole dafPractitionerRole = null;
+		try {
+			//select id as id, data as data, last_updated_ts as last_upd from patient where id in (select distinct(id) from patient r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+memberId+"'  and  segment ->>'system' = '"+TextConstants.MEMBERID_SYSTEM+"' ) )
+			List<DafPractitionerRole> list = getSession().createNativeQuery("select * from practitionerrole where id in (select distinct(id) from practitionerrole r, LATERAL json_array_elements(r.data->'identifier') segment WHERE  ( segment ->>'value' = '"+theValue+"'  and  segment ->>'system' = '"+theSystem+"' ) )  order by data->'meta'->>'versionId' desc", DafPractitionerRole.class).getResultList();	
+			if(list != null && !list.isEmpty()) {
+				dafPractitionerRole = list.get(0);
+			}
+		}
+		catch(Exception e) {
+			logger.error("Exception in getPractitionerRoleByIdentifier of PractitionerRoleDaoImpl ", e);
+		}
+		return dafPractitionerRole;
 	}
 }

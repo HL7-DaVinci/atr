@@ -9,15 +9,17 @@ import org.hl7.fhir.r4.model.Organization;
 
 public interface OrganizationDao {
 	
-	DafOrganization getOrganizationById(int id);
+	DafOrganization getOrganizationById(String id);
 	
-	DafOrganization getOrganizationByVersionId(int theId, String versionId);
+	DafOrganization getOrganizationByVersionId(String theId, String versionId);
 		
 	List<DafOrganization> search(SearchParameterMap theMap);
 
-	DafOrganization createOrganization(Organization theOrganization);
+	Organization createOrganization(Organization theOrganization);
 
 	DafOrganization updateOrganizationById(int id, Organization theOrganization);
 	
 	DafOrganization getOrganizationForBulkData(String patients, Date start, Date end);
+
+	DafOrganization getOrganizationByProviderIdentifier(String system, String value);
 }
