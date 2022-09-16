@@ -1,7 +1,5 @@
 package org.hl7.davinci.atr.server.providers;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.hl7.davinci.atr.server.model.DafBundle;
@@ -53,14 +51,14 @@ public class BundleResourceProvider extends AbstractJaxRsResourceProvider<Bundle
      */
 	@Create
     public MethodOutcome createBundle(@ResourceParam Bundle theBundle, HttpServletRequest request) throws Exception{
-		MethodOutcome retVal = new MethodOutcome();
+		MethodOutcome retVal = null;
 		if (request.getHeader("Content-Type") != null
 				&& request.getHeader("Content-Type").equals("application/fhir+json")) {
 	        // Save this Bundle to the database...
 			if(theBundle.hasType()) {
 				if(theBundle.getType().toString().equalsIgnoreCase(BundleType.TRANSACTION.toString())) {
-		        	Bundle bundle = service.createBundle(theBundle);
-		        	retVal.setResource(bundle);
+					DafBundle dafBundle = service.createBundle(theBundle);
+		        	retVal = new MethodOutcome();
 				}
 				else {
 					throw new UnprocessableEntityException("Bundle.type should be transaction.");
@@ -84,7 +82,8 @@ public class BundleResourceProvider extends AbstractJaxRsResourceProvider<Bundle
 		       // Save this Bundle to the database...
 			if(theBundle.hasType()) {
 				if(theBundle.getType().toString().equalsIgnoreCase(BundleType.TRANSACTION.toString())) {
-		        	retVal = service.createBundle(theBundle);
+					DafBundle dafBundle = service.createBundle(theBundle);
+		        	retVal = new Bundle();
 				}
 				else {
 					throw new UnprocessableEntityException("Bundle.type should be transaction.");

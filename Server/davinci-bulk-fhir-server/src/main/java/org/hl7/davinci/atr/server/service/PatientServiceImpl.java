@@ -30,6 +30,7 @@ public class PatientServiceImpl implements PatientService {
 	@Autowired
 	FhirContext fhirContext;
 	
+	@Override
 	public Patient getPatientByVersionId(String theId, String versionId) {
 		Patient patient = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -41,6 +42,7 @@ public class PatientServiceImpl implements PatientService {
 		return patient;
 	}
 
+	@Override
 	public Patient getPatientById(String theId) {
 		Patient patient = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -52,14 +54,17 @@ public class PatientServiceImpl implements PatientService {
 		return patient;
 	}
 
+	@Override
 	public Patient createPatient(Patient thePatient) {
 		return patientDao.createPatient(thePatient);
 	}
 
+	@Override
 	public DafPatient updatePatientById(int id, Patient thePatient) {
 		return patientDao.updatePatientById(id, thePatient);
 	}
 
+	@Override
 	public List<Patient> search(SearchParameterMap paramMap) {
 		Patient patient = null;
 		List<Patient> patientList = new ArrayList<>();
@@ -75,6 +80,8 @@ public class PatientServiceImpl implements PatientService {
 		return patientList;
 	}
 	
+	@Override
+	@Transactional
     public List<Patient> getPatientJsonForBulkData(List<String> patients, Date start, Date end) {
     	Patient patient = null;
 		List<Patient> patientList = new ArrayList<>();
@@ -101,6 +108,7 @@ public class PatientServiceImpl implements PatientService {
 		return patientList;
     }
 
+	@Override
 	public Patient getPatientByMemeberId(String memberSystem, String memberId) {
 		Patient patient = null;
 		try {

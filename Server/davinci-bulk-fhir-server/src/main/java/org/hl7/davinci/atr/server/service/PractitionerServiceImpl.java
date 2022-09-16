@@ -29,6 +29,7 @@ public class PractitionerServiceImpl implements PractitionerService {
 	FhirContext fhirContext;
 	
 
+	@Override
 	public Practitioner getPractitionerByVersionId(String theId, String versionId) {
 		Practitioner practitioner = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -40,6 +41,7 @@ public class PractitionerServiceImpl implements PractitionerService {
 		return practitioner;
 	}
 
+	@Override
 	public Practitioner getPractitionerById(String theId) {
 		Practitioner practitioner = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -51,14 +53,17 @@ public class PractitionerServiceImpl implements PractitionerService {
 		return practitioner;
 	}
 	
+	@Override
 	public Practitioner createPractitioner(Practitioner thePractitioner) {
 		return practitionerDao.createPractitioner(thePractitioner);
 	}
 
+	@Override
 	public DafPractitioner updatePractitionerById(int id, Practitioner thePractitioner) {
 		return practitionerDao.updatePractitionerById(id, thePractitioner);
 	}
 
+	@Override
 	public List<Practitioner> search(SearchParameterMap paramMap) {
 		Practitioner practitioner = null;
 		List<Practitioner> practitionerList = new ArrayList<>();
@@ -74,6 +79,8 @@ public class PractitionerServiceImpl implements PractitionerService {
 		return practitionerList;
 	}
 	
+	@Override
+    @Transactional
     public List<Practitioner> getPractitionerForBulkData(List<String> practitioners, Date start, Date end){
     	Practitioner practitioner = null;
 		List<Practitioner> practitionerList = new ArrayList<>();
@@ -93,6 +100,7 @@ public class PractitionerServiceImpl implements PractitionerService {
 		return practitionerList;
     }
 
+	@Override
 	public Practitioner getPractitionerByProviderNpi(String providerNpiSystem, String providerNpi) {
 		Practitioner practitioner = null;
 		try {

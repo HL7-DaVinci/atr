@@ -1,5 +1,7 @@
 package org.hl7.davinci.atr.server.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,10 +28,10 @@ public class DafBulkDataRequest {
 	private String requestResource;
 	
 	@Column(name="start")
-	private String start;
+	private Date start;
 	
 	@Column(name="end_date")
-	private String end;
+	private Date end;
 	
 	@Column(name="_type")
 	private String type;
@@ -42,6 +44,12 @@ public class DafBulkDataRequest {
 	
 	@Column(name="status")
 	private String status;
+	
+	@Column(name="patient_list")
+	private String patientList;
+	
+	@Column(name="operation_type")
+	private String operationType;
 	
 	@Column(name="processed_flag")
 	private Boolean processedFlag;
@@ -78,20 +86,20 @@ public class DafBulkDataRequest {
 		this.requestResource = requestResource;
 	}
 
-	public String getStart() {
+	public Date getStart() {
 		return start;
 	}
 
-	public void setStart(String start) {
-		this.start = start;
+	public void setStart(Date date) {
+		this.start = date;
 	}
 
-	public String getEnd() {
+	public Date getEnd() {
 		return end;
 	}
 
-	public void setEnd(String end) {
-		this.end = end;
+	public void setEnd(Date date) {
+		this.end = date;
 	}
 	
 	public String getType() {
@@ -132,5 +140,21 @@ public class DafBulkDataRequest {
 
 	public void setProcessedFlag(Boolean processedFlag) {
 		this.processedFlag = processedFlag;
+	}
+
+	public String getPatientList() {
+		return patientList;
+	}
+
+	public void setPatientList(String patientList) {
+		this.patientList = patientList;
+	}
+
+	public String getOperationType() {
+		return operationType;
+	}
+
+	public void setOperationType(String operationType) {
+		this.operationType = operationType;
 	}	
 }
