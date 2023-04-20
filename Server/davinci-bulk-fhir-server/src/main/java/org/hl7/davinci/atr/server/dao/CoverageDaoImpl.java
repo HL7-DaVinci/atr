@@ -127,7 +127,7 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 	@SuppressWarnings("unchecked")
 	public List<DafCoverage> search(SearchParameterMap theMap) {
 		@SuppressWarnings("deprecation")
-		Criteria criteria = getSession().createCriteria(DafCondition.class)
+		Criteria criteria = getSession().createCriteria(DafCoverage.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		// build criteria for id
