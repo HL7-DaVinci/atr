@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.IQueryParameterType;
@@ -28,12 +27,14 @@ public class PractitionerRoleDaoImpl extends AbstractDao implements Practitioner
 	@Autowired
 	FhirContext fhirContext;
 
+	@Override
 	public DafPractitionerRole getPractitionerRoleByVersionId(String id, String versionIdPart) {
 		return getSession().createNativeQuery(
 				"select * from practitionerrole where id = '"+id+"' and data->'meta'->>'versionId' = '"+versionIdPart+"'", 
 				DafPractitionerRole.class).getSingleResult();
 	}
 
+	@Override
 	public DafPractitionerRole getPractitionerRoleById(String id) {
 		DafPractitionerRole dafPractitionerRole = null;
 		try {
@@ -52,6 +53,8 @@ public class PractitionerRoleDaoImpl extends AbstractDao implements Practitioner
 		return dafPractitionerRole;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<DafPractitionerRole> search(SearchParameterMap paramMap) {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = getSession().createCriteria(DafPractitionerRole.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -137,6 +140,8 @@ public class PractitionerRoleDaoImpl extends AbstractDao implements Practitioner
 	    }
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
 	public DafPractitionerRole getPractitionerRoleForBulkData(String practitionerRoles, Date start, Date end) {
 		@SuppressWarnings("deprecation")
 		Criteria criteria = getSession().createCriteria(DafPractitionerRole.class);
@@ -152,6 +157,7 @@ public class PractitionerRoleDaoImpl extends AbstractDao implements Practitioner
     	return (DafPractitionerRole) criteria.list().get(0);
 	}
 
+	@Override
 	public DafPractitionerRole getPractitionerRoleByIdentifier(String theSystem, String theValue) {
 		DafPractitionerRole dafPractitionerRole = null;
 		try {

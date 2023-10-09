@@ -25,7 +25,12 @@ import org.hl7.davinci.atr.server.service.AsyncService;
 import org.hl7.davinci.atr.server.service.BulkDataRequestService;
 import org.hl7.davinci.atr.server.service.GroupService;
 import org.hl7.davinci.atr.server.util.CommonUtil;
+import org.hl7.fhir.r4.model.Extension;
+import org.hl7.fhir.r4.model.Group;
+import org.hl7.fhir.r4.model.Group.GroupMemberComponent;
 import org.hl7.fhir.r4.model.OperationOutcome;
+import org.hl7.fhir.r4.model.Reference;
+import org.hl7.fhir.r4.model.ResourceType;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.LoggerFactory;
@@ -42,18 +47,17 @@ import com.google.gson.Gson;
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.primitive.DateDt;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
-import ca.uhn.fhir.rest.server.exceptions.UnclassifiedServerFailureException;
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
 import ch.qos.logback.classic.Logger;
 
 @Controller
 @RequestMapping("/bulkdata")
 public class BulkDataRequestProvider {
-	
+
 	Logger log = (Logger) LoggerFactory.getLogger(BulkDataRequestProvider.class);
 	@Autowired
 	FhirContext fhirContext;
-	//private static int a=0;
+	// private static int a=0;
 	private static List<String> ndjsonFiles = new ArrayList<>();
 
 	@Autowired
@@ -61,12 +65,13 @@ public class BulkDataRequestProvider {
 
 	@Autowired
 	FhirContext ctx;
-	
+
 	@Autowired
 	private AsyncService service;
-	
+
 	@Autowired
 	private GroupService groupService;
+
 //
 //	public void seta()
 //	{
@@ -87,8 +92,9 @@ public class BulkDataRequestProvider {
 	public String getContentLocationResponse(@PathVariable Integer requestId, HttpServletRequest request,
 			HttpServletResponse response) {
 		String body = "";
-		if(request.getHeader("Accept") != null && (request.getHeader("Accept").contains("application/json")|| request.getHeader("Accept").contains("application/fhir+json"))) {
-			
+		if (request.getHeader("Accept") != null && (request.getHeader("Accept").equals("application/json")
+				|| request.getHeader("Accept").contains("application/fhir+json"))) {
+
 			DafBulkDataRequest bdr = bdrService.getBulkDataRequestById(requestId);
 			if (bdr != null) {
 
@@ -110,18 +116,18 @@ public class BulkDataRequestProvider {
 					cal.setTimeZone(TimeZone.getTimeZone("GMT"));
 					cal.add(Calendar.DATE, 10);
 					String dt = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz").format(cal.getTime());
-					bdo.setTransactionStartTime(dt);
+					bdo.setTransactionTime(dt);
 
 					bdo.setRequest(bdr.getRequestResource());
-					bdo.setSecure("false");
+					bdo.setRequiresAccessToken("false");
 
 					String[] links = bdr.getFiles().split(",");
 					StringBuilder linksHeader = new StringBuilder();
 					String uri = request.getScheme() + "://" + request.getServerName()
-					+ ("http".equals(request.getScheme()) && request.getServerPort() == 80
-					|| "https".equals(request.getScheme()) && request.getServerPort() == 443 ? ""
-							: ":" + request.getServerPort())
-					+ request.getContextPath();
+							+ ("http".equals(request.getScheme()) && request.getServerPort() == 80
+									|| "https".equals(request.getScheme()) && request.getServerPort() == 443 ? ""
+											: ":" + request.getServerPort())
+							+ request.getContextPath();
 
 					for (int i = 0; i < links.length; i++) {
 
@@ -145,41 +151,35 @@ public class BulkDataRequestProvider {
 					body = g.toJson(bdo);
 
 					response.setHeader("Link", linksHeader.toString());
-					//response.setHeader("Content-Type", "application/json");
+					// response.setHeader("Content-Type", "application/json");
 				}
 			} else {
 				response.setStatus(404);
 				throw new ResourceNotFoundException(
 						"The requested Content-Location was not found. Please contact the Admin.");
 			}
-		}	
-		else {
+		} else {
 			OperationOutcome oo = new OperationOutcome();
 			oo.addIssue().setSeverity(org.hl7.fhir.r4.model.OperationOutcome.IssueSeverity.ERROR)
-			.setDiagnostics("Invalid header values!");
+					.setDiagnostics("Invalid header values!");
 			body = fhirContext.newJsonParser().setPrettyPrint(true).encodeResourceToString(oo);
-			response.setStatus(400);
-			//throw new UnprocessableEntityException(body);
+			response.setStatus(422);
+			// throw new UnprocessableEntityException(body);
 		}
 		return body;
 	}
 
-	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/download/{id}/{fileName:.+}", method = RequestMethod.GET)
 	@ResponseBody
 	public int downloadFile(@PathVariable Integer id, @PathVariable String fileName, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		log.info("Received request to download the file");
-		if(request.getHeader("Accept") != null && (request.getHeader("Accept").contains("application/fhir+ndjson") || request.getHeader("Accept").contains("application/fhir+json"))) {
+		if (request.getHeader("Accept") != null && (request.getHeader("Accept").equals("application/fhir+ndjson")
+				|| request.getHeader("Accept").contains("application/fhir+json"))) {
 			String contextPath = System.getProperty("catalina.base");
-			String destDir = contextPath + "/bulkdata/" + id + "/";
+			String destDir = contextPath + "/bulk data/" + id + "/";
 			return CommonUtil.downloadFIleByName(new File(destDir + fileName), response);
-		}	
-		else {
-			//throw new UnprocessableEntityException("Invalid header values!");
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid header values!");
-			//response.setStatus(400, body);
-			return 400;
+		} else {
+			throw new UnprocessableEntityException("Invalid header values!");
 		}
 	}
 
@@ -194,13 +194,14 @@ public class BulkDataRequestProvider {
 		// delete folder with files
 		if (res > 0) {
 			String contextPath = System.getProperty("catalina.base");
-			String destDir = contextPath + "/bulkdata/" + requestId + "/";
+			String destDir = contextPath + "/bulk data/" + requestId + "/";
 			File directory = new File(destDir);
 			if (directory.exists()) {
 				FileUtils.deleteDirectory(directory);
 			}
 		}
-		log.info("Numer of records effected due to content-location delete : " + res +" for request id : "+requestId);
+		log.info(
+				"Numer of records effected due to content-location delete : " + res + " for request id : " + requestId);
 
 		response.setStatus(202);
 
@@ -220,26 +221,25 @@ public class BulkDataRequestProvider {
 	@Scheduled(cron = "*/5 * * * * ?")
 	public void processBulkDataRequestSchedular() {
 
-		System.out.println("Schedular checking for pending requests...!");
+		log.info("Schedular checking for pending requests...!");
 
 		List<DafBulkDataRequest> requests = bdrService.getBulkDataRequestsByProcessedFlag(false);
 		try {
 			for (DafBulkDataRequest bdr : requests) {
 
 				long startTime = System.nanoTime();
-				log.info("request with id : "+bdr.getRequestId() +" is processing...  start time: "+startTime);
+				log.info("request with id : " + bdr.getRequestId() + " is processing...  start time: " + startTime);
 
 				processBulkDataRequest(bdr);
 
-
-				long endTime   = System.nanoTime();
+				long endTime = System.nanoTime();
 				long totalTime = endTime - startTime;
-				log.info("request with id : "+bdr.getRequestId() +" - processing completed. The total time is : '"+totalTime+"' in nano seconds");
+				log.info("request with id : " + bdr.getRequestId() + " - processing completed. The total time is : '"
+						+ totalTime + "' in nano seconds");
 
 			}
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception e) {
+			log.info(e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -249,34 +249,36 @@ public class BulkDataRequestProvider {
 		List<String> patientList = null;
 		List<String> coverageList = null;
 		List<String> organizationList = null;
+
 		List<String> practitionerList = null;
 		List<String> practitionerRoleList = null;
 		Date start = null;
 		Date end = null;
 		if (bdr.getStart() != null) {
 			DateDt dateDt = new DateDt();
-			dateDt.setValueAsString(bdr.getStart());
+			dateDt.setValue(bdr.getStart());
 			start = dateDt.getValue();
 		}
 		if (bdr.getEnd() != null) {
-			DateDt endDateDt = new DateDt(); 
-			endDateDt.setValueAsString(bdr.getEnd());
+			DateDt endDateDt = new DateDt();
+			endDateDt.setValue(bdr.getEnd());
 			end = endDateDt.getValue();
 		}
 
 		String contextPath = System.getProperty("catalina.base");
-		File destDir = new File(contextPath + "/bulkdata/" + bdr.getRequestId() + "/");
+		File destDir = new File(contextPath + "/bulk data/" + bdr.getRequestId() + "/");
 		bdr.setStatus("In Progress");
 		bdr.setProcessedFlag(true);
 		bdrService.saveBulkDataRequest(bdr);
 
-		//List<String> files = new ArrayList<String>();
+		// List<String> files = new ArrayList<String>();
 
 		if (!destDir.exists()) {
 			destDir.mkdirs();
 		}
 
-		if (bdr.getResourceName() != null && bdr.getResourceName().equalsIgnoreCase("GROUP")) {
+		if (bdr.getResourceName() != null && bdr.getResourceName().equalsIgnoreCase("GROUP")
+				&& bdr.getOperationType().equals("$export")) {
 
 			DafGroup dafGroup = groupService.getGroupById(bdr.getResourceId());
 
@@ -286,44 +288,109 @@ public class BulkDataRequestProvider {
 				practitionerList = new ArrayList<>();
 				practitionerRoleList = new ArrayList<>();
 				organizationList = new ArrayList<>();
-				JSONObject jsonData = new JSONObject(dafGroup.getData());
-				if(!jsonData.isNull("member")) {
-					JSONArray jsonArr = jsonData.getJSONArray("member");
-					for (int i = 0; i < jsonArr.length(); i++) {
-						JSONObject jsonObj = jsonArr.getJSONObject(i);
-						if (jsonObj.getJSONObject("entity") != null) {
-							String resourceId = jsonObj.getJSONObject("entity").getString("reference").split("/")[1];
-							//Integer patientId = Integer.parseInt(referenceId);
-							//String referenceId = "Patient/"+resourceId;
-							//System.out.println("Patient id ::: "+resourceId);
-							patientList.add(resourceId);
+				Group groupResource = (Group) ctx.newJsonParser().parseResource(dafGroup.getData());
+				if (groupResource.hasMember()) {
+					List<GroupMemberComponent> memberList = groupResource.getMember();
+					for (GroupMemberComponent memberComp : memberList) {
+						if (memberComp.hasEntity()) {
+							String patientId = memberComp.getEntity().getReferenceElement().getIdPart();
+							patientList.add(patientId);
 						}
-						if (jsonObj.getJSONArray("extension") != null) {
-							JSONArray memberExtensions = jsonObj.getJSONArray("extension");
-							for(int j = 0; j < memberExtensions.length(); j++) {
-								JSONObject extObj = memberExtensions.getJSONObject(j);
-								String url = extObj.getString("url");
-								if(url.equalsIgnoreCase("http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference")) {
-									String coverageId = extObj.getJSONObject("valueReference").getString("reference").split("/")[1];
-									coverageList.add(coverageId);
+						if (memberComp.hasExtension()) {
+							List<Extension> extensionList = memberComp.getExtension();
+							for (Extension extension : extensionList) {
+								if (extension.hasUrl()) {
+									if (extension.getUrl().equals(
+											"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference")) {
+										Reference coverageRef = (Reference) extension.getValue();
+										String coverageId = coverageRef.getReferenceElement().getIdPart();
+										coverageList.add(coverageId);
+									}
+									if (extension.getUrl().equals(
+											"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider")) {
+										Reference providerRef = (Reference) extension.getValue();
+										if (providerRef.getReferenceElement().getResourceType()
+												.equals(ResourceType.Practitioner.name())) {
+											practitionerList.add(providerRef.getReferenceElement().getIdPart());
+										}
+										if (providerRef.getReferenceElement().getResourceType()
+												.equals(ResourceType.Organization.name())) {
+											organizationList.add(providerRef.getReferenceElement().getIdPart());
+										}
+										if (providerRef.getReferenceElement().getResourceType()
+												.equals(ResourceType.PractitionerRole.name())) {
+											practitionerRoleList.add(providerRef.getReferenceElement().getIdPart());
+										}
+									}
+
+									log.info("practitionerList " + practitionerList);
+									log.info("practitionerRoleList " + practitionerRoleList);
+									log.info("organizationList " + organizationList);
 								}
-								if(url.equalsIgnoreCase("http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider")) {
-									String reference = extObj.getJSONObject("valueReference").getString("reference");
-									String providerResource = reference.split("/")[0];
-									String providerId = reference.split("/")[1];
-									if(providerResource.equalsIgnoreCase("Practitioner")) {
-										practitionerList.add(providerId);
-									}
-									if (providerResource.equalsIgnoreCase("PractitionerRole")) {
-										practitionerRoleList.add(providerId);
-									}
-									if (providerResource.equalsIgnoreCase("Organzation")) {
-										organizationList.add(providerId);
-									}
+							}
+						}
+					}
+				}
+			}
+
+		}
+
+		else if (bdr.getResourceName() != null && bdr.getResourceName().equalsIgnoreCase("GROUP")
+				&& bdr.getOperationType().equals("$atr-export")) {
+			DafGroup dafGroup = groupService.getGroupById(bdr.getResourceId());
+
+			if (dafGroup != null) {
+				patientList = new ArrayList<>();
+				coverageList = new ArrayList<>();
+				practitionerList = new ArrayList<>();
+				practitionerRoleList = new ArrayList<>();
+				organizationList = new ArrayList<>();
+				Group groupResource = (Group) ctx.newJsonParser().parseResource(dafGroup.getData());
+				if (groupResource.hasMember()) {
+					List<GroupMemberComponent> memberList = groupResource.getMember();
+					String[] atrPatientIds = bdr.getPatientList().split(",");
+					for (GroupMemberComponent memberComp : memberList) {
+						if (memberComp.hasEntity()) {
+							for (String compPatient : atrPatientIds) {
+								if (compPatient.equals(memberComp.getEntity().getReferenceElement().getIdPart())) {
+									String patientId = compPatient;
+									patientList.add(patientId);
 								}
-								System.out.println("practitionerList "+practitionerList);
-								System.out.println("practitionerRoleList "+practitionerRoleList);
-								System.out.println("organizationList "+organizationList);
+							}
+
+						}
+						if (memberComp.hasExtension()) {
+							List<Extension> extensionList = memberComp.getExtension();
+							for (Extension extension : extensionList) {
+								if (extension.hasUrl()) {
+									if (extension.getUrl().equals(
+											"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference")) {
+										Reference coverageRef = (Reference) extension.getValue();
+										String coverageId = coverageRef.getReferenceElement().getIdPart();
+										coverageList.add(coverageId);
+									}
+
+									if (extension.getUrl().equals(
+											"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider")) {
+										Reference providerRef = (Reference) extension.getValue();
+										if (providerRef.getReferenceElement().getResourceType()
+												.equals(ResourceType.Practitioner.name())) {
+											practitionerList.add(providerRef.getReferenceElement().getIdPart());
+										}
+										if (providerRef.getReferenceElement().getResourceType()
+												.equals(ResourceType.Organization.name())) {
+											organizationList.add(providerRef.getReferenceElement().getIdPart());
+										}
+										if (providerRef.getReferenceElement().getResourceType()
+												.equals(ResourceType.PractitionerRole.name())) {
+											practitionerRoleList.add(providerRef.getReferenceElement().getIdPart());
+										}
+									}
+
+									log.info("practitionerList " + practitionerList);
+									log.info("practitionerRoleList " + practitionerRoleList);
+									log.info("organizationList " + organizationList);
+								}
 							}
 						}
 					}
@@ -333,14 +400,12 @@ public class BulkDataRequestProvider {
 		}
 		// Process Patient Bulk data request
 		String type = bdr.getType();
-		/*		String[] nameEx = {};
-		if(type !=null)
-		{
-			nameEx = type.split(",");  // output is all necessart files
-		}*/
+		/*
+		 * String[] nameEx = {}; if(type !=null) { nameEx = type.split(","); // output
+		 * is all necessart files }
+		 */
 
-
-		//a = 0;
+		// a = 0;
 		List<String> files = new ArrayList<>();
 		if (type == null || Arrays.asList(type.split(",")).contains("Patient")) {
 			Future<Long> patient = service.processPatientData(bdr, destDir, ctx, patientList, start, end);
@@ -354,7 +419,7 @@ public class BulkDataRequestProvider {
 			allergyintolerance = service.processAllergyIntoleranceData(bdr, destDir, ctx, patientList, start, end);
 			files.add("AllergyIntolerance.ndjson");
 		}
-		
+
 		// Process FamilyMemberHistory Bulk data request
 		Future<Long> familymemberhistory = null;
 		if (type == null || Arrays.asList(type.split(",")).contains("FamilyMemberHistory")) {
@@ -362,21 +427,23 @@ public class BulkDataRequestProvider {
 			familymemberhistory = service.processFamilyMemberHistoryData(bdr, destDir, ctx, patientList, start, end);
 			files.add("FamilyMemberHistory.ndjson");
 		}
-		
+
 		// Process Practitioner Bulk data request
 		Future<Long> practitioner = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("Practitioner") && practitionerList != null && !practitionerList.isEmpty()) {
+		if (type == null || Arrays.asList(type.split(",")).contains("Practitioner") && practitionerList != null
+				&& !practitionerList.isEmpty()) {
 			practitioner = service.processPractitionerData(bdr, destDir, ctx, practitionerList, start, end);
 			files.add("Practitioner.ndjson");
 		}
-		
+
 		// Process Coverage Bulk data request
 		Future<Long> coverage = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("Coverage") && coverageList != null && !coverageList.isEmpty()) {
+		if (type == null || Arrays.asList(type.split(",")).contains("Coverage") && coverageList != null
+				&& !coverageList.isEmpty()) {
 			coverage = service.processCoverageData(bdr, destDir, ctx, coverageList, start, end, type);
 			files.add("Coverage.ndjson");
 		}
-		
+
 		// Process Person Bulk data request
 //		Future<Long> person = null;
 //		if (Arrays.asList(type.split(",")).contains("RelatedPerson")) {
@@ -396,7 +463,7 @@ public class BulkDataRequestProvider {
 			careplan = service.processCarePlanData(bdr, destDir, ctx, patientList, start, end);
 			files.add("CarePlan.ndjson");
 		}
-		
+
 		// Process CareTeam Bulk data request
 		Future<Long> careteam = null;
 		if (type == null || Arrays.asList(type.split(",")).contains("CareTeam")) {
@@ -452,18 +519,19 @@ public class BulkDataRequestProvider {
 		}
 
 		// Process Location Bulk data request
-		// Future<Long> location = null;
-		// if (Arrays.asList(type.split(",")).contains("Location")) {
-
-			// location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
-			// files.add("Location.ndjson");
-		// }
+//		Future<Long> location = null;
+//		if (Arrays.asList(type.split(",")).contains("Location")) {
+//
+//			location = service.processLocationData(bdr, destDir, ctx, patientList, start, end);
+//			files.add("Location.ndjson");
+//		}
 
 		// Process MedicationAdministration Bulk data request
 		Future<Long> medicationadministration = null;
 		if (type == null || Arrays.asList(type.split(",")).contains("MedicationAdministration")) {
 
-			medicationadministration = service.processMedicationAdministrationData(bdr, destDir, ctx, patientList, start, end);
+			medicationadministration = service.processMedicationAdministrationData(bdr, destDir, ctx, patientList,
+					start, end);
 			files.add("MedicationAdministration.ndjson");
 		}
 
@@ -477,12 +545,14 @@ public class BulkDataRequestProvider {
 
 		// Process PractitionerRole Bulk data request
 		Future<Long> practitionerRole = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("PractitionerRole") && practitionerRoleList != null && !practitionerRoleList.isEmpty()) {
+		if (type == null || Arrays.asList(type.split(",")).contains("PractitionerRole") && practitionerRoleList != null
+				&& !practitionerRoleList.isEmpty()) {
 
-			practitionerRole = service.processPractitionerRoleData(bdr, destDir, ctx, practitionerRoleList, start, end, type);
+			practitionerRole = service.processPractitionerRoleData(bdr, destDir, ctx, practitionerRoleList, start, end,
+					type);
 			files.add("PractitionerRole.ndjson");
 		}
-		
+
 		// Process Medication Bulk data request
 		Future<Long> medication = null;
 		if (type == null || Arrays.asList(type.split(",")).contains("Medication")) {
@@ -509,7 +579,8 @@ public class BulkDataRequestProvider {
 
 		// Process Organization Bulk data request
 		Future<Long> organization = null;
-		if (type == null || Arrays.asList(type.split(",")).contains("Organization") && organizationList != null && !organizationList.isEmpty()) {
+		if (type == null || Arrays.asList(type.split(",")).contains("Organization") && organizationList != null
+				&& !organizationList.isEmpty()) {
 
 			organization = service.processOrganizationData(bdr, destDir, ctx, organizationList, start, end);
 			files.add("Organization.ndjson");
@@ -522,7 +593,7 @@ public class BulkDataRequestProvider {
 			procedure = service.processProcedureData(bdr, destDir, ctx, patientList, start, end);
 			files.add("Procedure.ndjson");
 		}
-		
+
 		// Process MedicationRequest Bulk data request
 		Future<Long> medicationrequest = null;
 		if (type == null || Arrays.asList(type.split(",")).contains("MedicationRequest")) {
@@ -530,7 +601,7 @@ public class BulkDataRequestProvider {
 			medicationrequest = service.processMedicationRequestData(bdr, destDir, ctx, patientList, start, end);
 			files.add("MedicationRequest.ndjson");
 		}
-		
+
 		// Process Claim Bulk data request
 		Future<Long> claim = null;
 		if (type == null || Arrays.asList(type.split(",")).contains("Claim")) {
@@ -539,7 +610,7 @@ public class BulkDataRequestProvider {
 			files.add("Claim.ndjson");
 		}
 
-		//wait until async processes gets complete
+		// wait until async processes gets complete
 //		while(true)
 //		{
 //			if(a == files.size())
@@ -548,7 +619,7 @@ public class BulkDataRequestProvider {
 //				bdr.setStatus("Completed");
 //				bdr.setFiles(strFiles);
 //				bdrService.saveBulkDataRequest(bdr);
-//				System.out.println("\n\n Task complete!.................. \n\n");
+//				log.info("\n\n Task complete!.................. \n\n");
 //				log.info("request with id : " + bdr.getRequestId() + " - is processed. The  time is : '"
 //						+ System.nanoTime() + "' in nano seconds");
 //				break;
@@ -564,7 +635,7 @@ public class BulkDataRequestProvider {
 			Thread.sleep(100);
 		}
 	}
-	
+
 	/**
 	 * Set and update bulk data request
 	 * 
@@ -577,22 +648,23 @@ public class BulkDataRequestProvider {
 		bdrService.saveBulkDataRequest(bdr);
 		ndjsonFiles = new ArrayList<>();
 		log.info("\n\n Task complete!.................. \n\n");
-		log.info("Request with id : " + bdr.getRequestId() + " - is processed. The  time is : '"
-				+ System.nanoTime() + "' in nano seconds");
-		log.info("**************Updating the Bulk Data Request Status to {} for Request Id: {}",
-				"Completed", bdr.getRequestId());
-		
+		log.info("Request with id : " + bdr.getRequestId() + " - is processed. The  time is : '" + System.nanoTime()
+				+ "' in nano seconds");
+		log.info("**************Updating the Bulk Data Request Status to {} for Request Id: {}", "Completed",
+				bdr.getRequestId());
+
 	}
-	
+
 	/**
 	 * Check files in destination path
+	 * 
 	 * @param bdr
 	 * @param ndjsonfiles
 	 * @return
 	 */
 	public boolean checkFilesInDestination(DafBulkDataRequest bdr, List<String> ndjsonfiles) {
 		String contextPath = System.getProperty("catalina.base");
-		String destFilePath = contextPath + "/bulkdata" + "/" + bdr.getRequestId() + "/";
+		String destFilePath = contextPath + "/bulk data" + "/" + bdr.getRequestId() + "/";
 		log.info("Verifying the NDSJSON files in directory ----->" + destFilePath);
 		String[] destFilesList = new File(destFilePath).list();
 		log.info("No. of NDJSON files created in " + destFilePath + " is:" + ndjsonfiles.size());

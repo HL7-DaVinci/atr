@@ -63,7 +63,7 @@ public class GroupServiceImpl implements GroupService {
 	
 	@Autowired
 	private CoverageService coverageService;
-	
+
 	@Override
 	public DafGroup updateGroupById(int id, Group theGroup) {
 		return groupDao.updateGroupById(id, theGroup);
@@ -71,55 +71,6 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public DafGroup createGroup(Group theGroup) {
-		if(theGroup.hasMember()) {
-			List<GroupMemberComponent> membersList = theGroup.getMember();
-			for(GroupMemberComponent member:membersList) {
-				if(member.hasEntity()) {
-					Reference patientReference = member.getEntity();
-					Patient patient = patientService.getPatientById(patientReference.getReference().split("/")[1]);
-					if(patient == null) {
-						throw new ResourceNotFoundException("Patient resource not found with id::::"+patientReference.getReference().split("/")[1]);
-					}
-				}
-				if(member.hasExtension()) {
-					List<Extension> memberExtensions = member.getExtension();
-					for(Extension extension: memberExtensions) {
-						if(extension.getUrl().equals("http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider")){
-							Reference providerRef = (Reference) extension.getValue();
-							String reference = providerRef.getReference();
-							if(reference.split("/")[0].equals("Practitioner")) {
-								Practitioner practitioner = practitionerService.getPractitionerById(reference.split("/")[1]);
-								if(practitioner == null) {
-									throw new ResourceNotFoundException("Practitioner resource not found with id::::"+reference.split("/")[1]);
-								}
-							}
-							if(reference.split("/")[0].equals("Organization")) {
-								Organization organization = organizationService.getOrganizationById(reference.split("/")[1]);
-								if(organization == null) {
-									throw new ResourceNotFoundException("Organization resource not found with id::::"+reference.split("/")[1]);
-								}
-							}
-							if(reference.split("/")[0].equals("PractitionerRole")) {
-								PractitionerRole practitionerRole = practitionerRoleService.getPractitionerRoleById(reference.split("/")[1]);
-								if(practitionerRole == null) {
-									throw new ResourceNotFoundException("PracitionerRole resource not found with id::::"+reference.split("/")[1]);
-								}
-							}
-						}
-						if(extension.getUrl().equals("http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference")) {
-							Reference providerRef = (Reference) extension.getValue();
-							String reference = providerRef.getReference();
-							if(reference.split("/")[0].equals("Coverage")) {
-								Coverage coverage = coverageService.getCoverageById(reference.split("/")[1]);
-								if(coverage == null) {
-									throw new ResourceNotFoundException("Coverage resource not found with id::::"+reference.split("/")[1]);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
 		return groupDao.createGroup(theGroup);
 	}
 
@@ -146,7 +97,7 @@ public class GroupServiceImpl implements GroupService {
 				for(DafGroup dafGroup : dafGroupList) {
 					group = jsonParser.parseResource(Group.class, dafGroup.getData());
 					String str = fhirContext.newJsonParser().encodeResourceToString(group);
-					System.out.println("GROUP IN STRING :: \n"+str);
+					logger.info("GROUP IN STRING :: \n {}", str);
 					group.setId(group.getId());
 					groupList.add(group);
 				}
