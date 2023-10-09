@@ -37,11 +37,15 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
 	@Autowired
 	FhirContext fhirContext;
 
+	@Autowired
+    private SessionFactory sessionFactory;
+	
 	/**
 	 * This method builds criteria for fetching patient record by id.
 	 * @param id : ID of the resource
 	 * @return : DafPatient object
 	 */
+	@Override
 	public DafPatient getPatientById(String id) {
 		DafPatient dafPatient = null;
 		try {
@@ -67,6 +71,7 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
 	 * @return : DafPatient object
 	 */
 	@Override
+	@Transactional 
 	public DafPatient getPatientByVersionId(String theId, String versionId) {
 		return getSession().createNativeQuery(
 			"select * from patient where id = '"+theId+"' and data->'meta'->>'versionId' = '"+versionId+"'", 
@@ -77,9 +82,12 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
      * This method builds criteria for creating the patient
      * @return : patient record
      */
+    @Override
+    @Transactional
 	public Patient createPatient(Patient thePatient) {
 		DafPatient dafPatient = new DafPatient();
     	try {
+    		Session session = sessionFactory.openSession();
     		IParser jsonParser = fhirContext.newJsonParser();
 			Meta meta = new Meta();
     		if(thePatient.hasMeta()) {
@@ -106,7 +114,10 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
     			logger.info(" setting the uuid ");
     		}
     		dafPatient.setData(jsonParser.encodeResourceToString(thePatient));
-    		getSession().saveOrUpdate(dafPatient);
+    		session.beginTransaction();
+    		session.save(dafPatient);
+    		session.getTransaction().commit();
+    		session.close();
     	}
     	catch(Exception e) {
     		logger.error("Exception in createPatient of PatientDaoImpl ", e);
@@ -114,12 +125,17 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
 		return thePatient;
 	}
 
+	@Override
 	public DafPatient updatePatientById(int theId, Patient thePatient) {
 		DafPatient dafPatient = new DafPatient();
 		IParser jsonParser = fhirContext.newJsonParser();
 		dafPatient.setId(theId);
 		dafPatient.setData(jsonParser.encodeResourceToString(thePatient));
-		getSession().saveOrUpdate(dafPatient);
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.update(dafPatient);
+		session.getTransaction().commit();
+		session.close();
 		return dafPatient;
 	}
 
@@ -837,6 +853,9 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
     	}
     }
     
+    @SuppressWarnings({ "deprecation", "unchecked" })
+	@Override
+    @Transactional
     public DafPatient getPatientJsonForBulkData(String patientId, Date start, Date end) {
     	Criteria criteria = getSession().createCriteria(DafPatient.class);   
 		if(patientId!=null) {
@@ -851,6 +870,9 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
     	return (DafPatient) criteria.list().get(0);
     }
     
+    @SuppressWarnings({ "deprecation", "unchecked" })
+	@Override
+    @Transactional
     public List<DafPatient> getAllPatientJsonForBulkData(Date start, Date end) {
     	Criteria criteria = getSession().createCriteria(DafPatient.class);   
 		if(start != null) {
@@ -862,6 +884,7 @@ public class PatientDaoImpl extends AbstractDao implements PatientDao {
     	return criteria.list();
     }
 
+	@Override
 	public DafPatient getPatientByMemeberId(String memberSystem, String memberId) {
 		DafPatient dafPatient = null;
 		try {

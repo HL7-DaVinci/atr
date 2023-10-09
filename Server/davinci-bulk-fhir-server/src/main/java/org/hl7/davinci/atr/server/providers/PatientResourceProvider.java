@@ -378,10 +378,10 @@ public class PatientResourceProvider extends AbstractJaxRsResourceProvider<Patie
 		    	bdr.setStatus("Accepted");
 		    	bdr.setProcessedFlag(false);
 		    	if(theStart != null && theStart.getLowerBound() != null) {
-		    		bdr.setStart(theStart.getLowerBound().getValueAsString()); 
+		    		bdr.setStart(theStart.getLowerBound().getValue()); 
 		    	}
 		    	if(theStart != null && theStart.getUpperBound() != null) {
-		    		bdr.setEnd(theStart.getUpperBound().getValueAsString()); 
+		    		bdr.setEnd(theStart.getUpperBound().getValue()); 
 		    	}
 		    	bdr.setType(type);
 		    	bdr.setRequestResource(request.getRequestURL().toString());

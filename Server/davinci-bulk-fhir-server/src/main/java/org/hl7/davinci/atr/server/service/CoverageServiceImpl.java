@@ -29,6 +29,7 @@ public class CoverageServiceImpl implements CoverageService{
 	@Autowired
 	private CoverageDao coverageDao;
 	
+	@Override
 	public Coverage getCoverageByVersionId(String id, String versionIdPart) {
 		Coverage coverage = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -40,6 +41,7 @@ public class CoverageServiceImpl implements CoverageService{
 		return coverage;
 	}
 
+	@Override
 	public Coverage getCoverageById(String theId) {
 		Coverage coverage = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -51,6 +53,7 @@ public class CoverageServiceImpl implements CoverageService{
 		return coverage;
 	}
 
+	@Override
 	public List<Coverage> search(SearchParameterMap paramMap) {
 		Coverage coverage = null;
 		List<Coverage> CoverageList = new ArrayList<>();
@@ -66,14 +69,17 @@ public class CoverageServiceImpl implements CoverageService{
 		return CoverageList;
 	}
 
+	@Override
 	public Coverage createCoverage(Coverage theCoverage) {
 		return coverageDao.createCoverage(theCoverage);
 	}
 
+	@Override
 	public DafCoverage updateCoverageById(int id, Coverage theCoverage) {
 		return coverageDao.updateCoverageById(id, theCoverage);
 	}
 
+	@Override
 	public List<Coverage> getCoverageForBulkData(List<String> patients, Date start, Date end) {
 		Coverage coverage = null;
 		List<Coverage> coverageList = new ArrayList<>();
@@ -98,6 +104,7 @@ public class CoverageServiceImpl implements CoverageService{
 		return coverageList;
 	}
 
+	@Override
 	public Coverage getCoverageByPatientReference(String patientId) {
 		Coverage coverage = null;
 		try {
@@ -131,6 +138,7 @@ public class CoverageServiceImpl implements CoverageService{
   	  	return coverage;
     }
 
+	@Override
 	public Coverage getCoverageByIdentifier(String system, String value) {
 		Coverage coverage = null;
 		try {

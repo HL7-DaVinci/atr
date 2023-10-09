@@ -30,6 +30,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 	@Autowired
     private OrganizationDao organizationDao;
 	
+	@Override
+    @Transactional
     public Organization getOrganizationById(String id) {
 		Organization organization = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -41,6 +43,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return organization;
     }
 
+	@Override
+	@Transactional
 	public Organization getOrganizationByVersionId(String theId, String versionId) {
 		Organization organization = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -52,6 +56,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return organization;
 	}
 
+	@Override
+	@Transactional
 	public List<Organization> search(SearchParameterMap searchParameterMap) {
 		Organization organization = null;
 		List<Organization> organizationList = new ArrayList<>();
@@ -67,14 +73,18 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return organizationList;
 	}
 
+	@Override
 	public Organization createOrganization(Organization theOrganization) {
 		return organizationDao.createOrganization(theOrganization);
 	}
 
+	@Override
 	public DafOrganization updateOrganizationById(int id, Organization theOrganization) {
 		return organizationDao.updateOrganizationById(id, theOrganization);
 	}
 	
+	@Override
+    @Transactional
     public List<Organization> getOrganizationForBulkData(List<String> patients, Date start, Date end) {
     	Organization organization = null;
 		List<Organization> organizationList = new ArrayList<>();
@@ -94,6 +104,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 		return organizationList;
     }
 
+	@Override
 	public Organization getOrganizationByProviderIdentifier(String system, String value) {
 		Organization organization = null;
 		try {

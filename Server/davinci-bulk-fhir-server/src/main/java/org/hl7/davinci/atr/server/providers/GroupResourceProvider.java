@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpStatus;
 import org.hl7.davinci.atr.server.model.DafBulkDataRequest;
 import org.hl7.davinci.atr.server.model.DafGroup;
 import org.hl7.davinci.atr.server.service.BulkDataRequestService;
@@ -20,19 +21,28 @@ import org.hl7.davinci.atr.server.service.GroupService;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Binary;
+import org.hl7.fhir.r4.model.DateTimeType;
 import org.hl7.fhir.r4.model.Group;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Meta;
 import org.hl7.fhir.r4.model.Parameters;
+import org.hl7.fhir.r4.model.Parameters.ParametersParameterComponent;
+import org.hl7.fhir.r4.model.Period;
+import org.hl7.fhir.r4.model.Reference;
+import org.hl7.fhir.r4.model.StringType;
+import org.hl7.fhir.r4.model.Type;
+import org.hl7.fhir.r4.model.UrlType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.jaxrs.server.AbstractJaxRsResourceProvider;
 import ca.uhn.fhir.model.api.Include;
 import ca.uhn.fhir.model.api.annotation.Description;
+import ca.uhn.fhir.model.api.annotation.SearchParamDefinition;
 import ca.uhn.fhir.model.primitive.InstantDt;
 import ca.uhn.fhir.parser.IParser;
 import ca.uhn.fhir.rest.annotation.Count;
@@ -56,7 +66,6 @@ import ca.uhn.fhir.rest.param.StringAndListParam;
 import ca.uhn.fhir.rest.param.StringParam;
 import ca.uhn.fhir.rest.param.TokenAndListParam;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
-import ca.uhn.fhir.rest.server.exceptions.UnclassifiedServerFailureException;
 import ca.uhn.fhir.rest.server.exceptions.UnprocessableEntityException;
 
 @Component
@@ -209,8 +218,7 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 			@Description(shortDefinition = "Group Name") @OptionalParam(name = "name") StringParam theName,
 
 			@Description(shortDefinition = "A patient identifier") @OptionalParam(name = Group.SP_IDENTIFIER) TokenAndListParam theIdentifier,
-			
-			@Description(shortDefinition = "Search by Group.period") @OptionalParam(name = "period") DateRangeParam dateParam,
+			@Description(shortDefinition = "Period") @OptionalParam(name = "period") DateRangeParam thePeriod,
 
 			@IncludeParam(allow = { "*" }) Set<Include> theIncludes,
 
@@ -261,7 +269,8 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 		};
 	}
 
-	@Operation(name = "$export", idempotent = true)
+	@Operation(name = "$export", idempotent = true, manualResponse = true)
+	@Description(shortDefinition = "This is Short Definition")
 	public Binary patientTypeOperation(@IdParam IdType groupId,
 			@OperationParam(name = "_since") DateRangeParam theStart,
 			// @OperationParam(name = "end") DateDt theEnd,
@@ -271,22 +280,23 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 		Binary retVal = new Binary();
 		if (requestDetails.getHeader("Prefer") != null && requestDetails.getHeader("Accept") != null) {
 			if (requestDetails.getHeader("Prefer").equals("respond-async")
-					&& (requestDetails.getHeader("Accept").contains("application/fhir+json") || requestDetails.getHeader("Accept").contains("application/json"))) {
+					&& requestDetails.getHeader("Accept").equals("application/fhir+json")) {
 				String resourceId = groupId.getIdPart();
 				Date start = null;
 				DafBulkDataRequest bdr = new DafBulkDataRequest();
 
 				if (theStart != null && theStart.getLowerBound() != null) {
-					bdr.setStart(theStart.getLowerBound().getValueAsString());
+					bdr.setStart(theStart.getLowerBound().getValue());
 				}
 				if (theStart != null && theStart.getUpperBound() != null) {
-					bdr.setEnd(theStart.getUpperBound().getValueAsString());
+					bdr.setEnd(theStart.getUpperBound().getValue());
 				}
 
 				bdr.setResourceName("Group");
 				bdr.setResourceId(resourceId);
 				bdr.setStatus("Accepted");
 				bdr.setProcessedFlag(false);
+				bdr.setOperationType("$export");
 				bdr.setType(type);
 				bdr.setRequestResource(request.getRequestURL().toString());
 
@@ -312,12 +322,108 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 				retVal.setContentType("application/json+fhir");
 				return retVal;
 			} else {
-				//throw new UnprocessableEntityException("Invalid header values!");
-				throw new UnclassifiedServerFailureException(400, "Invalid header values!");
+				throw new UnprocessableEntityException("Invalid header values!");
 			}
 		} else {
-			//throw new UnprocessableEntityException("Prefer or Accepted Header is missing!");
-			throw new UnclassifiedServerFailureException(400, "Prefer or Accepted Header is missing!");
+			throw new UnprocessableEntityException("Prefer or Accepted Header is missing!");
+		}
+	}
+	
+	
+	@Operation(name = "$atr-export", idempotent = true,  manualResponse = true)
+	@Description(shortDefinition = "This is Short Definition")
+	public Binary groupAtrExportOperation(@IdParam IdType groupId,
+			@ResourceParam Parameters parameters, RequestDetails requestDetails, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		Binary retVal = new Binary();
+		if (requestDetails.getHeader("Prefer") != null && requestDetails.getHeader("Accept") != null) {
+			if (requestDetails.getHeader("Prefer").equals("respond-async")
+					&& requestDetails.getHeader("Accept").equals("application/fhir+json")) {
+				String resourceId = groupId.getIdPart();
+				DafGroup dafGroup = service.getGroupById(resourceId);
+				if(dafGroup!=null) {
+					DafBulkDataRequest bdr = new DafBulkDataRequest();
+					List<ParametersParameterComponent> parameterList = parameters.getParameter();
+					StringBuilder setIds = new StringBuilder();
+					for(ParametersParameterComponent parameterObj:parameterList) {
+						if(parameterObj.getName().equals("memberReference")) {
+							Type value = parameterObj.getValue();
+							if(value instanceof Reference) {
+								
+								Reference patientId = (Reference) value;
+								String[] id = patientId.getReference().split("/");
+								setIds.append(id[1].toString()+ ",");
+							}
+						}
+						
+						if(parameterObj.getName().equals("resourceTypes")) {
+							Type value = parameterObj.getValue();
+							if(value instanceof StringType) {
+								bdr.setType(value.toString());
+							}
+						}
+						
+						if(parameterObj.getName().equals("exportType")) {
+							Type value = parameterObj.getValue();
+							if(value instanceof UrlType) {
+								UrlType exportedType = (UrlType) value;
+								String newExportedType = exportedType.getValue();
+								if(!newExportedType.equals("hl7.fhir.us.davinci-atr")) {
+									throw new ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST,"Please send a valid exportType ");
+								}
+							}
+						}
+						
+						if(parameterObj.getName().equals("extractionPeriod")) {
+							Type value = parameterObj.getValue();
+							if(value instanceof Period) {
+								Period extractedDate = (Period) value;
+								bdr.setStart(null);
+								bdr.setEnd(null);
+							}
+						}
+						
+					}
+					bdr.setPatientList(setIds.substring(0, setIds.length() - 1));
+					bdr.setResourceName("Group");
+					bdr.setResourceId(resourceId);
+					bdr.setStatus("Accepted");
+					bdr.setProcessedFlag(false);
+					bdr.setOperationType("$atr-export");
+					bdr.setRequestResource(request.getRequestURL().toString());
+					DafBulkDataRequest responseBDR = bdrService.saveBulkDataRequest(bdr);
+
+					String uri = request.getScheme() + "://" + request.getServerName()
+							+ ("http".equals(request.getScheme()) && request.getServerPort() == 80
+									|| "https".equals(request.getScheme()) && request.getServerPort() == 443 ? ""
+											: ":" + request.getServerPort())
+							+ request.getContextPath();
+
+					response.setStatus(202);
+					GregorianCalendar cal = new GregorianCalendar();
+					cal.setTime(new Date());
+					cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+					cal.add(Calendar.DATE, 10);
+					// HTTP header date format: Thu, 01 Dec 1994 16:00:00 GMT
+					String o = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz").format(cal.getTime());
+					System.out.println(o);
+					response.setHeader("Expires", o);
+					response.setHeader("Content-Location", uri + "/bulkdata/" + responseBDR.getRequestId());
+
+					retVal.setContentType("application/json+fhir");
+//					return retVal;
+					
+				} else {
+					throw new ResourceNotFoundException("The Request Group Resource not found with Id::::"+resourceId);
+				}
+				logger.info("Received Resource parameter::::{}",fhirContext.newJsonParser().encodeResourceToString(parameters));
+				return retVal;
+			} else {
+				throw new UnprocessableEntityException("Invalid header values!");
+			}
+		} else {
+			throw new UnprocessableEntityException("Prefer or Accepted Header is missing!");
 		}
 	}
 	
@@ -387,12 +493,12 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 		}
 	}
 
-	@Operation(name = "$member-add", idempotent = false,manualResponse=true)
+	@Operation(name = "$member-add", idempotent = true)
 	public MethodOutcome groupMemberAddTypeOperation(@IdParam IdType groupId, @ResourceParam Parameters theParameters,
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		MethodOutcome retVal = new MethodOutcome();
 		if (request.getHeader("Content-Type") != null
-				&& request.getHeader("Content-Type").equals("application/fhir+json")) {
+				&& request.getHeader("Content-Type").contains("application/fhir+json")) {
 			DafGroup updatedGroup = service.processAddMemberToGroup(theParameters, groupId.getIdPart());
 			if (updatedGroup != null) {
 				Group group = (Group) fhirContext.newJsonParser().parseResource(updatedGroup.getData());
@@ -406,13 +512,13 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 		return retVal;
 	}
 
-	@Operation(name = "$member-remove", idempotent = false,manualResponse=true)
+	@Operation(name = "$member-remove", idempotent = false)
 	public MethodOutcome groupMemberRemoveTypeOperation(@IdParam IdType groupId,
 			@ResourceParam Parameters theParameters, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		MethodOutcome retVal = new MethodOutcome();
 		if (request.getHeader("Content-Type") != null
-				&& request.getHeader("Content-Type").equals("application/fhir+json")) {
+				&& request.getHeader("Content-Type").contains("application/fhir+json")) {
 			DafGroup updatedGroup = service.processRemoveMemberToGroup(theParameters,groupId.getIdPart());
 			if (updatedGroup != null) {
 				Group group = (Group) fhirContext.newJsonParser().parseResource(updatedGroup.getData());

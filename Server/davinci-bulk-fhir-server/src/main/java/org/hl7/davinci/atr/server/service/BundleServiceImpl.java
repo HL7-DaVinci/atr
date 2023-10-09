@@ -1,10 +1,7 @@
 package org.hl7.davinci.atr.server.service;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.hl7.davinci.atr.server.dao.CoverageDao;
 import org.hl7.davinci.atr.server.dao.OrganizationDao;
@@ -13,7 +10,6 @@ import org.hl7.davinci.atr.server.dao.PractitionerDao;
 import org.hl7.davinci.atr.server.model.DafBundle;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
-import org.hl7.fhir.r4.model.Bundle.BundleEntryResponseComponent;
 import org.hl7.fhir.r4.model.Bundle.HTTPVerb;
 import org.hl7.fhir.r4.model.Coverage;
 import org.hl7.fhir.r4.model.Organization;
@@ -42,9 +38,7 @@ public class BundleServiceImpl implements BundleService {
 	@Autowired
     private CoverageDao coverageDao;
 	@Override
-	public Bundle createBundle(Bundle theBundle) {
-		Map<String,String> savedResources = new HashMap<String, String>();
-		Bundle bundle = new Bundle();
+	public DafBundle createBundle(Bundle theBundle) {
 		try {
 			if(theBundle != null && !theBundle.isEmpty()) {
 				if(theBundle.hasEntry() && !theBundle.getEntry().isEmpty()) {
@@ -193,7 +187,6 @@ public class BundleServiceImpl implements BundleService {
 										if(patients != null && !patients.isEmpty()) {
 											for(String patientId:patients) {
 												if(patientId.equalsIgnoreCase(thePatient.getIdElement().getIdPart())) {
-													savedResources.put(thePatient.getIdElement().getIdPart(), "Patient");
 													patientDao.createPatient(thePatient);
 													logger.info(" Patient.id {} : "+thePatient.getIdElement().getIdPart()+" saved.");	
 													break;
@@ -205,7 +198,6 @@ public class BundleServiceImpl implements BundleService {
 										Practitioner thePractitioner = (Practitioner) bundleComponent.getResource();
 										for(String practitioner:generalPractitioners) {
 											if(practitioner.equalsIgnoreCase(thePractitioner.getIdElement().getIdPart())) {
-												savedResources.put(thePractitioner.getIdElement().getIdPart(), "Practitioner");
 												practitionerDao.createPractitioner(thePractitioner);
 												logger.info(" Practitioner.id {} : "+thePractitioner.getIdElement().getIdPart()+" has reference with Patient.generalPractitioner. Hence Practitioner is saved.");	
 											}
@@ -227,7 +219,6 @@ public class BundleServiceImpl implements BundleService {
 											String referenceId = theCoverage.getBeneficiary().getReferenceElement().getIdPart();
 											for(String patient:patients) {
 												if(referenceId.equalsIgnoreCase(patient)) {
-													savedResources.put(theCoverage.getIdElement().getIdPart(), "Coverage");
 													coverageDao.createCoverage(theCoverage);
 													logger.info(" Coverage.beneficiary.reference : Patient/"+referenceId+" has reference with Patient.id {} "+referenceId+". Hence Coverage.id "+theCoverage.getIdElement().getIdPart()+" is saved.");
 													break;
@@ -253,19 +244,6 @@ public class BundleServiceImpl implements BundleService {
 		catch(Exception e) {
 			logger.error("Exception in createBundle of BundleServiceImpl ", e);
 		}
-		if(savedResources.size()>0) {
-			List<BundleEntryComponent> entryComps = new ArrayList<BundleEntryComponent>();
-			for(Map.Entry<String, String> entry: savedResources.entrySet()) {
-				BundleEntryComponent entryComp = new BundleEntryComponent();
-				BundleEntryResponseComponent responseComp = new BundleEntryResponseComponent();
-				responseComp.setStatus("201 Created");
-				responseComp.setLocation(entry.getValue()+"/"+entry.getKey());
-				responseComp.setLastModified(new Date());
-				entryComp.setResponse(responseComp);
-				entryComps.add(entryComp);
-			}
-			bundle.setEntry(entryComps);
-		}
-		return bundle;
+		return null;
 	}
 }

@@ -76,7 +76,6 @@ public class CommonUtil {
 			String headerKey = "Content-Disposition";
 			String headerValue = String.format("attachment; filename=\"%s\"",downloadFile.getName());
 			response.setHeader(headerKey, headerValue);
-			response.setHeader("Content-Type", "application/fhir+ndjson");
  
 			// Write response
 			outStream = response.getOutputStream();
