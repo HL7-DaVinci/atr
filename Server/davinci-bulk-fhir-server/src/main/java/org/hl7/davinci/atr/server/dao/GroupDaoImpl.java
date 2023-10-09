@@ -6,7 +6,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hl7.davinci.atr.server.model.DafGroup;
-import org.hl7.davinci.atr.server.model.DafPatient;
 import org.hl7.davinci.atr.server.util.CommonUtil;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
 import org.hl7.fhir.r4.model.Group;
@@ -82,8 +81,8 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 		query.append("select * from groups");
 		query = buildIdentifierQuery(paramMap, query);
 		query = buildNameQuery(paramMap, query);
-		final String finalQuery = query.toString();
-		System.out.println("GROUP QUERY IS :: "+finalQuery);
+		final String finalQuery = query.toString()+ "order by data->'meta'->>'versionId' desc";
+		logger.info("GROUP QUERY IS :: {}", finalQuery);
 		groupList = getSession().createNativeQuery(finalQuery,DafGroup.class).getResultList();
 		return groupList;
 	}

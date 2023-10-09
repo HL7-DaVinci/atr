@@ -146,7 +146,7 @@ public class GroupServiceImpl implements GroupService {
 				for(DafGroup dafGroup : dafGroupList) {
 					group = jsonParser.parseResource(Group.class, dafGroup.getData());
 					String str = fhirContext.newJsonParser().encodeResourceToString(group);
-					System.out.println("GROUP IN STRING :: \n"+str);
+					logger.info("GROUP IN STRING :: \n {}", str);
 					group.setId(group.getId());
 					groupList.add(group);
 				}

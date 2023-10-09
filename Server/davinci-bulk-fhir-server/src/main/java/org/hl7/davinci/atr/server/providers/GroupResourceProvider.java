@@ -30,7 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.interceptor.api.Hook;
 import ca.uhn.fhir.jaxrs.server.AbstractJaxRsResourceProvider;
 import ca.uhn.fhir.model.api.Include;
 import ca.uhn.fhir.model.api.annotation.Description;
@@ -306,12 +305,78 @@ public class GroupResourceProvider extends AbstractJaxRsResourceProvider<Group> 
 				cal.add(Calendar.DATE, 10);
 				// HTTP header date format: Thu, 01 Dec 1994 16:00:00 GMT
 				String o = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz").format(cal.getTime());
-				System.out.println(o);
+				logger.info("{}", o);
 				response.setHeader("Expires", o);
 				response.setHeader("Content-Location", uri + "/bulkdata/" + responseBDR.getRequestId());
 
 				retVal.setContentType("application/json+fhir");
 				return retVal;
+			} else {
+				//throw new UnprocessableEntityException("Invalid header values!");
+				throw new UnclassifiedServerFailureException(400, "Invalid header values!");
+			}
+		} else {
+			//throw new UnprocessableEntityException("Prefer or Accepted Header is missing!");
+			throw new UnclassifiedServerFailureException(400, "Prefer or Accepted Header is missing!");
+		}
+	}
+	
+	@Operation(name = "$davinci-data-export", idempotent = true)
+	public Binary patientTypeDataExport(@IdParam IdType groupId,
+			@OperationParam(name = "_since") DateRangeParam theStart,
+			// @OperationParam(name = "end") DateDt theEnd,
+			@OperationParam(name = "exportType") String exportType,
+			@OperationParam(name = "resourceTypes") String type, RequestDetails requestDetails, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		Binary retVal = new Binary();
+		if (requestDetails.getHeader("Prefer") != null && requestDetails.getHeader("Accept") != null) {
+			if (requestDetails.getHeader("Prefer").equals("respond-async")
+					&& (requestDetails.getHeader("Accept").contains("application/fhir+json") || requestDetails.getHeader("Accept").contains("application/json"))) {
+				if(!StringUtils.isBlank(exportType) || exportType.equalsIgnoreCase("hl7.fhir.us.davinci-atr")) {
+					String resourceId = groupId.getIdPart();
+					Date start = null;
+					DafBulkDataRequest bdr = new DafBulkDataRequest();
+
+					if (theStart != null && theStart.getLowerBound() != null) {
+						bdr.setStart(theStart.getLowerBound().getValueAsString());
+					}
+					if (theStart != null && theStart.getUpperBound() != null) {
+						bdr.setEnd(theStart.getUpperBound().getValueAsString());
+					}
+
+					bdr.setResourceName("Group");
+					bdr.setResourceId(resourceId);
+					bdr.setStatus("Accepted");
+					bdr.setProcessedFlag(false);
+					bdr.setType(type);
+					bdr.setRequestResource(request.getRequestURL().toString());
+
+					DafBulkDataRequest responseBDR = bdrService.saveBulkDataRequest(bdr);
+
+					String uri = request.getScheme() + "://" + request.getServerName()
+							+ ("http".equals(request.getScheme()) && request.getServerPort() == 80
+									|| "https".equals(request.getScheme()) && request.getServerPort() == 443 ? ""
+											: ":" + request.getServerPort())
+							+ request.getContextPath();
+
+					response.setStatus(202);
+					GregorianCalendar cal = new GregorianCalendar();
+					cal.setTime(new Date());
+					cal.setTimeZone(TimeZone.getTimeZone("GMT"));
+					cal.add(Calendar.DATE, 10);
+					// HTTP header date format: Thu, 01 Dec 1994 16:00:00 GMT
+					String o = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz").format(cal.getTime());
+					System.out.println(o);
+					response.setHeader("Expires", o);
+					response.setHeader("Content-Location", uri + "/bulkdata/" + responseBDR.getRequestId());
+
+					retVal.setContentType("application/json+fhir");
+					return retVal;
+				}
+				else {
+					throw new UnclassifiedServerFailureException(400, "exportType parameter is missing!");
+				}
 			} else {
 				//throw new UnprocessableEntityException("Invalid header values!");
 				throw new UnclassifiedServerFailureException(400, "Invalid header values!");

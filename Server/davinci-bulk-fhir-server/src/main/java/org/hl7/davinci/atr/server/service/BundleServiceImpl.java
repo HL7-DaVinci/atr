@@ -38,7 +38,7 @@ public class BundleServiceImpl implements BundleService {
 	@Autowired
     private PractitionerDao practitionerDao;
 	@Autowired
-    private OrganizationDao organizationDao;
+    private OrganizationService organizationService;
 	@Autowired
     private CoverageDao coverageDao;
 	@Override
@@ -216,7 +216,7 @@ public class BundleServiceImpl implements BundleService {
 										for(String organization:managingOrganizations) {
 											if(organization.equalsIgnoreCase(theOrganization.getIdElement().getIdPart())) {
 												savedResources.put(theOrganization.getIdElement().getIdPart(), "Organization");
-												organizationDao.createOrganization(theOrganization);
+												organizationService.createOrganization(theOrganization);
 												logger.info(" Organization.id {} : "+theOrganization.getIdElement().getIdPart()+" has reference with Patient.generalPractitioner/Patient.managingOrganization. Hence Practitioner/Organization is saved.");	
 											}
 										}
