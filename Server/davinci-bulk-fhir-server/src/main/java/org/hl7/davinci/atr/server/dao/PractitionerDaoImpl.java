@@ -37,15 +37,11 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
 	@Autowired
 	FhirContext fhirContext;
 
-	@Autowired
-    private SessionFactory sessionFactory;
-	
 	/**
 	 * This method builds criteria for fetching practitioner record by id.
 	 * @param id : ID of the resource
 	 * @return : DafPractitioner object
 	 */
-	@Override
 	public DafPractitioner getPractitionerById(String id) {
 		DafPractitioner dafPractitioner = null;
 		try {
@@ -71,8 +67,6 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
 	 * @param versionId : version of the practitioner record
 	 * @return : DafPractitioner object
 	 */
-	@Override
-	@Transactional 
 	public DafPractitioner getPractitionerByVersionId(String theId, String versionId) {
 		return getSession().createNativeQuery(
 			"select * from practitioner where id = '"+theId+"' and data->'meta'->>'versionId' = '"+versionId+"'", 
@@ -83,12 +77,9 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
      * This method builds criteria for creating the practitioner
      * @return : practitioner record
      */
-    @Override
-    @Transactional
 	public Practitioner createPractitioner(Practitioner thePractitioner) {
 		DafPractitioner dafPractitioner = new DafPractitioner();
     	try {
-    		Session session = sessionFactory.openSession();
     		IParser jsonParser = fhirContext.newJsonParser();
     		Meta meta = new Meta();
     		if(thePractitioner.hasMeta()) {
@@ -115,10 +106,7 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
     			logger.info(" setting the uuid ");
     		}
     		dafPractitioner.setData(jsonParser.encodeResourceToString(thePractitioner));
-    		session.beginTransaction();
-    		session.save(dafPractitioner);
-    		session.getTransaction().commit();
-    		session.close();
+    		getSession().saveOrUpdate(dafPractitioner);
     	}
     	catch(Exception e) {
     		logger.error("Exception in createPractitioner of PractitionerDaoImpl ", e);
@@ -129,17 +117,12 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
     /**
      * 
      */
-	@Override
 	public DafPractitioner updatePractitionerById(int theId, Practitioner thePractitioner) {
 		DafPractitioner dafPractitioner = new DafPractitioner();
 		IParser jsonParser = fhirContext.newJsonParser();
 		dafPractitioner.setId(theId);
 		dafPractitioner.setData(jsonParser.encodeResourceToString(thePractitioner));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.update(dafPractitioner);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafPractitioner);
 		return dafPractitioner;
 	}
 	
@@ -924,8 +907,6 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
     	}
     }
     
-    @SuppressWarnings({"unchecked", "deprecation"})
-	@Override
     public DafPractitioner getPractitionerForBulkData(String practitioners, Date start, Date end) {
 		Criteria criteria = getSession().createCriteria(DafPractitioner.class);
 		if(practitioners!=null) {
@@ -940,7 +921,6 @@ public class PractitionerDaoImpl extends AbstractDao implements PractitionerDao 
     	return (DafPractitioner) criteria.list().get(0);
 	}
 
-	@Override
 	public DafPractitioner getPractitionerByProviderNpi(String providerNpiSystem,String providerNpi) {
 		DafPractitioner dafPractitioner = null;
 		try {

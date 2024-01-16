@@ -30,7 +30,6 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 	@Autowired
 	private FhirContext fhirContext;
 
-	@Override
 	public DafGroup getGroupById(String id) {
 		DafGroup dafGroup = null;
 		try {
@@ -49,7 +48,6 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 		return dafGroup;
 	}
 
-	@Override
 	public DafGroup createGroup(Group theGroup) {
 		DafGroup dafGroup = new DafGroup();
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -60,15 +58,10 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 		}
 		jsonParser.encodeResourceToString(theGroup);
 		dafGroup.setData(jsonParser.encodeResourceToString(theGroup));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.save(dafGroup);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafGroup);
 		return dafGroup;
 	}
 
-	@Override
 	public DafGroup updateGroupById(int id, Group theGroup) {
 		DafGroup dafGroup = new DafGroup();
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -82,7 +75,6 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 		return dafGroup;
 	}
 
-	@Override
 	public List<DafGroup> search(SearchParameterMap paramMap) {
 		List<DafGroup> groupList = new ArrayList<>();
 		StringBuffer query = new StringBuffer();
@@ -171,7 +163,6 @@ public class GroupDaoImpl extends AbstractDao implements GroupDao {
 	    return query;
 	}
 
-	@Override
 	public DafGroup getGroupByVersionId(String idPart, String versionIdPart) {
 		return getSession().createNativeQuery(
 				"select * from groups where data->>'id' = '"+idPart+"' and data->'meta'->>'versionId' = '"+versionIdPart+"'", 

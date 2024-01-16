@@ -2,13 +2,7 @@ package org.hl7.davinci.atr.server.providers;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
-import java.util.TimeZone;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +13,7 @@ import org.hl7.davinci.atr.server.service.BulkDataRequestService;
 import org.hl7.davinci.atr.server.service.PatientService;
 import org.hl7.davinci.atr.server.util.SearchParameterMap;
 import org.hl7.fhir.instance.model.api.IBaseResource;
-import org.hl7.fhir.r4.model.Binary;
-import org.hl7.fhir.r4.model.IdType;
-import org.hl7.fhir.r4.model.Meta;
-import org.hl7.fhir.r4.model.Patient;
+import org.hl7.fhir.r4.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,10 +131,24 @@ public class PatientResourceProvider extends AbstractJaxRsResourceProvider<Patie
 		if (theId.hasVersionIdPart()) {
 		   // this is a vread  
 			thePatient = service.getPatientByVersionId(id, theId.getVersionIdPart());
-		   
+
 		} else {
 		   // this is a read
 			thePatient = service.getPatientById(id);
+			List<Address> addresses = thePatient.getAddress();
+			for(Address address: addresses){
+				address.setPostalCodeElement(new StringType("00000"));
+
+				Map<String,Object> extension = new HashMap<>();
+				Map<String,String> extensionObject = new HashMap<>();
+				extensionObject.put("url","http://localhost:8080");
+				extensionObject.put("valueCode","masked");
+				extension.put("extension",extensionObject);
+				address.setUserData("_postalCode",extension);
+				//address.setPostalCodeElement(postcalCode);
+				// addresses.add(address);
+			}
+			thePatient.setAddress(addresses);
 		}
 		return thePatient;
     }
@@ -378,10 +383,10 @@ public class PatientResourceProvider extends AbstractJaxRsResourceProvider<Patie
 		    	bdr.setStatus("Accepted");
 		    	bdr.setProcessedFlag(false);
 		    	if(theStart != null && theStart.getLowerBound() != null) {
-		    		bdr.setStart(theStart.getLowerBound().getValue()); 
+		    		bdr.setStart(theStart.getLowerBound().getValueAsString()); 
 		    	}
 		    	if(theStart != null && theStart.getUpperBound() != null) {
-		    		bdr.setEnd(theStart.getUpperBound().getValue()); 
+		    		bdr.setEnd(theStart.getUpperBound().getValueAsString()); 
 		    	}
 		    	bdr.setType(type);
 		    	bdr.setRequestResource(request.getRequestURL().toString());

@@ -4,13 +4,21 @@ import java.util.ArrayList;
 
 public class BulkDataOutput {
 	
-	private String transactionTime;
+	private String transactionStartTime;
 	private String request;
-	private String requiresAccessToken;
+	private String secure;
 	ArrayList<BulkDataOutputInfo> output;
 	
 	public BulkDataOutput() {
 		output = new ArrayList<BulkDataOutputInfo>();
+	}
+
+	public String getTransactionStartTime() {
+		return transactionStartTime;
+	}
+
+	public void setTransactionStartTime(String transactionStartTime) {
+		this.transactionStartTime = transactionStartTime;
 	}
 
 	public String getRequest() {
@@ -19,6 +27,14 @@ public class BulkDataOutput {
 
 	public void setRequest(String request) {
 		this.request = request;
+	}
+
+	public String getSecure() {
+		return secure;
+	}
+
+	public void setSecure(String secure) {
+		this.secure = secure;
 	}
 
 	public ArrayList<BulkDataOutputInfo> getOutput() {
@@ -31,21 +47,5 @@ public class BulkDataOutput {
 	
 	public void add(BulkDataOutputInfo bdoi) {
 		output.add(bdoi);
-	}
-
-	public String getTransactionTime() {
-		return transactionTime;
-	}
-
-	public String getRequiresAccessToken() {
-		return requiresAccessToken;
-	}
-
-	public void setTransactionTime(String transactionTime) {
-		this.transactionTime = transactionTime;
-	}
-
-	public void setRequiresAccessToken(String requiresAccessToken) {
-		this.requiresAccessToken = requiresAccessToken;
 	}
 }
