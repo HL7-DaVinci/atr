@@ -2,43 +2,29 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.1
--- Dumped by pg_dump version 10.1
+-- Dumped from database version 12.12
+-- Dumped by pg_dump version 12.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: WARNING; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "WARNING" (
+CREATE TABLE public."WARNING" (
     id integer NOT NULL,
     warning text,
     bitcoin_address text,
@@ -46,26 +32,26 @@ CREATE TABLE "WARNING" (
 );
 
 
-ALTER TABLE "WARNING" OWNER TO postgres;
+ALTER TABLE public."WARNING" OWNER TO postgres;
 
 --
 -- Name: allergy; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE allergy (
+CREATE TABLE public.allergy (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE allergy OWNER TO postgres;
+ALTER TABLE public.allergy OWNER TO postgres;
 
 --
 -- Name: allergy_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE allergy_id_seq
+CREATE SEQUENCE public.allergy_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -73,20 +59,20 @@ CREATE SEQUENCE allergy_id_seq
     CACHE 1;
 
 
-ALTER TABLE allergy_id_seq OWNER TO postgres;
+ALTER TABLE public.allergy_id_seq OWNER TO postgres;
 
 --
 -- Name: allergy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE allergy_id_seq OWNED BY allergy.id;
+ALTER SEQUENCE public.allergy_id_seq OWNED BY public.allergy.id;
 
 
 --
 -- Name: auth_temp; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE auth_temp (
+CREATE TABLE public.auth_temp (
     id integer NOT NULL,
     client_id character varying(255),
     client_secret character varying(255),
@@ -105,13 +91,13 @@ CREATE TABLE auth_temp (
 );
 
 
-ALTER TABLE auth_temp OWNER TO postgres;
+ALTER TABLE public.auth_temp OWNER TO postgres;
 
 --
 -- Name: auth_temp_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE auth_temp_id_seq
+CREATE SEQUENCE public.auth_temp_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -119,20 +105,20 @@ CREATE SEQUENCE auth_temp_id_seq
     CACHE 1;
 
 
-ALTER TABLE auth_temp_id_seq OWNER TO postgres;
+ALTER TABLE public.auth_temp_id_seq OWNER TO postgres;
 
 --
 -- Name: auth_temp_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE auth_temp_id_seq OWNED BY auth_temp.id;
+ALTER SEQUENCE public.auth_temp_id_seq OWNED BY public.auth_temp.id;
 
 
 --
 -- Name: bulk_data_requests_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE bulk_data_requests_id_seq
+CREATE SEQUENCE public.bulk_data_requests_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -140,14 +126,14 @@ CREATE SEQUENCE bulk_data_requests_id_seq
     CACHE 1;
 
 
-ALTER TABLE bulk_data_requests_id_seq OWNER TO postgres;
+ALTER TABLE public.bulk_data_requests_id_seq OWNER TO postgres;
 
 --
 -- Name: bulk_data_requests; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE bulk_data_requests (
-    id integer DEFAULT nextval('bulk_data_requests_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.bulk_data_requests (
+    id integer DEFAULT nextval('public.bulk_data_requests_id_seq'::regclass) NOT NULL,
     resource_name character varying(255),
     resource_id text,
     request_resource text,
@@ -161,26 +147,26 @@ CREATE TABLE bulk_data_requests (
 );
 
 
-ALTER TABLE bulk_data_requests OWNER TO postgres;
+ALTER TABLE public.bulk_data_requests OWNER TO postgres;
 
 --
 -- Name: careplan; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE careplan (
+CREATE TABLE public.careplan (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE careplan OWNER TO postgres;
+ALTER TABLE public.careplan OWNER TO postgres;
 
 --
 -- Name: careplan_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE careplan_id_seq
+CREATE SEQUENCE public.careplan_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -188,33 +174,33 @@ CREATE SEQUENCE careplan_id_seq
     CACHE 1;
 
 
-ALTER TABLE careplan_id_seq OWNER TO postgres;
+ALTER TABLE public.careplan_id_seq OWNER TO postgres;
 
 --
 -- Name: careplan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE careplan_id_seq OWNED BY careplan.id;
+ALTER SEQUENCE public.careplan_id_seq OWNED BY public.careplan.id;
 
 
 --
 -- Name: careteam; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE careteam (
+CREATE TABLE public.careteam (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE careteam OWNER TO postgres;
+ALTER TABLE public.careteam OWNER TO postgres;
 
 --
 -- Name: claim_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE claim_id_seq
+CREATE SEQUENCE public.claim_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -222,26 +208,26 @@ CREATE SEQUENCE claim_id_seq
     CACHE 1;
 
 
-ALTER TABLE claim_id_seq OWNER TO postgres;
+ALTER TABLE public.claim_id_seq OWNER TO postgres;
 
 --
 -- Name: claim; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE claim (
-    id integer DEFAULT nextval('claim_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.claim (
+    id integer DEFAULT nextval('public.claim_id_seq'::regclass) NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE claim OWNER TO postgres;
+ALTER TABLE public.claim OWNER TO postgres;
 
 --
 -- Name: clients; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE clients (
+CREATE TABLE public.clients (
     id integer NOT NULL,
     user_id integer NOT NULL,
     client_id character varying(255) NOT NULL,
@@ -260,13 +246,13 @@ CREATE TABLE clients (
 );
 
 
-ALTER TABLE clients OWNER TO postgres;
+ALTER TABLE public.clients OWNER TO postgres;
 
 --
 -- Name: clients_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE clients_id_seq
+CREATE SEQUENCE public.clients_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -274,33 +260,33 @@ CREATE SEQUENCE clients_id_seq
     CACHE 1;
 
 
-ALTER TABLE clients_id_seq OWNER TO postgres;
+ALTER TABLE public.clients_id_seq OWNER TO postgres;
 
 --
 -- Name: clients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE clients_id_seq OWNED BY clients.id;
+ALTER SEQUENCE public.clients_id_seq OWNED BY public.clients.id;
 
 
 --
 -- Name: condition; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE condition (
+CREATE TABLE public.condition (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE condition OWNER TO postgres;
+ALTER TABLE public.condition OWNER TO postgres;
 
 --
 -- Name: condition_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE condition_id_seq
+CREATE SEQUENCE public.condition_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -308,20 +294,20 @@ CREATE SEQUENCE condition_id_seq
     CACHE 1;
 
 
-ALTER TABLE condition_id_seq OWNER TO postgres;
+ALTER TABLE public.condition_id_seq OWNER TO postgres;
 
 --
 -- Name: condition_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE condition_id_seq OWNED BY condition.id;
+ALTER SEQUENCE public.condition_id_seq OWNED BY public.condition.id;
 
 
 --
 -- Name: coverage_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE coverage_id_seq
+CREATE SEQUENCE public.coverage_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -329,39 +315,39 @@ CREATE SEQUENCE coverage_id_seq
     CACHE 1;
 
 
-ALTER TABLE coverage_id_seq OWNER TO postgres;
+ALTER TABLE public.coverage_id_seq OWNER TO postgres;
 
 --
 -- Name: coverage; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE coverage (
-    id integer DEFAULT nextval('coverage_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.coverage (
+    id integer DEFAULT nextval('public.coverage_id_seq'::regclass) NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE coverage OWNER TO postgres;
+ALTER TABLE public.coverage OWNER TO postgres;
 
 --
 -- Name: device; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE device (
+CREATE TABLE public.device (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE device OWNER TO postgres;
+ALTER TABLE public.device OWNER TO postgres;
 
 --
 -- Name: device_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE device_id_seq
+CREATE SEQUENCE public.device_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -369,33 +355,33 @@ CREATE SEQUENCE device_id_seq
     CACHE 1;
 
 
-ALTER TABLE device_id_seq OWNER TO postgres;
+ALTER TABLE public.device_id_seq OWNER TO postgres;
 
 --
 -- Name: device_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE device_id_seq OWNED BY device.id;
+ALTER SEQUENCE public.device_id_seq OWNED BY public.device.id;
 
 
 --
 -- Name: documentreference; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE documentreference (
+CREATE TABLE public.documentreference (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE documentreference OWNER TO postgres;
+ALTER TABLE public.documentreference OWNER TO postgres;
 
 --
 -- Name: documentreference_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE documentreference_id_seq
+CREATE SEQUENCE public.documentreference_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -403,33 +389,33 @@ CREATE SEQUENCE documentreference_id_seq
     CACHE 1;
 
 
-ALTER TABLE documentreference_id_seq OWNER TO postgres;
+ALTER TABLE public.documentreference_id_seq OWNER TO postgres;
 
 --
 -- Name: documentreference_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE documentreference_id_seq OWNED BY documentreference.id;
+ALTER SEQUENCE public.documentreference_id_seq OWNED BY public.documentreference.id;
 
 
 --
 -- Name: encounter; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE encounter (
+CREATE TABLE public.encounter (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE encounter OWNER TO postgres;
+ALTER TABLE public.encounter OWNER TO postgres;
 
 --
 -- Name: encounter_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE encounter_id_seq
+CREATE SEQUENCE public.encounter_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -437,33 +423,33 @@ CREATE SEQUENCE encounter_id_seq
     CACHE 1;
 
 
-ALTER TABLE encounter_id_seq OWNER TO postgres;
+ALTER TABLE public.encounter_id_seq OWNER TO postgres;
 
 --
 -- Name: encounter_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE encounter_id_seq OWNED BY encounter.id;
+ALTER SEQUENCE public.encounter_id_seq OWNED BY public.encounter.id;
 
 
 --
 -- Name: familymemberhistory; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE familymemberhistory (
+CREATE TABLE public.familymemberhistory (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE familymemberhistory OWNER TO postgres;
+ALTER TABLE public.familymemberhistory OWNER TO postgres;
 
 --
 -- Name: familymemberhistory_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE familymemberhistory_id_seq
+CREATE SEQUENCE public.familymemberhistory_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -471,33 +457,33 @@ CREATE SEQUENCE familymemberhistory_id_seq
     CACHE 1;
 
 
-ALTER TABLE familymemberhistory_id_seq OWNER TO postgres;
+ALTER TABLE public.familymemberhistory_id_seq OWNER TO postgres;
 
 --
 -- Name: familymemberhistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE familymemberhistory_id_seq OWNED BY familymemberhistory.id;
+ALTER SEQUENCE public.familymemberhistory_id_seq OWNED BY public.familymemberhistory.id;
 
 
 --
 -- Name: goal; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE goal (
+CREATE TABLE public.goal (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE goal OWNER TO postgres;
+ALTER TABLE public.goal OWNER TO postgres;
 
 --
 -- Name: goal_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE goal_id_seq
+CREATE SEQUENCE public.goal_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -505,20 +491,20 @@ CREATE SEQUENCE goal_id_seq
     CACHE 1;
 
 
-ALTER TABLE goal_id_seq OWNER TO postgres;
+ALTER TABLE public.goal_id_seq OWNER TO postgres;
 
 --
 -- Name: goal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE goal_id_seq OWNED BY goal.id;
+ALTER SEQUENCE public.goal_id_seq OWNED BY public.goal.id;
 
 
 --
 -- Name: groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE groups_id_seq
+CREATE SEQUENCE public.groups_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -526,39 +512,39 @@ CREATE SEQUENCE groups_id_seq
     CACHE 1;
 
 
-ALTER TABLE groups_id_seq OWNER TO postgres;
+ALTER TABLE public.groups_id_seq OWNER TO postgres;
 
 --
 -- Name: groups; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE groups (
-    id integer DEFAULT nextval('groups_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.groups (
+    id integer DEFAULT nextval('public.groups_id_seq'::regclass) NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE groups OWNER TO postgres;
+ALTER TABLE public.groups OWNER TO postgres;
 
 --
 -- Name: healthcareservice; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE healthcareservice (
+CREATE TABLE public.healthcareservice (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE healthcareservice OWNER TO postgres;
+ALTER TABLE public.healthcareservice OWNER TO postgres;
 
 --
 -- Name: healthcareservice_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE healthcareservice_id_seq
+CREATE SEQUENCE public.healthcareservice_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -566,20 +552,20 @@ CREATE SEQUENCE healthcareservice_id_seq
     CACHE 1;
 
 
-ALTER TABLE healthcareservice_id_seq OWNER TO postgres;
+ALTER TABLE public.healthcareservice_id_seq OWNER TO postgres;
 
 --
 -- Name: healthcareservice_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE healthcareservice_id_seq OWNED BY healthcareservice.id;
+ALTER SEQUENCE public.healthcareservice_id_seq OWNED BY public.healthcareservice.id;
 
 
 --
 -- Name: hibernate_sequence; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE hibernate_sequence
+CREATE SEQUENCE public.hibernate_sequence
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -587,26 +573,26 @@ CREATE SEQUENCE hibernate_sequence
     CACHE 1;
 
 
-ALTER TABLE hibernate_sequence OWNER TO postgres;
+ALTER TABLE public.hibernate_sequence OWNER TO postgres;
 
 --
 -- Name: imagingstudy; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE imagingstudy (
+CREATE TABLE public.imagingstudy (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE imagingstudy OWNER TO postgres;
+ALTER TABLE public.imagingstudy OWNER TO postgres;
 
 --
 -- Name: imagingstudy_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE imagingstudy_id_seq
+CREATE SEQUENCE public.imagingstudy_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -614,33 +600,33 @@ CREATE SEQUENCE imagingstudy_id_seq
     CACHE 1;
 
 
-ALTER TABLE imagingstudy_id_seq OWNER TO postgres;
+ALTER TABLE public.imagingstudy_id_seq OWNER TO postgres;
 
 --
 -- Name: imagingstudy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE imagingstudy_id_seq OWNED BY imagingstudy.id;
+ALTER SEQUENCE public.imagingstudy_id_seq OWNED BY public.imagingstudy.id;
 
 
 --
 -- Name: immunization; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE immunization (
+CREATE TABLE public.immunization (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE immunization OWNER TO postgres;
+ALTER TABLE public.immunization OWNER TO postgres;
 
 --
 -- Name: immunization_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE immunization_id_seq
+CREATE SEQUENCE public.immunization_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -648,20 +634,20 @@ CREATE SEQUENCE immunization_id_seq
     CACHE 1;
 
 
-ALTER TABLE immunization_id_seq OWNER TO postgres;
+ALTER TABLE public.immunization_id_seq OWNER TO postgres;
 
 --
 -- Name: immunization_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE immunization_id_seq OWNED BY immunization.id;
+ALTER SEQUENCE public.immunization_id_seq OWNED BY public.immunization.id;
 
 
 --
 -- Name: insuranceplan_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE insuranceplan_id_seq
+CREATE SEQUENCE public.insuranceplan_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -669,39 +655,39 @@ CREATE SEQUENCE insuranceplan_id_seq
     CACHE 1;
 
 
-ALTER TABLE insuranceplan_id_seq OWNER TO postgres;
+ALTER TABLE public.insuranceplan_id_seq OWNER TO postgres;
 
 --
 -- Name: insuranceplan; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE insuranceplan (
-    id integer DEFAULT nextval('insuranceplan_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.insuranceplan (
+    id integer DEFAULT nextval('public.insuranceplan_id_seq'::regclass) NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE insuranceplan OWNER TO postgres;
+ALTER TABLE public.insuranceplan OWNER TO postgres;
 
 --
 -- Name: jwks; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE jwks (
+CREATE TABLE public.jwks (
     id integer NOT NULL,
     jwk text,
     last_updated_datetime date DEFAULT ('now'::text)::date NOT NULL
 );
 
 
-ALTER TABLE jwks OWNER TO postgres;
+ALTER TABLE public.jwks OWNER TO postgres;
 
 --
 -- Name: jwks_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE jwks_id_seq
+CREATE SEQUENCE public.jwks_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -709,33 +695,33 @@ CREATE SEQUENCE jwks_id_seq
     CACHE 1;
 
 
-ALTER TABLE jwks_id_seq OWNER TO postgres;
+ALTER TABLE public.jwks_id_seq OWNER TO postgres;
 
 --
 -- Name: jwks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE jwks_id_seq OWNED BY jwks.id;
+ALTER SEQUENCE public.jwks_id_seq OWNED BY public.jwks.id;
 
 
 --
 -- Name: location; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE location (
+CREATE TABLE public.location (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE location OWNER TO postgres;
+ALTER TABLE public.location OWNER TO postgres;
 
 --
 -- Name: location_location_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE location_location_id_seq
+CREATE SEQUENCE public.location_location_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -743,26 +729,26 @@ CREATE SEQUENCE location_location_id_seq
     CACHE 1;
 
 
-ALTER TABLE location_location_id_seq OWNER TO postgres;
+ALTER TABLE public.location_location_id_seq OWNER TO postgres;
 
 --
 -- Name: medication; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE medication (
+CREATE TABLE public.medication (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE medication OWNER TO postgres;
+ALTER TABLE public.medication OWNER TO postgres;
 
 --
 -- Name: medication_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE medication_id_seq
+CREATE SEQUENCE public.medication_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -770,33 +756,33 @@ CREATE SEQUENCE medication_id_seq
     CACHE 1;
 
 
-ALTER TABLE medication_id_seq OWNER TO postgres;
+ALTER TABLE public.medication_id_seq OWNER TO postgres;
 
 --
 -- Name: medication_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE medication_id_seq OWNED BY medication.id;
+ALTER SEQUENCE public.medication_id_seq OWNED BY public.medication.id;
 
 
 --
 -- Name: medicationadministration; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE medicationadministration (
+CREATE TABLE public.medicationadministration (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE medicationadministration OWNER TO postgres;
+ALTER TABLE public.medicationadministration OWNER TO postgres;
 
 --
 -- Name: medicationadministration_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE medicationadministration_id_seq
+CREATE SEQUENCE public.medicationadministration_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -804,33 +790,33 @@ CREATE SEQUENCE medicationadministration_id_seq
     CACHE 1;
 
 
-ALTER TABLE medicationadministration_id_seq OWNER TO postgres;
+ALTER TABLE public.medicationadministration_id_seq OWNER TO postgres;
 
 --
 -- Name: medicationadministration_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE medicationadministration_id_seq OWNED BY medicationadministration.id;
+ALTER SEQUENCE public.medicationadministration_id_seq OWNED BY public.medicationadministration.id;
 
 
 --
 -- Name: medicationdispense; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE medicationdispense (
+CREATE TABLE public.medicationdispense (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE medicationdispense OWNER TO postgres;
+ALTER TABLE public.medicationdispense OWNER TO postgres;
 
 --
 -- Name: medicationdispense_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE medicationdispense_id_seq
+CREATE SEQUENCE public.medicationdispense_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -838,33 +824,33 @@ CREATE SEQUENCE medicationdispense_id_seq
     CACHE 1;
 
 
-ALTER TABLE medicationdispense_id_seq OWNER TO postgres;
+ALTER TABLE public.medicationdispense_id_seq OWNER TO postgres;
 
 --
 -- Name: medicationdispense_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE medicationdispense_id_seq OWNED BY medicationdispense.id;
+ALTER SEQUENCE public.medicationdispense_id_seq OWNED BY public.medicationdispense.id;
 
 
 --
 -- Name: medicationrequest; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE medicationrequest (
+CREATE TABLE public.medicationrequest (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE medicationrequest OWNER TO postgres;
+ALTER TABLE public.medicationrequest OWNER TO postgres;
 
 --
 -- Name: medicationrequest_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE medicationrequest_id_seq
+CREATE SEQUENCE public.medicationrequest_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -872,33 +858,33 @@ CREATE SEQUENCE medicationrequest_id_seq
     CACHE 1;
 
 
-ALTER TABLE medicationrequest_id_seq OWNER TO postgres;
+ALTER TABLE public.medicationrequest_id_seq OWNER TO postgres;
 
 --
 -- Name: medicationrequest_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE medicationrequest_id_seq OWNED BY medicationrequest.id;
+ALTER SEQUENCE public.medicationrequest_id_seq OWNED BY public.medicationrequest.id;
 
 
 --
 -- Name: medicationstatement; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE medicationstatement (
+CREATE TABLE public.medicationstatement (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE medicationstatement OWNER TO postgres;
+ALTER TABLE public.medicationstatement OWNER TO postgres;
 
 --
 -- Name: medicationstatement_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE medicationstatement_id_seq
+CREATE SEQUENCE public.medicationstatement_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -906,33 +892,33 @@ CREATE SEQUENCE medicationstatement_id_seq
     CACHE 1;
 
 
-ALTER TABLE medicationstatement_id_seq OWNER TO postgres;
+ALTER TABLE public.medicationstatement_id_seq OWNER TO postgres;
 
 --
 -- Name: medicationstatement_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE medicationstatement_id_seq OWNED BY medicationstatement.id;
+ALTER SEQUENCE public.medicationstatement_id_seq OWNED BY public.medicationstatement.id;
 
 
 --
 -- Name: observation; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE observation (
+CREATE TABLE public.observation (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE observation OWNER TO postgres;
+ALTER TABLE public.observation OWNER TO postgres;
 
 --
 -- Name: observation_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE observation_id_seq
+CREATE SEQUENCE public.observation_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -940,46 +926,46 @@ CREATE SEQUENCE observation_id_seq
     CACHE 1;
 
 
-ALTER TABLE observation_id_seq OWNER TO postgres;
+ALTER TABLE public.observation_id_seq OWNER TO postgres;
 
 --
 -- Name: observation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE observation_id_seq OWNED BY observation.id;
+ALTER SEQUENCE public.observation_id_seq OWNED BY public.observation.id;
 
 
 --
 -- Name: organization; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE organization (
+CREATE TABLE public.organization (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE organization OWNER TO postgres;
+ALTER TABLE public.organization OWNER TO postgres;
 
 --
 -- Name: patient; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE patient (
+CREATE TABLE public.patient (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE patient OWNER TO postgres;
+ALTER TABLE public.patient OWNER TO postgres;
 
 --
 -- Name: patient_id_seq1; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE patient_id_seq1
+CREATE SEQUENCE public.patient_id_seq1
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -987,33 +973,33 @@ CREATE SEQUENCE patient_id_seq1
     CACHE 1;
 
 
-ALTER TABLE patient_id_seq1 OWNER TO postgres;
+ALTER TABLE public.patient_id_seq1 OWNER TO postgres;
 
 --
 -- Name: patient_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE patient_id_seq1 OWNED BY patient.id;
+ALTER SEQUENCE public.patient_id_seq1 OWNED BY public.patient.id;
 
 
 --
 -- Name: patient_json; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE patient_json (
+CREATE TABLE public.patient_json (
     id integer NOT NULL,
     birth_date date,
     full_name character varying(255)
 );
 
 
-ALTER TABLE patient_json OWNER TO postgres;
+ALTER TABLE public.patient_json OWNER TO postgres;
 
 --
 -- Name: patient_json_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE patient_json_id_seq
+CREATE SEQUENCE public.patient_json_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -1022,46 +1008,46 @@ CREATE SEQUENCE patient_json_id_seq
     CACHE 1;
 
 
-ALTER TABLE patient_json_id_seq OWNER TO postgres;
+ALTER TABLE public.patient_json_id_seq OWNER TO postgres;
 
 --
 -- Name: patient_json_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE patient_json_id_seq OWNED BY patient_json.id;
+ALTER SEQUENCE public.patient_json_id_seq OWNED BY public.patient_json.id;
 
 
 --
 -- Name: plandefinition; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE plandefinition (
+CREATE TABLE public.plandefinition (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone
 );
 
 
-ALTER TABLE plandefinition OWNER TO postgres;
+ALTER TABLE public.plandefinition OWNER TO postgres;
 
 --
 -- Name: practitioner; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE practitioner (
+CREATE TABLE public.practitioner (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE practitioner OWNER TO postgres;
+ALTER TABLE public.practitioner OWNER TO postgres;
 
 --
 -- Name: practitioner_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE practitioner_id_seq
+CREATE SEQUENCE public.practitioner_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1069,33 +1055,33 @@ CREATE SEQUENCE practitioner_id_seq
     CACHE 1;
 
 
-ALTER TABLE practitioner_id_seq OWNER TO postgres;
+ALTER TABLE public.practitioner_id_seq OWNER TO postgres;
 
 --
 -- Name: practitioner_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE practitioner_id_seq OWNED BY practitioner.id;
+ALTER SEQUENCE public.practitioner_id_seq OWNED BY public.practitioner.id;
 
 
 --
 -- Name: practitioner_role; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE practitioner_role (
+CREATE TABLE public.practitioner_role (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone
 );
 
 
-ALTER TABLE practitioner_role OWNER TO postgres;
+ALTER TABLE public.practitioner_role OWNER TO postgres;
 
 --
 -- Name: practitioner_role_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE practitioner_role_id_seq
+CREATE SEQUENCE public.practitioner_role_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -1104,20 +1090,20 @@ CREATE SEQUENCE practitioner_role_id_seq
     CACHE 1;
 
 
-ALTER TABLE practitioner_role_id_seq OWNER TO postgres;
+ALTER TABLE public.practitioner_role_id_seq OWNER TO postgres;
 
 --
 -- Name: practitioner_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE practitioner_role_id_seq OWNED BY practitioner_role.id;
+ALTER SEQUENCE public.practitioner_role_id_seq OWNED BY public.practitioner_role.id;
 
 
 --
 -- Name: practitionerrole_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE practitionerrole_id_seq
+CREATE SEQUENCE public.practitionerrole_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1125,39 +1111,39 @@ CREATE SEQUENCE practitionerrole_id_seq
     CACHE 1;
 
 
-ALTER TABLE practitionerrole_id_seq OWNER TO postgres;
+ALTER TABLE public.practitionerrole_id_seq OWNER TO postgres;
 
 --
 -- Name: practitionerrole; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE practitionerrole (
-    id integer DEFAULT nextval('practitionerrole_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.practitionerrole (
+    id integer DEFAULT nextval('public.practitionerrole_id_seq'::regclass) NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE practitionerrole OWNER TO postgres;
+ALTER TABLE public.practitionerrole OWNER TO postgres;
 
 --
 -- Name: procedure; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE procedure (
+CREATE TABLE public.procedure (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE procedure OWNER TO postgres;
+ALTER TABLE public.procedure OWNER TO postgres;
 
 --
 -- Name: procedure_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE procedure_id_seq
+CREATE SEQUENCE public.procedure_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1165,20 +1151,20 @@ CREATE SEQUENCE procedure_id_seq
     CACHE 1;
 
 
-ALTER TABLE procedure_id_seq OWNER TO postgres;
+ALTER TABLE public.procedure_id_seq OWNER TO postgres;
 
 --
 -- Name: procedure_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE procedure_id_seq OWNED BY procedure.id;
+ALTER SEQUENCE public.procedure_id_seq OWNED BY public.procedure.id;
 
 
 --
 -- Name: procedure_procedure_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE procedure_procedure_id_seq
+CREATE SEQUENCE public.procedure_procedure_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1186,26 +1172,26 @@ CREATE SEQUENCE procedure_procedure_id_seq
     CACHE 1;
 
 
-ALTER TABLE procedure_procedure_id_seq OWNER TO postgres;
+ALTER TABLE public.procedure_procedure_id_seq OWNER TO postgres;
 
 --
 -- Name: provenance; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE provenance (
+CREATE TABLE public.provenance (
     id integer NOT NULL,
     data json,
     last_updated_ts time without time zone
 );
 
 
-ALTER TABLE provenance OWNER TO postgres;
+ALTER TABLE public.provenance OWNER TO postgres;
 
 --
 -- Name: relatedperson_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE relatedperson_id_seq
+CREATE SEQUENCE public.relatedperson_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1213,26 +1199,26 @@ CREATE SEQUENCE relatedperson_id_seq
     CACHE 1;
 
 
-ALTER TABLE relatedperson_id_seq OWNER TO postgres;
+ALTER TABLE public.relatedperson_id_seq OWNER TO postgres;
 
 --
 -- Name: relatedperson; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE relatedperson (
-    id integer DEFAULT nextval('relatedperson_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.relatedperson (
+    id integer DEFAULT nextval('public.relatedperson_id_seq'::regclass) NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE relatedperson OWNER TO postgres;
+ALTER TABLE public.relatedperson OWNER TO postgres;
 
 --
 -- Name: report_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE report_id_seq
+CREATE SEQUENCE public.report_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1240,39 +1226,39 @@ CREATE SEQUENCE report_id_seq
     CACHE 1;
 
 
-ALTER TABLE report_id_seq OWNER TO postgres;
+ALTER TABLE public.report_id_seq OWNER TO postgres;
 
 --
 -- Name: report; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE report (
-    id integer DEFAULT nextval('report_id_seq'::regclass) NOT NULL,
+CREATE TABLE public.report (
+    id integer DEFAULT nextval('public.report_id_seq'::regclass) NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE report OWNER TO postgres;
+ALTER TABLE public.report OWNER TO postgres;
 
 --
 -- Name: riskassessment; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE riskassessment (
+CREATE TABLE public.riskassessment (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE riskassessment OWNER TO postgres;
+ALTER TABLE public.riskassessment OWNER TO postgres;
 
 --
 -- Name: riskassessment_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE riskassessment_id_seq
+CREATE SEQUENCE public.riskassessment_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1280,46 +1266,46 @@ CREATE SEQUENCE riskassessment_id_seq
     CACHE 1;
 
 
-ALTER TABLE riskassessment_id_seq OWNER TO postgres;
+ALTER TABLE public.riskassessment_id_seq OWNER TO postgres;
 
 --
 -- Name: riskassessment_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE riskassessment_id_seq OWNED BY riskassessment.id;
+ALTER SEQUENCE public.riskassessment_id_seq OWNED BY public.riskassessment.id;
 
 
 --
 -- Name: servicerequest; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE servicerequest (
+CREATE TABLE public.servicerequest (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE servicerequest OWNER TO postgres;
+ALTER TABLE public.servicerequest OWNER TO postgres;
 
 --
 -- Name: specimen; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE specimen (
+CREATE TABLE public.specimen (
     id integer NOT NULL,
     data json,
     last_updated_ts timestamp without time zone DEFAULT timezone('UTC'::text, now()) NOT NULL
 );
 
 
-ALTER TABLE specimen OWNER TO postgres;
+ALTER TABLE public.specimen OWNER TO postgres;
 
 --
 -- Name: specimen_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE specimen_id_seq
+CREATE SEQUENCE public.specimen_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1327,31 +1313,31 @@ CREATE SEQUENCE specimen_id_seq
     CACHE 1;
 
 
-ALTER TABLE specimen_id_seq OWNER TO postgres;
+ALTER TABLE public.specimen_id_seq OWNER TO postgres;
 
 --
 -- Name: specimen_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE specimen_id_seq OWNED BY specimen.id;
+ALTER SEQUENCE public.specimen_id_seq OWNED BY public.specimen.id;
 
 
 --
 -- Name: unmstjkgfsgg; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE unmstjkgfsgg (
+CREATE TABLE public.unmstjkgfsgg (
     filename text
 );
 
 
-ALTER TABLE unmstjkgfsgg OWNER TO postgres;
+ALTER TABLE public.unmstjkgfsgg OWNER TO postgres;
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     user_id integer NOT NULL,
     user_name character varying(255),
     user_email character varying(150),
@@ -1363,13 +1349,13 @@ CREATE TABLE users (
 );
 
 
-ALTER TABLE users OWNER TO postgres;
+ALTER TABLE public.users OWNER TO postgres;
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE users_user_id_seq
+CREATE SEQUENCE public.users_user_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1377,209 +1363,209 @@ CREATE SEQUENCE users_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE users_user_id_seq OWNER TO postgres;
+ALTER TABLE public.users_user_id_seq OWNER TO postgres;
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE users_user_id_seq OWNED BY users.user_id;
+ALTER SEQUENCE public.users_user_id_seq OWNED BY public.users.user_id;
 
 
 --
 -- Name: allergy id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY allergy ALTER COLUMN id SET DEFAULT nextval('allergy_id_seq'::regclass);
+ALTER TABLE ONLY public.allergy ALTER COLUMN id SET DEFAULT nextval('public.allergy_id_seq'::regclass);
 
 
 --
 -- Name: auth_temp id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY auth_temp ALTER COLUMN id SET DEFAULT nextval('auth_temp_id_seq'::regclass);
+ALTER TABLE ONLY public.auth_temp ALTER COLUMN id SET DEFAULT nextval('public.auth_temp_id_seq'::regclass);
 
 
 --
 -- Name: careplan id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY careplan ALTER COLUMN id SET DEFAULT nextval('careplan_id_seq'::regclass);
+ALTER TABLE ONLY public.careplan ALTER COLUMN id SET DEFAULT nextval('public.careplan_id_seq'::regclass);
 
 
 --
 -- Name: clients id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY clients ALTER COLUMN id SET DEFAULT nextval('clients_id_seq'::regclass);
+ALTER TABLE ONLY public.clients ALTER COLUMN id SET DEFAULT nextval('public.clients_id_seq'::regclass);
 
 
 --
 -- Name: condition id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY condition ALTER COLUMN id SET DEFAULT nextval('condition_id_seq'::regclass);
+ALTER TABLE ONLY public.condition ALTER COLUMN id SET DEFAULT nextval('public.condition_id_seq'::regclass);
 
 
 --
 -- Name: device id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY device ALTER COLUMN id SET DEFAULT nextval('device_id_seq'::regclass);
+ALTER TABLE ONLY public.device ALTER COLUMN id SET DEFAULT nextval('public.device_id_seq'::regclass);
 
 
 --
 -- Name: documentreference id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY documentreference ALTER COLUMN id SET DEFAULT nextval('documentreference_id_seq'::regclass);
+ALTER TABLE ONLY public.documentreference ALTER COLUMN id SET DEFAULT nextval('public.documentreference_id_seq'::regclass);
 
 
 --
 -- Name: encounter id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY encounter ALTER COLUMN id SET DEFAULT nextval('encounter_id_seq'::regclass);
+ALTER TABLE ONLY public.encounter ALTER COLUMN id SET DEFAULT nextval('public.encounter_id_seq'::regclass);
 
 
 --
 -- Name: familymemberhistory id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY familymemberhistory ALTER COLUMN id SET DEFAULT nextval('familymemberhistory_id_seq'::regclass);
+ALTER TABLE ONLY public.familymemberhistory ALTER COLUMN id SET DEFAULT nextval('public.familymemberhistory_id_seq'::regclass);
 
 
 --
 -- Name: goal id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY goal ALTER COLUMN id SET DEFAULT nextval('goal_id_seq'::regclass);
+ALTER TABLE ONLY public.goal ALTER COLUMN id SET DEFAULT nextval('public.goal_id_seq'::regclass);
 
 
 --
 -- Name: healthcareservice id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY healthcareservice ALTER COLUMN id SET DEFAULT nextval('healthcareservice_id_seq'::regclass);
+ALTER TABLE ONLY public.healthcareservice ALTER COLUMN id SET DEFAULT nextval('public.healthcareservice_id_seq'::regclass);
 
 
 --
 -- Name: imagingstudy id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY imagingstudy ALTER COLUMN id SET DEFAULT nextval('imagingstudy_id_seq'::regclass);
+ALTER TABLE ONLY public.imagingstudy ALTER COLUMN id SET DEFAULT nextval('public.imagingstudy_id_seq'::regclass);
 
 
 --
 -- Name: immunization id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY immunization ALTER COLUMN id SET DEFAULT nextval('immunization_id_seq'::regclass);
+ALTER TABLE ONLY public.immunization ALTER COLUMN id SET DEFAULT nextval('public.immunization_id_seq'::regclass);
 
 
 --
 -- Name: jwks id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY jwks ALTER COLUMN id SET DEFAULT nextval('jwks_id_seq'::regclass);
+ALTER TABLE ONLY public.jwks ALTER COLUMN id SET DEFAULT nextval('public.jwks_id_seq'::regclass);
 
 
 --
 -- Name: medication id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medication ALTER COLUMN id SET DEFAULT nextval('medication_id_seq'::regclass);
+ALTER TABLE ONLY public.medication ALTER COLUMN id SET DEFAULT nextval('public.medication_id_seq'::regclass);
 
 
 --
 -- Name: medicationadministration id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationadministration ALTER COLUMN id SET DEFAULT nextval('medicationadministration_id_seq'::regclass);
+ALTER TABLE ONLY public.medicationadministration ALTER COLUMN id SET DEFAULT nextval('public.medicationadministration_id_seq'::regclass);
 
 
 --
 -- Name: medicationdispense id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationdispense ALTER COLUMN id SET DEFAULT nextval('medicationdispense_id_seq'::regclass);
+ALTER TABLE ONLY public.medicationdispense ALTER COLUMN id SET DEFAULT nextval('public.medicationdispense_id_seq'::regclass);
 
 
 --
 -- Name: medicationrequest id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationrequest ALTER COLUMN id SET DEFAULT nextval('medicationrequest_id_seq'::regclass);
+ALTER TABLE ONLY public.medicationrequest ALTER COLUMN id SET DEFAULT nextval('public.medicationrequest_id_seq'::regclass);
 
 
 --
 -- Name: medicationstatement id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationstatement ALTER COLUMN id SET DEFAULT nextval('medicationstatement_id_seq'::regclass);
+ALTER TABLE ONLY public.medicationstatement ALTER COLUMN id SET DEFAULT nextval('public.medicationstatement_id_seq'::regclass);
 
 
 --
 -- Name: observation id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY observation ALTER COLUMN id SET DEFAULT nextval('observation_id_seq'::regclass);
+ALTER TABLE ONLY public.observation ALTER COLUMN id SET DEFAULT nextval('public.observation_id_seq'::regclass);
 
 
 --
 -- Name: patient id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY patient ALTER COLUMN id SET DEFAULT nextval('patient_id_seq1'::regclass);
+ALTER TABLE ONLY public.patient ALTER COLUMN id SET DEFAULT nextval('public.patient_id_seq1'::regclass);
 
 
 --
 -- Name: patient_json id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY patient_json ALTER COLUMN id SET DEFAULT nextval('patient_json_id_seq'::regclass);
+ALTER TABLE ONLY public.patient_json ALTER COLUMN id SET DEFAULT nextval('public.patient_json_id_seq'::regclass);
 
 
 --
 -- Name: practitioner id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY practitioner ALTER COLUMN id SET DEFAULT nextval('practitioner_id_seq'::regclass);
+ALTER TABLE ONLY public.practitioner ALTER COLUMN id SET DEFAULT nextval('public.practitioner_id_seq'::regclass);
 
 
 --
 -- Name: practitioner_role id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY practitioner_role ALTER COLUMN id SET DEFAULT nextval('practitioner_role_id_seq'::regclass);
+ALTER TABLE ONLY public.practitioner_role ALTER COLUMN id SET DEFAULT nextval('public.practitioner_role_id_seq'::regclass);
 
 
 --
 -- Name: procedure id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY procedure ALTER COLUMN id SET DEFAULT nextval('procedure_id_seq'::regclass);
+ALTER TABLE ONLY public.procedure ALTER COLUMN id SET DEFAULT nextval('public.procedure_id_seq'::regclass);
 
 
 --
 -- Name: riskassessment id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY riskassessment ALTER COLUMN id SET DEFAULT nextval('riskassessment_id_seq'::regclass);
+ALTER TABLE ONLY public.riskassessment ALTER COLUMN id SET DEFAULT nextval('public.riskassessment_id_seq'::regclass);
 
 
 --
 -- Name: specimen id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY specimen ALTER COLUMN id SET DEFAULT nextval('specimen_id_seq'::regclass);
+ALTER TABLE ONLY public.specimen ALTER COLUMN id SET DEFAULT nextval('public.specimen_id_seq'::regclass);
 
 
 --
 -- Name: users user_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY users ALTER COLUMN user_id SET DEFAULT nextval('users_user_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN user_id SET DEFAULT nextval('public.users_user_id_seq'::regclass);
 
 
 --
@@ -1730,7 +1716,7 @@ ALTER LARGE OBJECT 29926 OWNER TO postgres;
 -- Data for Name: WARNING; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "WARNING" (id, warning, bitcoin_address, email) FROM stdin;
+COPY public."WARNING" (id, warning, bitcoin_address, email) FROM stdin;
 1	To recover your lost Database and avoid leaking it: Send us 0.05 Bitcoin (BTC) to our Bitcoin address 19UGYfzH16Tfc2HwgwbrGpoaoqmVVNfXT1 and contact us by Email with your Server IP or Domain name and a Proof of Payment. If you are unsure if we have your data, contact us and we will send you a proof. Your Database is downloaded and backed up on our servers. Backups that we have right now: qdonqj, FHIR4-TEST, sha-api, casereporting, hapi_backend, fhir_backend, interopx_backend, FHIR4-JWT, hrgmvi, interopx_pcp, redwoodmednet-api, interopx_hospital, interopx_dx_prod, eskyut, bulk_api_r4, r4, interopx_lab, hive-test, FHIR4, hive, tfkafr, crd, cambia, interopx_dx . If we dont receive your payment in the next 10 Days, we will make your database public or use them otherwise.	19UGYfzH16Tfc2HwgwbrGpoaoqmVVNfXT1	info@databasemanager.cc
 1	To recover your lost Database and avoid leaking it: Send us 0.08 Bitcoin (BTC) to our Bitcoin address 19UGYfzH16Tfc2HwgwbrGpoaoqmVVNfXT1 and contact us by Email with your Server IP or Domain name and a Proof of Payment. If you are unsure if we have your data, contact us and we will send you a proof. Your Database is downloaded and backed up on our servers. Backups that we have right now: qdonqj, FHIR4-TEST, hive, casereporting, eskyut, fhir_backend, interopx_backend, FHIR4-JWT, hrgmvi, interopx_pcp, redwoodmednet-api, interopx_hospital, interopx_dx_prod, hapi_backend, bulk_api_r4, r4, interopx_lab, hive-test, FHIR4, sha-api, tfkafr, crd, cambia, interopx_dx . If we dont receive your payment in the next 10 Days, we will make your database public or use them otherwise.	19UGYfzH16Tfc2HwgwbrGpoaoqmVVNfXT1	info@databasemanager.cc
 \.
@@ -1740,7 +1726,7 @@ COPY "WARNING" (id, warning, bitcoin_address, email) FROM stdin;
 -- Data for Name: allergy; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY allergy (id, data, last_updated_ts) FROM stdin;
+COPY public.allergy (id, data, last_updated_ts) FROM stdin;
 6	{\n"resourceType": "AllergyIntolerance",\n"id": "6",\n"meta": {\n"versionId": "1"\n},\n"identifier": [\n  {\n"system": "https://sitenv.org",\n"value": "7705"\n}\n],\n"clinicalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",\r\n        "code": "active",\r\n        "display": "Active"\r\n      }\r\n    ]\r\n  }, \n"verificationStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",\r\n        "code": "confirmed",\r\n        "display": "Confirmed"\r\n      }\r\n    ]\r\n  },\n"category": [\n  "medication"\n],\n"criticality": "high",\n"code": {\n"coding": [\n  {\n"system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n"code": "7980",\n"display": "Penicillin G"\n}\n]\n},\n"patient": {\n"reference": "Patient/6"\n},\n"assertedDate": "2014-01-09T00:00:00+05:30",\n"recorder": {\n"reference": "Practitioner/6"\n},\n"reaction": [\n  {\n"manifestation": [\n  {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "49727002",\n"display": "Caugh"\n}\n],\n"text": "Caugh"\n}\n],\n"severity": "severe"\n}\n]\n}	2012-02-02 07:33:23.442514
 8	{\n"resourceType": "AllergyIntolerance",\n"id": "8",\n"meta": {\n"versionId": "1"\n},\n"identifier": [\n  {\n"system": "https://sitenv.org",\n"value": "7707"\n}\n],\n"clinicalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",\r\n        "code": "active",\r\n        "display": "Active"\r\n      }\r\n    ]\r\n  }, \n"verificationStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",\r\n        "code": "confirmed",\r\n        "display": "Confirmed"\r\n      }\r\n    ]\r\n  },\n"category": [\n  "environment"\n],\n"criticality": "high",\n"code": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "227493005",\n"display": "Cashew nuts"\n}\n]\n},\n"patient": {\n"reference": "Patient/8"\n},\n"assertedDate": "2014-10-20T00:00:00+05:30",\n"recorder": {\n"reference": "Practitioner/8"\n},\n"reaction": [\n  {\n"manifestation": [\n  {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "389145006",\n"display": "Allergic Asthma"\n}\n],\n"text": "Allergic Asthma"\n}\n],\n"severity": "severe"\n}\n]\n}	2013-09-19 19:32:05.166602
 4	{\n"resourceType": "AllergyIntolerance",\n"id": "4",\n"meta": {\n"versionId": "1"\n},\n"identifier": [\n  {\n"system": "https://sitenv.org",\n"value": "7703"\n}\n],\n"clinicalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",\r\n        "code": "active",\r\n        "display": "Active"\r\n      }\r\n    ]\r\n  }, \n"verificationStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",\r\n        "code": "confirmed",\r\n        "display": "Confirmed"\r\n      }\r\n    ]\r\n  },\n"category": [\n  "medication"\n],\n"criticality": "low",\n"code": {\n"coding": [\n  {\n"system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n"code": "7980",\n"display": "Penicillin G"\n}\n]\n},\n"patient": {\n"reference": "Patient/4"\n},\n"assertedDate": "2014-11-09T00:00:00+05:30",\n"recorder": {\n"reference": "Practitioner/4"\n},\n"reaction": [\n  {\n"manifestation": [\n  {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "271807003",\n"display": "skin rash"\n}\n],\n"text": "skin rash"\n}\n],\n"severity": "mild"\n}\n]\n}	2015-04-01 07:32:57.41257
@@ -1760,7 +1746,7 @@ COPY allergy (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: auth_temp; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY auth_temp (id, client_id, client_secret, auth_code, access_token, aud, expiry, scope, last_updated_ts, redirect_uri, state, transaction_id, refresh_token, launch_patient_id, id_token) FROM stdin;
+COPY public.auth_temp (id, client_id, client_secret, auth_code, access_token, aud, expiry, scope, last_updated_ts, redirect_uri, state, transaction_id, refresh_token, launch_patient_id, id_token) FROM stdin;
 1	gr4ZEJxYuxr4IxNfk5-akXZJA29E3y	SXVBZ2F0RkMwMkZrMlhxalFyVndhWkpsRHlGdWNxa1RqTWgtU3RMUzM5OFM2SUNuZ1k=	4e09a5739d4380b0c764885440f11e32	54c9f1fc39b6bd4c0692797f160df718	\N	2019-06-18 12:34:40	launch,patient/*.read,offline_access,openid	2019-06-05 09:26:43.757164	http://localhost:8080/r4/                                                                                                                                                                                                                                      	state123                                                                                                                                                                                                                                                       	lrnNm                                                                                                                                                                                                                                                          	2bc68c2c9a4e878cf1632a70ba70bbbf	1	eyJraWQiOiJjV1FsMkl2NTAwIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJ0YXJ1bmt1bWFyIiwiYXVkIjoiZ3I0WkVKeFl1eHI0SXhOZms1LWFrWFpKQTI5RTN5IiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwODBcL3I0XC8iLCJ1c2VyTmFtZSI6InRhcnVua3VtYXIiLCJleHAiOjE1NjA4NDg2ODAsImZoaXJVc2VyIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwODBcL3I0XC9maGlyXC9QYXRpZW50IiwiZW1haWwiOiJ0YXJ1bmt1bWFyOTg1QGdtYWlsLmNvbSIsImp0aSI6ImIxMDBhMjA4LTZhZDktNGFjMi1iNjY1LWEwODExM2NmNWZjMSJ9.LLfiuHhHdE0iwNz52YrdUytVaSFzzYyoHBp4xkZOxWqFGMZaOrLGsqfeymRRZ3svBnJ34IiqMfziV6el-_NPjOU0GYQkPg6hpgmRfGbjRuVOnLcNDH3CM4H7_kWYP3QDym24oNSLdU0wlW6XTt_azljKnPBaMxN5Fay-302vtMlW5vxQaXabN36xXr00d_z56VX2uLoj37RZ4RJJJ0hUZpQOviMsDPHM_LPQUQo4RGb_e4yffy77IvV_Y8WgBYgS7TZOS72BtbLiQ_vkaQWEA1PsniNglsdG7Fwt_h6_kNdiyckCHoxORgHRl6b49d8JVlqR7vWePo3NEN5-3IOFQA
 2	-D0qw0N1A5WapOX8F539T-3UiHkC3H	\N	c307cf4b2ca067103a9d7a16c498aedc	6b79ce900f71b0211daee42dac68b244	\N	2019-07-04 12:24:43	launch/patient,patient/*.read,openid,fhirUser,offline_access	2019-07-01 16:21:58.470446	https://inferno.healthit.gov/inferno/oauth2/static/redirect                                                                                                                                                                                                    	0ca99581-341c-4b02-b871-74686b014e9d                                                                                                                                                                                                                           	TNgoa                                                                                                                                                                                                                                                          	b50500fc285b729780379a718c399999	1	eyJraWQiOiJ2SmlHWURZOEJ2IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJ0YXJ1bmt1bWFyIiwiYXVkIjoiLUQwcXcwTjFBNVdhcE9YOEY1MzlULTNVaUhrQzNIIiwiaXNzIjoiaHR0cHM6XC9cL2ZoaXIuZGV2LnNpdGVudi5vcmdcL2ZoaXI0XC8iLCJ1c2VyTmFtZSI6InRhcnVua3VtYXIiLCJleHAiOjE1NjIyNTAyNzQsImZoaXJVc2VyIjoiaHR0cHM6XC9cL2ZoaXIuZGV2LnNpdGVudi5vcmdcL2ZoaXI0XC9maGlyXC9QYXRpZW50IiwiZW1haWwiOiJ0YXJ1bmt1bWFyOTg1QGdtYWlsLmNvbSIsImp0aSI6ImVhYWQ1YmFiLWQ4MjktNDIyNy05ZDdiLTFkNzkyNGQ0ODRiZiJ9.LMETRe8PVII_t4o0AgoqC-N6J8ZV4xgMlb3r69mg9Uff1JFJB66O__ud8cHTxF0nuv4lY2pN4S3ELDMh6WW4wxKxHcD-MtvD4RxjJAG45cxeuVoaxKE0820-_kLNBCUcpbXcF1LomHX5SeeCtTRHYXUwUCOco9Qa6-zoKp5QfzRLvqiS6z0SnwRzmL66dXV-oPlbPjE--sD0NWw2hadlImimnuQqElgzvt1c_Jjo6mLAUN6-7zQtiaydS3gt6HplMYBn7UkrVUjIWicMt2jWc0YIisHlVW5lFX8nrp1lR_-4O9JSVyrk2r12cuXDXGlL3IdSDV84U85cjKmiKbea8Q
 3	T1oR2nFqtONCZHf0NLgOdhx9XlquBO	bzRJRnF1aW1hdkptbGp5RVp2b2wtcWhpZmF5MGZjYlJQaWxvVkgydS1ZZi1HYmVKYmk=	88566f15da3c337cccced711944c8acb	57ce8f61999150a3f7c9a243d8791ecc	\N	2019-10-01 14:47:02	launch,patient/*.read,patient/DocumentReference.read,openid,fhirUser,offline_access	2019-07-08 15:48:29.092471	http://localhost:8080/r4/                                                                                                                                                                                                                                      	state123                                                                                                                                                                                                                                                       	g4aN5                                                                                                                                                                                                                                                          	f894d638f4ff6cbd34ac1421ca516611	1	eyJraWQiOiJldHRFT3V3RXdVIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJ0YXJ1bmt1bWFyIiwiYXVkIjoiVDFvUjJuRnF0T05DWkhmME5MZ09kaHg5WGxxdUJPIiwiaXNzIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwODBcL3I0XC8iLCJ1c2VyTmFtZSI6InRhcnVua3VtYXIiLCJleHAiOjE1Njk5Mjg2MjAsImZoaXJVc2VyIjoiaHR0cDpcL1wvbG9jYWxob3N0OjgwODBcL3I0XC9maGlyXC9QYXRpZW50IiwiZW1haWwiOiJ0YXJ1bmt1bWFyOTg1QGdtYWlsLmNvbSIsImp0aSI6IjVlNzBjZTU5LTQ5MWItNGY4OC1hYmI3LWE1NjhmOTkzZmNlYyJ9.JloPo1PKY2cuTUdp4EUpFmFsjLMEeHDRwwIP2Ojb1NT2iBJfL2z3cUl33t3RJammnHjpNGxdainhVce_KojfJi2QoePrDy8_XAt5W1My4x-1jggbMMzoIKwf_PvRz-_Zg1zteAuLReX3D40h4T2D_vbFSMTBKFsl_X6fVJFnadn7bwhlKnBZo_fii0lhr2FMYQxWsU-OG_FGn-LmuiyT35bcaJLONxs6Wji8AcaKR-_hpZA450rDJbYo01ulQqwN9HV3ekBL9Ks-o6hJMQ9WOmE8IoQYsmbZEk5BEW7SRj0iMHKziKnPMLCTrqLvXVc2kimLeqAy3XYvloAd-geA7Q
@@ -1771,7 +1757,7 @@ COPY auth_temp (id, client_id, client_secret, auth_code, access_token, aud, expi
 -- Data for Name: bulk_data_requests; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY bulk_data_requests (id, resource_name, resource_id, request_resource, start, _type, content_location, files, status, processed_flag, end_date) FROM stdin;
+COPY public.bulk_data_requests (id, resource_name, resource_id, request_resource, start, _type, content_location, files, status, processed_flag, end_date) FROM stdin;
 1	Group	2	http://52.70.192.201/bulk-api-r4/fhir/Group/2/$export	\N	Patient,Practitioner,Organization,Location,Coverage,RelatedPerson,PractitionerRole	\N	\N	In Progress	t	\N
 2	Group	2	http://52.70.192.201/bulk-api-r4/fhir/Group/2/$export	\N	Patient,Practitioner,Organization,Location,Coverage,RelatedPerson,PractitionerRole	\N	\N	In Progress	t	\N
 3	Group	2	http://52.70.192.201/bulk-api-r4/fhir/Group/2/$export	\N	Patient,Practitioner,Organization,Location,Coverage,RelatedPerson,PractitionerRole	\N	\N	In Progress	t	\N
@@ -1794,21 +1780,8 @@ COPY bulk_data_requests (id, resource_name, resource_id, request_resource, start
 19	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://52.70.192.201/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,Organization,Location,Coverage,RelatedPerson,PractitionerRole	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
 20	Group	2	http://52.70.192.201/bulk-api-r4/fhir/Group/2/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	\N	In Progress	t	\N
 22	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://52.70.192.201/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Location,Organization,RelatedPerson,Coverage	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-23	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Location,Organization,RelatedPerson,Coverage	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-24	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-25	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-26	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-27	Group	2	http://52.70.192.201/bulk-api-r4/fhir/Group/2/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	\N	In Progress	t	\N
-28	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-35	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-29	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-30	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-31	Group	df6586b8-1828-47f0-80ec-38a4e02242f4	http://ecr.drajer.com/bulk-api-r4/fhir/Group/df6586b8-1828-47f0-80ec-38a4e02242f4/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Practitioner.ndjson	Completed	t	\N
-36	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
-32	Group	df6586b8-1828-47f0-80ec-38a4e02242f4	http://ecr.drajer.com/bulk-api-r4/fhir/Group/df6586b8-1828-47f0-80ec-38a4e02242f4/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Practitioner.ndjson	Completed	t	\N
-33	Group	65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb	http://ecr.drajer.com/bulk-api-r4/fhir/Group/65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson	Completed	t	\N
-34	Group	65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb	http://ecr.drajer.com/bulk-api-r4/fhir/Group/65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson	Completed	t	\N
-37	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://ecr.drajer.com/bulk-api-r4/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export	\N	Patient,Practitioner,PractitionerRole,Organization,Location,Coverage,RelatedPerson	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
+23	Group	a80cec68-7518-429f-9f68-4ada6992700e	http://localhost:8080/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$davinci-data-export	\N	Patient,Practitioner,PractitionerRole,Location,Organization,RelatedPerson,Coverage	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson,Organization.ndjson	Completed	t	\N
+24	Group	390f885d-d17f-40a5-9b75-aabc0ebd973b	http://localhost:8080/fhir/Group/390f885d-d17f-40a5-9b75-aabc0ebd973b/$davinci-data-export	\N	Patient,Practitioner,PractitionerRole,Location,Organization,RelatedPerson,Coverage	\N	Patient.ndjson,Practitioner.ndjson,RelatedPerson.ndjson,Coverage.ndjson,Location.ndjson,PractitionerRole.ndjson	Completed	t	\N
 \.
 
 
@@ -1816,7 +1789,7 @@ COPY bulk_data_requests (id, resource_name, resource_id, request_resource, start
 -- Data for Name: careplan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY careplan (id, data, last_updated_ts) FROM stdin;
+COPY public.careplan (id, data, last_updated_ts) FROM stdin;
 7	{\r\n  "resourceType": "CarePlan",\r\n  "id": "5",\r\n   "meta": {\r\n"versionId": "1"\r\n},\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  \r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "system": "http://www.bmc.nl/zorgportal/identifiers/careplans",\r\n      "value": "CP2934"\r\n    }\r\n  ],\r\n  "status": "completed",\r\n  "intent": "plan",\r\n  "subject": {\r\n    "reference": "Patient/5",\r\n    "display": "Hill Joshua"\r\n  },\r\n  "period": {\r\n    "start": "2011-07-06",\r\n    "end": "2013-07-07"\r\n  },\r\n  "careTeam": [\r\n    {\r\n      "reference": "Careteam/5"\r\n    }\r\n  ],\r\n  "addresses": [\r\n    {\r\n      "reference": "Condition/5"\r\n    }\r\n  ],\r\n  "goal": [\r\n    {\r\n      "reference": "Goal/5"\r\n    }\r\n  ],\r\n  "activity": [\r\n    {\r\n      "detail": {\r\n        "kind": "ServiceRequest",\r\n        "code": {\r\n          "coding": [\r\n            {\r\n              "system": "http://snomed.info/sct",\r\n              "code": "359615001",\r\n              "display": "Partial lobectomy of lung"\r\n            }\r\n          ]\r\n        },\r\n        "status": "completed",\r\n        "doNotPerform": true,\r\n        "scheduledString": "2011-07-07T09:30:10+01:00",\r\n        "performer": [\r\n          {\r\n            "reference": "Practitioner/5",\r\n            "display": "Schmidt Michelle"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  ]\r\n}	2015-06-13 11:11:14.892293
 10	{\r\n  "resourceType": "CarePlan",\r\n  "id": "8",\r\n  "meta": {\r\n"versionId": "1"\r\n},\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n "status": "active",\r\n  "intent": "plan",\r\n  "subject": {\r\n    "reference": "Patient/8",\r\n    "display": "Robinson Richard"\r\n  },\r\n  "careTeam": [\r\n    {\r\n      "reference": "Careteam/8"\r\n    }\r\n  ],\r\n  "addresses": [\r\n    {\r\n      "reference": "Condition/8",\r\n      "display": "Roel's head-neck tumor"\r\n    }\r\n  ],\r\n  "goal": [\r\n    {\r\n      "reference": "Goal/8"\r\n    }\r\n  ],\r\n  "activity": [\r\n    {\r\n      "outcomeReference": [\r\n        {\r\n          "reference": "Procedure/8",\r\n          "display": "Roel's Chemotherapy"\r\n        }\r\n      ],\r\n      "detail": {\r\n        "kind": "ServiceRequest",\r\n        "code": {\r\n          "coding": [\r\n            {\r\n              "system": "http://snomed.info/sct",\r\n              "code": "367336001",\r\n              "display": "Chemotherapy"\r\n            }\r\n          ]\r\n        },\r\n        "status": "in-progress",\r\n        "doNotPerform": false\r\n      }\r\n    }\r\n  ]\r\n}	2015-06-13 11:26:52.044772
 11	{\r\n  "resourceType": "CarePlan",\r\n  "id": "9",\r\n   "meta": {\r\n"versionId": "1"\r\n},\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "status": "completed",\r\n  "intent": "plan",\r\n  "subject": {\r\n    "reference": "Patient/9",\r\n    "display": "Coleman Steven"\r\n  },\r\n  "period": {\r\n    "start": "2013-04-14",\r\n    "end": "2013-04-21"\r\n  },\r\n  "careTeam": [\r\n    {\r\n      "reference": "Careteam/9"\r\n    }\r\n  ],\r\n  "addresses": [\r\n    {\r\n      "reference": "Condition/9",\r\n      "display": "Roel's sepsis"\r\n    }\r\n  ],\r\n  "goal": [\r\n    {\r\n      "reference": "Goal/9"\r\n    }\r\n  ],\r\n  "activity": [\r\n    {\r\n      "detail": {\r\n        "kind": "ServiceRequest",\r\n        "code": {\r\n          "coding": [\r\n            {\r\n              "system": "http://snomed.info/sct",\r\n              "code": "241541005",\r\n              "display": "High resolution computed tomography of lungs"\r\n            }\r\n          ]\r\n        },\r\n        "status": "not-started",\r\n        "doNotPerform": false\r\n      }\r\n    }\r\n  ]\r\n}	2018-06-13 11:42:04.47464
@@ -1836,7 +1809,7 @@ COPY careplan (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: careteam; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY careteam (id, data, last_updated_ts) FROM stdin;
+COPY public.careteam (id, data, last_updated_ts) FROM stdin;
 5	{\r\n  "resourceType": "CareTeam",\r\n  "id": "1",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Care Team</div>"\r\n  },\r\n"meta": {\r\n        "versionId": "3"\r\n    },\r\n  "identifier": [\r\n    {\r\n      "value": "12345"\r\n    }\r\n  ],\r\n  "status": "active",\r\n  "category": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://loinc.org",\r\n          "code": "LA27976-2",\r\n          "display": "Encounter-focused care team"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "name": "Peter James Charlmers Care Plan for Inpatient Encounter",\r\n  "subject": {\r\n    "reference": "Patient/1",\r\n    "display": "Gracia Brian"\r\n  },\r\n  "encounter": {\r\n    "reference": "Encounter/1"\r\n  },\r\n  "period": {\r\n    "end": "2013-01-01"\r\n  },\r\n  "participant": [\r\n    {\r\n      "role": [\r\n        {\r\n          "text": "responsiblePerson"\r\n        }\r\n      ],\r\n      "member": {\r\n        "reference": "Patient/1",\r\n        "display": "Gracia Brian"\r\n      }\r\n    },\r\n    {\r\n      "role": [\r\n        {\r\n          "text": "adviser"\r\n        }\r\n      ],\r\n      "member": {\r\n        "reference": "Practitioner/1",\r\n        "display": "Gracia Brian"\r\n      },\r\n      "onBehalfOf": {\r\n        "reference": "Organization/1"\r\n      },\r\n      "period": {\r\n        "end": "2013-01-01"\r\n      }\r\n    }\r\n  ],\r\n  "managingOrganization": [\r\n    {\r\n      "reference": "Organization/1"\r\n    }\r\n  ]\r\n}	2019-07-02 07:28:14.020805
 2	{\r\n  "resourceType": "CareTeam",\r\n  "id": "2",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Care Team</div>"\r\n  },\r\n"meta": {\r\n        "versionId": "1"\r\n    },\r\n  "identifier": [\r\n    {\r\n      "value": "12345"\r\n    }\r\n  ],\r\n  "status": "active",\r\n  "category": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://loinc.org",\r\n          "code": "LA27976-2",\r\n          "display": "Encounter-focused care team"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "name": "Peter James Charlmers Care Plan for Inpatient Encounter",\r\n  "subject": {\r\n    "reference": "Patient/2",\r\n    "display": "McKay George"\r\n  },\r\n  "encounter": {\r\n    "reference": "Encounter/2"\r\n  },\r\n  "period": {\r\n    "end": "2013-01-01"\r\n  },\r\n  "participant": [\r\n    {\r\n      "role": [\r\n        {\r\n          "text": "responsiblePerson"\r\n        }\r\n      ],\r\n      "member": {\r\n        "reference": "Patient/2",\r\n        "display": "McKay George"\r\n      }\r\n    },\r\n    {\r\n      "role": [\r\n        {\r\n          "text": "adviser"\r\n        }\r\n      ],\r\n      "member": {\r\n        "reference": "Practitioner/2",\r\n        "display": "Fox Amy"\r\n      },\r\n      "onBehalfOf": {\r\n        "reference": "Organization/2"\r\n      },\r\n      "period": {\r\n        "end": "2013-01-01"\r\n      }\r\n    }\r\n  ],\r\n  "managingOrganization": [\r\n    {\r\n      "reference": "Organization/2"\r\n    }\r\n  ]\r\n}	2017-03-20 10:28:52.231331
 4	{\r\n  "resourceType": "CareTeam",\r\n  "id": "1",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Care Team</div>"\r\n  },\r\n"meta": {\r\n        "versionId": "2"\r\n    },\r\n  "identifier": [\r\n    {\r\n      "value": "12345"\r\n    }\r\n  ],\r\n  "status": "active",\r\n  "category": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://loinc.org",\r\n          "code": "LA27976-2",\r\n          "display": "Encounter-focused care team"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "name": "Peter James Charlmers Care Plan for Inpatient Encounter",\r\n  "subject": {\r\n    "reference": "Patient/1",\r\n    "display": "Gracia Brian"\r\n  },\r\n  "encounter": {\r\n    "reference": "Encounter/1"\r\n  },\r\n  "period": {\r\n    "end": "2013-01-01"\r\n  },\r\n  "participant": [\r\n    {\r\n      "role": [\r\n        {\r\n          "text": "responsiblePerson"\r\n        }\r\n      ],\r\n      "member": {\r\n        "reference": "Patient/1",\r\n        "display": "Gracia Brian"\r\n      }\r\n    },\r\n    {\r\n      "role": [\r\n        {\r\n          "text": "adviser"\r\n        }\r\n      ],\r\n      "member": {\r\n        "reference": "Practitioner/1",\r\n        "display": "Gracia Brian"\r\n      },\r\n      "onBehalfOf": {\r\n        "reference": "Organization/1"\r\n      },\r\n      "period": {\r\n        "end": "2013-01-01"\r\n      }\r\n    }\r\n  ],\r\n  "managingOrganization": [\r\n    {\r\n      "reference": "Organization/1"\r\n    }\r\n  ]\r\n}	2017-07-02 07:27:49.622156
@@ -1849,7 +1822,7 @@ COPY careteam (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: claim; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY claim (id, data, last_updated_ts) FROM stdin;
+COPY public.claim (id, data, last_updated_ts) FROM stdin;
 1	{\r\n  "resourceType": "Claim",\r\n  "id": "1",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the Oral Health Claim</div>"\r\n  },\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "http://happyvalley.com/claim",\r\n      "value": "12345"\r\n    }\r\n  ],\r\n  "status": "active",\r\n  "type": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/claim-type",\r\n        "code": "oral"\r\n      }\r\n    ]\r\n  },\r\n  "use": "claim",\r\n  "patient": {\r\n    "reference": "Patient/1"\r\n  },\r\n  "created": "2014-08-16",\r\n  "insurer": {\r\n    "reference": "Organization/2"\r\n  },\r\n  "provider": {\r\n    "reference": "Organization/1"\r\n  },\r\n  "priority": {\r\n    "coding": [\r\n      {\r\n        "code": "normal"\r\n      }\r\n    ]\r\n  },\r\n  "payee": {\r\n    "type": {\r\n      "coding": [\r\n        {\r\n          "code": "provider"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  "careTeam": [\r\n    {\r\n      "sequence": 1,\r\n      "provider": {\r\n        "reference": "Practitioner/1"\r\n      }\r\n    }\r\n  ],\r\n  "diagnosis": [\r\n    {\r\n      "sequence": 1,\r\n      "diagnosisCodeableConcept": {\r\n        "coding": [\r\n          {\r\n            "code": "123456"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  ],\r\n  "insurance": [\r\n    {\r\n      "sequence": 1,\r\n      "focal": true,\r\n      "identifier": {\r\n        "system": "http://happyvalley.com/claim",\r\n        "value": "12345"\r\n      },\r\n      "coverage": {\r\n        "reference": "Coverage/1"\r\n      }\r\n    }\r\n  ],\r\n  "item": [\r\n    {\r\n      "sequence": 1,\r\n      "careTeamSequence": [\r\n        1\r\n      ],\r\n      "productOrService": {\r\n        "coding": [\r\n          {\r\n            "code": "1200"\r\n          }\r\n        ]\r\n      },\r\n      "servicedDate": "2014-08-16",\r\n      "unitPrice": {\r\n        "value": 135.57,\r\n        "currency": "USD"\r\n      },\r\n      "net": {\r\n        "value": 135.57,\r\n        "currency": "USD"\r\n      }\r\n    }\r\n  ]\r\n}	2020-01-03 07:39:32.432512
 2	{\r\n  "resourceType": "Claim",\r\n  "id": "2",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of a CMS 1500 Claim</div>"\r\n  },\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "http://CedarArmsMedicalCenter.com/claim",\r\n      "value": "MED-00050"\r\n    }\r\n  ],\r\n  "status": "active",\r\n  "type": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/claim-type",\r\n        "code": "institutional"\r\n      }\r\n    ]\r\n  },\r\n  "subType": {\r\n    "coding": [\r\n      {\r\n        "system": "https://www.cms.gov/codes/billtype",\r\n        "code": "831",\r\n        "display": "Hospital Outpatient Surgery performed in an Ambulatory ​Surgical Center"\r\n      }\r\n    ]\r\n  },\r\n  "use": "claim",\r\n  "patient": {\r\n    "reference": "Patient/1"\r\n  },\r\n  "created": "2015-10-16T00:00:00-07:00",\r\n  "insurer": {\r\n    "identifier": {\r\n      "system": "http://www.bindb.com/bin",\r\n      "value": "123456"\r\n    },\r\n    "display": "Humana Inc."\r\n  },\r\n  "provider": {\r\n    "reference": "Organization/1"\r\n  },\r\n  "priority": {\r\n    "coding": [\r\n      {\r\n        "code": "normal"\r\n      }\r\n    ]\r\n  },\r\n  "payee": {\r\n    "type": {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/payeetype",\r\n          "code": "provider"\r\n        }\r\n      ]\r\n    },\r\n    "party": {\r\n      "reference": "Organization/1"\r\n    }\r\n  },\r\n  "careTeam": [\r\n    {\r\n      "sequence": 1,\r\n      "provider": {\r\n        "reference": "Practitioner/1"\r\n      }\r\n    }\r\n  ],\r\n  "supportingInfo": [\r\n    {\r\n      "sequence": 1,\r\n      "category": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/claiminformationcategory",\r\n            "code": "hospitalized"\r\n          }\r\n        ]\r\n      },\r\n      "timingPeriod": {\r\n        "start": "2015-10-01T00:00:00-07:00",\r\n        "end": "2015-10-05T00:00:00-07:00"\r\n      }\r\n    },\r\n    {\r\n      "sequence": 2,\r\n      "category": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/claiminformationcategory",\r\n            "code": "discharge"\r\n          }\r\n        ]\r\n      },\r\n      "code": {\r\n        "coding": [\r\n          {\r\n            "system": "https://www.cms.gov/Outreach-and-Education/Medicare-Learning-Network-MLN/MLNMattersArticles/downloads/SE0801.pdf",\r\n            "code": "01",\r\n            "display": "Discharge to Home or Self Care"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  ],\r\n  "diagnosis": [\r\n    {\r\n      "sequence": 1,\r\n      "diagnosisCodeableConcept": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/sid/icd-10",\r\n            "code": "M96.1",\r\n            "display": "Postlaminectomy syndrome"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      "sequence": 2,\r\n      "diagnosisCodeableConcept": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/sid/icd-10",\r\n            "code": "G89.4",\r\n            "display": "Chronic pain syndrome"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      "sequence": 3,\r\n      "diagnosisCodeableConcept": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/sid/icd-10",\r\n            "code": "M53.88",\r\n            "display": "Other specified dorsopathies, sacral and sacrococcygeal region"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      "sequence": 4,\r\n      "diagnosisCodeableConcept": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/sid/icd-10",\r\n            "code": "M47.816",\r\n            "display": "Spondylosis without myelopathy or radiculopathy, lumbar region"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  ],\r\n  "insurance": [\r\n    {\r\n      "sequence": 1,\r\n      "focal": true,\r\n      "identifier": {\r\n        "system": "http://CedarArmsMedicalCenter.com/claim",\r\n        "value": "MED-00050"\r\n      },\r\n      "coverage": {\r\n        "reference": "#coverage-1"\r\n      }\r\n    }\r\n  ],\r\n  "item": [\r\n    {\r\n      "sequence": 1,\r\n      "careTeamSequence": [\r\n        1\r\n      ],\r\n      "diagnosisSequence": [\r\n        2,\r\n        4\r\n      ],\r\n      "informationSequence": [\r\n        1\r\n      ],\r\n      "productOrService": {\r\n        "coding": [\r\n          {\r\n            "system": "http://www.ama-assn.org/go/cpt",\r\n            "code": "62264",\r\n            "display": "Surgical Procedures on the Spine and Spinal Cord"\r\n          }\r\n        ]\r\n      },\r\n      "servicedDate": "2015-10-13",\r\n      "locationCodeableConcept": {\r\n        "coding": [\r\n          {\r\n            "system": "https://www.cms.gov/medicare/coding/place-of-service-codes/place_of_service_code_set.html",\r\n            "code": "24",\r\n            "display": "Ambulatory Surgical Center"\r\n          }\r\n        ]\r\n      },\r\n      "unitPrice": {\r\n        "value": 12500.00,\r\n        "currency": "USD"\r\n      },\r\n      "net": {\r\n        "value": 12500.00,\r\n        "currency": "USD"\r\n      }\r\n    }\r\n  ],\r\n  "total": {\r\n    "value": 12500.00,\r\n    "currency": "USD"\r\n  }\r\n}	2020-01-03 07:42:31.398828
 3	{\r\n  "resourceType": "Claim",\r\n  "id": "3",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the Pharmacy Claim</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "http://happypharma.com/claim",\r\n      "value": "7612345"\r\n    }\r\n  ],\r\n  "status": "active",\r\n  "type": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/claim-type",\r\n        "code": "pharmacy"\r\n      }\r\n    ]\r\n  },\r\n  "use": "claim",\r\n  "patient": {\r\n    "reference": "Patient/2"\r\n  },\r\n  "created": "2014-08-16",\r\n  "insurer": {\r\n    "reference": "Organization/2"\r\n  },\r\n  "provider": {\r\n    "reference": "Organization/1"\r\n  },\r\n  "priority": {\r\n    "coding": [\r\n      {\r\n        "code": "stat"\r\n      }\r\n    ]\r\n  },\r\n  "payee": {\r\n    "type": {\r\n      "coding": [\r\n        {\r\n          "code": "provider"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  "careTeam": [\r\n    {\r\n      "sequence": 1,\r\n      "provider": {\r\n        "reference": "Practitioner/2"\r\n      }\r\n    }\r\n  ],\r\n  "supportingInfo": [\r\n    {\r\n      "sequence": 1,\r\n      "category": {\r\n        "coding": [\r\n          {\r\n            "code": "pharmacyrefill"\r\n          }\r\n        ]\r\n      },\r\n      "code": {\r\n        "coding": [\r\n          {\r\n            "system": "http://example.org/fhir/CodeSystem/pharmacy-refill",\r\n            "code": "new"\r\n          }\r\n        ]\r\n      }\r\n    },\r\n    {\r\n      "sequence": 2,\r\n      "category": {\r\n        "coding": [\r\n          {\r\n            "code": "pharmacyinformation"\r\n          }\r\n        ]\r\n      },\r\n      "code": {\r\n        "coding": [\r\n          {\r\n            "system": "http://example.org/fhir/CodeSystem/pharmacy-information",\r\n            "code": "refillsremaining"\r\n          }\r\n        ]\r\n      },\r\n      "valueQuantity": {\r\n        "value": 0\r\n      }\r\n    },\r\n    {\r\n      "sequence": 3,\r\n      "category": {\r\n        "coding": [\r\n          {\r\n            "code": "pharmacyinformation"\r\n          }\r\n        ]\r\n      },\r\n      "code": {\r\n        "coding": [\r\n          {\r\n            "system": "http://example.org/fhir/CodeSystem/pharmacy-information",\r\n            "code": "dayssupply"\r\n          }\r\n        ]\r\n      },\r\n      "valueQuantity": {\r\n        "value": 10\r\n      }\r\n    },\r\n    {\r\n      "sequence": 4,\r\n      "category": {\r\n        "coding": [\r\n          {\r\n            "code": "pharmacy"\r\n          }\r\n        ]\r\n      },\r\n      "code": {\r\n        "coding": [\r\n          {\r\n            "system": "http://example.org/fhir/CodeSystem/pharmacy-form",\r\n            "code": "capsule"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  ],\r\n  "diagnosis": [\r\n    {\r\n      "sequence": 1,\r\n      "diagnosisCodeableConcept": {\r\n        "coding": [\r\n          {\r\n            "code": "654456"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  ],\r\n  "insurance": [\r\n    {\r\n      "sequence": 1,\r\n      "focal": true,\r\n      "coverage": {\r\n        "reference": "Coverage/1"\r\n      }\r\n    }\r\n  ],\r\n  "item": [\r\n    {\r\n      "sequence": 1,\r\n      "careTeamSequence": [\r\n        1\r\n      ],\r\n      "informationSequence": [\r\n        1,\r\n        2,\r\n        3,\r\n        4\r\n      ],\r\n      "productOrService": {\r\n        "coding": [\r\n          {\r\n            "system": "http://localdruglist.org",\r\n            "code": "compound",\r\n            "display": "Custom compound"\r\n          }\r\n        ]\r\n      },\r\n      "servicedDate": "2014-08-16",\r\n      "quantity": {\r\n        "value": 30,\r\n        "unit": "TAB",\r\n        "system": "http://unitsofmeasure.org",\r\n        "code": "TAB"\r\n      },\r\n      "net": {\r\n        "value": 155.00,\r\n        "currency": "USD"\r\n      },\r\n      "detail": [\r\n        {\r\n          "sequence": 1,\r\n          "productOrService": {\r\n            "coding": [\r\n              {\r\n                "system": "http://localdruglist.org",\r\n                "code": "44001",\r\n                "display": "Acetaminophen 250mg"\r\n              }\r\n            ]\r\n          },\r\n          "quantity": {\r\n            "value": 250,\r\n            "unit": "mg"\r\n          },\r\n          "net": {\r\n            "value": 20.00,\r\n            "currency": "USD"\r\n          },\r\n          "subDetail": [\r\n            {\r\n              "sequence": 1,\r\n              "productOrService": {\r\n                "coding": [\r\n                  {\r\n                    "system": "http://hl7.org/fhir/ex-pharmaservice",\r\n                    "code": "drugcost"\r\n                  }\r\n                ]\r\n              },\r\n              "net": {\r\n                "value": 20.00,\r\n                "currency": "USD"\r\n              }\r\n            }\r\n          ]\r\n        },\r\n        {\r\n          "sequence": 2,\r\n          "productOrService": {\r\n            "coding": [\r\n              {\r\n                "system": "http://localdruglist.org",\r\n                "code": "44035",\r\n                "display": "Phenacetin 50mg"\r\n              }\r\n            ]\r\n          },\r\n          "quantity": {\r\n            "value": 50,\r\n            "unit": "mg"\r\n          },\r\n          "net": {\r\n            "value": 25.00,\r\n            "currency": "USD"\r\n          },\r\n          "subDetail": [\r\n            {\r\n              "sequence": 1,\r\n              "productOrService": {\r\n                "coding": [\r\n                  {\r\n                    "system": "http://hl7.org/fhir/ex-pharmaservice",\r\n                    "code": "drugcost"\r\n                  }\r\n                ]\r\n              },\r\n              "net": {\r\n                "value": 25.00,\r\n                "currency": "USD"\r\n              }\r\n            }\r\n          ]\r\n        },\r\n        {\r\n          "sequence": 3,\r\n          "productOrService": {\r\n            "coding": [\r\n              {\r\n                "system": "http://localdruglist.org",\r\n                "code": "44057",\r\n                "display": "Codeine 25mg"\r\n              }\r\n            ]\r\n          },\r\n          "quantity": {\r\n            "value": 25,\r\n            "unit": "mg"\r\n          },\r\n          "net": {\r\n            "value": 28.00,\r\n            "currency": "USD"\r\n          },\r\n          "subDetail": [\r\n            {\r\n              "sequence": 1,\r\n              "productOrService": {\r\n                "coding": [\r\n                  {\r\n                    "system": "http://hl7.org/fhir/ex-pharmaservice",\r\n                    "code": "drugcost"\r\n                  }\r\n                ]\r\n              },\r\n              "net": {\r\n                "value": 28.00,\r\n                "currency": "USD"\r\n              }\r\n            }\r\n          ]\r\n        },\r\n        {\r\n          "sequence": 2,\r\n          "productOrService": {\r\n            "coding": [\r\n              {\r\n                "system": "http://hl7.org/fhir/ex-pharmaservice",\r\n                "code": "markup"\r\n              }\r\n            ]\r\n          },\r\n          "net": {\r\n            "value": 22.00,\r\n            "currency": "USD"\r\n          }\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "total": {\r\n    "value": 155.00,\r\n    "currency": "USD"\r\n  }\r\n}	2020-01-03 07:45:55.55984
@@ -1862,7 +1835,7 @@ COPY claim (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: clients; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY clients (id, user_id, client_id, client_secret, register_token, name, org_name, contact_name, contact_mail, scope, redirect_uri, last_updated_ts, status, launch_id, launch_uri) FROM stdin;
+COPY public.clients (id, user_id, client_id, client_secret, register_token, name, org_name, contact_name, contact_mail, scope, redirect_uri, last_updated_ts, status, launch_id, launch_uri) FROM stdin;
 11	2	VkfrAfpVMqAWsr8N--tNwHKLTkeTVt	clU0aVl0UmhUUWN2SzZ2OUE5MklOMmxsVWZmQmFtSHJuTFlUbDdNQlo4cTR5ajlNS3g=	n3BNbhkaDiZfSDS3bIqwFIEZX2KgK19oW1WNH9ooxaC83GSq5GQogsGzSEgL5tcy2U6aTZ9uxFYk1lSOKhrOq5nOzVB97avOU69iAmhEuEiQSZdhdbuXiKlvaoefrVQZr7VwKoXlSeMFpTFG50KGwjonHhKAAP-ARLf9FHqTGse31uXIweba0HvI78P5aycPoP5E9ehLV38uewOPqyp-R6z9KUvNHLWrAQbfPDd6-WyyNxMVtmUwh0gEQn	democlient	FHIR	FHIR Demo	demo@sitenv.org	launch,launch/patient,patient/*.*,patient/*.read,patient/Patient.read,patient/DocumentReference.read,patient/MedicationOrder.read,patient/MedicationStatement.read,fhir_complete,user/Patient.read,user/*.read,user/*.*,openid,fhirUser,offline_access,online_access	https://fhir.dev.sitenv.org/secure/r4/	2019-07-11 07:24:46.151981	\N	GqCMXWi7	https://inferno.healthit.gov/inferno/oauth2/static/launch
 9	1	T1oR2nFqtONCZHf0NLgOdhx9XlquBO	bzRJRnF1aW1hdkptbGp5RVp2b2wtcWhpZmF5MGZjYlJQaWxvVkgydS1ZZi1HYmVKYmk=	HerasVwndE2MtcnwlR5DbqfmFb3n80zh57bLY4yFjF0Lvg6LK7s7jnTT6jJx-6s9udfT12pYjdPuvlTufrDRu7Y-VjROxS32rSKwhfW44xlOC9SMOcRFniitLV9Js1YDJDLKaX-GK8Pao2Qyf1XwiJJbf972HGLnACtKEkNokhdJr8hQxdynDPCia9QvkReAtMarzvXU8ygVLdPTfVXjXiq1qK91a0XRzZ-HA40eYYtE9Pi-XRQVCVQrAA	Savitha	Xyram	Savitha	sihi@gmail.com	launch,launch/patient,patient/*.*,patient/*.read,patient/Patient.read,patient/DocumentReference.read,patient/MedicationOrder.read,patient/MedicationStatement.read,fhir_complete,user/Patient.read,user/*.read,user/*.*,openid,fhirUser,offline_access,online_access	http://localhost:4567/inferno/oauth2/static/redirect	2019-06-21 07:00:35.673899	\N	AnUu5WCT	https://inferno.healthit.gov/inferno/oauth2/static/launch
 \.
@@ -1872,7 +1845,7 @@ COPY clients (id, user_id, client_id, client_secret, register_token, name, org_n
 -- Data for Name: condition; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY condition (id, data, last_updated_ts) FROM stdin;
+COPY public.condition (id, data, last_updated_ts) FROM stdin;
 9	{\n    "category": [\n        {\n            "coding": [\n                {\n                    "code": "14657009",\n                    "system": "http://snomed.info/sct",\n                    "display": "Diagnosis"\n                }\n            ]\n        }\n    ],\n    "assertedDate": "2010-11-17",\n   "verificationStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",\r\n        "code": "confirmed"\r\n      }\r\n    ]\r\n  },\n    "code": {\n        "text": "Coronary Heart Disease",\n        "coding": [\n            {\n                "code": "44054006",\n                "system": "http://snomed.info/sct",\n                "display": "Diabetes mellitus type 2   "\n            }\n        ]\n    },\n    "severity": {\n        "coding": [\n            {\n                "code": "255604002",\n                "system": "http://snomed.info/sct",\n                "display": "mild         "\n            }\n        ]\n    },\n    "resourceType": "Condition",\n    "onsetDateTime": "2005-03-12",\n     "clinicalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",\r\n        "code": "active"\r\n      }\r\n    ]\r\n  },\n    "meta": {\n        "profile": [\n            "http://standardhealthrecord.org/fhir/StructureDefinition/shr-problem-Problem"\n        ],\n        "versionId": "1",\n        "tag": [\n            {\n                "code": "synthea-7-2017",\n                "system": "https://smarthealthit.org/tags"\n            }\n        ],\n        "lastUpdated": "2018-10-04T15:21:39.898-04:00"\n    },\n    "context": {\n        "reference": "Encounter/7"\n    },\n    "identifier": [\n        {\n            "system": "https://sitenv.org",\n            "value": "6678"\n        }\n    ],\n    "id": "7",\n    "subject": {\n        "reference": "Patient/7"\n    }\n}	2016-04-23 09:28:37.622352
 6	{\n    "category": [\n        {\n            "coding": [\n                {\n                    "code": "problem-list-item",\n                    "system": "http://terminology.hl7.org/CodeSystem/condition-category",\n                    "display": "Problem List Item"\n                }\n            ]\n        }\n    ],\n    "assertedDate": "2013-12-19",\n    "code": {\n        "text": "Coronary Heart Disease",\n        "coding": [\n            {\n                "code": "53741008 ",\n                "system": "http://snomed.info/sct",\n                "display": "Coronary Heart Disease"\n            }\n        ]\n    },\n    "severity": {\n        "coding": [\n            {\n                "code": "255604002   ",\n                "system": "http://snomed.info/sct",\n                "display": "Mild  "\n            }\n        ]\n    },\n    "resourceType": "Condition",\n    "onsetDateTime": "2014-08-12",\n  "clinicalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",\r\n        "code": "active"\r\n      }\r\n    ]\r\n  },\n    "meta": {\n        "profile": [\n            "http://standardhealthrecord.org/fhir/StructureDefinition/shr-problem-Problem"\n        ],\n        "versionId": "1",\n        "tag": [\n            {\n                "code": "synthea-7-2017",\n                "system": "https://smarthealthit.org/tags"\n            }\n        ],\n        "lastUpdated": "2018-10-04T15:21:39.898-04:00"\n    },\n    "context": {\n        "reference": "Encounter/1"\n    },\n    "id": "4",\n    "identifier": [\n        {\n            "system": "https://sitenv.org",\n            "value": "5567 "\n        }\n    ],\n     "verificationStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",\r\n        "code": "confirmed"\r\n      }\r\n    ]\r\n  },\n    "subject": {\n        "reference": "Patient/4"\n    }\n}	2018-05-19 06:20:51.552711
 4	{\n    "category": [\n        {\n            "coding": [\n                {\n                    "code": "problem-list-item",\n                    "system": "http://terminology.hl7.org/CodeSystem/condition-category",\n                    "display": "Problem List Item"\n                }\n            ]\n        }\n    ],\n    "assertedDate": "2012-12-19",\n    "code": {\n        "text": "Coronary Heart Disease",\n        "coding": [\n            {\n                "code": "53741008",\n                "system": "http://snomed.info/sct",\n                "display": "Coronary Heart Disease"\n            }\n        ]\n    },\n    "severity": {\n        "coding": [\n            {\n                "code": "255604002",\n                "system": "http://snomed.info/sct",\n                "display": "Mild"\n            }\n        ]\n    },\n    "resourceType": "Condition",\n    "onsetDateTime": "2012-12-19",\n    "clinicalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",\r\n        "code": "active"\r\n      }\r\n    ]\r\n  },\n    "meta": {\n        "profile": [\n            "http://standardhealthrecord.org/fhir/StructureDefinition/shr-problem-Problem"\n        ],\n        "versionId": "1",\n        "tag": [\n            {\n                "code": "synthea-7-2017",\n                "system": "https://smarthealthit.org/tags"\n            }\n        ],\n        "lastUpdated": "2018-10-04T15:21:39.898-04:00"\n    },\n    "context": {\n        "reference": "Encounter/a021ec5a-3238-46bc-bfd2-635b4e7d0b55"\n    },\n    "id": "2",\n    "identifier": [\n        {\n            "system": "http://goodcare.org/devices/id",\n            "value": "345675"\n        }\n    ],\n    "verificationStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",\r\n        "code": "confirmed"\r\n      }\r\n    ]\r\n  },\n    "subject": {\n        "reference": "Patient/2"\n    }\n}	2017-01-19 06:19:59.929906
@@ -1892,11 +1865,11 @@ COPY condition (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: coverage; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY coverage (id, data, last_updated_ts) FROM stdin;
-1	{\r\n  "resourceType": "Coverage",\r\n  "id": "b66b770a-66da-4330-8463-cd0e93ef6626",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the coverage</div>"\r\n  },\r\n  "meta": {\r\n\t\t"versionId" : "1",\r\n\t\t"lastUpdated": "2019-06-06T03:04:12.348-04:00"\r\n\t},\r\n "identifier": [\r\n\t  {\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"code": "MB", \r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203", \r\n\t\t\t\t\t"display": "Member Number"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}, \r\n\t\t"use": "official",\r\n\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t"value": "13579"\r\n\t  }\r\n\t],\r\n  "status": "active",\r\n  "policyHolder": {\r\n    "reference": "RelatedPerson/074c4667-06e5-409b-a4ae-335c83fe6ed5"\r\n  },\r\n  "subscriberId": "AB3658",\r\n  "subscriber": {\r\n    "reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\r\n  },\r\n  "beneficiary": {\r\n    "reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\r\n  },\r\n  "dependent": "0",\r\n  "relationship": {\r\n    "coding": [\r\n      {\r\n        "code": "self",\r\n\t\t"system":"http://terminology.hl7.org/CodeSystem/subscriber-relationship",\r\n\t\t"display":"Self"\r\n      }\r\n    ]\r\n  },\r\n  "period": {\r\n    "start": "2011-05-23",\r\n    "end": "2012-05-23"\r\n  },\r\n  "payor": [\r\n    {\r\n      "reference": "Organization/6c9380b5-2d9d-4675-89a1-f7048486a2f4"\r\n    }\r\n  ],\r\n  "class": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n            "code": "plan"\r\n          }\r\n        ]\r\n      },\r\n      "value": "B37FC"\r\n    }\r\n  ]\r\n}	2020-01-01 08:29:11.329195
-3	{\r\n  "resourceType": "Coverage",\r\n  "id": "c8e3f0b5-0599-43ba-ab90-792c127819a1",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the coverage</div>"\r\n  },\r\n  "meta": {\r\n\t\t"versionId" : "1",\r\n\t\t"lastUpdated": "2019-05-06T03:04:12.348-04:00"\r\n\t},\r\n "identifier": [\r\n\t  {\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"code": "MB", \r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203", \r\n\t\t\t\t\t"display": "Member Number"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}, \r\n\t\t"use": "official",\r\n\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t"value": "786778"\r\n\t  }\r\n\t],\r\n  "status": "active",\r\n  "policyHolder": {\r\n    "reference": "RelatedPerson/b2cf72e8-62c2-4a61-a2b9-dcf90094aae7"\r\n  },\r\n  "subscriberId": "AB3658",\r\n  "subscriber": {\r\n    "reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n  },\r\n  "beneficiary": {\r\n    "reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n  },\r\n  "dependent": "0",\r\n  "relationship": {\r\n    "coding": [\r\n      {\r\n        "code": "self",\r\n\t\t"system":"http://terminology.hl7.org/CodeSystem/subscriber-relationship",\r\n\t\t"display":"Self"\r\n      }\r\n    ]\r\n  },\r\n  "period": {\r\n    "start": "2013-05-23",\r\n    "end": "2014-05-23"\r\n  },\r\n  "payor": [\r\n    {\r\n      "reference": "Organization/6c9380b5-2d9d-4675-89a1-f7048486a2f4"\r\n    }\r\n  ],\r\n  "class": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n            "code": "plan"\r\n          }\r\n        ]\r\n      },\r\n      "value": "B37FC"\r\n    }\r\n  ]\r\n}	2020-01-01 08:32:35.834118
-2	{\r\n  "resourceType": "Coverage",\r\n  "id": "9bf7ab75-3ead-4a90-8409-eade27aa9008",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the coverage</div>"\r\n  },\r\n  "meta": {\r\n\t\t"versionId" : "1",\r\n\t\t"lastUpdated": "2019-04-06T03:04:12.348-04:00"\r\n\t},\r\n "identifier": [\r\n\t  {\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"code": "MB", \r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203", \r\n\t\t\t\t\t"display": "Member Number"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}, \r\n\t\t"use": "official",\r\n\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t"value": "909012"\r\n\t  }\r\n\t],\r\n  "status": "active",\r\n  "policyHolder": {\r\n    "reference": "RelatedPerson/65b8aaa8-697a-43a9-8f6e-5615ecad344a"\r\n  },\r\n  "subscriberId": "AB3999",\r\n  "subscriber": {\r\n    "reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\r\n  },\r\n  "beneficiary": {\r\n    "reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\r\n  },\r\n  "dependent": "0",\r\n  "relationship": {\r\n    "coding": [\r\n      {\r\n        "code": "self",\r\n\t\t"system":"http://terminology.hl7.org/CodeSystem/subscriber-relationship",\r\n\t\t"display":"Self"\r\n      }\r\n    ]\r\n  },\r\n  "period": {\r\n    "start": "2012-05-23",\r\n    "end": "2013-05-23"\r\n  },\r\n  "payor": [\r\n    {\r\n      "reference": "Organization/6c9380b5-2d9d-4675-89a1-f7048486a2f4"\r\n    }\r\n  ],\r\n  "class": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n            "code": "plan"\r\n          }\r\n        ]\r\n      },\r\n      "value": "B37FC"\r\n    }\r\n  ]\r\n}	2020-01-01 08:31:28.543429
+COPY public.coverage (id, data, last_updated_ts) FROM stdin;
 4	{\r\n\t\t\t\t"resourceType": "Coverage",\r\n\t\t\t\t"id": "4",\r\n\t\t\t\t"meta": {\r\n\t\t\t\t\t"versionId": "1",\r\n\t\t\t\t\t"lastUpdated": "2020-04-08T07:06:17.000+00:00"\r\n\t\t\t\t},\r\n\t\t\t\t"status": "active",\r\n\t\t\t\t"identifier": [{\r\n\t\t\t\t\t"system": "https://bluebutton.cms.gov/resources/variables/bene_id",\r\n\t\t\t\t\t"value": "19990000002209"\r\n\t\t\t\t}],\r\n\t\t\t\t"policyHolder": {\r\n\t\t\t\t\t"reference": "RelatedPerson/4"\r\n\t\t\t\t},\r\n\t\t\t\t"subscriber": {\r\n\t\t\t\t\t"reference": "Patient/1",\r\n\t\t\t\t\t"type": "Patient"\r\n\t\t\t\t},\r\n\t\t\t\t"subscriberId": "19990000002209",\r\n\t\t\t\t"beneficiary": {\r\n\t\t\t\t\t"reference": "Patient/1"\r\n\t\t\t\t},\r\n\t\t\t\t"dependent": "1",\r\n\t\t\t\t"relationship": {\r\n\t\t\t\t\t"coding": [{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",\r\n\t\t\t\t\t\t"code": "common",\r\n\t\t\t\t\t\t"display": "COMMON LAW SPOUSE"\r\n\t\t\t\t\t}]\r\n\t\t\t\t},\r\n\t\t\t\t"period": {\r\n\t\t\t\t\t"start": "2020-04-08T07:06:17+00:00",\r\n\t\t\t\t\t"end": "2020-05-08T07:06:17+00:00"\r\n\t\t\t\t},\r\n\t\t\t\t"payor": [{\r\n\t\t\t\t\t"reference": "Patient/b57da73c-e497-488f-afdc-233907074c15"\r\n\t\t\t\t}],\r\n\t\t\t\t"class": [{\r\n\t\t\t\t\t\t"type": {\r\n\t\t\t\t\t\t\t"coding": [{\r\n\t\t\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n\t\t\t\t\t\t\t\t"code": "group",\r\n\t\t\t\t\t\t\t\t"display": "GROUP"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t"value": "7856"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"type": {\r\n\t\t\t\t\t\t\t"coding": [{\r\n\t\t\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n\t\t\t\t\t\t\t\t"code": "plan",\r\n\t\t\t\t\t\t\t\t"display": "PLAN"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t"value": "46776",\r\n\t\t\t\t\t\t"name": "Test Plan 001"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t"order": 1,\r\n\t\t\t\t"costToBeneficiary": [{\r\n\t\t\t\t\t"type": {\r\n\t\t\t\t\t\t"coding": [{\r\n\t\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/coverage-copay-type",\r\n\t\t\t\t\t\t\t"code": "copay",\r\n\t\t\t\t\t\t\t"display": "COPAY AMOUNT"\r\n\t\t\t\t\t\t}]\r\n\t\t\t\t\t},\r\n\t\t\t\t\t"valueQuantity": {\r\n\t\t\t\t\t\t"value": 0.01,\r\n\t\t\t\t\t\t"unit": "%",\r\n\t\t\t\t\t\t"system": "http://unitsofmeasure.org",\r\n\t\t\t\t\t\t"code": "%"\r\n\t\t\t\t\t}\r\n\t\t\t\t}]\r\n\t\t\t}	2020-01-01 08:33:31.302637
+1	{\r\n  "resourceType": "Coverage",\r\n  "id": "b66b770a-66da-4330-8463-cd0e93ef6626",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the coverage</div>"\r\n  },\r\n  "meta": {\r\n\t\t"versionId" : "1",\r\n\t\t"lastUpdated": "2019-06-06T03:04:12.348-04:00"\r\n\t},\r\n "identifier": [\r\n\t  {\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"code": "MB", \r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203", \r\n\t\t\t\t\t"display": "Member Number"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}, \r\n\t\t"use": "official",\r\n\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t"value": "12345"\r\n\t  }\r\n\t],\r\n  "status": "active",\r\n  "policyHolder": {\r\n    "reference": "RelatedPerson/074c4667-06e5-409b-a4ae-335c83fe6ed5"\r\n  },\r\n  "subscriberId": "AB3658",\r\n  "subscriber": {\r\n    "reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\r\n  },\r\n  "beneficiary": {\r\n    "reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\r\n  },\r\n  "dependent": "0",\r\n  "relationship": {\r\n    "coding": [\r\n      {\r\n        "code": "self",\r\n\t\t"system":"http://terminology.hl7.org/CodeSystem/subscriber-relationship",\r\n\t\t"display":"Self"\r\n      }\r\n    ]\r\n  },\r\n  "period": {\r\n    "start": "2011-05-23",\r\n    "end": "2012-05-23"\r\n  },\r\n  "payor": [\r\n    {\r\n      "reference": "Organization/6c9380b5-2d9d-4675-89a1-f7048486a2f4"\r\n    }\r\n  ],\r\n  "class": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n            "code": "plan"\r\n          }\r\n        ]\r\n      },\r\n      "value": "B37FC"\r\n    }\r\n  ]\r\n}	2020-01-01 08:29:11.329195
+2	{\r\n  "resourceType": "Coverage",\r\n  "id": "9bf7ab75-3ead-4a90-8409-eade27aa9008",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the coverage</div>"\r\n  },\r\n  "meta": {\r\n\t\t"versionId" : "1",\r\n\t\t"lastUpdated": "2019-04-06T03:04:12.348-04:00"\r\n\t},\r\n "identifier": [\r\n\t  {\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"code": "MB", \r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203", \r\n\t\t\t\t\t"display": "Member Number"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}, \r\n\t\t"use": "official",\r\n\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t"value": "54321"\r\n\t  }\r\n\t],\r\n  "status": "active",\r\n  "policyHolder": {\r\n    "reference": "RelatedPerson/65b8aaa8-697a-43a9-8f6e-5615ecad344a"\r\n  },\r\n  "subscriberId": "AB3999",\r\n  "subscriber": {\r\n    "reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\r\n  },\r\n  "beneficiary": {\r\n    "reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\r\n  },\r\n  "dependent": "0",\r\n  "relationship": {\r\n    "coding": [\r\n      {\r\n        "code": "self",\r\n\t\t"system":"http://terminology.hl7.org/CodeSystem/subscriber-relationship",\r\n\t\t"display":"Self"\r\n      }\r\n    ]\r\n  },\r\n  "period": {\r\n    "start": "2012-05-23",\r\n    "end": "2013-05-23"\r\n  },\r\n  "payor": [\r\n    {\r\n      "reference": "Organization/6c9380b5-2d9d-4675-89a1-f7048486a2f4"\r\n    }\r\n  ],\r\n  "class": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n            "code": "plan"\r\n          }\r\n        ]\r\n      },\r\n      "value": "B37FC"\r\n    }\r\n  ]\r\n}	2020-01-01 08:31:28.543429
+3	{\r\n  "resourceType": "Coverage",\r\n  "id": "c8e3f0b5-0599-43ba-ab90-792c127819a1",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">A human-readable rendering of the coverage</div>"\r\n  },\r\n  "meta": {\r\n\t\t"versionId" : "1",\r\n\t\t"lastUpdated": "2019-05-06T03:04:12.348-04:00"\r\n\t},\r\n "identifier": [\r\n\t  {\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"code": "MB", \r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203", \r\n\t\t\t\t\t"display": "Member Number"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}, \r\n\t\t"use": "official",\r\n\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t"value": "907861"\r\n\t  }\r\n\t],\r\n  "status": "active",\r\n  "policyHolder": {\r\n    "reference": "RelatedPerson/b2cf72e8-62c2-4a61-a2b9-dcf90094aae7"\r\n  },\r\n  "subscriberId": "AB3658",\r\n  "subscriber": {\r\n    "reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n  },\r\n  "beneficiary": {\r\n    "reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n  },\r\n  "dependent": "0",\r\n  "relationship": {\r\n    "coding": [\r\n      {\r\n        "code": "self",\r\n\t\t"system":"http://terminology.hl7.org/CodeSystem/subscriber-relationship",\r\n\t\t"display":"Self"\r\n      }\r\n    ]\r\n  },\r\n  "period": {\r\n    "start": "2013-05-23",\r\n    "end": "2014-05-23"\r\n  },\r\n  "payor": [\r\n    {\r\n      "reference": "Organization/6c9380b5-2d9d-4675-89a1-f7048486a2f4"\r\n    }\r\n  ],\r\n  "class": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/coverage-class",\r\n            "code": "plan"\r\n          }\r\n        ]\r\n      },\r\n      "value": "B37FC"\r\n    }\r\n  ]\r\n}	2020-01-01 08:32:35.834118
 \.
 
 
@@ -1904,7 +1877,7 @@ COPY coverage (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: device; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY device (id, data, last_updated_ts) FROM stdin;
+COPY public.device (id, data, last_updated_ts) FROM stdin;
 4	{\n    "status": "active",\n    "identifier": [\n        {\n            "system": "urn:oid:1.2.840.10004.1.1.1.0.0.1.0.0.1.2680",\n            "value": "345675"\n        },\n        {\n            "type": {\n                "text": "Patient Monitor",\n                "coding": [\n                    {\n                        "code": "GGH",\n                        "system": "http://hl7.org/fhir/identifier-type"\n                    }\n                ]\n            },\n            "value": "AMID-342135-8464"\n        }\n    ],\n    "patient": {\n        "reference": "Patient/2"\n    },\n    "resourceType": "Device",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n\\t\\t\\t<p>Patient: http://fhirtest.direct.sitenv.org/hapi-resprint/fhir/Patient/1</p>\\n\\t\\t\\t<p>UDI: {01}09504000059118{17}141120{10}7654321D{21}10987654d321</p>\\n\\t\\t\\t<p>Type:Coated femoral stem prosthesis, modular</p>\\n\\t\\t</div>"\n    },\n    "meta": {\n        "versionId": "1"\n    },\n    "safety": [\n        {\n            "coding": [\n                {\n                    "code": "mr-unsafe",\n                    "system": "urn:oid:2.16.840.1.113883.3.26.1.1",\n                    "display": "MR Unsafe"\n                }\n            ]\n        }\n    ],\n    "expirationDate": "2017-11-20T00:00:00+05:30",\n    "udi": {\n        "deviceIdentifier": "00844588003288",\n        "name": "FHIR® Hip System",\n        "carrierHRF": "{01}00844588003288{17}141120{10}7654321D{21}10987654d321",\n        "jurisdiction": "http://hl7.org/fhir/NamingSystem/fda-udi",\n        "carrierAIDC": "XWQyMDExMDg1NzY3NDAwMjAxNzE3MTQxMTIwMTBOWUZVTDAx4oaUMjExOTI4MzfihpQ3MTNBMUIyQzNENEU1RjZH",\n        "entryType": "barcode",\n        "issuer": "http://hl7.org/fhir/NamingSystem/gs1"\n    },\n    "type": {\n        "coding": [\n            {\n                "code": "69965",\n                "system": "http://snomed.info/sct",\n                "display": "MDC_DEV_MON_PHYSIO_MULTI_PARAM_MDS"\n            }\n        ]\n    },\n    "id": "2"\n}	2015-03-25 13:30:16.170733
 10	{\n    "status": "active",\n    "identifier": [\n        {\n            "system": "urn:oid:1.2.840.10004.1.1.1.0.0.1.0.0.1.2680",\n            "value": "345675"\n        },\n        {\n            "type": {\n                "text": "Patient Monitor",\n                "coding": [\n                    {\n                        "code": "GGH",\n                        "system": "http://hl7.org/fhir/identifier-type"\n                    }\n                ]\n            },\n            "value": "AMID-342135-8464"\n        }\n    ],\n    "patient": {\n        "reference": "Patient/8"\n    },\n    "resourceType": "Device",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n\\t\\t\\t<p>Patient: http://fhirtest.direct.sitenv.org/hapi-resprint/fhir/Patient/1</p>\\n\\t\\t\\t<p>UDI: {01}09504000059118{17}141120{10}7654321D{21}10987654d321</p>\\n\\t\\t\\t<p>Type:Coated femoral stem prosthesis, modular</p>\\n\\t\\t</div>"\n    },\n    "meta": {\n        "versionId": "1"\n    },\n    "safety": [\n        {\n            "coding": [\n                {\n                    "code": "mr-unsafe",\n                    "system": "urn:oid:2.16.840.1.113883.3.26.1.1",\n                    "display": "MR Unsafe"\n                }\n            ]\n        }\n    ],\n    "expirationDate": "2017-11-20T00:00:00+05:30",\n    "udi": {\n        "deviceIdentifier": "00844588003288",\n        "name": "FHIR® Hip System",\n        "carrierHRF": "{01}00844588003288{17}141120{10}7654321D{21}10987654d321",\n        "jurisdiction": "http://hl7.org/fhir/NamingSystem/fda-udi",\n        "carrierAIDC": "XWQyMDExMDg1NzY3NDAwMjAxNzE3MTQxMTIwMTBOWUZVTDAx4oaUMjExOTI4MzfihpQ3MTNBMUIyQzNENEU1RjZH",\n        "entryType": "barcode",\n        "issuer": "http://hl7.org/fhir/NamingSystem/gs1"\n    },\n    "type": {\n        "coding": [\n            {\n                "code": "69965",\n                "system": "http://snomed.info/sct",\n                "display": "MDC_DEV_MON_PHYSIO_MULTI_PARAM_MDS"\n            }\n        ]\n    },\n    "id": "8"\n}	2018-03-26 08:59:09.633316
 7	{\n    "status": "active",\n    "identifier": [\n        {\n            "system": "urn:ietf:rfc:3986",\n            "value": "urn:uuid:e3c12c90-7567-42ba-b0b6-4f502cf585db"\n        },\n        {\n            "type": {\n                "text": "PATIENT-AMID ",\n                "coding": [\n                    {\n                        "code": "8896",\n                        "system": "http://hl7.org/fhir/NamingSystem/fda-udi"\n                    }\n                ]\n            },\n            "value": "AMID-67855"\n        }\n    ],\n    "patient": {\n        "reference": "Patient/5"\n    },\n    "resourceType": "Device",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n\\t\\t\\t<p>Patient: http://fhirtest.direct.sitenv.org/hapi-resprint/fhir/Patient/1</p>\\n\\t\\t\\t<p>UDI: {01}09504000059118{17}141120{10}7654321D{21}10987654d321</p>\\n\\t\\t\\t<p>Type:Coated femoral stem prosthesis, modular</p>\\n\\t\\t</div>"\n    }, "safety": [\n        {\n            "coding": [\n                {\n                    "code": "mr-unsafe",\n                    "system": "urn:oid:2.16.840.1.113883.3.26.1.1",\n                    "display": "MR Unsafe"\n                }\n            ]\n        }\n    ],\n    "meta": {\n        "versionId": "1"\n    },\n    "expirationDate": "2009-11-06T00:00:00+05:30",\n    "udi": {\n        "deviceIdentifier": "00844588003288",\n        "name": "FHIR® Hip System",\n        "carrierHRF": "{01}00844588003288{17}141120{10}7654321D{21}10987654d321",\n        "jurisdiction": "http://hl7.org/fhir/NamingSystem/fda-udi",\n        "carrierAIDC": "XWQyMDExMDg1NzY3NDAwMjAxNzE3MTQxMTIwMTBOWUZVTDAx4oaUMjExOTI4MzfihpQ3MTNBMUIyQzNENEU1RjZH",\n        "entryType": "barcode",\n        "issuer": "http://hl7.org/fhir/NamingSystem/gs1"\n    },\n    "type": {\n        "coding": [\n            {\n                "code": "1009",\n                "system": "urn:iso:std:iso:11073:10101",\n                "display": "Basic Metabolic Panel"\n            }\n        ]\n    },\n    "id": "5"\n}	2018-03-26 06:53:57.918825
@@ -1924,7 +1897,7 @@ COPY device (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: documentreference; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY documentreference (id, data, last_updated_ts) FROM stdin;
+COPY public.documentreference (id, data, last_updated_ts) FROM stdin;
 1	{\r\n  "resourceType": "DocumentReference",\r\n  "id": "1",\r\n   "meta":{\r\n   "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated"\r\n  },\r\n  "masterIdentifier": {\r\n    "system": "urn:ietf:rfc:3986",\r\n    "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "urn:ietf:rfc:3986",\r\n      "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7.1234"\r\n    }\r\n  ],\r\n  "status": "current",\r\n  "docStatus": "preliminary",\r\n  "type": {\r\n    "coding": [\r\n      {\r\n        "system": "http://loinc.org",\r\n        "code": "34108-1",\r\n        "display": "Outpatient Note"\r\n      }\r\n    ]\r\n  },\r\n  "category": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://ihe.net/xds/connectathon/classCodes",\r\n          "code": "History and Physical",\r\n          "display": "History and Physical"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "subject": {\r\n    "reference": "Patient/1"\r\n  },\r\n  "date": "2005-12-24T09:43:41+11:00",\r\n  "author": [\r\n    {\r\n      "reference": "Practitioner/1"\r\n    }\r\n  ],\r\n  "authenticator": {\r\n    "reference": "Organization/1"\r\n  },\r\n  "custodian": {\r\n    "reference": "Organization/1"\r\n  },\r\n  "relatesTo": [\r\n    {\r\n      "code": "appends",\r\n      "target": {\r\n        "reference": "DocumentReference/1"\r\n      }\r\n    }\r\n  ],\r\n  "description": "Physical",\r\n  "securityLabel": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v3-Confidentiality",\r\n          "code": "V",\r\n          "display": "very restricted"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "content": [\r\n    {\r\n      "attachment": {\r\n        "contentType": "application/hl7-v3+xml",\r\n        "language": "en-US",\r\n        "url": "https://fhir.sitenv.org/open/download/CCDA_Ambulatory.xml",\r\n        "size": 3654,\r\n        "hash": "2jmj7l5rSw0yVb/vlWAYkK/YBwk=",\r\n        "title": "Physical",\r\n        "creation": "2005-12-24T09:35:00+11:00"\r\n      },\r\n      "format": {\r\n        "system": "urn:oid:1.3.6.1.4.1.19376.1.2.3",\r\n        "code": "urn:ihe:pcc:handp:2008",\r\n        "display": "History and Physical Specification"\r\n      }\r\n    }\r\n  ],\r\n  "context": {\r\n    "encounter": [\r\n      {\r\n        "reference": "Encounter/1"\r\n      }\r\n    ],\r\n    "event": [\r\n      {\r\n        "coding": [\r\n          {\r\n            "system": "http://ihe.net/xds/connectathon/eventCodes",\r\n            "code": "T-D8200",\r\n            "display": "Arm"\r\n          }\r\n        ]\r\n      }\r\n    ],\r\n    "period": {\r\n      "start": "2004-12-23T08:00:00+11:00",\r\n      "end": "2004-12-23T08:01:00+11:00"\r\n    },\r\n    "facilityType": {\r\n      "coding": [\r\n        {\r\n          "system": "http://www.ihe.net/xds/connectathon/healthcareFacilityTypeCodes",\r\n          "code": "Outpatient",\r\n          "display": "Outpatient"\r\n        }\r\n      ]\r\n    },\r\n    "practiceSetting": {\r\n      "coding": [\r\n        {\r\n          "system": "http://www.ihe.net/xds/connectathon/practiceSettingCodes",\r\n          "code": "General Medicine",\r\n          "display": "General Medicine"\r\n        }\r\n      ]\r\n    },\r\n    "sourcePatientInfo": {\r\n      "reference": "Patient/1"\r\n    },\r\n    "related": [\r\n      {\r\n        "reference": "Patient/1",\r\n        "identifier": {\r\n          "system": "urn:ietf:rfc:3986",\r\n          "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7.2345"\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}	2019-06-07 10:26:09.679886
 2	{\r\n  "resourceType": "DocumentReference",\r\n  "id": "2",\r\n  "meta": {\r\n        "versionId": "1"\r\n    },\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "masterIdentifier": {\r\n    "system": "urn:ietf:rfc:3986",\r\n    "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "urn:ietf:rfc:3986",\r\n      "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7.1234"\r\n    }\r\n  ],\r\n  "status": "current",\r\n  "docStatus": "preliminary",\r\n  "type": {\r\n    "coding": [\r\n      {\r\n        "system": "http://loinc.org",\r\n        "code": "34108-1",\r\n        "display": "Outpatient Note"\r\n      }\r\n    ]\r\n  },\r\n  "category": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://ihe.net/xds/connectathon/classCodes",\r\n          "code": "History and Physical",\r\n          "display": "History and Physical"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "subject": {\r\n    "reference": "Patient/2"\r\n  },\r\n  "date": "2005-12-24T09:43:41+11:00",\r\n  "author": [\r\n    {\r\n      "reference": "Practitioner/2"\r\n    },\r\n    {\r\n      "reference": "Organization/2"\r\n    }\r\n  ],\r\n  "authenticator": {\r\n    "reference": "Organization/2"\r\n  },\r\n  "custodian": {\r\n    "reference": "Organization/2"\r\n  },\r\n  "relatesTo": [\r\n    {\r\n      "code": "appends",\r\n      "target": {\r\n        "reference": "DocumentReference/2"\r\n      }\r\n    }\r\n  ],\r\n  "description": "Physical",\r\n  "securityLabel": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v3-Confidentiality",\r\n          "code": "V",\r\n          "display": "very restricted"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "content": [\r\n    {\r\n            "attachment": {\r\n              "contentType": "text/plain",\r\n              "language": "en-US",\r\n              "url": "https://fhir.sitenv.org/open/download/CCDA_Ambulatory.xml",\r\n              "title": "Physical",\r\n              "creation": "2005-12-24"\r\n            },\r\n      "format": {\r\n        "system": "urn:oid:1.3.6.1.4.1.19376.1.2.3",\r\n        "code": "urn:ihe:pcc:handp:2008",\r\n        "display": "History and Physical Specification"\r\n      }\r\n    }\r\n  ],\r\n  "context": {\r\n    "encounter": [\r\n      {\r\n        "reference": "Encounter/2"\r\n      }\r\n    ],\r\n    "event": [\r\n      {\r\n        "coding": [\r\n          {\r\n            "system": "http://ihe.net/xds/connectathon/eventCodes",\r\n            "code": "T-D8200",\r\n            "display": "Arm"\r\n          }\r\n        ]\r\n      }\r\n    ],\r\n    "period": {\r\n      "start": "2004-12-23T08:00:00+11:00",\r\n      "end": "2004-12-23T08:01:00+11:00"\r\n    },\r\n    "facilityType": {\r\n      "coding": [\r\n        {\r\n          "system": "http://www.ihe.net/xds/connectathon/healthcareFacilityTypeCodes",\r\n          "code": "Outpatient",\r\n          "display": "Outpatient"\r\n        }\r\n      ]\r\n    },\r\n    "practiceSetting": {\r\n      "coding": [\r\n        {\r\n          "system": "http://www.ihe.net/xds/connectathon/practiceSettingCodes",\r\n          "code": "General Medicine",\r\n          "display": "General Medicine"\r\n        }\r\n      ]\r\n    },\r\n    "sourcePatientInfo": {\r\n      "reference": "Patient/2"\r\n    },\r\n    "related": [\r\n      {\r\n        "reference": "Patient/2",\r\n        "identifier": {\r\n          "system": "urn:ietf:rfc:3986",\r\n          "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7.2345"\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}	2019-06-21 06:04:45.289899
 3	{\r\n  "resourceType": "DocumentReference",\r\n  "id": "3",\r\n  "meta": {\r\n        "versionId": "1"\r\n    },\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "masterIdentifier": {\r\n    "system": "urn:ietf:rfc:3986",\r\n    "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "urn:ietf:rfc:3986",\r\n      "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7.1234"\r\n    }\r\n  ],\r\n  "status": "current",\r\n  "docStatus": "preliminary",\r\n  "type": {\r\n    "coding": [\r\n      {\r\n        "system": "http://loinc.org",\r\n        "code": "34108-1",\r\n        "display": "Outpatient Note"\r\n      }\r\n    ]\r\n  },\r\n  "category": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://ihe.net/xds/connectathon/classCodes",\r\n          "code": "History and Physical",\r\n          "display": "History and Physical"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "subject": {\r\n    "reference": "Patient/3"\r\n  },\r\n  "date": "2005-12-24T09:43:41+11:00",\r\n  "author": [\r\n    {\r\n      "reference": "Practitioner/3"\r\n    },\r\n    {\r\n      "reference": "Organization/3"\r\n    }\r\n  ],\r\n  "authenticator": {\r\n    "reference": "Organization/3"\r\n  },\r\n  "custodian": {\r\n    "reference": "Organization/3"\r\n  },\r\n  "relatesTo": [\r\n    {\r\n      "code": "appends",\r\n      "target": {\r\n        "reference": "DocumentReference/3"\r\n      }\r\n    }\r\n  ],\r\n  "description": "Physical",\r\n  "securityLabel": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v3-Confidentiality",\r\n          "code": "V",\r\n          "display": "very restricted"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "content": [\r\n    {\r\n      "attachment": {\r\n        "contentType": "application/hl7-v3+xml",\r\n        "language": "en-US",\r\n        "url": "https://fhir.sitenv.org/open/download/CCDA_Ambulatory.xml",\r\n        "size": 3654,\r\n        "hash": "2jmj7l5rSw0yVb/vlWAYkK/YBwk=",\r\n        "title": "Physical",\r\n        "creation": "2005-12-24T09:35:00+11:00"\r\n      },\r\n      "format": {\r\n        "system": "urn:oid:1.3.6.1.4.1.19376.1.2.3",\r\n        "code": "urn:ihe:pcc:handp:2008",\r\n        "display": "History and Physical Specification"\r\n      }\r\n    }\r\n  ],\r\n  "context": {\r\n    "encounter": [\r\n      {\r\n        "reference": "Encounter/3"\r\n      }\r\n    ],\r\n    "event": [\r\n      {\r\n        "coding": [\r\n          {\r\n            "system": "http://ihe.net/xds/connectathon/eventCodes",\r\n            "code": "T-D8200",\r\n            "display": "Arm"\r\n          }\r\n        ]\r\n      }\r\n    ],\r\n    "period": {\r\n      "start": "2004-12-23T08:00:00+11:00",\r\n      "end": "2004-12-23T08:01:00+11:00"\r\n    },\r\n    "facilityType": {\r\n      "coding": [\r\n        {\r\n          "system": "http://www.ihe.net/xds/connectathon/healthcareFacilityTypeCodes",\r\n          "code": "Outpatient",\r\n          "display": "Outpatient"\r\n        }\r\n      ]\r\n    },\r\n    "practiceSetting": {\r\n      "coding": [\r\n        {\r\n          "system": "http://www.ihe.net/xds/connectathon/practiceSettingCodes",\r\n          "code": "General Medicine",\r\n          "display": "General Medicine"\r\n        }\r\n      ]\r\n    },\r\n    "sourcePatientInfo": {\r\n      "reference": "Patient/3"\r\n    },\r\n    "related": [\r\n      {\r\n        "reference": "Patient/3",\r\n        "identifier": {\r\n          "system": "urn:ietf:rfc:3986",\r\n          "value": "urn:oid:1.3.6.1.4.1.21367.2005.3.7.2345"\r\n        }\r\n      }\r\n    ]\r\n  }\r\n}	2019-06-21 06:07:22.549823
@@ -1937,7 +1910,7 @@ COPY documentreference (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: encounter; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY encounter (id, data, last_updated_ts) FROM stdin;
+COPY public.encounter (id, data, last_updated_ts) FROM stdin;
 3	{\r\n  "resourceType": "Encounter",\r\n  "id": "3",\r\n  "meta":{\r\n   "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "temp",\r\n      "value": "Encounter_Roel_20130404"\r\n    }\r\n  ],\r\n  "status": "finished",\r\n  "class": {\r\n    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",\r\n    "code": "AMB",\r\n    "display": "ambulatory"\r\n  },\r\n  "type": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "11429006",\r\n          "display": "Consultation"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "priority": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "17621005",\r\n        "display": "Normal"\r\n      }\r\n    ]\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/3",\r\n    "display": "Allen Carol"\r\n  },\r\n  "participant": [\r\n    {\r\n      "individual": {\r\n        "reference": "Practitioner/3"\r\n      }\r\n    }\r\n  ],\r\n  "reasonCode": [\r\n    {\r\n      "text": "The patient had fever peaks over the last couple of days. He is worried about these peaks."\r\n    }\r\n  ],\r\n  "serviceProvider": {\r\n    "reference": "Organization/3"\r\n  }\r\n}	2019-06-10 07:15:38.267089
 4	{\r\n  "resourceType": "Encounter",\r\n  "id": "4",\r\n   "meta":{\r\n   "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "identifier": [\r\n    {\r\n      "use": "temp",\r\n      "value": "Encounter_Roel_20130128"\r\n    }\r\n  ],\r\n  "status": "finished",\r\n  "class": {\r\n    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",\r\n    "code": "AMB",\r\n    "display": "ambulatory"\r\n  },\r\n  "type": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "367336001",\r\n          "display": "Chemotherapy"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "priority": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "103391001",\r\n        "display": "Urgent"\r\n      }\r\n    ]\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/4",\r\n    "display": "Williams Joshua"\r\n  },\r\n  "participant": [\r\n    {\r\n      "individual": {\r\n        "reference": "Practitioner/4"\r\n      }\r\n    }\r\n  ],\r\n  "length": {\r\n    "value": 56,\r\n    "unit": "minutes",\r\n    "system": "http://unitsofmeasure.org",\r\n    "code": "min"\r\n  },\r\n  "reasonCode": [\r\n    {\r\n      "text": "The patient is treated for a tumor."\r\n    }\r\n  ],\r\n  "diagnosis": [\r\n    {\r\n      "condition": {\r\n        "display": "Complications from Roel's TPF chemotherapy on January 28th, 2013"\r\n      },\r\n      "use": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/diagnosis-role",\r\n            "code": "AD",\r\n            "display": "Admission diagnosis"\r\n          }\r\n        ]\r\n      },\r\n      "rank": 2\r\n    },\r\n    {\r\n      "condition": {\r\n        "display": "The patient is treated for a tumor"\r\n      },\r\n      "use": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/diagnosis-role",\r\n            "code": "CC",\r\n            "display": "Chief complaint"\r\n          }\r\n        ]\r\n      },\r\n      "rank": 1\r\n    }\r\n  ],\r\n  "serviceProvider": {\r\n    "reference": "Organization/4"\r\n  }\r\n}	2019-06-10 07:16:56.353746
 6	{\r\n  "resourceType": "Encounter",\r\n  "id": "6",\r\n  "meta":{\r\n   "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "system": "http://www.amc.nl/zorgportal/identifiers/visits",\r\n      "value": "v1451"\r\n    }\r\n  ],\r\n  "status": "finished",\r\n  "class": {\r\n    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",\r\n    "code": "AMB",\r\n    "display": "ambulatory"\r\n  },\r\n  "type": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "270427003",\r\n          "display": "Patient-initiated encounter"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "priority": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "310361003",\r\n        "display": "Non-urgent cardiological admission"\r\n      }\r\n    ]\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/6",\r\n    "display": "Clark Amy"\r\n  },\r\n  "participant": [\r\n    {\r\n      "individual": {\r\n        "reference": "Practitioner/6",\r\n        "display": "Williams Ward"\r\n      }\r\n    }\r\n  ],\r\n  "length": {\r\n    "value": 140,\r\n    "unit": "min",\r\n    "system": "http://unitsofmeasure.org",\r\n    "code": "min"\r\n  },\r\n  "reasonCode": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "34068001",\r\n          "display": "Heart valve replacement"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "hospitalization": {\r\n    "preAdmissionIdentifier": {\r\n      "use": "official",\r\n      "system": "http://www.amc.nl/zorgportal/identifiers/pre-admissions",\r\n      "value": "93042"\r\n    },\r\n    "admitSource": {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "305956004",\r\n          "display": "Referral by physician"\r\n        }\r\n      ]\r\n    },\r\n    "dischargeDisposition": {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "306689006",\r\n          "display": "Discharge to home"\r\n        }\r\n      ]\r\n    }\r\n  },\r\n  "serviceProvider": {\r\n    "reference": "Organization/6",\r\n    "display": "Burgers University Medical Center"\r\n  }\r\n}	2019-06-10 09:24:52.98016
@@ -1957,7 +1930,7 @@ COPY encounter (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: familymemberhistory; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY familymemberhistory (id, data, last_updated_ts) FROM stdin;
+COPY public.familymemberhistory (id, data, last_updated_ts) FROM stdin;
 2	{"status":"completed","instantiatesUri":["http://example.org/family-member-history-questionnaire"],"relationship":{"coding":[{"code":"FTH","system":"http://terminology.hl7.org/CodeSystem/v3-RoleCode","display":"father"}]},"resourceType":"FamilyMemberHistory","sex":{"coding":[{"code":"male","system":"http://hl7.org/fhir/administrative-gender","display":"Male"}]},"meta":{"versionId":"2"},"date":"2011-03-28","patient":{"display":"Peter Patient","reference":"Patient/1"},"identifier":[{"value":"12345"}],"id":"1","condition":[{"contributedToDeath":true,"note":[{"text":"Was fishing at the time. At least he went doing someting he loved."}],"onsetAge":{"code":"a","value":74,"unit":"yr","system":"http://unitsofmeasure.org"},"code":{"text":"Heart Attack","coding":[{"code":"315619001","system":"http://snomed.info/sct","display":"Myocardial Infarction"}]}}]}	2019-03-27 10:06:38.633307
 1	{"status":"completed","instantiatesUri":["http://example.org/family-member-history-questionnaire"],"relationship":{"coding":[{"code":"FTH","system":"http://terminology.hl7.org/CodeSystem/v3-RoleCode","display":"father"}]},"resourceType":"FamilyMemberHistory","sex":{"coding":[{"code":"male","system":"http://hl7.org/fhir/administrative-gender","display":"Male"}]},"meta":{"versionId":"1"},"date":"2011-03-18","patient":{"display":"Peter Patient","reference":"Patient/1"},"identifier":[{"value":"12345"}],"id":"1","condition":[{"contributedToDeath":true,"note":[{"text":"Was fishing at the time. At least he went doing someting he loved."}],"onsetAge":{"code":"a","value":74,"unit":"yr","system":"http://unitsofmeasure.org"},"code":{"text":"Heart Attack","coding":[{"code":"315619001","system":"http://snomed.info/sct","display":"Myocardial Infarction"}]}}]}	2019-03-27 10:05:34.596151
 4	{"status":"completed","instantiatesUri":["http://example.org/family-member-history-questionnaire"],"relationship":{"coding":[{"code":"FTH","system":"http://terminology.hl7.org/CodeSystem/v3-RoleCode","display":"father"}]},"resourceType":"FamilyMemberHistory","sex":{"coding":[{"code":"male","system":"http://hl7.org/fhir/administrative-gender","display":"Male"}]},"meta":{"versionId":"4"},"date":"2015-04-28","patient":{"display":"Peter Patient","reference":"Patient/1"},"identifier":[{"value":"12345"}],"id":"1","condition":[{"contributedToDeath":true,"note":[{"text":"Was fishing at the time. At least he went doing someting he loved."}],"onsetAge":{"code":"a","value":74,"unit":"yr","system":"http://unitsofmeasure.org"},"code":{"text":"Heart Attack","coding":[{"code":"315619001","system":"http://snomed.info/sct","display":"Myocardial Infarction"}]}}]}	2019-05-03 05:35:39.566536
@@ -1978,7 +1951,7 @@ COPY familymemberhistory (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: goal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY goal (id, data, last_updated_ts) FROM stdin;
+COPY public.goal (id, data, last_updated_ts) FROM stdin;
 3	{\n  "resourceType": "Goal",\n  "id": "1",\n  "meta": {\n"versionId": "3"\n},\n  "identifier": [\n    {\n      "value": "123"\n    }\n  ],\n  "lifecycleStatus": "on-hold",\n  "category": [\n    {\n      "coding": [\n        {\n          "system": "http://terminology.hl7.org/CodeSystem/goal-category",\n          "code": "dietary"\n        }\n      ]\n    }\n  ],\n  "priority": {\n    "coding": [\n      {\n        "system": "http://terminology.hl7.org/CodeSystem/goal-priority",\n        "code": "high-priority",\n        "display": "High Priority"\n      }\n    ],\n    "text": "high"\n  },\n  "description": {\n    "text": "Target weight is 160 to 180 lbs."\n  },\n  "subject": {\n    "reference": "Patient/1",\n    "display": "Gracia Brian"\n  },\n  "startDate": "2015-04-05",\n  "target": [\n    {\n      "measure": {\n        "coding": [\n          {\n            "system": "http://loinc.org",\n            "code": "3141-9",\n            "display": "Weight Measured"\n          }\n        ]\n      },\n      "detailRange": {\n        "low": {\n          "value": 160,\n          "unit": "lbs",\n          "system": "http://unitsofmeasure.org",\n          "code": "[lb_av]"\n        },\n        "high": {\n          "value": 180,\n          "unit": "lbs",\n          "system": "http://unitsofmeasure.org",\n          "code": "[lb_av]"\n        }\n      },\n      "dueDate": "2016-04-06"\n    }\n  ],\n  "statusDate": "2016-04-14",\n  "statusReason": "Patient wants to defer weight loss until after honeymoon.",\n  "expressedBy": {\n    "reference": "Patient/1",\n    "display": "Gracia Brian"\n  },\n  "addresses": [\n    {\n      "display": "obesity condition"\n    }\n  ],\n  "outcomeReference": [\n    {\n      "reference": "Observation/1",\n      "display": "Body Weight Measured"\n    }\n  ]\n}	2019-04-04 01:10:31.35528
 7	{  \r\n\t"resourceType":"Goal",\r\n\t"id":"4",\r\n\t"meta":{  \r\n      "versionId":"1"\r\n   },\r\n   "text":{  \r\n      "status":"generated"\r\n   },\r\n   "status":"in-progress",\r\n   "startDate":"2016-02-14",\r\n   "description":{  \r\n      "text":"Target weight is 160 to 180 lbs."\r\n   },\r\n   "subject":{  \r\n      "reference":"Patient/4"\r\n   }\r\n}	2019-05-03 06:45:49.575176
 10	{  \r\n\t"resourceType":"Goal",\r\n\t"id":"7",\r\n\t"meta":{  \r\n      "versionId":"1"\r\n   },\r\n   "status":"in-progress",\r\n   "startDate":"2015-04-09",\r\n   "description":{  \r\n      "text":"Address patient knowledge deficit on diabetic self-care"\r\n   },\r\n   "addresses":[  \r\n      {  \r\n         "reference":"Condition/1"\r\n      }\r\n   ]\r\n}	2019-05-03 09:35:42.276532
@@ -1999,28 +1972,33 @@ COPY goal (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: groups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY groups (id, data, last_updated_ts) FROM stdin;
+COPY public.groups (id, data, last_updated_ts) FROM stdin;
 3	{\r\n  "resourceType": "Group",\r\n  "id": "3",\r\n  "text": {\r\n    "status": "additional",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n      <p>Selected Patients</p>\\n      <ul>\\n        <li>Patient Donald DUCK @ Acme Healthcare, Inc. MR = 654321</li>\\n        <li>Patient Donald D DUCK @ Acme Healthcare, Inc. MR = 123456</li>\\n        <li>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</li>\\n        <li>Patient Sandy Notsowell @ Acme Healthcare, Inc. MR = 123458, DECEASED</li>\\n      </ul>\\n    </div>"\r\n  },\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "type": "person",\r\n  "actual": true,\r\n  "name":"Breeding herd 2",\r\n  "member": [\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/1"\r\n      },\r\n      "period": {\r\n        "start": "2014-10-08"\r\n      }\r\n    },\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/2"\r\n      },\r\n      "period": {\r\n        "start": "2015-04-02"\r\n      },\r\n      "inactive": true\r\n    },\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/3"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/4"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n\t{\r\n      "entity": {\r\n        "reference": "Patient/5"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n\t{\r\n      "entity": {\r\n        "reference": "Patient/6"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n\t{\r\n      "entity": {\r\n        "reference": "Patient/7"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n\t{\r\n      "entity": {\r\n        "reference": "Patient/8"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n\t{\r\n      "entity": {\r\n        "reference": "Patient/9"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n\t{\r\n      "entity": {\r\n        "reference": "Patient/10"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    }\r\n  ]\r\n}	2020-01-01 08:45:38.776253
 2	\r\n{\r\n  "resourceType": "Group",\r\n  "id": "2",\r\n  "text": {\r\n    "status": "additional",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n      <p>Selected Patients</p>\\n      <ul>\\n        <li>Patient Donald DUCK @ Acme Healthcare, Inc. MR = 654321</li>\\n        <li>Patient Donald D DUCK @ Acme Healthcare, Inc. MR = 123456</li>\\n        <li>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</li>\\n        <li>Patient Sandy Notsowell @ Acme Healthcare, Inc. MR = 123458, DECEASED</li>\\n      </ul>\\n    </div>"\r\n  },\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "type": "person",\r\n  "actual": true,\r\n  "name":"Breeding herd 1",\r\n  "identifier":[{\r\n\t\t"use": "official",\r\n\t\t"system": "https://www.cambiahealth.com",\r\n\t\t"value": "7316876424",\r\n\t\t"type": {\r\n\t\t\t"coding":[\r\n\t\t\t\t{\r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t"code": "NPI",\r\n\t\t\t\t\t"display": "National Provider Identifier"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t},\r\n\t{\r\n\t\t"use": "official",\r\n\t\t"system": "https://www.cambiahealth.com",\r\n\t\t"value": "963258741",\r\n\t\t"type": {\r\n\t\t\t"coding":[\r\n\t\t\t\t{\r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t"code": "TAX",\r\n\t\t\t\t\t"display": "Tax ID Number"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\r\n],\r\n  "member": [\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/1"\r\n      },\r\n      "period": {\r\n        "start": "2014-10-08"\r\n      }\r\n    },\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/2"\r\n      },\r\n      "period": {\r\n        "start": "2015-04-02"\r\n      },\r\n      "inactive": true\r\n    },\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/3"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n    {\r\n      "entity": {\r\n        "reference": "Patient/4"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    },\r\n\t{\r\n      "entity": {\r\n        "reference": "Patient/5"\r\n      },\r\n      "period": {\r\n        "start": "2015-08-06"\r\n      }\r\n    }\r\n  ]\r\n}	2020-01-01 08:44:00.498223
-4	{"resourceType":"Group","id":"b3a6d63c-08ad-4761-93e7-81d183b258e4","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"text":{"status":"additional","div":"<div xmlns=\\"http://www.w3.org/1999/xhtml\\"> \\n         <p>Selected Patients</p> \\n         <ul> \\n            <li>Patient Donald DUCK @ Acme Healthcare, Inc. MR = 654321</li> \\n            <li>Patient Donald D DUCK @ Acme Healthcare, Inc. MR = 123456</li> \\n            <li>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</li> \\n            <li>Patient Sandy Notsowell @ Acme Healthcare, Inc. MR = 123458, DECEASED</li> \\n         </ul> \\n      </div>"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206220"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456231"}],"active":true,"type":"person","actual":true,"name":"Test Group 3","managingEntity":{"reference":"Organization/1","display":"Healthcare related organization"},"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"add"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/2"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2014-10-08","end":"2020-10-08"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"add"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/2"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/2"},"period":{"start":"2015-04-02","end":"2021-12-12"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"add"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/3"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/1"}}],"entity":{"reference":"Patient/3"},"period":{"start":"2016-09-02","end":"2022-05-10"},"inactive":false}]}	2022-07-07 18:57:48.589
-5	{"resourceType":"Group","id":"7a46aa1f-b338-4521-840a-c3a30d26a15b","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"text":{"status":"additional","div":"<div xmlns=\\"http://www.w3.org/1999/xhtml\\"> \\n         <p>Selected Patients</p> \\n         <ul> \\n            <li>Patient Donald DUCK @ Acme Healthcare, Inc. MR = 654321</li> \\n            <li>Patient Donald D DUCK @ Acme Healthcare, Inc. MR = 123456</li> \\n            <li>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</li> \\n            <li>Patient Sandy Notsowell @ Acme Healthcare, Inc. MR = 123458, DECEASED</li> \\n         </ul> \\n      </div>"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206220"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456231"}],"active":true,"type":"person","actual":true,"name":"Test Group 3","managingEntity":{"reference":"Organization/1","display":"Healthcare related organization"},"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/2"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2014-10-08","end":"2020-10-08"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/2"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/2"},"period":{"start":"2015-04-02","end":"2021-12-12"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/3"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/1"}}],"entity":{"reference":"Patient/3"},"period":{"start":"2016-09-02","end":"2022-05-10"},"inactive":false}]}	2022-07-07 19:06:22.617
-1	{\n\t"resourceType": "Group",\n\t"id": "a80cec68-7518-429f-9f68-4ada6992700e",\n\t"meta": {\n\t\t"versionId": "1",\n\t\t"lastUpdated": "2019-06-06T03:04:12.348-04:00"\n\t},\n\t"identifier": [\n\t\t{\n\t\t\t"use": "official",\n\t\t\t"type": {\n\t\t\t\t"coding": [\n\t\t\t\t\t{\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\n\t\t\t\t\t\t"code": "NPI",\n\t\t\t\t\t\t"display": "National Provider Identifier"\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t"system": "https://sitenv.org",\n\t\t\t"value": "1316206220"\n\t\t},\n\t\t{\n\t\t\t"use": "official",\n\t\t\t"type": {\n\t\t\t\t"coding": [\n\t\t\t\t\t{\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\n\t\t\t\t\t\t"code": "TAX",\n\t\t\t\t\t\t"display": "Tax ID Number"\n\t\t\t\t\t}\n\t\t\t\t]\n\t\t\t},\n\t\t\t"system": "https://sitenv.org",\n\t\t\t"value": "789456231"\n\t\t}\n\t],\n\t"active": true,\n\t"type": "person",\n\t"actual": true,\n\t"name": "Test Group 3",\n\t"managingEntity": {\n\t\t"reference": "Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864",\n\t\t"display": "HL7 International"\n\t},\n\t"characteristic": [\n\t\t{\n\t\t\t"code": {\n\t\t\t\t"text": "Members Attributed based on Contract"\n\t\t\t},\n\t\t\t"valueReference": {\n\t\t\t\t"reference": "InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"\n\t\t\t},\n\t\t\t"exclude": false\n\t\t}\n\t],\n\t"member": [\n\t\t{\n\t\t\t"extension": [\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\n\t\t\t\t\t"valueCode": "new"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\n\t\t\t\t\t"valueReference": {\n\t\t\t\t\t\t"reference": "Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\n\t\t\t\t\t"valueReference": {\n\t\t\t\t\t\t"reference": "Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t"entity": {\n\t\t\t\t"reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\n\t\t\t},\n\t\t\t"period": {\n\t\t\t\t"start": "2014-10-08",\n\t\t\t\t"end": "2020-10-08"\n\t\t\t},\n\t\t\t"inactive": false\n\t\t},\n\t\t{\n\t\t\t"extension": [\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\n\t\t\t\t\t"valueCode": "change"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\n\t\t\t\t\t"valueReference": {\n\t\t\t\t\t\t"reference": "Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\n\t\t\t\t\t"valueReference": {\n\t\t\t\t\t\t"reference": "Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t"entity": {\n\t\t\t\t"reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\n\t\t\t},\n\t\t\t"period": {\n\t\t\t\t"start": "2015-04-02",\n\t\t\t\t"end": "2021-12-12"\n\t\t\t},\n\t\t\t"inactive": false\n\t\t},\n\t\t{\n\t\t\t"extension": [\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\n\t\t\t\t\t"valueCode": "nochange"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\n\t\t\t\t\t"valueReference": {\n\t\t\t\t\t\t"reference": "Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\n\t\t\t\t\t"valueReference": {\n\t\t\t\t\t\t"reference": "PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t],\n\t\t\t"entity": {\n\t\t\t\t"reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\n\t\t\t},\n\t\t\t"period": {\n\t\t\t\t"start": "2016-09-02",\n\t\t\t\t"end": "2022-05-10"\n\t\t\t},\n\t\t\t"inactive": false\n\t\t}\n\t]\n}	2019-12-30 10:49:16.192921
-6	{"resourceType":"Group","id":"d846b5d9-1cd6-4d97-ada6-115ca40e848e","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206220"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456231"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2022-07-16 05:32:32.19
-7	{"resourceType":"Group","id":"8ee6a097-ffe4-4124-9e7c-3a3bc66e2568","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2022-07-16 05:33:12.064
-8	{"resourceType":"Group","id":"8ee6a097-ffe4-4124-9e7c-3a3bc66e2568","meta":{"versionId":"2","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"inactive":false}]}	2022-07-16 06:28:55.18
-9	{"resourceType":"Group","id":"8ee6a097-ffe4-4124-9e7c-3a3bc66e2568","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"inactive":false}]}	2022-07-16 06:53:35.765
-10	{"resourceType":"Group","id":"8ee6a097-ffe4-4124-9e7c-3a3bc66e2568","meta":{"versionId":"4","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/9118ee2c-9f6d-4a40-9988-4f26ff766864"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"inactive":false}]}	2022-07-16 07:12:55.34
-11	{"resourceType":"Group","id":"df6586b8-1828-47f0-80ec-38a4e02242f4","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"text":{"status":"additional","div":"<div xmlns=\\"http://www.w3.org/1999/xhtml\\"> \\n         <p>Selected Patients</p> \\n         <ul> \\n            <li>Patient Donald DUCK @ Acme Healthcare, Inc. MR = 654321</li> \\n            <li>Patient Donald D DUCK @ Acme Healthcare, Inc. MR = 123456</li> \\n            <li>Patient Simon Notsowell @ Acme Healthcare, Inc. MR = 123457, DECEASED</li> \\n            <li>Patient Sandy Notsowell @ Acme Healthcare, Inc. MR = 123458, DECEASED</li> \\n         </ul> \\n      </div>"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206220"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456231"}],"active":true,"type":"person","actual":true,"name":"Test Group 3","managingEntity":{"reference":"Organization/1","display":"Healthcare related organization"},"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/2"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2014-10-08","end":"2020-10-08"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/2"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/2"},"period":{"start":"2015-04-02","end":"2021-12-12"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/3"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/1"}}],"entity":{"reference":"Patient/3"},"period":{"start":"2016-09-02","end":"2022-05-10"},"inactive":false}]}	2022-07-18 09:16:45.357
-12	{"resourceType":"Group","id":"65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2022-07-18 09:31:07.257
-13	{"resourceType":"Group","id":"65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb","meta":{"versionId":"2","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/9118ee2c-9f6d-4a40-9988-4f26ff766864"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"inactive":false}]}	2022-07-18 09:34:40.683
-14	{"resourceType":"Group","id":"65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/9118ee2c-9f6d-4a40-9988-4f26ff766864"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"inactive":false}]}	2022-07-18 09:36:27.896
-15	{"resourceType":"Group","id":"65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb","meta":{"versionId":"4","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/9118ee2c-9f6d-4a40-9988-4f26ff766864"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"inactive":false}]}	2022-07-18 09:40:07.162
-16	{"resourceType":"Group","id":"65cfc13e-2e25-4eaa-bccd-9b1f5c1bcfdb","meta":{"versionId":"5","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"inactive":false}]}	2022-07-20 07:24:27.786
-17	{"resourceType":"Group","id":"3e35e0ae-4900-4993-b175-19d7f30d2e63","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2022-07-20 15:34:00.421
-18	{"resourceType":"Group","id":"3e35e0ae-4900-4993-b175-19d7f30d2e63","meta":{"versionId":"2","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"inactive":false}]}	2022-07-20 15:35:40.921
-19	{"resourceType":"Group","id":"3e35e0ae-4900-4993-b175-19d7f30d2e63","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2022-07-20 15:37:53.217
-20	{"resourceType":"Group","id":"3e35e0ae-4900-4993-b175-19d7f30d2e63","meta":{"versionId":"4","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"inactive":false}]}	2022-07-20 18:09:03.527
-21	{"resourceType":"Group","id":"3e35e0ae-4900-4993-b175-19d7f30d2e63","meta":{"versionId":"5","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"1316206222"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456232"}],"active":true,"type":"person","actual":true,"name":"Transaction Group Test","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2022-07-20 18:10:03.902
+1	{\r\n\t"resourceType": "Group",\r\n\t"id": "a80cec68-7518-429f-9f68-4ada6992700e",\r\n\t"meta": {\r\n\t\t"versionId": "1",\r\n\t\t"lastUpdated": "2019-06-06T03:04:12.348-04:00"\r\n\t},\r\n\t"identifier": [\r\n\t\t{\r\n\t\t\t"use": "official",\r\n\t\t\t"system": "https://sitenv.org",\r\n\t\t\t"value": "1316206220",\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "NPI",\r\n\t\t\t\t\t\t"display": "National Provider Identifier"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t"use": "official",\r\n\t\t\t"system": "https://sitenv.org",\r\n\t\t\t"value": "789456231",\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "TAX",\r\n\t\t\t\t\t\t"display": "Tax ID Number"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t}\r\n\t],\r\n\t"type": "person",\r\n\t"active": true,\r\n\t"actual": true,\r\n\t"name": "Test Group 3",\r\n\t"managingEntity": {\r\n\t\t"reference": "Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864",\r\n\t\t"display": "HL7 International"\r\n\t},\r\n\t"member": [\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "new"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2014-10-08",\r\n\t\t\t\t"end": "2020-10-08"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "new"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Organzation/6c9380b5-2d9d-4675-89a1-f7048486a2f4"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2020-10-08",\r\n\t\t\t\t"end": "2025-11-09"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "change"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2015-04-02",\r\n\t\t\t\t"end": "2021-12-12"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "change"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Practitioner/5a3fc762-edf3-4ada-b6be-9d1d6309d9e1"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2018-06-22",\r\n\t\t\t\t"end": "2023-12-12"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "nochange"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2016-09-02",\r\n\t\t\t\t"end": "2022-05-10"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "nochange"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "PractitionerRole/d73e837d-685f-4422-871f-0d441f5ec6ee"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2010-06-12",\r\n\t\t\t\t"end": "2015-05-10"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t}\r\n\t],\r\n\t"characteristic": [\r\n\t\t{\r\n\t\t\t"code": {\r\n\t\t\t\t"text": "Members Attributed based on Contract"\r\n\t\t\t},\r\n\t\t\t"valueReference": {\r\n\t\t\t\t"reference": "InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"\r\n\t\t\t},\r\n\t\t\t"exclude": false\r\n\t\t}\r\n\t]\r\n}	2019-12-30 10:49:16.192921
+4	{"resourceType":"Group","id":"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"DrajerTest","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2024-01-07 12:29:54.996
+5	{"resourceType":"Group","id":"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd","meta":{"versionId":"2","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"DrajerTest","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-07 12:48:34.55
+6	{"resourceType":"Group","id":"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"DrajerTest","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/2"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-07 12:52:38.214
+7	{"resourceType":"Group","id":"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd","meta":{"versionId":"4","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"DrajerTest","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/2"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-07 13:04:29.781
+8	{\r\n\t"resourceType": "Group",\r\n\t"id": "a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd",\r\n\t"meta": {\r\n\t\t"versionId": "5",\r\n\t\t"lastUpdated": "2019-06-06T03:04:12.348-04:00"\r\n\t},\r\n\t"extension": [\r\n\t\t{\r\n\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod",\r\n\t\t\t"valuePeriod": {\r\n\t\t\t\t"start": "2020-07-25",\r\n\t\t\t\t"end": "2021-06-24"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus",\r\n\t\t\t"valueCode": "draft"\r\n\t\t}\r\n\t],\r\n\t"identifier": [\r\n\t\t{\r\n\t\t\t"use": "official",\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "NPI",\r\n\t\t\t\t\t\t"display": "National Provider Identifier"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t"system": "https://sitenv.org",\r\n\t\t\t"value": "159357"\r\n\t\t},\r\n\t\t{\r\n\t\t\t"use": "official",\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "TAX",\r\n\t\t\t\t\t\t"display": "Tax ID Number"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t"system": "https://sitenv.org",\r\n\t\t\t"value": "789456"\r\n\t\t}\r\n\t],\r\n\t"active": true,\r\n\t"type": "person",\r\n\t"actual": true,\r\n\t"name": "DrajerTest",\r\n\t"managingEntity": {\r\n\t\t"reference": "Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864",\r\n\t\t"display": "HL7 International"\r\n\t},\r\n\t"characteristic": [\r\n\t\t{\r\n\t\t\t"code": {\r\n\t\t\t\t"text": "Members Attributed based on Contract"\r\n\t\t\t},\r\n\t\t\t"valueReference": {\r\n\t\t\t\t"reference": "InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"\r\n\t\t\t},\r\n\t\t\t"exclude": false\r\n\t\t}\r\n\t],\r\n\t"member": [\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "new"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Practitioner/1"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2020-04-08T07:06:17+00:00",\r\n\t\t\t\t"end": "2024-05-08T07:06:17+00:00"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "new"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Practitioner/2"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2020-04-08T07:06:17+00:00",\r\n\t\t\t\t"end": "2024-05-08T07:06:17+00:00"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t"extension": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType",\r\n\t\t\t\t\t"valueCode": "change"\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"\r\n\t\t\t\t\t}\r\n\t\t\t\t},\r\n\t\t\t\t{\r\n\t\t\t\t\t"url": "http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider",\r\n\t\t\t\t\t"valueReference": {\r\n\t\t\t\t\t\t"reference": "Practitioner/4"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t],\r\n\t\t\t"entity": {\r\n\t\t\t\t"reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n\t\t\t},\r\n\t\t\t"period": {\r\n\t\t\t\t"start": "2020-04-08T07:06:17+00:00",\r\n\t\t\t\t"end": "2025-05-08T07:06:17+00:00"\r\n\t\t\t},\r\n\t\t\t"inactive": false\r\n\t\t}\r\n\t]\r\n}	2024-01-07 13:04:51.661
+9	{"resourceType":"Group","id":"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd","meta":{"versionId":"6","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"DrajerTest","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/2"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"change"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-07 22:39:10.922
+10	{"resourceType":"Group","id":"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd","meta":{"versionId":"7","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"final"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"DrajerTest","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/1"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/2"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2024-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"change"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-07 22:46:34.285
+11	{"resourceType":"Group","id":"d348e69a-fb60-4d41-a517-23b700f51512","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"XYZ","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2024-01-09 17:19:07.886
+17	{"resourceType":"Group","id":"a7fbc807-2591-4c2e-8f70-a14a2751c2a5","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:04:33.006
+18	{"resourceType":"Group","id":"a7fbc807-2591-4c2e-8f70-a14a2751c2a5","meta":{"versionId":"4","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:08:50.164
+12	{"resourceType":"Group","id":"d348e69a-fb60-4d41-a517-23b700f51512","meta":{"versionId":"2","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"XYZ","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-09 23:40:10.493
+13	{"resourceType":"Group","id":"d348e69a-fb60-4d41-a517-23b700f51512","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"XYZ","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"change"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":true}]}	2024-01-10 10:59:32.554
+14	{"resourceType":"Group","id":"d348e69a-fb60-4d41-a517-23b700f51512","meta":{"versionId":"4","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"final"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"159357"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"789456"}],"active":true,"type":"person","actual":true,"name":"XYZ","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2024-01-10 11:09:54.503
+15	{"resourceType":"Group","id":"a7fbc807-2591-4c2e-8f70-a14a2751c2a5","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2024-01-10 14:03:14.187
+16	{"resourceType":"Group","id":"a7fbc807-2591-4c2e-8f70-a14a2751c2a5","meta":{"versionId":"2","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:03:39.053
+19	{"resourceType":"Group","id":"a7fbc807-2591-4c2e-8f70-a14a2751c2a5","meta":{"versionId":"5","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/1"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:09:50.732
+20	{"resourceType":"Group","id":"390f885d-d17f-40a5-9b75-aabc0ebd973b","meta":{"versionId":"1","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST-24","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}]}	2024-01-10 14:16:06.287
+21	{"resourceType":"Group","id":"390f885d-d17f-40a5-9b75-aabc0ebd973b","meta":{"versionId":"2","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST-24","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/1"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:16:43.387
+22	{"resourceType":"Group","id":"390f885d-d17f-40a5-9b75-aabc0ebd973b","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST-24","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/1"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:17:38.291
+23	{"resourceType":"Group","id":"390f885d-d17f-40a5-9b75-aabc0ebd973b","meta":{"versionId":"4","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST-24","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/1"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:18:08.243
+24	{"resourceType":"Group","id":"390f885d-d17f-40a5-9b75-aabc0ebd973b","meta":{"versionId":"5","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST-24","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/1"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:18:34.417
+25	{"resourceType":"Group","id":"390f885d-d17f-40a5-9b75-aabc0ebd973b","meta":{"versionId":"6","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"draft"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST-24","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/1"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"change"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/4"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/4"}}],"entity":{"reference":"Patient/1"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":true}]}	2024-01-10 14:20:32.786
+26	{"resourceType":"Group","id":"390f885d-d17f-40a5-9b75-aabc0ebd973b","meta":{"versionId":"7","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-contractValidityPeriod","valuePeriod":{"start":"2020-07-25","end":"2021-06-24"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributionListStatus","valueCode":"final"}],"identifier":[{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"NPI","display":"National Provider Identifier"}]},"system":"https://sitenv.org","value":"741852963"},{"use":"official","type":{"coding":[{"system":"http://terminology.hl7.org/CodeSystem/v2-0203","code":"TAX","display":"Tax ID Number"}]},"system":"https://sitenv.org","value":"369258147"}],"active":true,"type":"person","actual":true,"name":"DRAJER-MAL-TEST-24","managingEntity":{"reference":"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864","display":"HL7 International"},"characteristic":[{"code":{"text":"Members Attributed based on Contract"},"valueReference":{"reference":"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0"},"exclude":false}],"member":[{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/9bf7ab75-3ead-4a90-8409-eade27aa9008"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Organization/1"}}],"entity":{"reference":"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/c8e3f0b5-0599-43ba-ab90-792c127819a1"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"PractitionerRole/c6e70834-8d30-419e-b7c5-7150a9e9127e"}}],"entity":{"reference":"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false},{"extension":[{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-changeType","valueCode":"new"},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-coverageReference","valueReference":{"reference":"Coverage/b66b770a-66da-4330-8463-cd0e93ef6626"}},{"url":"http://hl7.org/fhir/us/davinci-atr/StructureDefinition/ext-attributedProvider","valueReference":{"reference":"Practitioner/9bf77508-42d8-420f-a371-88ec287cc55d"}}],"entity":{"reference":"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"},"period":{"start":"2020-04-08T07:06:17+00:00","end":"2025-05-08T07:06:17+00:00"},"inactive":false}]}	2024-01-10 14:20:57.327
 \.
 
 
@@ -2028,7 +2006,7 @@ COPY groups (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: healthcareservice; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY healthcareservice (id, data, last_updated_ts) FROM stdin;
+COPY public.healthcareservice (id, data, last_updated_ts) FROM stdin;
 2	{"comment":"Providing Specialist psychology services to the greater Den Burg area, many years of experience dealing with PTSD issues","telecom":[{"use":"work","system":"phone","value":"(555) silent"},{"use":"work","system":"email","value":"directaddress@example.com"}],"coverageArea":[{"display":"Greater Denburg area","reference":"#DenBurg"}],"providedBy":{"display":"Burgers University Medical Center","reference":"Organization/1"},"meta":{"versionId":"2"},"referralMethod":[{"coding":[{"code":"phone","display":"Phone"}]},{"coding":[{"code":"fax","display":"Fax"}]},{"coding":[{"code":"elec","display":"Secure Messaging"}]},{"coding":[{"code":"semail","display":"Secure Email"}]}],"id":"1","category":[{"text":"Counselling","coding":[{"code":"8","system":"http://terminology.hl7.org/CodeSystem/service-category","display":"Counselling"}]}],"availabilityExceptions":"Reduced capacity is available during the Christmas period","contained":[{"resourceType":"Location","mode":"instance","physicalType":{"coding":[{"code":"area","display":"Area"}]},"id":"DenBurg","description":"Greater Denburg area"}],"program":[{"text":"PTSD outreach"}],"location":[{"reference":"Location/1"}],"type":[{"coding":[{"code":"394913002","system":"http://snomed.info/sct","display":"Psychotherapy"}]},{"coding":[{"code":"394587001","system":"http://snomed.info/sct","display":"Psychiatry"}]}],"eligibility":[{"comment":"Evidence of application for DVA status may be sufficient for commencing assessment","code":{"coding":[{"display":"DVA Required"}]}}],"availableTime":[{"allDay":true,"daysOfWeek":["wed"]},{"availableStartTime":"08:30:00","availableEndTime":"05:30:00","daysOfWeek":["mon","tue","thu","fri"]},{"availableStartTime":"09:30:00","availableEndTime":"04:30:00","daysOfWeek":["sat","fri"]}],"specialty":[{"coding":[{"code":"47505003","system":"http://snomed.info/sct","display":"Posttraumatic stress disorder"}]}],"extraDetails":"Several assessments are required for these specialist services, and the waiting times can be greater than 3 months at times. Existing patients are prioritized when requesting appointments on the schedule.","appointmentRequired":false,"active":true,"endpoint":[{"reference":"Endpoint/1"}],"notAvailable":[{"during":{"start":"2015-12-25","end":"2015-12-30"},"description":"Christmas/Boxing Day"},{"during":{"start":"2016-01-01","end":"2016-01-01"},"description":"New Years Day"}],"name":"Consulting psychologists and/or psychology services","resourceType":"HealthcareService","characteristic":[{"coding":[{"display":"Wheelchair access"}]}],"serviceProvisionCode":[{"coding":[{"code":"cost","system":"http://terminology.hl7.org/CodeSystem/service-provision-conditions","display":"Fees apply"}]}],"identifier":[{"system":"http://example.org/shared-ids","value":"HS-12"}]}	2019-05-03 05:42:54.21452
 4	{"comment":"Providing Specialist psychology services to the greater Den Burg area, many years of experience dealing with PTSD issues","telecom":[{"use":"work","system":"phone","value":"(555) silent"},{"use":"work","system":"email","value":"directaddress@example.com"}],"coverageArea":[{"display":"Greater Denburg area","reference":"#DenBurg"}],"providedBy":{"display":"Burgers University Medical Center","reference":"Organization/1"},"meta":{"versionId":"4"},"referralMethod":[{"coding":[{"code":"phone","display":"Phone"}]},{"coding":[{"code":"fax","display":"Fax"}]},{"coding":[{"code":"elec","display":"Secure Messaging"}]},{"coding":[{"code":"semail","display":"Secure Email"}]}],"id":"1","category":[{"text":"Counselling","coding":[{"code":"8","system":"http://terminology.hl7.org/CodeSystem/service-category","display":"Counselling"}]}],"availabilityExceptions":"Reduced capacity is available during the Christmas period","contained":[{"resourceType":"Location","mode":"instance","physicalType":{"coding":[{"code":"area","display":"Area"}]},"id":"DenBurg","description":"Greater Denburg area"}],"program":[{"text":"PTSD outreach"}],"location":[{"reference":"Location/1"}],"type":[{"coding":[{"code":"394913002","system":"http://snomed.info/sct","display":"Psychotherapy"}]},{"coding":[{"code":"394587001","system":"http://snomed.info/sct","display":"Psychiatry"}]}],"eligibility":[{"comment":"Evidence of application for DVA status may be sufficient for commencing assessment","code":{"coding":[{"display":"DVA Required"}]}}],"availableTime":[{"allDay":true,"daysOfWeek":["wed"]},{"availableStartTime":"08:30:00","availableEndTime":"05:30:00","daysOfWeek":["mon","tue","thu","fri"]},{"availableStartTime":"09:30:00","availableEndTime":"04:30:00","daysOfWeek":["sat","fri"]}],"specialty":[{"coding":[{"code":"47505003","system":"http://snomed.info/sct","display":"Posttraumatic stress disorder"}]}],"extraDetails":"Several assessments are required for these specialist services, and the waiting times can be greater than 3 months at times. Existing patients are prioritized when requesting appointments on the schedule.","appointmentRequired":false,"active":true,"endpoint":[{"reference":"Endpoint/1"}],"notAvailable":[{"during":{"start":"2016-05-12","end":"2016-05-13"},"description":"Christmas/Boxing Day"},{"during":{"start":"2016-01-01","end":"2016-01-01"},"description":"New Years Day"}],"name":"Consulting psychologists and/or psychology services","resourceType":"HealthcareService","characteristic":[{"coding":[{"display":"Wheelchair access"}]}],"serviceProvisionCode":[{"coding":[{"code":"cost","system":"http://terminology.hl7.org/CodeSystem/service-provision-conditions","display":"Fees apply"}]}],"identifier":[{"system":"http://example.org/shared-ids","value":"HS-12"}]}	2019-05-03 05:46:30.245282
 3	{"comment":"Providing Specialist psychology services to the greater Den Burg area, many years of experience dealing with PTSD issues","telecom":[{"use":"work","system":"phone","value":"(555) silent"},{"use":"work","system":"email","value":"directaddress@example.com"}],"coverageArea":[{"display":"Greater Denburg area","reference":"#DenBurg"}],"providedBy":{"display":"Burgers University Medical Center","reference":"Organization/1"},"meta":{"versionId":"3"},"referralMethod":[{"coding":[{"code":"phone","display":"Phone"}]},{"coding":[{"code":"fax","display":"Fax"}]},{"coding":[{"code":"elec","display":"Secure Messaging"}]},{"coding":[{"code":"semail","display":"Secure Email"}]}],"id":"1","category":[{"text":"Counselling","coding":[{"code":"8","system":"http://terminology.hl7.org/CodeSystem/service-category","display":"Counselling"}]}],"availabilityExceptions":"Reduced capacity is available during the Christmas period","contained":[{"resourceType":"Location","mode":"instance","physicalType":{"coding":[{"code":"area","display":"Area"}]},"id":"DenBurg","description":"Greater Denburg area"}],"program":[{"text":"PTSD outreach"}],"location":[{"reference":"Location/1"}],"type":[{"coding":[{"code":"394913002","system":"http://snomed.info/sct","display":"Psychotherapy"}]},{"coding":[{"code":"394587001","system":"http://snomed.info/sct","display":"Psychiatry"}]}],"eligibility":[{"comment":"Evidence of application for DVA status may be sufficient for commencing assessment","code":{"coding":[{"display":"DVA Required"}]}}],"availableTime":[{"allDay":true,"daysOfWeek":["wed"]},{"availableStartTime":"08:30:00","availableEndTime":"05:30:00","daysOfWeek":["mon","tue","thu","fri"]},{"availableStartTime":"09:30:00","availableEndTime":"04:30:00","daysOfWeek":["sat","fri"]}],"specialty":[{"coding":[{"code":"47505003","system":"http://snomed.info/sct","display":"Posttraumatic stress disorder"}]}],"extraDetails":"Several assessments are required for these specialist services, and the waiting times can be greater than 3 months at times. Existing patients are prioritized when requesting appointments on the schedule.","appointmentRequired":false,"active":true,"endpoint":[{"reference":"Endpoint/1"}],"notAvailable":[{"during":{"start":"2015-12-25","end":"2016-01-13"},"description":"Christmas/Boxing Day"},{"during":{"start":"2016-01-01","end":"2016-01-01"},"description":"New Years Day"}],"name":"Consulting psychologists and/or psychology services","resourceType":"HealthcareService","characteristic":[{"coding":[{"display":"Wheelchair access"}]}],"serviceProvisionCode":[{"coding":[{"code":"cost","system":"http://terminology.hl7.org/CodeSystem/service-provision-conditions","display":"Fees apply"}]}],"identifier":[{"system":"http://example.org/shared-ids","value":"HS-12"}]}	2019-05-03 05:46:30.245282
@@ -2049,7 +2027,7 @@ COPY healthcareservice (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: imagingstudy; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY imagingstudy (id, data, last_updated_ts) FROM stdin;
+COPY public.imagingstudy (id, data, last_updated_ts) FROM stdin;
 2	{"status":"available","note":[{"text":"XR Wrist 3+ Views"}],"endpoint":[{"reference":"Endpoint/example-wadors"}],"procedureCode":[{"text":"XR Wrist 3+ Views","coding":[{"code":"RPID2589","system":"http://www.radlex.org","display":"XR Wrist 3+ Views"}]}],"resourceType":"ImagingStudy","referrer":{"reference":"Practitioner/1"},"procedureReference":{"reference":"Procedure/1"},"basedOn":[{"reference":"ServiceRequest/example"}],"modality":[{"code":"DX","system":"http://dicom.nema.org/resources/ontology/DCM"}],"numberOfInstances":2,"started":"2017-01-01T11:01:20+03:00","series":[{"endpoint":[{"reference":"Endpoint/example-wadors"}],"description":"XR Wrist 3+ Views","started":"2011-01-01T11:01:20+03:00","laterality":{"code":"419161000","system":"http://snomed.info/sct","display":"Unilateral left"},"numberOfInstances":2,"number":3,"instance":[{"sopClass":{"code":"urn:oid:1.2.840.10008.5.1.4.1.1.2","system":"urn:ietf:rfc:3986"},"title":"PA VIEW","uid":"2.16.124.113543.6003.1154777499.30246.19789.3503430045.1.1","number":1},{"sopClass":{"code":"urn:oid:1.2.840.10008.5.1.4.1.1.2","system":"urn:ietf:rfc:3986"},"title":"LL VIEW","uid":"2.16.124.113543.6003.1154777499.30246.19789.3503430045.1.2","number":2}],"performer":[{"function":{"coding":[{"code":"PRF","system":"http://terminology.hl7.org/CodeSystem/v3-ParticipationType"}]},"actor":{"reference":"Practitioner/2"}}],"bodySite":{"code":"T-15460","system":"http://snomed.info/sct","display":"Wrist Joint"},"modality":{"code":"DX","system":"http://dicom.nema.org/resources/ontology/DCM"},"uid":"2.16.124.113543.6003.1154777499.30246.19789.3503430045.1"}],"meta":{"versionId":"1"},"numberOfSeries":1,"reasonCode":[{"coding":[{"code":"357009","system":"http://snomed.info/sct","display":"Closed fracture of trapezoidal bone of wrist"}]}],"interpreter":[{"reference":"Practitioner/1"}],"identifier":[{"use":"official","system":"urn:dicom:uid","value":"urn:oid:2.16.124.113543.6003.1154777499.30246.19789.3503430046"},{"use":"usual","type":{"coding":[{"code":"ACSN","system":"http://terminology.hl7.org/CodeSystem/v2-0203"}]},"assigner":{"reference":"Organization/dicom-organization"},"value":"W12342398"},{"use":"secondary","assigner":{"reference":"Organization/dicom-organization"},"value":"55551234"}],"id":"2","encounter":{"reference":"Encounter/example"},"subject":{"reference":"Patient/2"}}	2019-03-26 12:34:04.255408
 4	{"status":"available","resourceType":"ImagingStudy","series":[{"uid":"1.2.840.99999999.1.56566822.1548961534040","started":"2009-12-21T11:55:26-08:00","number":1,"numberOfInstances":1,"instance":[{"sopClass":{"code":"1.2.840.10008.5.1.4.1.1.2","system":"urn:ietf:rfc:3986"},"number":1,"uid":"1.2.840.99999999.1.1.49135043.1548961534040","title":"CT Image Storage"}],"bodySite":{"code":"51185008","system":"http://snomed.info/sct","display":"Thoracic structure (body structure)"},"modality":{"code":"CT","system":"http://dicom.nema.org/resources/ontology/DCM","display":"Computed Tomography"}}],"numberOfInstances":1,"started":"2009-12-21T11:55:26-08:00","meta":{"versionId":"1"},"numberOfSeries":1,"identifier":[{"use":"official","system":"urn:ietf:rfc:3986","value":"urn:oid:1.2.840.99999999.31693797.1548961533987"}],"id":"4","encounter":{"reference":"Encounter/7665"},"subject":{"reference":"Patient/4"}}	2019-03-28 05:47:17.92915
 5	{"status":"available","resourceType":"ImagingStudy","series":[{"uid":"1.2.840.99999999.1.56566822.1548961534040","started":"2009-05-11T12:55:26-07:00","number":1,"numberOfInstances":1,"instance":[{"sopClass":{"code":"1.2.840.10008.5.1.4.1.1.2","system":"urn:ietf:rfc:3986"},"number":1,"uid":"1.2.840.99999999.1.1.49135043.1548961534040","title":"CT Image Storage"}],"bodySite":{"code":"51185008","system":"http://snomed.info/sct","display":"Thoracic structure (body structure)"},"modality":{"code":"CT","system":"http://dicom.nema.org/resources/ontology/DCM","display":"Computed Tomography"}}],"numberOfInstances":1,"started":"2010-05-11T12:55:26-07:00","meta":{"versionId":"1"},"numberOfSeries":1,"identifier":[{"use":"official","system":"urn:ietf:rfc:3986","value":"urn:oid:1.2.840.99999999.21154022.1548961533985"}],"id":"5","encounter":{"reference":"Encounter/7233"},"subject":{"reference":"Patient/5"}}	2019-03-28 05:49:45.965914
@@ -2070,7 +2048,7 @@ COPY imagingstudy (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: immunization; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY immunization (id, data, last_updated_ts) FROM stdin;
+COPY public.immunization (id, data, last_updated_ts) FROM stdin;
 11	{\n"resourceType": "Immunization",\n"id": "1",\n"meta": {\n"versionId": "2"\n},\n"status": "completed",\n"notGiven": false,\n"vaccineCode": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/sid/cvx",\n"code": "158",\n"display": "influenza, injectable, quadrivalent"\n}\n]\n},\n"patient": {\n"reference": "Patient/1"\n},\n"occurrenceDateTime": "2015-01-07T00:00:00+05:30",\n"primarySource": true,\n"reportOrigin": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/immunization-origin",\n"code": "record"\n}\n],\n"text": "Written Record"\n},\n"practitioner": [\n  {\n"role": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/v2/0443",\n"code": "OP"\n}\n]\n},\n"actor": {\n"reference": "Practitioner/1"\n}\n}\n]\n}	2019-05-20 05:03:43.249016
 12	{\n"resourceType": "Immunization",\n"id": "1",\n"meta": {\n"versionId": "3"\n},\n"status": "completed",\n"notGiven": false,\n"vaccineCode": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/sid/cvx",\n"code": "158",\n"display": "influenza, injectable, quadrivalent"\n}\n]\n},\n"patient": {\n"reference": "Patient/1"\n},\n"occurrenceDateTime": "2015-01-07T00:00:00+05:30",\n"primarySource": true,\n"reportOrigin": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/immunization-origin",\n"code": "record"\n}\n],\n"text": "Written Record"\n},\n"practitioner": [\n  {\n"role": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/v2/0443",\n"code": "OP"\n}\n]\n},\n"actor": {\n"reference": "Practitioner/1"\n}\n}\n]\n}	2019-05-20 05:04:09.943456
 1	{\n"resourceType": "Immunization",\n"id": "1",\n"meta": {\n"versionId": "1"\n},\n"status": "completed",\n"notGiven": false,\n"vaccineCode": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/sid/cvx",\n"code": "158",\n"display": "influenza, injectable, quadrivalent"\n}\n]\n},\n"patient": {\n"reference": "Patient/1"\n},\n"occurrenceDateTime": "2015-01-07T00:00:00+05:30",\n"primarySource": true,\n"reportOrigin": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/immunization-origin",\n"code": "record"\n}\n],\n"text": "Written Record"\n},\n"practitioner": [\n  {\n"role": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/v2/0443",\n"code": "OP"\n}\n]\n},\n"actor": {\n"reference": "Practitioner/1"\n}\n}\n]\n}	2019-04-02 10:01:47.279409
@@ -2090,7 +2068,7 @@ COPY immunization (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: insuranceplan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY insuranceplan (id, data, last_updated_ts) FROM stdin;
+COPY public.insuranceplan (id, data, last_updated_ts) FROM stdin;
 1	{\r\n      "resourceType": "InsurancePlan",\r\n      "id": "32cae09a-5262-4a48-83ff-ba44f74631b0",\r\n      "meta": {\r\n        "versionId": "1",\r\n        "lastUpdated": "2020-10-22T13:55:55.045+00:00",\r\n        "profile": [ "http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/plannet-InsurancePlan" ]\r\n      },\r\n      "identifier": [ {\r\n        "use": "official",\r\n        "type": {\r\n          "text": "HIOS product ID"\r\n        },\r\n        "system": "http://www.cms.gov/CCIIO",\r\n        "value": "HPID240000",\r\n        "assigner": {\r\n          "display": "Centers for Medicare and Medicaid Services"\r\n        }\r\n      } ],\r\n      "status": "active",\r\n      "type": [ {\r\n        "coding": [ {\r\n          "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/InsuranceProductTypeCS",\r\n          "code": "CommercialPPO",\r\n          "display": "Commercial PPO"\r\n        } ],\r\n        "text": "Health insurance provided through a Preferred Provider Organization (PPO)"\r\n      } ],\r\n      "name": "SampleContract",\r\n      "alias": [ "Acme MA BRONZE PPO" ],\r\n      "ownedBy": {\r\n        "reference": "Organization/plannet-organization-1230210000",\r\n        "display": "Acme Insurance Co"\r\n      },\r\n      "administeredBy": {\r\n        "reference": "Organization/plannet-organization-1230210000",\r\n        "display": "Acme Insurance Co"\r\n      },\r\n      "coverageArea": [ {\r\n        "reference": "Location/plannet-location-PCY-0008072"\r\n      } ],\r\n      "network": [ {\r\n        "reference": "Organization/plannet-network-HPID010000",\r\n        "display": "Acme of Massachusetts Preferred Provider Network"\r\n      } ],\r\n      "plan": [ {\r\n        "type": {\r\n          "coding": [ {\r\n            "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/InsuranceProductTypeCS",\r\n            "code": "CommercialPPO",\r\n            "display": "Commercial PPO"\r\n          } ],\r\n          "text": "Health insurance provided through a Preferred Provider Organization (PPO)"\r\n        }\r\n      } ]\r\n    }	2020-10-30 12:01:16.66692
 \.
 
@@ -2099,7 +2077,7 @@ COPY insuranceplan (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: jwks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY jwks (id, jwk, last_updated_datetime) FROM stdin;
+COPY public.jwks (id, jwk, last_updated_datetime) FROM stdin;
 2	{"p":"whjBIDBXhFmeborCqjoQv7UyoaJP1OfHj4haCiON7BpD7phM9kt0kGhGUoeQktAwvZCorz0Jg5RqGiRMdl0QVF03upCZ59nggsSEyEkkDgnhm1joMTMwm6JheQpowDJiwv6lc5Hc2j11Ly_q5gcpZxYkugQOQx7XF4SoVClS9Is","kty":"RSA","q":"uwqL8SOVugvcsniKpqeLAIxsrDrr96jdNPhVBkK1Hgru6Fj9ZRT0Bbm7-gV0m0Ck40Y7QsBb0Wp4tQOgUC6OnxbNvMB7SshtDeOFO1uyTp5_dFonJxeXNI_cSoJ679qI6OsdSS4OSQA2Sn9_j3oP25Gmm66rUM96ij2xjMSud6U","d":"Dd_p2JQIN8rVmfgGXlTUHFoW8q6bgXysyObiFkQQkWdbrdGWQhCPagtvoxLw6aFwgO2JMFHUHfd7IniNxYvBGpncQnea5Qa-VPgqiAkxIDtfZfuyUUbHNtcjVxO_hsM9k4zN7ZmyFT26EipeZR78SyUBg-kKrZJRPpt33xAYcB0tkZ2KOxdmUl9TkE0aGFCKLAbJVaN4QStPG4M6VVrKZreNemVsdePT1rmG4W-qX_Uxwb9LcKypSp5LgNleZ046gwIuQvWW4wpLCtPie-IT7H9DRyA390RMLUrufXLTOom7xfHTMSjnUef4hWLY4_ym9zOOIux6q2sGCjlTSqDU4Q","e":"AQAB","use":"sig","kid":"guJAnaXygc","qi":"QEeGt3rrLNS8yHCquwIb5lKqJzCMgNMbT8_xqIoPgIyGWOLJVCUPXEEypMwlGepHlbK_sRnitN0r_r9HXX2NToGsRnP31jTlkjzx6Maf9ChqT7mxyQdQ-TCq3DfBzmjIJe7ZvNMe7tNgPjQeUjVQD2_OHTPHV0m0800qc28X2t8","dp":"Xnwsb135DH2P6WH1F2bCxoAPkK1xzUOzWsTWh_781IWIsjpDpNXgfXe1W_GQSFe-klk8NGozGnGCIQ2whyIQk_D48wH3We0vJJlDxjgMrCTVRYlHJsQzkl--sWyGx6D_gMrzgcnsx_SI-hqKb8Xmur8Fy-OziasWq-UxCB9Bubc","alg":"RS256","dq":"RKKlIbLOMbxCm1cygd8_Wc8t3bGtf27-5X4vLSHzdnfKnYZyTdJ3jVZPzXqNBJ-fIitWebM-vkUU0E_pVyMOgQCMNLRpSdLseclAzbxjXQg6ewbOEUFN4iLcUpc456VI0jfcwkrdQRqL0aChvZOsGAWFnuFkyj2omOv0qFRQNWU","n":"jdAUJFO3AoRyiZEuaECd1M8aioXBuHYcArOfbVIzAMupVF9YJAuOt3M2FDmmwA3RyAbKu-2m4QCF6DEyjJjwcYF4vyf6wU2WvvEgvyaIwrHkRCfv6Lo6_n81ba2J6_z6rnzx4fYV_wjBjYMi9Dy-IPNAE5XnCAZXO8Gn8kOxb4qUPw2pEY5wIlAWTE_On0c1f8i4j6a23woHXsLH6y14Zh1ykZYCZV7p6veA5CigPJNC5KqpAWRzygIx-fdJNRajpv5UjCqC_Q9db_D-XVBdjx0t-m0NiB21v9wtm1ChaZXYTApUGvOe9hh87vOSrvWqS5aG_CHEKAnTKA4U1J46lw"}	2019-06-10
 1	{"p":"6H-zyH53sG5qGzHD7EWgm_Y_4h3FsnVT_DFESVNNCS_XmaLbv_1bxiPn7BuqG3B_c-gxFNpe3xy3Dx_5wVjS4lbV-9wI6q2ipRStbQBFcuJDZo6NYjOfSxTWLN_H_yUI1etg0aCyLhnUZOXEVazX1JDLZ_fAFHsdgKw5iq7CeNc","kty":"RSA","q":"niWCwk7VfpYDBTZBL2vI_YfvD1gZ9Rp61QfNuDNL4E3w3AExmXprZu0passJv1UuhaziPfWwt1O3QQaSLHsTaohnrwj_XNjR3BpxVFvLHPWg2B9PuSsd7eFqDbLoDOUDSSJysUc33JqbyKE-Kv9RNx9mQcyAay5ugxETeQep6Ws","d":"FenW-B9k1XO28obkeKw2NpaT8GIReIl77JWg1bAM2xOFGXMhRE0XC3l71uaCAIJMOPPdsYzRtAWShffiDih2LYqS8S3S5UwKo3FyAeilIZjSTyOqqlVD64m1ldr3pm15HyDWA4pT_m_BKQEWjgmP7WvgzgOfKcnf-gdL3IRRrzdWTlwc41nfPpzHGZw4ukx3jCzwe70KzriXtdHDJ6sVkpV7A4raqTzg61vhwqs7o7ZTaTPsymR4yjkioHgjfrAJaYWODaL6WVhF5bh2cUpZPN05Pjg5hxOy6AFQfO3baIguO9cd8iTE14K3gyt7xs_yY1P-05bZDc_dGSUfKvrfJQ","e":"AQAB","use":"sig","kid":"ettEOuwEwU","qi":"TiiA6PgWDRbx_ydAPxO3qfXjhYb7wT92trL3FHrdVJEh7_sjQy9WS9dcM6ufQFJvgZIx0c9T_gE1JpZ5OPHwO9Cpf2je4BHUDh1m3wMP4saEmOdp1qkdigaeP9t7g9dskH9xePKkiaqo0aerEtDBLq3X04N8VN1X9BWEXn2yfnI","dp":"ffNIQrH4RvTZuFeySpnBkxvIqcb1JWMYF0PdOVfOIM7xHkKyhwRKpkEnT6oA8hJ0iSbdB-3wfS-CH8hztYFX5NOj4mfl0LQ1qvZTqPv_o2fdmX5aKzvJ7JOiHvcv0hGPAswbTBSg0gaeH_a08LDMz1ONTYpSXQYBCobCOVXI9ks","alg":"RS256","dq":"O6z37I6G7V96AEt6yYQosdLLmMSr9ttpIl3xeOKSbS-8BajFqJ6TTKGNkWjQYsyn43VbYfoGFweWDQmHuxUuPHMAfQIuKkD-38lynlyNBn6BlUwrbzof7xWyST0LZ2I7nStMkCzJnYsR4eFGbj8tzFki4w1iIA_DT93vtSn5KcU","n":"j6DiLAuzAlgIJdYjx__EQ5xrZth905QSSDARFcJc6jjKfWg_EfTfKpcw77M3Jfns4ZytuVmdjdhhlc-cnKZSpSfgJOMl1_tJmBthc9Esh2-zmdhcu4LpkS7A4Ogz2vTM1fwwWOadrh3Xnluyc_uLVCaQMNxQh9KTNlXrXAu7Kx8IkhK0eB2aj3lvHlgRshvXNiZ1xCd1RbLezYatGXw-Tds90-zxHTxP0L-_RXUcUDbS4oGX8qGNceNqVPVBzLgJ_KG8sX7EhnIHAivXpzPuu1tGHYC59cZCgQxLOIzGfK9iAVdVXZoVq33ZpobDmuw4FxMsqXAPIV1j2ghUsjMw3Q"}	2019-10-01
 \.
@@ -2109,7 +2087,7 @@ COPY jwks (id, jwk, last_updated_datetime) FROM stdin;
 -- Data for Name: location; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY location (id, data, last_updated_ts) FROM stdin;
+COPY public.location (id, data, last_updated_ts) FROM stdin;
 3	{\n  "resourceType": "Location",\n  "id": "3",\n "meta": {\n"versionId": "1"\n},"identifier": [\n    { "system": "http://hospital.smarthealthit.org",\r\n      "value": "B1-S.F2"\r\n    }\n  ],"operationalStatus": {\r\n    "system": "http://terminology.hl7.org/CodeSystem/v2-0116",\r\n    "code": "H",\r\n    "display": "Housekeeping"\r\n  },\n  "status": "active","alias": [\r\n    "IU MC, SW, F3",\r\n    "Indian University Medical Center, South Wing, third floor"\r\n  ],\n  "name": "BUMC Ambulance",\n  "description": "Ambulance provided by Burgers University Medical Center",\n  "mode": "kind",\n  "type": [\n    {\n      "coding": [\n        {\n          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",\n          "code": "AMB",\n          "display": "Ambulance"\n        }\n      ]\n    }\n  ],"address":{\r\n    "use": "work",\r\n    "line": ["890 East Side dr"],\r\n    "city": "Gaithersburg",\r\n    "state":"KL",\r\n    "postalCode": "20456",\r\n    "country": "USA"\r\n  },\n  "telecom": [\n    {\n      "system": "phone",\n      "value": "2329",\n      "use": "mobile"\n    }\n  ],\n  "physicalType": {\n    "coding": [\n      {\n        "system": "http://terminology.hl7.org/CodeSystem/location-physical-type",\n        "code": "ve",\n        "display": "Vehicle"\n      }\n    ]\n  },"position":{\r\n    "longitude": -66.5945691,\r\n    "latitude": 99.85476478,\r\n    "altitude": 0\r\n  },\n  "managingOrganization": {\n    "reference": "Organization/1"\n  }\n}	2019-03-19 10:24:27.245434
 4	{\n  "resourceType": "Location",\n  "id": "4",\n  "meta": {\n"versionId": "1"\n},"identifier": [\n    { "system": "http://hospital.smarthealthit.org",\r\n      "value": "B1-S.F2"\r\n    }\n  ],"operationalStatus": {\r\n    "system": "http://terminology.hl7.org/CodeSystem/v2-0116",\r\n    "code": "H",\r\n    "display": "Housekeeping"\r\n  },\n  "status": "active","alias": [\n    "BU MC, SW, F2",\n    "Burgers University Medical Center, South Wing, second floor"\n  ],\n  "name": "Patient's Home",\n  "description": "Patient's Home",\n  "mode": "kind",\n  "type": [\n    {\n      "coding": [\n        {\n          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",\n          "code": "PTRES",\n          "display": "Patient's Residence"\n        }\n      ]\n    }\n  ],"telecom": [\n    {\n      "system": "phone",\n      "value": "8967",\n      "use": "mobile"\n    }\n  ],"address":{\r\n    "use": "work",\r\n    "line": ["567 North Side dr"],\r\n    "city": "Gaithersburg",\r\n    "state":"MK",\r\n    "postalCode": "56427",\r\n    "country": "USA"\r\n  },\n  "physicalType": {\n    "coding": [\n      {\n        "system": "http://terminology.hl7.org/CodeSystem/location-physical-type",\n        "code": "ho",\n        "display": "House"\n      }\n    ]\n  },"position":{\r\n    "longitude": -78.5945691,\r\n    "latitude": 34.85476478,\r\n    "altitude": 0\r\n  },\n  "managingOrganization": {\n    "reference": "Organization/1"\n  }\n}	2019-03-20 08:44:56.4229
 7	{\n  "resourceType": "Location",\n  "id": "1",\n  "meta": {\n"versionId": "2"\n},\n  "identifier": [\n    { "system": "http://hospital.smarthealthit.org",\r\n      "value": "B1-S.F2"\r\n    }\n  ],\n  "status": "active",\n  "name": "South Wing, second floor",\n  "alias": [\n    "BU MC, SW, F2",\n    "Burgers University Medical Center, South Wing, second floor"\n  ],\n  "description": "Second floor of the Old South Wing, formerly in use by Psychiatry",\n  "mode": "instance","operationalStatus": {\r\n    "system": "http://terminology.hl7.org/CodeSystem/v2-0116",\r\n    "code": "H",\r\n    "display": "Housekeeping"\r\n  },\n  "telecom": [\n    {\n      "system": "phone",\n      "value": "2389",\n      "use": "work"\n    },\n    {\n      "system": "fax",\n      "value": "2329",\n      "use": "work"\n    },\n    {\n      "system": "email",\n      "value": "second wing admissions"\n    },\n    {\n      "system": "url",\n      "value": "http://sampleorg.com/southwing",\n      "use": "work"\n    }\n  ],\n  "address": {\n    "use": "work",\n    "line": [\n      "Galapagosweg 91, Building A"\n    ],\n    "city": "Den Burg",\n    "postalCode": "9105 PZ",\n    "country": "NLD"\n  },\n  "physicalType": {\n    "coding": [\n      {\n        "system": "http://terminology.hl7.org/CodeSystem/location-physical-type",\n        "code": "wi",\n        "display": "Wing"\n      }\n    ]\n  },\n  "position": {\n    "longitude": -83.6945691,\n    "latitude": 42.25475478,\n    "altitude": 0\n  },\n  "managingOrganization": {\n    "reference": "Organization/1"\n  },\n  "endpoint": [\n    {\n      "reference": "Endpoint/example"\n    }\n  ]\n}	2019-05-07 07:19:07.406681
@@ -2129,7 +2107,7 @@ COPY location (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: medication; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY medication (id, data, last_updated_ts) FROM stdin;
+COPY public.medication (id, data, last_updated_ts) FROM stdin;
 3	{\n"resourceType": "Medication",\n"id": "3",\n"meta": {\n"versionId": "1"\n},\n"code": {\n"coding": [\n  {\n"code": "0069-2587-10",\n"display": "V "\n}\n]\n},\n"status": "active",\n"isBrand": false,\n"isOverTheCounter": false,\n"manufacturer": {\n"reference": "Organization/3"\n},\n"form": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "385219001",\n"display": "Injection Solution (qualifier value)"\n}\n]\n},\n"ingredient": [\n  {\n"itemCodeableConcept": {\n"coding": [\n  {\n"system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n"code": "66955",\n"display": "Vancomycin Hydrochloride"\n}\n]\n},\n"amount": {\n"numerator": {\n"value": 500,\n"system": "http://unitsofmeasure.org",\n"code": "mg"\n},\n"denominator": {\n"value": 10,\n"system": "http://unitsofmeasure.org",\n"code": "mL"\n}\n}\n}\n],\n"package": {\n"container": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/sid/ndc",\n"code": "0069-2587-10"\n}\n]\n},\n"content": [\n  {\n"itemCodeableConcept": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "385219001"\n}\n]\n},\n"amount": {\n"value": 10,\n"system": "http://unitsofmeasure.org",\n"code": "mL"\n}\n}\n],\n"batch": [\n  {\n"lotNumber": "9494788",\n"expirationDate": "2017-05-22"\n}\n]\n}\n}	2019-03-25 12:06:26.711433
 5	{\n"resourceType": "Medication",\n"id": "5",\n"meta": {\n"versionId": "1"\n},\n"code": {\n"coding": [\n  {\n"code": "1594660",\n"display": "A "\n}\n]\n},\n"status": "active",\n"isBrand": false,\n"isOverTheCounter": false,\n"manufacturer": {\n"reference": "Organization/5"\n},\n"form": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "385219001",\n"display": "Injection solution (qualifier vallue)"\n}\n]\n},\n"ingredient": [\n  {\n"itemCodeableConcept": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "129472003",\n"display": "Alemtuzamab (substance)"\n}\n]\n},\n"amount": {\n"numerator": {\n"value": 12,\n"system": "http://unitsofmeasure.org",\n"code": "mg"\n},\n"denominator": {\n"value": 1.2,\n"system": "http://unitsofmeasure.org",\n"code": "mL"\n}\n}\n}\n],\n"package": {\n"container": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/sid/ndc",\n"code": "0069-2587-10"\n}\n]\n},\n"content": [\n  {\n"itemCodeableConcept": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "385219001"\n}\n]\n},\n"amount": {\n"value": 10,\n"system": "http://unitsofmeasure.org",\n"code": "mL"\n}\n}\n],\n"batch": [\n  {\n"lotNumber": "9494788",\n"expirationDate": "2017-05-22"\n}\n]\n}\n}	2019-03-26 09:30:49.303715
 8	{\n"resourceType": "Medication",\n"id": "8",\n"meta": {\n"versionId": "1"\n},\n"code": {\n"coding": [\n  {\n"code": "0169-7501-11",\n"display": "N "\n}\n]\n},\n"status": "active",\n"isBrand": false,\n"isOverTheCounter": false,\n"manufacturer": {\n"reference": "Organization/8"\n},\n"form": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "385219001",\n"display": "Injection solution (qualifier value)"\n}\n]\n},\n"ingredient": [\n  {\n"itemCodeableConcept": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "325072002",\n"display": "Insulin Aspart (substance)"\n}\n]\n},\n"amount": {\n"numerator": {\n"value": 100,\n"system": "http://unitsofmeasure.org",\n"code": "U"\n},\n"denominator": {\n"value": 1,\n"system": "http://unitsofmeasure.org",\n"code": "mL"\n}\n}\n}\n],\n"package": {\n"container": {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/sid/ndc",\n"code": "0169-7501-11"\n}\n]\n},\n"content": [\n  {\n"itemCodeableConcept": {\n"coding": [\n  {\n"system": "http://snomed.info/sct",\n"code": "385219001"\n}\n]\n},\n"amount": {\n"value": 100,\n"system": "http://unitsofmeasure.org",\n"code": "U"\n}\n}\n],\n"batch": [\n  {\n"lotNumber": "12345",\n"expirationDate": "2019-10-31"\n}\n]\n}\n}	2019-04-30 06:16:47.123322
@@ -2149,7 +2127,7 @@ COPY medication (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: medicationadministration; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY medicationadministration (id, data, last_updated_ts) FROM stdin;
+COPY public.medicationadministration (id, data, last_updated_ts) FROM stdin;
 10	{\n    "status": "completed",\n    "performer": [\n        {\n            "actor":{\n                "display": "Patrick Pump",\n                "reference": "Practitioner/2"\n            }\n        }\n    ],\n    "resourceType": "MedicationAdministration",\n    "effectivePeriod": {\n        "start": "2019-05-01T15:57:50.000Z",\n        "end": "2019-05-08T15:28:31.000Z"\n    },\n    "id": "8",\n    "meta": {\n        "versionId": "1",\n        "lastUpdated": "2019-05-01T15:58:18.306+00:00"\n    },\n    "medicationCodeableConcept": {\n        "text": "claritine"\n    },"reasonCode": [\n        {\n            "coding": [\n                {\n                    "code": "b",\n                    "system": "http://terminology.hl7.org/CodeSystem/reason-medication-given",\n                    "display": "Given as Ordered"\n                }\n            ]\n        }\n    ],\n    "identifier": [\n        {\n            "system": "SITE",\n            "value": "1111"\n        }\n    ], "category": {\r\n        "coding": [\r\n\t\t\t{\n    "code": "inpatient",\n    "system": "http://hl7.org/fhir/medication-admin-category",\n    "display": "Inpatient"\n}\r\n        ]\r\n    },\n    "dosage": {\n        "route": {\n            "coding": [\n                {\n                    "display": "Oral"\n                }\n            ]\n        },\n        "rateQuantity": {\n            "value": 12,\n            "unit": "hours"\n        },\n        "dose": {\n            "value": 2,\n            "unit": "Capsule"\n        }\n    },\n    "subject": {\n        "reference": "Patient/8"\n    }\n}	2019-05-02 09:27:43.659991
 11	{\n    "status": "completed",\n    "performer": [\n        {\n            "actor":{\n    "display": "Paricker Order",\n    "reference": "Practitioner/6"\n}\n        }\n    ],\n    "resourceType": "MedicationAdministration",\n    "id": "9",\n    "meta": {\n        "versionId": "1",\n        "lastUpdated": "2019-05-01T15:49:18.554+00:00"\n    },"reasonCode": [\n        {\n            "coding": [\n                {\n                    "code": "b",\n                    "system": "http://terminology.hl7.org/CodeSystem/reason-medication-given",\n                    "display": "Given as Ordered"\n                }\n            ]\n        }\n    ],\n    "medicationCodeableConcept": {\n        "text": "claritine"\n    },\n    "identifier": [\n        {\n            "system": "SITE",\n            "value": "9876"\n        }\n    ], "category": {\r\n        "coding": [\r\n\t\t\t{\n    "code": "inpatient",\n    "system": "http://hl7.org/fhir/medication-admin-category",\n    "display": "Inpatient"\n}\r\n        ]\r\n    },\n    "dosage": {\n        "text": "a se oprii adminstratia daca apar alergii",\n        "route": {\n            "coding": [\n                {\n                    "display": "Ophthalmic"\n                }\n            ]\n        },\n        "rateQuantity": {\n            "value": 12,\n            "unit": "hours"\n        },\n        "dose": {\n            "value": 2,\n            "unit": "Drops"\n        }\n    }, "effectiveTimePeriod": {\n        "start": "2015-01-15",\n        "end": "2015-01-15"\n    },\n    "subject": {\n        "reference": "Patient/9"\n    }\n}	2019-05-02 09:27:43.659991
 3	{\n    "resourceType": "MedicationAdministration",\n    "id": "1",\n    "meta": {\n        "versionId": "3"\n    },\n    "identifier": [\n        {\n            "system": "SITE",\n            "value": "7755"\n        }\n    ],\n    "status": "completed",\n    "patient": {\n        "reference": "Patient/1"\n    },  "category": {\n        "coding": [\n            {\n                "code": "inpatient",\n                "system": "http://terminology.hl7.org/CodeSystem/medication-statement-category",\n                "display": "Inpatient"\n            }\n        ]\n    },\n    "practitioner": {\n        "reference": "Practitioner/1"\n    },\n    "prescription": {\n        "reference": "MedicationOrder/1"\n    }, "performer": [\r\n    {\r\n      "actor": {\r\n    "display": "Paricker Order",\r\n    "reference": "Practitioner/6"\r\n}\r\n    }\r\n  ],\n    "effectiveTimePeriod": {\n        "start": "2015-01-15",\n        "end": "2015-01-15"\n    },"reasonCode": [\n        {\n            "coding": [\n                {\n                    "code": "b",\n                    "system": "http://terminology.hl7.org/CodeSystem/reason-medication-given",\n                    "display": "Given as Ordered"\n                }\n            ]\n        }\n    ],\n    "medicationCodeableConcept": {\n        "coding": [\n            {\n                "code": "582620",\n                "display": "Nizatidine 15 MG/ML Oral Solution [Axid]"\n            }\n        ]\n    },\n    "dosage": {\n        "siteCodeableConcept": {\n            "coding": [\n                {\n                    "code": "111002",\n                    "display": "Parathyroid glans"\n                }\n            ]\n        },\n        "quantity": {\n            "value": 80,\n            "unit": "mg",\n            "system": "http://unitsofmeasure.org",\n            "code": "mg"\n        }\n    }\n}	2019-03-28 13:30:53.213775
@@ -2169,7 +2147,7 @@ COPY medicationadministration (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: medicationdispense; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY medicationdispense (id, data, last_updated_ts) FROM stdin;
+COPY public.medicationdispense (id, data, last_updated_ts) FROM stdin;
 6	{\n    "status": "completed",\n    "medicationReference": {\n        "reference": "Medication/1"\n    },\n    "resourceType": "MedicationDispense",\n    "authorizingPrescription": [\n        {\n            "reference": "MedicationOrder/1"\n        }\n    ],\n    "dosageInstruction": [\n        {\n            "timing": {\n                "repeat": {\n                    "frequency": 2,\n                    "boundsPeriod": {\n                        "start": "2015-04-05",\n                        "end": "2016-04-05"\n                    },\n                    "period": 1,\n                    "periodUnit": "d"\n                }\n            },\n            "text": "Take 30mg  by mouth every morning.",\n            "route": {\n                "coding": [\n                    {\n                        "code": "C38288"\n                    }\n                ]\n            }\n        }\n    ],\n\t"medicationCodeableConcept": {\n        "coding": [\n            {\n                "system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n                "code": "198145",\n                "display": "Prednisone 10 MG Oral Tablet"\n            }\n        ]\n    },\n    "meta": {\n        "versionId": "1"\n    },\n    "identifier": [\n        {\n            "system": "https://sitenv.org",\n            "value": "6677"\n        }\n    ],\n    "id": "6",\n    "subject": {\n        "reference": "Patient/11"\n    }\n}	2019-04-03 06:39:06.140927
 10	{\n    "status": "completed",\n    "whenHandedOver": "2015-06-26T07:13:00+05:00",\n\t"medicationCodeableConcept": {\n        "coding": [\n            {\n                "system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n                "code": "104491",\n                "display": "Simvastatin 20 MG Oral Tablet [Zocor]"\n            }\n        ]\n    },\n    "performer": [\n        {\n            "actor": {\n                "reference": "Practitioner/1"\n            }\n        }\n    ],\n    "medicationReference": {\n        "display": "Alprazolam 0.25mg (Xanax)",\n        "reference": "1"\n    },\n    "resourceType": "MedicationDispense",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: meddisp0315</p><p><b>contained</b>: </p><p><b>status</b>: in-progress</p><p><b>medication</b>: Alprazolam 0.25mg (Xanax). Generated Summary: id: med0314; Alprazolam 0.25mg (Xanax) <span>(Details : {RxNorm code '562721' = 'Amylases / CELLULASE / Endopeptidases / Hyoscyamine / Lipase / phenyltoloxamine Oral Capsule', given as 'Alprazolam 0.25mg (Xanax)'})</span></p><p><b>subject</b>: <a>Donald Duck </a></p><h3>Performers</h3><table><tr><td>-</td><td><b>Actor</b></td></tr><tr><td>*</td><td><a>Practitioner/f006</a></td></tr></table><p><b>authorizingPrescription</b>: <a>MedicationRequest/medrx0305</a></p><p><b>type</b>: Refill - Part Fill <span>(Details : {http://terminology.hl7.org/CodeSystem/v3-ActCode code 'RFP' = 'Refill - Part Fill', given as 'Refill - Part Fill'})</span></p><p><b>quantity</b>: 30 TAB<span> (Details: http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm code TAB = 'Tablet')</span></p><p><b>daysSupply</b>: 10 Day<span> (Details: UCUM code d = 'd')</span></p><p><b>whenPrepared</b>: 25/06/2015 7:13:00 AM</p><p><b>whenHandedOver</b>: 26/06/2015 7:13:00 AM</p><p><b>dosageInstruction</b>: </p></div>"\n    },\n    "daysSupply": {\n        "code": "d",\n        "unit": "Day",\n        "value": 10,\n        "system": "http://unitsofmeasure.org"\n    },\n    "authorizingPrescription": [\n        {\n            "reference": "MedicationRequest/1"\n        }\n    ],\n    "dosageInstruction": [\n        {\n            "timing": {\n                "repeat": {\n                    "frequency": 2,\n                    "boundsPeriod": {\n                        "start": "2015-04-05",\n                        "end": "2016-04-05"\n                    },\n                    "period": 1,\n                    "periodUnit": "d"\n                }\n            },\n            "text": "40mg by mouth once daily",\n            "route": {\n                "coding": [\n                    {\n                        "code": "C38288"\n                    }\n                ]\n            }\n        },\n        {\n            "timing": {\n                "repeat": {\n                    "frequency": 2,\n                    "boundsPeriod": {\n                        "start": "2015-04-05",\n                        "end": "2016-04-05"\n                    },\n                    "period": 1,\n                    "periodUnit": "d"\n                }\n            },\n            "text": "30mg (3 tablets) by mouth once daily",\n            "route": {\n                "coding": [\n                    {\n                        "code": "C38288"\n                    }\n                ]\n            }\n        }\n    ],\n    "contained": [\n        {\n            "resourceType": "Medication",\n            "code": {\n                "coding": [\n                    {\n                        "code": "562721",\n                        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n                        "display": "Alprazolam 0.25mg (Xanax)"\n                    }\n                ]\n            },\n            "id": "med0314"\n        }\n    ],\n    "whenPrepared": "2015-06-25",\n    "meta": {\n        "versionId": "1"\n    },\n    "identifier": [\n        {\n            "system": "https://sitenv.org",\n            "value": "6677"\n        }\n    ],\n    "type": {\n        "coding": [\n            {\n                "code": "RFP",\n                "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",\n                "display": "Refill - Part Fill"\n            }\n        ]\n    },\n    "id": "10",\n    "quantity": {\n        "code": "TAB",\n        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",\n        "value": 30\n    },\n    "subject": {\n        "display": "Donald Duck ",\n        "reference": "Patient/1"\n    }\n}	2019-05-03 10:46:12.433849
 7	{\n    "status": "completed",\n    "category": {\n        "coding": [\n            {\n                "code": "outpatient",\n                "system": "http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-category",\n                "display": "Outpatient"\n            }\n        ]\n    },\n\t"medicationCodeableConcept": {\n        "coding": [\n            {\n                "system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n                "code": "314231",\n                "display": "Simvastatin 10 MG Oral Tablet"\n            }\n        ]\n    },\n    "performer": [\n        {\n            "actor": {\n                "reference": "Practitioner/1"\n            }\n        }\n    ],\n    "whenPrepared": "2016-04-15",\n    "resourceType": "MedicationDispense",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: meddisp0303</p><p><b>contained</b>: </p><p><b>partOf</b>: <a>Procedure/biopsy</a></p><p><b>status</b>: on-hold</p><p><b>statusReason</b>: <a>DetectedIssue/allergy</a></p><p><b>category</b>: Outpatient <span>(Details : {http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-category code 'outpatient' = 'Outpatient', given as 'Outpatient'})</span></p><p><b>medication</b>: id: med0310; Oxycodone Hydrochloride 5mg oral tablet (Roxicodone <span>(Details : {RxNorm code '1049623' = 'ROXICODONE 5 MG Oral Tablet', given as 'Oxycodone Hydrochloride 5mg oral tablet (Roxicodone'})</span></p><p><b>subject</b>: <a>Donald Duck</a></p><p><b>context</b>: <a>Encounter/f001</a></p><h3>Performers</h3><table><tr><td>-</td><td><b>Actor</b></td></tr><tr><td>*</td><td><a>Practitioner/f006</a></td></tr></table><p><b>authorizingPrescription</b>: <a>MedicationRequest/medrx0310</a></p><p><b>type</b>: Emergency Supply <span>(Details : {http://terminology.hl7.org/CodeSystem/v3-ActCode code 'EM' = 'Emergency Supply', given as 'Emergency Supply'})</span></p><p><b>quantity</b>: 30 TAB<span> (Details: http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm code TAB = 'Tablet')</span></p><p><b>daysSupply</b>: 10 Day<span> (Details: UCUM code d = 'd')</span></p><p><b>whenPrepared</b>: 15/04/2016 7:14:00 AM</p><p><b>dosageInstruction</b>: </p><p><b>detectedIssue</b>: <a>DetectedIssue/allergy</a></p></div>"\n    },\n    "daysSupply": {\n        "code": "d",\n        "value": 10,\n        "unit": "Day",\n        "system": "http://unitsofmeasure.org"\n    },\n    "authorizingPrescription": [\n        {\n            "reference": "MedicationRequest/medrx0310"\n        }\n    ],\n    "subject": {\n        "display": "Donald Duck",\n        "reference": "Patient/1"\n    },\n    "id": "7",\n    "dosageInstruction": [\n        {\n            "timing": {\n                "repeat": {\n                    "frequency": 2,\n                    "boundsPeriod": {\n                        "start": "2015-04-05",\n                        "end": "2016-04-05"\n                    },\n                    "period": 1,\n                    "periodUnit": "d"\n                }\n            },\n            "text": "40mg (4 tablets) by mouth once daily",\n            "route": {\n                "coding": [\n                    {\n                        "code": "C38288"\n                    }\n                ]\n            }\n        },\n        {\n            "sequence": 1,\n            "additionalInstruction": [\n                {\n                    "coding": [\n                        {\n                            "code": "418914006",\n                            "system": "http://snomed.info/sct",\n                            "display": "Warning. May cause drowsiness. If affected do not drive or operate machinery. Avoid alcoholic drink (qualifier value)"\n                        }\n                    ]\n                }\n            ],\n            "text": "one to two tablets every 4-6 hours as needed for rib pain",\n            "route": {\n                "coding": [\n                    {\n                        "code": "26643006",\n                        "system": "http://snomed.info/sct",\n                        "display": "Oral Route"\n                    }\n                ]\n            },\n            "asNeededCodeableConcept": {\n                "coding": [\n                    {\n                        "code": "297217002",\n                        "system": "http://snomed.info/sct",\n                        "display": "Rib Pain (finding)"\n                    }\n                ]\n            },\n            "timing": {\n                "repeat": {\n                    "frequency": 1,\n                    "periodUnit": "h",\n                    "period": 4,\n                    "periodMax": 6\n                }\n            },\n            "method": {\n                "coding": [\n                    {\n                        "code": "421521009",\n                        "system": "http://snomed.info/sct",\n                        "display": "Swallow - dosing instruction imperative (qualifier value)"\n                    }\n                ]\n            }\n        }\n    ],\n    "contained": [\n        {\n            "resourceType": "Medication",\n            "code": {\n                "coding": [\n                    {\n                        "code": "1049623",\n                        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n                        "display": "Oxycodone Hydrochloride 5mg oral tablet (Roxicodone"\n                    }\n                ]\n            },\n            "id": "med0310"\n        }\n    ],\n    "medicationReference": {\n        "reference": "1"\n    },\n    "meta": {\n        "versionId": "1"\n    },\n    "context": {\n        "reference": "Encounter/1"\n    },\n    "statusReasonReference": {\n        "reference": "DetectedIssue/allergy"\n    },\n    "identifier": [\n        {\n            "system": "https://sitenv.org",\n            "value": "6677"\n        }\n    ],\n    "type": {\n        "coding": [\n            {\n                "code": "EM",\n                "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",\n                "display": "Emergency Supply"\n            }\n        ]\n    },\n    "detectedIssue": [\n        {\n            "reference": "DetectedIssue/allergy"\n        }\n    ],\n    "partOf": [\n        {\n            "reference": "Procedure/biopsy"\n        }\n    ],\n    "quantity": {\n        "code": "TAB",\n        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",\n        "value": 30\n    }\n}	2019-04-03 06:39:21.833859
@@ -2190,7 +2168,7 @@ COPY medicationdispense (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: medicationrequest; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY medicationrequest (id, data, last_updated_ts) FROM stdin;
+COPY public.medicationrequest (id, data, last_updated_ts) FROM stdin;
 4	{\n  "resourceType": "MedicationRequest",\n  "id": "4",\n   "meta": {\n"versionId": "1"\n},\n  "contained": [\n    {\n      "resourceType": "Medication",\n      "id": "4",\n      "code": {\n        "coding": [\n          {\n            "system": "http://www.nlm.nih.gov/research/umls/rxnorm",\n            "code": "308047",\n            "display": "Alprazolam 0.25mg Oral Tablet"\n          }\n        ]\n      }\n    }\n  ],\n  "identifier": [\n    {\n      "use": "official",\n      "system": "http://www.bmc.nl/portal/prescriptions",\n      "value": "12345689"\n    }\n  ],\n  "status": "completed",\n  "intent": "order",\n  "medicationReference": {\n    "reference": "Medication/4"\n  },\n  "subject": {\n    "reference": "Patient/4",\n    "display": "Williams Joshua"\n  },\n  "encounter": {\n    "reference": "Encounter/4",\n    "display": "encounter who leads to this prescription"\n  },\n  "authoredOn": "2015-01-15",\n  "requester": {\n    "reference": "Practitioner/4",\n    "display": "Ross Joseph"\n  },\n  "dosageInstruction": [\n    {\n      "sequence": 1,\n      "text": "0.25mg PO every 6-12 hours as needed for menses from Jan 15-20, 2015.  Do not exceed more than 4mg per day",\n      "additionalInstruction": [\n        {\n          "coding": [\n            {\n              "system": "http://snomed.info/sct",\n              "code": "418914006",\n              "display": "Warning. May cause drowsiness. If affected do not drive or operate machinery. Avoid alcoholic drink (qualifier value)"\n            }\n          ]\n        }\n      ],\n      "timing": {\n        "repeat": {\n          "boundsPeriod": {\n            "start": "2015-01-15",\n            "end": "2015-01-20"\n          },\n          "frequency": 1,\n          "period": 6,\n          "periodMax": 12,\n          "periodUnit": "h"\n        }\n      },\n      "asNeededCodeableConcept": {\n        "coding": [\n          {\n            "system": "http://snomed.info/sct",\n            "code": "266599000",\n            "display": "Dysmenorrhea (disorder)"\n          }\n        ]\n      },\n      "route": {\n        "coding": [\n          {\n            "system": "http://snomed.info/sct",\n            "code": "26643006",\n            "display": "Oral Route"\n          }\n        ]\n      },\n      "doseAndRate": [\n        {\n          "type": {\n            "coding": [\n              {\n                "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",\n                "code": "ordered",\n                "display": "Ordered"\n              }\n            ]\n          },\n          "doseQuantity": {\n            "value": 1,\n            "unit": "TAB",\n            "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",\n            "code": "TAB"\n          }\n        }\n      ],\n      "maxDosePerAdministration": {\n        "value": 4,\n        "unit": "mg",\n        "system": "http://unitsofmeasure.org",\n        "code": "mg"\n      }\n    }\n  ],\n  "dispenseRequest": {\n    "validityPeriod": {\n      "start": "2015-01-15",\n      "end": "2016-01-15"\n    },\n    "numberOfRepeatsAllowed": 1,\n    "quantity": {\n      "value": 30,\n      "unit": "TAB",\n      "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",\n      "code": "TAB"\n    },\n    "expectedSupplyDuration": {\n      "value": 10,\n      "unit": "days",\n      "system": "http://unitsofmeasure.org",\n      "code": "d"\n    }\n  },\n  "substitution": {\n    "allowedBoolean": true,\n    "reason": {\n      "coding": [\n        {\n          "system": "http://terminology.hl7.org/CodeSystem/v3-ActReason",\n          "code": "FP",\n          "display": "formulary policy"\n        }\n      ]\n    }\n  }\n}	2019-03-29 10:10:22.806547
 3	{\r\n  "resourceType": "MedicationRequest",\r\n  "id": "3",\r\n   "meta": {\r\n"versionId": "1"\r\n},\r\n  "contained": [\r\n    {\r\n      "resourceType": "Medication",\r\n      "id": "3",\r\n      "code": {\r\n        "coding": [\r\n          {\r\n            "system": "http://snomed.info/sct",\r\n            "code": "324689003",\r\n            "display": "Nystatin 100,000 units/ml oral suspension (product)"\r\n          }\r\n        ]\r\n      }\r\n    }\r\n  ],\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "system": "http://www.bmc.nl/portal/prescriptions",\r\n      "value": "12345689"\r\n    }\r\n  ],\r\n  "status": "completed",\r\n  "intent": "order",\r\n  "medicationReference": {\r\n    "reference": "Medication/3",\r\n    "display": "Nystatin 100,000 u/ml oral suspension"\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/3",\r\n    "display": "Allen Carol"\r\n  },\r\n  "authoredOn": "2015-01-15",\r\n  "requester": {\r\n    "reference": "Practitioner/3",\r\n    "display": "Clark Susan"\r\n  },\r\n  "dosageInstruction": [\r\n    {\r\n      "sequence": 1,\r\n      "text": "10 drops four times daily - apply in mouth using cotton swab or finger",\r\n      "timing": {\r\n        "repeat": {\r\n          "frequency": 4,\r\n          "period": 1,\r\n          "periodUnit": "d"\r\n        }\r\n      },\r\n      "doseAndRate": [\r\n        {\r\n          "type": {\r\n            "coding": [\r\n              {\r\n                "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",\r\n                "code": "ordered",\r\n                "display": "Ordered"\r\n              }\r\n            ]\r\n          },\r\n          "doseQuantity": {\r\n            "value": 10,\r\n            "unit": "drop",\r\n            "system": "http://unitsofmeasure.org",\r\n            "code": "drop"\r\n          }\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "dispenseRequest": {\r\n    "validityPeriod": {\r\n      "start": "2015-01-15",\r\n      "end": "2016-01-15"\r\n    },\r\n    "numberOfRepeatsAllowed": 3,\r\n    "quantity": {\r\n      "value": 10,\r\n      "unit": "ml",\r\n      "system": "http://unitsofmeasure.org",\r\n      "code": "ml"\r\n    },\r\n    "expectedSupplyDuration": {\r\n      "value": 10,\r\n      "unit": "days",\r\n      "system": "http://unitsofmeasure.org",\r\n      "code": "d"\r\n    }\r\n  }\r\n}	2019-03-29 10:09:12.413163
 6	{\n  "resourceType": "MedicationRequest",\n  "id": "6",\n  "meta": {\n"versionId": "1"\n},\n  "contained": [\n    {\n      "resourceType": "Medication",\n      "id": "6",\n      "code": {\n        "coding": [\n          {\n            "system": "http://hl7.org/fhir/sid/ndc",\n            "code": "50580-506-02",\n            "display": "Tylenol PM"\n          }\n        ]\n      }\n    }\n  ],\n  "identifier": [\n    {\n      "use": "official",\n      "system": "http://www.bmc.nl/portal/prescriptions",\n      "value": "12345689"\n    }\n  ],\n  "status": "active",\n  "intent": "order",\n  "medicationReference": {\n    "reference": "Medication/6"\n  },\n  "subject": {\n    "reference": "Patient/6",\n    "display": "Clark Amy"\n  },\n  "encounter": {\n    "reference": "Encounter/6",\n    "display": "encounter who leads to this prescription"\n  },\n  "authoredOn": "2015-01-15",\n  "requester": {\n    "reference": "Practitioner/6",\n    "display": "Williams Ward"\n  },\n  "dosageInstruction": [\n    {\n      "sequence": 1,\n      "text": "Take 1-2 tablets once daily at bedtime as needed for restless legs",\n      "additionalInstruction": [\n        {\n          "text": "Take at bedtime"\n        }\n      ],\n      "timing": {\n        "repeat": {\n          "frequency": 1,\n          "period": 1,\n          "periodUnit": "d"\n        }\n      },\n      "asNeededCodeableConcept": {\n        "coding": [\n          {\n            "system": "http://snomed.info/sct",\n            "code": "32914008",\n            "display": "Restless Legs"\n          }\n        ]\n      },\n      "route": {\n        "coding": [\n          {\n            "system": "http://snomed.info/sct",\n            "code": "26643006",\n            "display": "Oral Route"\n          }\n        ]\n      },\n      "doseAndRate": [\n        {\n          "type": {\n            "coding": [\n              {\n                "system": "http://terminology.hl7.org/CodeSystem/dose-rate-type",\n                "code": "ordered",\n                "display": "Ordered"\n              }\n            ]\n          },\n          "doseRange": {\n            "low": {\n              "value": 1,\n              "unit": "TAB",\n              "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",\n              "code": "TAB"\n            },\n            "high": {\n              "value": 2,\n              "unit": "TAB",\n              "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",\n              "code": "TAB"\n            }\n          }\n        }\n      ]\n    }\n  ]\n}	2019-04-30 10:18:43.320519
@@ -2210,7 +2188,7 @@ COPY medicationrequest (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: medicationstatement; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY medicationstatement (id, data, last_updated_ts) FROM stdin;
+COPY public.medicationstatement (id, data, last_updated_ts) FROM stdin;
 8	{\n  "resourceType": "MedicationStatement",\n  "id": "8",\n  "meta": {\n    "versionId": "1",\n    "lastUpdated": "2019-04-07T16:06:16.783+00:00"\n  },\n  "text": {\n    "status": "generated" },"category": {\n        "coding": [\n            {\n                "system": "http://hl7.org/fhir/medication-statement-category",\n                "code": "inpatient",\n                "display": "Inpatient"\n            }\n        ]\n    },\n  "status": "active",\n\t"reasonCode": [\n        {\n            "coding": [\n                {\n                    "system": "http://snomed.info/sct",\n                    "code": "32914008",\n                    "display": "Restless Legs"\n                }\n            ]\n        }\n    ],\n  "medicationCodeableConcept": {\n    "coding": [\n      {\n        "system": "http://snomed.info/ct",\n        "code": "442160008",\n        "display": "zolpidem 5mg sublingual tablet"\n      }\n    ],\n    "text": "zolpidem 5mg sublingual tablet"\n  },\n  "identifier": [\n        {\n            "system": "https://sitenv.org",\n            "value": "7707"\n        }\n    ],\n  "subject": {\n    "reference": "Patient/8"\n  },\n  "effectiveDateTime": "2019-02-16",\n  "dosage": [\n        {\n            "timing": {\n                "repeat": {\n                    "frequency": 2,\n                    "period": 1,\n                    "periodUnit": "d"\n                }\n            },\n            "route": {\n                "coding": [\n                    {\n                        "code": "C38192",\n                        "display": "AURICULAR"\n                    }\n                ]\n            }\n        }\n    ]\n}	2019-05-03 09:55:10.158427
 7	{\n  "resourceType": "MedicationStatement",\n  "id": "7",\n  "meta": {\n    "versionId": "1",\n    "lastUpdated": "2019-04-07T16:19:30.507+00:00"\n  },\n  "text": {\n    "status": "generated"},\n  "category": {\n        "coding": [\n            {\n                "system": "http://hl7.org/fhir/medication-statement-category",\n                "code": "inpatient",\n                "display": "Inpatient"\n            }\n        ]\n    },\n  "status": "active",\n  "medicationCodeableConcept": {\n    "coding": [\n      {\n        "system": "http://snomed.info/ct",\n        "code": "329839005",\n        "display": "naproxen 500mg e/c tablet"\n      }\n    ],\n    "text": "naproxen 500mg e/c tablet"\n  },\n  "subject": {\n    "reference": "Patient/7"\n  },\n  "identifier": [\n        {\n            "system": "https://sitenv.org",\n            "value": "7706"\n        }\n    ],\n    "reasonCode": [\n        {\n            "coding": [\n                {\n                    "system": "http://snomed.info/sct",\n                    "code": "32914008",\n                    "display": "Restless Legs"\n                }\n            ]\n        }\n    ],\n  "effectiveDateTime": "2016-04-23",\n  "dosage": [\n        {\n            "timing": {\n                "repeat": {\n                    "frequency": 2,\n                    "period": 1,\n                    "periodUnit": "d"\n                }\n            },\n            "route": {\n                "coding": [\n                    {\n                        "code": "C38192",\n                        "display": "AURICULAR"\n                    }\n                ]\n            }\n        }\n    ]\n}	2019-04-05 06:56:57.0627
 3	{\r\n    "status": "active",\r\n    "dateAsserted": "2015-02-22",\r\n    "note": [\r\n        {\r\n            "text": "Patient indicates they miss the occasional dose"\r\n        }\r\n    ],\r\n\t "identifier": [\r\n        {\r\n            "system": "https://sitenv.org",\r\n            "value": "7702"\r\n        }\r\n    ],\r\n    "resourceType": "MedicationStatement",\r\n    "text": {\r\n        "status": "generated"},\r\n    "dosage": [\r\n        {\r\n            "timing": {\r\n                "repeat": {\r\n                    "frequency": 2,\r\n                    "period": 1,\r\n                    "periodUnit": "d"\r\n                }\r\n            },\r\n            "route": {\r\n                "coding": [\r\n                    {\r\n                        "code": "C38192",\r\n                        "display": "AURICULAR"\r\n                    }\r\n                ]\r\n            }\r\n        }\r\n    ],\r\n    "informationSource": {\r\n        "display": "Allen Carol",\r\n        "reference": "Patient/3"\r\n    },\r\n    "meta": {\r\n        "versionId": "1"\r\n    },\r\n\t"medicationReference": {\r\n        "reference": "Medication/3"\r\n    },\r\n    "medicationCodeableConcept": {\r\n        "coding": [\r\n            {\r\n                "code": "27658006",\r\n                "system": "http://snomed.info/sct",\r\n                "display": "Amoxicillin (product)"\r\n            }\r\n        ]\r\n    },\r\n\t\r\n\t"category": {\r\n        "coding": [\r\n            {\r\n                "system": "http://hl7.org/fhir/medication-statement-category",\r\n                "code": "inpatient",\r\n                "display": "Inpatient"\r\n            }\r\n        ]\r\n    },\r\n    "reasonCode": [\r\n        {\r\n            "coding": [\r\n                {\r\n                    "code": "65363002",\r\n                    "system": "http://snomed.info/sct",\r\n                    "display": "Otitis Media"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    "effectiveDateTime": "2014-01-23",\r\n    "id": "3",\r\n    "partOf": [\r\n        {\r\n            "reference": "Observation/3"\r\n        }\r\n    ],\r\n    "subject": {\r\n        "display": "Allen Carol",\r\n        "reference": "Patient/3"\r\n    }\r\n}	2019-04-03 14:50:41.998771
@@ -2230,7 +2208,7 @@ COPY medicationstatement (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: observation; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY observation (id, data, last_updated_ts) FROM stdin;
+COPY public.observation (id, data, last_updated_ts) FROM stdin;
 4	{\n"resourceType": "Observation",\n"id": "4",\n"meta": {\n"versionId": "1"\n},\n"identifier": [\n  {\n"system": "https://sitenv.org",\n"value": "7755"\n}\n],\n"status": "final",\n"category": [\n  {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/observation-category",\n"code": "vital-signs",\n"display": "VItal Signs"\n}\n]\n}\n],\n"code": {\n"coding": [\n  {\n"system": "http://loinc.org",\n"code": "8867-4",\n"display": "Heart rate"\n}\n],\n"text": "Heart rate"\n},\n"subject": {\n"reference": "Patient/4"\n},\n"effectiveDateTime": "2016-05-18T00:00:00+05:30",\n"referenceRange": [\n  {\n"low": {\n"value": 7.5,\n"unit": "g/dl",\n"system": "http://unitsofmeasure.org",\n"code": "g/dL"\n},\n"high": {\n"value": 10,\n"unit": "g/dl",\n"system": "http://unitsofmeasure.org",\n"code": "g/dL"\n}\n}\n],\n"component": [\n  {\n"code": {\n"coding": [\n  {\n"system": "http://loinc.org",\n"code": "8867-4",\n"display": "Heart rate"\n}\n],\n"text": "Heart rate"\n},\n"valueQuantity": {\n"value": 70,\n"unit": "/min",\n"system": "http://unitsofmeasure.org",\n"code": "/min"\n}\n}\n]\n}	2019-03-27 10:07:30.420444
 9	{\n"resourceType": "Observation",\n"id": "9",\n"meta": {\n"versionId": "1"\n},\n"identifier": [\n  {\n"system": "https://sitenv.org",\n"value": "6969"\n}\n],\n"status": "final",\n"category": [\n  {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/observation-category",\n"code": "laboratory",\n"display": "Laboratory"\n}\n]\n}\n],\n"code": {\n"coding": [\n  {\n"system": "http://loinc.org",\n"code": "59576-9",\n"display": "Ketones [Presence] in Urine by Test strip"\n}\n],\n"text": "Ketones"\n},\n"subject": {\n"reference": "Patient/9"\n},\n"effectiveDateTime": "2018-03-11T00:00:00+05:30",\n"valueQuantity": {\n"value": 40,\n"unit": "mg/dL",\n"system": "http://unitsofmeasure.org"\n}\n}	2019-04-30 04:11:59.960899
 10	{\n"resourceType": "Observation",\n"id": "10",\n"meta": {\n"versionId": "1"\n},\n"identifier": [\n  {\n"system": "https://sitenv.org",\n"value": "6899"\n}\n],\n"status": "final",\n"category": [\n  {\n"coding": [\n  {\n"system": "http://hl7.org/fhir/observation-category",\n"code": "laboratory",\n"display": "Laboratory"\n}\n]\n}\n],\n"code": {\n"coding": [\n  {\n"system": "http://loinc.org",\n"code": "59576-9",\n"display": "Base excess Bld-sCnc"\n}\n],\n"text": "Base excess Bld-sCnc"\n},\n"subject": {\n"reference": "Patient/10"\n},\n"effectiveDateTime": "2018-04-02T00:00:00+05:30",\n"valueQuantity": {\n"value": 109,\n"unit": "mmHg",\n"system": "http://unitsofmeasure.org"\n}\n}	2019-04-30 04:11:59.960899
@@ -2250,7 +2228,7 @@ COPY observation (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: organization; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY organization (id, data, last_updated_ts) FROM stdin;
+COPY public.organization (id, data, last_updated_ts) FROM stdin;
 12	{\r\n    "endpoint": [\r\n        {\r\n            "reference": "Endpoint/example"\r\n        }\r\n    ],\r\n    "name": "Health Level Seven International",\r\n    "alias": [\r\n        "HL7 International"\r\n    ],\r\n    "resourceType": "Organization",\r\n\t"meta":{\r\n\t"versionId":"1"\r\n\t},\r\n    "text": {\r\n        "status": "generated",\r\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n      Health Level Seven International\\n      <br/>\\n\\t\\t\\t\\t3300 Washtenaw Avenue, Suite 227\\n      <br/>\\n\\t\\t\\t\\tAnn Arbor, MI 48104\\n      <br/>\\n\\t\\t\\t\\tUSA\\n      <br/>\\n\\t\\t\\t\\t(+1) 734-677-7777 (phone)\\n      <br/>\\n\\t\\t\\t\\t(+1) 734-677-6622 (fax)\\n      <br/>\\n\\t\\t\\t\\tE-mail:  \\n      <a href=\\"mailto:hq@HL7.org\\">hq@HL7.org</a>\\n    \\n    </div>"\r\n    },\r\n    "telecom": [\r\n        {\r\n    "system": "phone",\r\n    "value": "(+1) 734-677-7777"\r\n},\r\n        {\r\n            "system": "fax",\r\n            "value": "(+1) 734-677-6622"\r\n        },\r\n        {\r\n            "system": "email",\r\n            "value": "hq@HL7.org"\r\n        }\r\n    ],\r\n    "address": [\r\n        \r\n    {\r\n    "postalCode": "48104",\r\n    "city": "Ann Arbor",\r\n    "line": ["3300 Washtenaw Avenue, Suite 227"],\r\n    "state": "MI",\r\n    "country": "USA"\r\n}\r\n    ],\r\n    "active": true,\r\n    "identifier": [\r\n        {\r\n    "use": "official",\r\n    "system": "urn:oid:2.16.528.1",\r\n    "value": "91654"\r\n}\r\n    ],\r\n    "id": "10"\r\n}	2019-03-20 05:25:04.626874
 7	{\r\n    "name": "Burgers UMC Cardiology unit",\r\n    "resourceType": "Organization",\r\n    "text": {\r\n        "status": "generated",\r\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: f002</p><p><b>active</b>: true</p><p><b>type</b>: Hospital Department <span>(Details : {http://terminology.hl7.org/CodeSystem/organization-type code 'dept' = 'Hospital Department', given as 'Hospital Department'})</span></p><p><b>name</b>: Burgers UMC Cardiology unit</p><p><b>telecom</b>: ph: 022-655 2320</p><p><b>address</b>: South Wing, floor 2 </p><p><b>partOf</b>: <a>Organization/f001</a></p><h3>Contacts</h3><table><tr><td>-</td><td><b>Purpose</b></td><td><b>Name</b></td><td><b>Telecom</b></td><td><b>Address</b></td></tr><tr><td>*</td><td>Administrative <span>(Details : {http://terminology.hl7.org/CodeSystem/contactentity-type code 'ADMIN' = 'Administrative)</span></td><td>mevr. D. de Haan</td><td>ph: 022-655 2321</td><td>South Wing, floor 2 </td></tr></table></div>"\r\n    },\r\n    "telecom": [\r\n        {\r\n            "system": "phone",\r\n            "value": "022-655 2320"\r\n        }\r\n    ],\r\n    "contact": [\r\n        {\r\n            "telecom": [\r\n                {\r\n                    "system": "phone",\r\n                    "value": "022-655 2321"\r\n                },\r\n                {\r\n                    "system": "email",\r\n                    "value": "cardio@burgersumc.nl"\r\n                },\r\n                {\r\n                    "system": "fax",\r\n                    "value": "022-655 2322"\r\n                }\r\n            ],\r\n            "purpose": {\r\n                "coding": [\r\n                    {\r\n                        "code": "ADMIN",\r\n                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type"\r\n                    }\r\n                ]\r\n            },\r\n            "name": {\r\n                "text": "mevr. D. de Haan"\r\n            },\r\n            "address": {\r\n                "line": [\r\n                    "South Wing, floor 2"\r\n                ]\r\n            }\r\n        }\r\n    ],\r\n    "address": [\r\n        {\r\n            "line": [\r\n                "South Wing, floor 2"\r\n            ]\r\n        }\r\n    ],\r\n    "active": true,\r\n    "identifier": [\r\n        {\r\n            "system": "urn:oid:2.16.840.1.113883.3.19.2.3",\r\n            "value": "666666"\r\n        }\r\n    ],\r\n    "type": [\r\n        {\r\n            "coding": [\r\n                {\r\n                    "code": "dept",\r\n                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",\r\n                    "display": "Hospital Department"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n\t"meta":{\r\n\t"versionId":"1"\r\n\t},\r\n    "id": "3",\r\n    "partOf": {\r\n        "reference": "Organization/f001"\r\n    }\r\n}	2019-03-15 07:37:59.498212
 4	{\r\n    "resourceType": "Organization",\r\n    "endpoint": [\r\n        {\r\n            "reference": "Endpoint/example"\r\n        }\r\n    ],\r\n    "name": "Good Health Clinic",\r\n\t"meta":{\r\n\t\t"versionId":"1"\r\n\t},\r\n    "telecom": [\r\n        {\r\n            "system": "phone",\r\n            "value": "(+1) 734-677-7777"\r\n        },\r\n        {\r\n            "system": "fax",\r\n            "value": "(+1) 734-677-6622"\r\n        },\r\n        {\r\n            "system": "email",\r\n            "value": "hq@HL7.org"\r\n        }\r\n    ],\r\n    "text": {\r\n        "status": "generated",\r\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n      Health Level Seven International\\n      <br/>\\n\\t\\t\\t\\t3300 Washtenaw Avenue, Suite 227\\n      <br/>\\n\\t\\t\\t\\tAnn Arbor, MI 48104\\n      <br/>\\n\\t\\t\\t\\tUSA\\n      <br/>\\n\\t\\t\\t\\t(+1) 734-677-7777 (phone)\\n      <br/>\\n\\t\\t\\t\\t(+1) 734-677-6622 (fax)\\n      <br/>\\n\\t\\t\\t\\tE-mail:  \\n      <a href=\\"mailto:hq@HL7.org\\">hq@HL7.org</a>\\n    \\n    </div>"\r\n    },\r\n    "alias": [\r\n        "HL7 International"\r\n    ],\r\n    "address": [\r\n        {\r\n            "postalCode": "48104",\r\n            "city": "Ann Arbor",\r\n            "line": [\r\n                "3300 Washtenaw Avenue, Suite 227"\r\n            ],\r\n            "state": "MI",\r\n            "country": "USA"\r\n        }\r\n    ],\r\n    "active": true,\r\n    "identifier": [\r\n        {\r\n            "system": "urn:ietf:rfc:3986",\r\n            "value": "2.16.840.1.113883.19.5"\r\n        }\r\n    ],\r\n    "type": [\r\n        {\r\n            "coding": [\r\n                {\r\n                    "code": "405608006",\r\n                    "system": "http://snomed.info/sct",\r\n                    "display": "Academic Medical Center"\r\n                },\r\n                {\r\n                    "code": "prov",\r\n                    "system": "http://terminology.hl7.org/CodeSystem/organization-type"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    "id": "2"\r\n}	2019-03-13 06:31:10.85189
@@ -2270,7 +2248,7 @@ COPY organization (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: patient; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY patient (id, data, last_updated_ts) FROM stdin;
+COPY public.patient (id, data, last_updated_ts) FROM stdin;
 6	{\r\n  "resourceType": "Patient",\r\n  "id": "4",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-04-25T02:41:32.130-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joshua Williams</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/v2/0203",\r\n            "code": "MR",\r\n            "display": "Medical Record Number"\r\n          }\r\n        ],\r\n        "text": "Medical Record Number"\r\n      },\r\n      "system": "http://hospital.smarthealthit.org",\r\n      "value": "smart-1137192"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Williams",\r\n      "given": [\r\n        "Joshua",\r\n        "P"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-232-5751",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joshua.williams@example.com"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1954-08-21",\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "96 East Rd"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74108",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "maritalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",\r\n        "code": "M",\r\n        "display": "Married"\r\n      }\r\n    ],\r\n    "text": "Getrouwd"\r\n  },\r\n  "generalPractitioner": [\r\n    {\r\n      "reference": "Practitioner/4"\r\n    }\r\n  ],\r\n  "communication": [\r\n\t{\r\n\t  "language": {\r\n\t\t"coding": [\r\n\t\t  {\r\n\t\t\t"system": "urn:ietf:bcp:47",\r\n\t\t\t"code": "nl",\r\n\t\t\t"display": "Dutch"\r\n\t\t  }\r\n\t\t],\r\n\t\t"text": "Nederlands"\r\n\t  },\r\n\t  "preferred": true\r\n\t}\r\n  ]\r\n}	2019-03-08 04:49:00.226697
 10	{\r\n  "resourceType": "Patient",\r\n  "id": "8",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-04-25T02:41:52.695-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Richard Robinson</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/v2/0203",\r\n            "code": "MR",\r\n            "display": "Medical Record Number"\r\n          }\r\n        ],\r\n        "text": "Medical Record Number"\r\n      },\r\n      "system": "http://hospital.smarthealthit.org",\r\n      "value": "smart-1685497"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Robinson",\r\n      "given": [\r\n        "Richard",\r\n        "R"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-123-3873",\r\n      "use": "home"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "richard.robinson@example.com"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1969-10-21",\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "88 Hill Rd"\r\n      ],\r\n      "city": "Broken Arrow",\r\n      "state": "OK",\r\n      "postalCode": "74014",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "maritalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",\r\n        "code": "M",\r\n        "display": "Married"\r\n      }\r\n    ],\r\n    "text": "Getrouwd"\r\n  },\r\n  "generalPractitioner": [\r\n    {\r\n      "reference": "Practitioner/8"\r\n    }\r\n  ],\r\n  "communication": [\r\n\t{\r\n\t  "language": {\r\n\t\t"coding": [\r\n\t\t  {\r\n\t\t\t"system": "urn:ietf:bcp:47",\r\n\t\t\t"code": "nl",\r\n\t\t\t"display": "Dutch"\r\n\t\t  }\r\n\t\t],\r\n\t\t"text": "Nederlands"\r\n\t  },\r\n\t  "preferred": true\r\n\t}\r\n  ]\r\n}	2019-03-14 01:40:15.310919
 13	{\r\n  "resourceType": "Patient",\r\n  "id": "5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8",\r\n  "meta": {\r\n    "versionId": "2",\r\n    "lastUpdated": "2018-04-25T02:41:21.772-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Emilie407 Cole117</div>"\r\n  },\r\n \t"identifier": [\r\n\t\t{\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "MC",\r\n\t\t\t\t\t\t"display": "Patient's Medicare number"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t"text": "Patient's Medicare number"\r\n\t\t\t},\r\n\t\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t\t"value": "54321"\r\n\t\t},\r\n\t\t{\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "MA",\r\n\t\t\t\t\t\t"display": "Patient Medicaid number"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t"text": "Patient Medicaid number"\r\n\t\t\t},\r\n\t\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t\t"value": "09876"\r\n\t\t},\r\n\t\t{\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "MR",\r\n\t\t\t\t\t\t"display": "Medical record number"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t"text": "Medical record number"\r\n\t\t\t},\r\n\t\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t\t"value": "56565"\r\n\t\t},\r\n\t\t{\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "MB",\r\n\t\t\t\t\t\t"display": "Member Number"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t"text": "Member Number"\r\n\t\t\t},\r\n\t\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t\t"value": "909012"\r\n\t\t},\r\n\t\t{\r\n\t\t\t"type": {\r\n\t\t\t\t"coding": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t\t"code": "SS",\r\n\t\t\t\t\t\t"display": "Social Security number"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t"text": "Social Security number"\r\n\t\t\t},\r\n\t\t\t"system": "http://hospital.smarthealthit.org",\r\n\t\t\t"value": "321456"\r\n\t\t}\r\n\t],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Cole117",\r\n      "given": [\r\n        "Emilie407"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "31612345678",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "phone",\r\n      "value": "31201234567",\r\n      "use": "home"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1950-07-06",\r\n  "deceasedBoolean": false,\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "Bos en Lommerplein 280"\r\n      ],\r\n      "city": "Amsterdam",\r\n      "state":"RJ",\r\n      "postalCode": "1055",\r\n      "country": "NLD"\r\n    }\r\n  ],\r\n  "maritalStatus": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "36629006",\r\n        "display": "Legally married"\r\n      },\r\n      {\r\n        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",\r\n        "code": "M"\r\n      }\r\n    ]\r\n  },\r\n  "communication": [\r\n    {\r\n      "language": {\r\n        "coding": [\r\n          {\r\n            "system": "urn:ietf:bcp:47",\r\n            "code": "nl",\r\n            "display": "Dutch"\r\n          }\r\n        ],\r\n        "text": "Nederlands"\r\n      },\r\n      "preferred": true\r\n    }\r\n  ]\r\n}	2019-05-02 13:11:35.369643
@@ -2291,7 +2269,7 @@ COPY patient (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: patient_json; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY patient_json (id, birth_date, full_name) FROM stdin;
+COPY public.patient_json (id, birth_date, full_name) FROM stdin;
 \.
 
 
@@ -2299,7 +2277,7 @@ COPY patient_json (id, birth_date, full_name) FROM stdin;
 -- Data for Name: plandefinition; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY plandefinition (id, data, last_updated_ts) FROM stdin;
+COPY public.plandefinition (id, data, last_updated_ts) FROM stdin;
 \.
 
 
@@ -2307,24 +2285,20 @@ COPY plandefinition (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: practitioner; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY practitioner (id, data, last_updated_ts) FROM stdin;
-3	{\r\n  "resourceType": "Practitioner",\r\n  "id": "3",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-03-06T03:07:57.934-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Susan Clark</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-ssn",\r\n      "value": "000-00-0003"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Clark",\r\n      "given": [\r\n        "Susan",\r\n        "A"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-576-9327",\r\n      "use": "home"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "susan.clark@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "52 Highland St"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "MA",\r\n      "postalCode": "74116",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "female",\r\n  "birthDate": "1970-12-27"\r\n}	2019-03-08 05:00:05.084858
-5	{\r\n  "resourceType": "Practitioner",\r\n  "id": "5",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-03-20T04:10:54.513-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Michelle Schmidt</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-ssn",\r\n      "value": "000-00-0001"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Schmidt",\r\n      "given": [\r\n        "Michelle",\r\n        "H"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n  {\r\n      "system": "phone",\r\n      "value": "31715269111",\r\n      "use": "home"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "kevin.lee@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "80 Mill StApt 21"\r\n      ],\r\n      "city": "Sand Springs",\r\n      "state": "OK",\r\n      "postalCode": "74063",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1997-07-15"\r\n}	2019-03-08 05:02:57.580395
-6	{\n  "resourceType": "Practitioner",\n  "id": "6",\n  "meta": {\n    "versionId": "1",\n    "lastUpdated": "2019-04-27T06:20:42.410-04:00",\n    "tag": [\n      {\n        "system": "https://smarthealthit.org/tags",\n        "code": "smart-7-2017"\n      }\n    ]\n  },\n  "text": {\n    "status": "generated",\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Ward Williams</div>"\n  },\n  "identifier": [\n    {\n      "use": "official",\n      "type": {\n        "coding": [\n          {\n            "system": "http://hl7.org/fhir/identifier-type",\n            "code": "SB",\n            "display": "Social Beneficiary Identifier"\n          }\n        ],\n        "text": "US Social Security Number"\n      },\n      "system": "http://hl7.org/fhir/sid/us-ssn",\n      "value": "000-00-0002"\n    }\n  ],\n  "active": true,\n  "name": [\n    {\n      "use": "official",\n      "family": "Williams",\n      "given": [\n        "Ward",\n        "N"\n      ],\n      "suffix": [\n        "MD"\n      ]\n    }\n  ],\n  "telecom": [\n    {\n      "system": "phone",\n      "value": "800-651-2242",\n      "use": "home"\n    },\n    {\n      "system": "phone",\n      "value": "800-471-8810",\n      "use": "mobile"\n    },\n    {\n      "system": "email",\n      "value": "susan.williams@example.com"\n    }\n  ],\n  "address": [\n    {\n      "use": "home",\n      "line": [\n        "27 South Ave"\n      ],\n      "city": "Tulsa",\n      "state": "OK",\n      "postalCode": "74126",\n      "country": "USA"\n    }\n  ],\n  "gender": "female",\n  "birthDate": "1996-11-22"\n}	2019-03-08 05:05:33.397275
+COPY public.practitioner (id, data, last_updated_ts) FROM stdin;
 8	{\r\n  "resourceType": "Practitioner",\r\n  "id": "8",\r\n  "meta":{\r\n  "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: f002</p><p><b>identifier</b>: 730291637 (OFFICIAL), 174BIP3JH438 (USUAL)</p><p><b>name</b>: Pieter Voigt (OFFICIAL)</p><p><b>telecom</b>: ph: 0205569336(WORK), p.voigt@bmc.nl(WORK), fax: 0205669382(WORK)</p><p><b>address</b>: Galapagosweg 91 Den Burg 9105 PZ NLD (WORK)</p><p><b>gender</b>: male</p><p><b>birthDate</b>: 29/04/1979</p></div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "system": "urn:oid:2.16.528.1.1007.3.1",\r\n      "value": "730291637"\r\n    },\r\n    {\r\n      "use": "usual",\r\n      "system": "urn:oid:2.16.840.1.113883.2.4.6.3",\r\n      "value": "174BIP3JH438"\r\n    }\r\n  ],\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Voigt",\r\n      "given": [\r\n        "Pieter"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "0205569336",\r\n      "use": "work"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "p.voigt@bmc.nl",\r\n      "use": "work"\r\n    },\r\n    {\r\n      "system": "fax",\r\n      "value": "0205669382",\r\n      "use": "work"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "work",\r\n      "line": [\r\n        "Galapagosweg 91"\r\n      ],\r\n      "city": "Den Burg",\r\n      "postalCode": "9105 PZ",\r\n      "country": "NLD"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1979-04-29"\r\n}	2019-03-08 05:07:00.041025
-4	{\r\n  "resourceType": "Practitioner",\r\n  "id": "4",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-04-25T02:41:22.990-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Ross</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-ssn",\r\n      "value": "000-00-0006"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Ross",\r\n      "given": [\r\n        "Joseph",\r\n        "I"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-960-9294",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.ross@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "19 Church StApt 29"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74108",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-10-02"\r\n}	2019-03-08 05:01:36.505461
-11	{\r\n  "resourceType": "Practitioner",\r\n  "id": "1",\r\n  "meta": {\r\n    "versionId": "2",\r\n    "lastUpdated": "2019-03-06T03:07:57.933-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-ssn",\r\n      "value": "000-00-0004"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Nichols",\r\n      "given": [\r\n        "Joseph",\r\n        "P"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-277-1993",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.shaw@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "53 Sunset AveApt 9"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74126",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-12-14"\r\n}	2019-05-06 09:54:07.674531
 9	{\r\n  "resourceType": "Practitioner",\r\n  "id": "9",\r\n  "meta":{\r\n  "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: f003</p><p><b>identifier</b>: 846100293 (OFFICIAL), 243HID3RT938 (USUAL)</p><p><b>name</b>: Marc Versteegh (OFFICIAL)</p><p><b>telecom</b>: ph: 0205562431(WORK), m.versteegh@bmc.nl(WORK), fax: 0205662948(WORK)</p><p><b>address</b>: Galapagosweg 91 Amsterdam 1105 AZ NLD (WORK)</p><p><b>gender</b>: male</p><p><b>birthDate</b>: 01/07/1963</p><p><b>communication</b>: Dutch <span>(Details : {urn:ietf:bcp:47 code 'nl' = 'Dutch', given as 'Dutch'})</span></p></div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "system": "urn:oid:2.16.528.1.1007.3.1",\r\n      "value": "846100293"\r\n    },\r\n    {\r\n      "use": "usual",\r\n      "system": "urn:oid:2.16.840.1.113883.2.4.6.3",\r\n      "value": "243HID3RT938"\r\n    }\r\n  ],\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Versteegh",\r\n      "given": [\r\n        "Marc"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "0205562431",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "m.versteegh@bmc.nl",\r\n      "use": "work"\r\n    },\r\n    {\r\n      "system": "fax",\r\n      "value": "0205662948",\r\n      "use": "work"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "work",\r\n      "line": [\r\n        "Galapagosweg 91"\r\n      ],\r\n      "city": "Amsterdam",\r\n      "postalCode": "1105 AZ",\r\n      "country": "NLD"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-07-01",\r\n  "communication": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "urn:ietf:bcp:47",\r\n          "code": "nl",\r\n          "display": "Dutch"\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}	2019-05-06 09:52:18.939958
-16	{"resourceType":"Practitioner","id":"21259d08-11a2-4a60-a789-48f0d487acda","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"text":{"status":"generated","div":"<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"},"identifier":[{"system":"http://hl7.org/fhir/sid/us-npi","value":"9941339108"}],"active":true,"name":[{"use":"official","family":"Nichols","given":["Joseph","P"],"suffix":["MD"]}],"telecom":[{"system":"phone","value":"800-277-1993","use":"mobile"},{"system":"email","value":"joseph.shaw@example.com"}],"address":[{"use":"home","line":["53 Sunset AveApt 9"],"city":"Tulsa","state":"OK","postalCode":"74126","country":"USA"}],"gender":"male","birthDate":"1963-12-14"}	2022-07-07 19:06:23.961
-13	{\r\n  "resourceType": "Practitioner",\r\n  "id": "9bf77508-42d8-420f-a371-88ec287cc55d",\r\n  "meta": {\r\n    "versionId": "4",\r\n    "lastUpdated": "2019-03-06T03:07:57.933-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "http://hl7.org/fhir/sid/us-ssn",\r\n      "value": "000-00-0004"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Nichols",\r\n      "given": [\r\n        "Joseph",\r\n        "P"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-277-1993",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.shaw@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "53 Sunset AveApt 9"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74126",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-12-14"\r\n}	2019-05-06 09:54:42.628965
-12	{\r\n  "resourceType": "Practitioner",\r\n  "id": "5a3fc762-edf3-4ada-b6be-9d1d6309d9e1",\r\n  "meta": {\r\n    "versionId": "3",\r\n    "lastUpdated": "2019-03-06T03:07:57.933-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "http://hl7.org/fhir/sid/us-ssn",\r\n      "value": "000-00-0004"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Nichols",\r\n      "given": [\r\n        "Joseph",\r\n        "P"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-277-1993",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.shaw@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "53 Sunset AveApt 9"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74126",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-12-14"\r\n}	2019-05-06 09:54:25.242913
-17	{"resourceType":"Practitioner","id":"a962a17b-1b09-48fd-9a20-4bcd69712d3a","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"text":{"status":"generated","div":"<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"},"identifier":[{"system":"http://hl7.org/fhir/sid/us-npi","value":"9941339108"}],"active":true,"name":[{"use":"official","family":"Nichols","given":["Joseph","P"],"suffix":["MD"]}],"telecom":[{"system":"phone","value":"800-277-1993","use":"mobile"},{"system":"email","value":"joseph.shaw@example.com"}],"address":[{"use":"home","line":["53 Sunset AveApt 9"],"city":"Tulsa","state":"OK","postalCode":"74126","country":"USA"}],"gender":"male","birthDate":"1963-12-14"}	2022-07-18 09:22:36.199
 10	{\r\n  "resourceType": "Practitioner",\r\n  "id": "10",\r\n  "meta":{\r\n  "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: f004</p><p><b>identifier</b>: 118265112 (OFFICIAL), 523ASA1LK927 (USUAL)</p><p><b>name</b>: Ronald Briet (OFFICIAL)</p><p><b>telecom</b>: ph: 0205569273(WORK), r.briet@bmc.nl(WORK), fax: 0205664440(WORK)</p><p><b>address</b>: Galapagosweg 91 Amsterdam 1105 AZ NLD (WORK)</p><p><b>gender</b>: male</p><p><b>birthDate</b>: 04/02/1980</p><p><b>communication</b>: Language <span>(Details : {urn:ietf:bcp:47 code 'nl' = 'Dutch', given as 'Netherlands'})</span></p></div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "system": "urn:oid:2.16.528.1.1007.3.1",\r\n      "value": "118265112"\r\n    },\r\n    {\r\n      "use": "usual",\r\n      "system": "urn:oid:2.16.840.1.113883.2.4.6.3",\r\n      "value": "523ASA1LK927"\r\n    }\r\n  ],\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Briet",\r\n      "given": [\r\n        "Ronald"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "0205569273",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "r.briet@bmc.nl",\r\n      "use": "work"\r\n    },\r\n    {\r\n      "system": "fax",\r\n      "value": "0205664440",\r\n      "use": "work"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "work",\r\n      "line": [\r\n        "Galapagosweg 91"\r\n      ],\r\n      "city": "Amsterdam",\r\n      "postalCode": "1105 AZ",\r\n      "country": "NLD"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1980-02-04",\r\n  "communication": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "urn:ietf:bcp:47",\r\n          "code": "nl",\r\n          "display": "Netherlands"\r\n        }\r\n      ],\r\n      "text": "Language"\r\n    }\r\n  ]\r\n}	2019-05-06 09:53:32.170951
-2	{\r\n  "resourceType": "Practitioner",\r\n  "id": "2",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-04-25T02:41:21.750-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Amy Fox</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-ssn",\r\n      "value": "000-00-0007"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Fox",\r\n      "given": [\r\n        "Amy",\r\n        "R"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n   "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "0205563847",\r\n      "use": "mobile"\r\n    },\r\n     {\r\n      "system": "email",\r\n      "value": "amy.lee@example.com"\r\n    },\r\n    {\r\n      "system": "fax",\r\n      "value": "0205668916",\r\n      "use": "work"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "35 Ridge StApt 13"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74117",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "female",\r\n  "birthDate": "1989-12-08"\r\n}	2019-03-08 04:59:30.102741
 7	{\r\n  "resourceType": "Practitioner",\r\n  "id": "7",\r\n  "meta":{\r\n  "versionId":"1"\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: f001</p><p><b>identifier</b>: 938273695 (OFFICIAL), 129IDH4OP733 (USUAL)</p><p><b>name</b>: Eric van den broek (OFFICIAL)</p><p><b>telecom</b>: ph: 0205568263(WORK), E.M.vandenbroek@bmc.nl(WORK), fax: 0205664440(WORK)</p><p><b>address</b>: Galapagosweg 91 Den Burg 9105 PZ NLD (WORK)</p><p><b>gender</b>: male</p><p><b>birthDate</b>: 07/12/1975</p></div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "system": "urn:oid:2.16.528.1.1007.3.1",\r\n      "value": "938273695"\r\n    },\r\n    {\r\n      "use": "usual",\r\n      "system": "urn:oid:2.16.840.1.113883.2.4.6.3",\r\n      "value": "129IDH4OP733"\r\n    }\r\n  ],\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "van den broek",\r\n      "given": [\r\n        "Eric"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "0205568263",\r\n      "use": "home"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "E.M.vandenbroek@bmc.nl",\r\n      "use": "work"\r\n    },\r\n    {\r\n      "system": "fax",\r\n      "value": "0205664440",\r\n      "use": "work"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "work",\r\n      "line": [\r\n        "Galapagosweg 91"\r\n      ],\r\n      "city": "Den Burg",\r\n      "postalCode": "9105 PZ",\r\n      "country": "NLD"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1975-12-07"\r\n}	2019-03-08 05:06:21.276915
-14	{"resourceType":"Practitioner","id":"d09620af-2988-4fcf-bbcb-cd1f2e67ae7f","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"text":{"status":"generated","div":"<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"},"identifier":[{"system":"http://hl7.org/fhir/sid/us-npi","value":"9941339108"}],"active":true,"name":[{"use":"official","family":"Nichols","given":["Joseph","P"],"suffix":["MD"]}],"telecom":[{"system":"phone","value":"800-277-1993","use":"mobile"},{"system":"email","value":"joseph.shaw@example.com"}],"address":[{"use":"home","line":["53 Sunset AveApt 9"],"city":"Tulsa","state":"OK","postalCode":"74126","country":"USA"}],"gender":"male","birthDate":"1963-12-14"}	2022-07-07 17:26:44.66
 1	{\n\t"resourceType": "Practitioner",\n\t"id": "1",\n\t"meta": {\n\t\t"versionId": "1",\n\t\t"lastUpdated": "2019-03-06T03:07:57.933-05:00"\n\t},\n\t"text": {\n\t\t"status": "generated",\n\t\t"div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"\n\t},\n\t"identifier": [\n\t\t{\r\n\t\t\t\t\t"system": "http://hl7.org/fhir/sid/us-npi",\r\n\t\t\t\t\t"value": "3255319599"\r\n\t\t\t\t}\n\t],\n\t"active": true,\n\t"name": [\n\t\t{\n\t\t\t"use": "official",\n\t\t\t"family": "Nichols",\n\t\t\t"given": [\n\t\t\t\t"Joseph",\n\t\t\t\t"P"\n\t\t\t],\n\t\t\t"suffix": [\n\t\t\t\t"MD"\n\t\t\t]\n\t\t}\n\t],\n\t"telecom": [\n\t\t{\n\t\t\t"system": "phone",\n\t\t\t"value": "800-277-1993",\n\t\t\t"use": "mobile"\n\t\t},\n\t\t{\n\t\t\t"system": "email",\n\t\t\t"value": "joseph.shaw@example.com"\n\t\t}\n\t],\n\t"address": [\n\t\t{\n\t\t\t"use": "home",\n\t\t\t"line": [\n\t\t\t\t"53 Sunset AveApt 9"\n\t\t\t],\n\t\t\t"district": "Tulsa",\n\t\t\t"state": "OK",\n\t\t\t"postalCode": "74126",\n\t\t\t"country": "USA"\n\t\t}\n\t],\n\t"gender": "male",\n\t"birthDate": "1963-12-14",\n\t"communication": [\n\t\t{\n\t\t\t"language": {\n\t\t\t\t"coding": [\n\t\t\t\t\t{\n\t\t\t\t\t\t"system": "urn:ietf:bcp:47",\n\t\t\t\t\t\t"code": "en-US",\n\t\t\t\t\t\t"display": "English"\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t"text": "English"\n\t\t\t}\n\t\t}\n\t]\n}	2019-03-08 04:58:52.498112
-15	{"resourceType":"Practitioner","id":"cc2d6d3b-55b6-4556-bd1d-fbf6dce2fb12","meta":{"versionId":"3","lastUpdated":"2019-06-06T03:04:12.348-04:00"},"text":{"status":"generated","div":"<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"},"identifier":[{"system":"http://hl7.org/fhir/sid/us-npi","value":"9941339108"}],"active":true,"name":[{"use":"official","family":"Nichols","given":["Joseph","P"],"suffix":["MD"]}],"telecom":[{"system":"phone","value":"800-277-1993","use":"mobile"},{"system":"email","value":"joseph.shaw@example.com"}],"address":[{"use":"home","line":["53 Sunset AveApt 9"],"city":"Tulsa","state":"OK","postalCode":"74126","country":"USA"}],"gender":"male","birthDate":"1963-12-14"}	2022-07-07 18:57:50.089
+3	{\r\n  "resourceType": "Practitioner",\r\n  "id": "3",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-03-06T03:07:57.934-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Susan Clark</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-npi",\r\n      "value":"33333"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Clark",\r\n      "given": [\r\n        "Susan",\r\n        "A"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-576-9327",\r\n      "use": "home"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "susan.clark@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "52 Highland St"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "MA",\r\n      "postalCode": "74116",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "female",\r\n  "birthDate": "1970-12-27"\r\n}	2019-03-08 05:00:05.084858
+5	{\r\n  "resourceType": "Practitioner",\r\n  "id": "5",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-03-20T04:10:54.513-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Michelle Schmidt</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-npi",\r\n      "value": "44444"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Schmidt",\r\n      "given": [\r\n        "Michelle",\r\n        "H"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n  {\r\n      "system": "phone",\r\n      "value": "31715269111",\r\n      "use": "home"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "kevin.lee@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "80 Mill StApt 21"\r\n      ],\r\n      "city": "Sand Springs",\r\n      "state": "OK",\r\n      "postalCode": "74063",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1997-07-15"\r\n}	2019-03-08 05:02:57.580395
+6	{\n  "resourceType": "Practitioner",\n  "id": "6",\n  "meta": {\n    "versionId": "1",\n    "lastUpdated": "2019-04-27T06:20:42.410-04:00",\n    "tag": [\n      {\n        "system": "https://smarthealthit.org/tags",\n        "code": "smart-7-2017"\n      }\n    ]\n  },\n  "text": {\n    "status": "generated",\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Ward Williams</div>"\n  },\n  "identifier": [\n    {\n      "use": "official",\n      "type": {\n        "coding": [\n          {\n            "system": "http://hl7.org/fhir/identifier-type",\n            "code": "SB",\n            "display": "Social Beneficiary Identifier"\n          }\n        ],\n        "text": "US Social Security Number"\n      },\n      "system": "http://hl7.org/fhir/sid/us-ssn",\n      "value": "55555"\n    }\n  ],\n  "active": true,\n  "name": [\n    {\n      "use": "official",\n      "family": "Williams",\n      "given": [\n        "Ward",\n        "N"\n      ],\n      "suffix": [\n        "MD"\n      ]\n    }\n  ],\n  "telecom": [\n    {\n      "system": "phone",\n      "value": "800-651-2242",\n      "use": "home"\n    },\n    {\n      "system": "phone",\n      "value": "800-471-8810",\n      "use": "mobile"\n    },\n    {\n      "system": "email",\n      "value": "susan.williams@example.com"\n    }\n  ],\n  "address": [\n    {\n      "use": "home",\n      "line": [\n        "27 South Ave"\n      ],\n      "city": "Tulsa",\n      "state": "OK",\n      "postalCode": "74126",\n      "country": "USA"\n    }\n  ],\n  "gender": "female",\n  "birthDate": "1996-11-22"\n}	2019-03-08 05:05:33.397275
+4	{\r\n  "resourceType": "Practitioner",\r\n  "id": "4",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-04-25T02:41:22.990-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Ross</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-npi",\r\n      "value": "66666"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Ross",\r\n      "given": [\r\n        "Joseph",\r\n        "I"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-960-9294",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.ross@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "19 Church StApt 29"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74108",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-10-02"\r\n}	2019-03-08 05:01:36.505461
+11	{\r\n  "resourceType": "Practitioner",\r\n  "id": "1",\r\n  "meta": {\r\n    "versionId": "2",\r\n    "lastUpdated": "2019-03-06T03:07:57.933-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-npi",\r\n      "value": "77777"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Nichols",\r\n      "given": [\r\n        "Joseph",\r\n        "P"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-277-1993",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.shaw@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "53 Sunset AveApt 9"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74126",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-12-14"\r\n}	2019-05-06 09:54:07.674531
+13	{\r\n  "resourceType": "Practitioner",\r\n  "id": "9bf77508-42d8-420f-a371-88ec287cc55d",\r\n  "meta": {\r\n    "versionId": "4",\r\n    "lastUpdated": "2019-03-06T03:07:57.933-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "http://hl7.org/fhir/sid/us-npi",\r\n      "value": "88888"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Nichols",\r\n      "given": [\r\n        "Joseph",\r\n        "P"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-277-1993",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.shaw@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "53 Sunset AveApt 9"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74126",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-12-14"\r\n}	2019-05-06 09:54:42.628965
+12	{\r\n  "resourceType": "Practitioner",\r\n  "id": "5a3fc762-edf3-4ada-b6be-9d1d6309d9e1",\r\n  "meta": {\r\n    "versionId": "3",\r\n    "lastUpdated": "2019-03-06T03:07:57.933-05:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Joseph Nichols</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "system": "http://hl7.org/fhir/sid/us-npi",\r\n      "value": "99999"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Nichols",\r\n      "given": [\r\n        "Joseph",\r\n        "P"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "800-277-1993",\r\n      "use": "mobile"\r\n    },\r\n    {\r\n      "system": "email",\r\n      "value": "joseph.shaw@example.com"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "53 Sunset AveApt 9"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74126",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "male",\r\n  "birthDate": "1963-12-14"\r\n}	2019-05-06 09:54:25.242913
+2	{\r\n  "resourceType": "Practitioner",\r\n  "id": "2",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-04-25T02:41:21.750-04:00",\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "smart-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">Amy Fox</div>"\r\n  },\r\n  "identifier": [\r\n    {\r\n      "use": "official",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/identifier-type",\r\n            "code": "SB",\r\n            "display": "Social Beneficiary Identifier"\r\n          }\r\n        ],\r\n        "text": "US Social Security Number"\r\n      },\r\n      "system": "http://hl7.org/fhir/sid/us-npi",\r\n      "value": "12121"\r\n    }\r\n  ],\r\n  "active": true,\r\n  "name": [\r\n    {\r\n      "use": "official",\r\n      "family": "Fox",\r\n      "given": [\r\n        "Amy",\r\n        "R"\r\n      ],\r\n      "suffix": [\r\n        "MD"\r\n      ]\r\n    }\r\n  ],\r\n   "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "0205563847",\r\n      "use": "mobile"\r\n    },\r\n     {\r\n      "system": "email",\r\n      "value": "amy.lee@example.com"\r\n    },\r\n    {\r\n      "system": "fax",\r\n      "value": "0205668916",\r\n      "use": "work"\r\n    }\r\n  ],\r\n  "address": [\r\n    {\r\n      "use": "home",\r\n      "line": [\r\n        "35 Ridge StApt 13"\r\n      ],\r\n      "city": "Tulsa",\r\n      "state": "OK",\r\n      "postalCode": "74117",\r\n      "country": "USA"\r\n    }\r\n  ],\r\n  "gender": "female",\r\n  "birthDate": "1989-12-08"\r\n}	2019-03-08 04:59:30.102741
 \.
 
 
@@ -2332,7 +2306,7 @@ COPY practitioner (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: practitioner_role; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY practitioner_role (id, data, last_updated_ts) FROM stdin;
+COPY public.practitioner_role (id, data, last_updated_ts) FROM stdin;
 \.
 
 
@@ -2340,7 +2314,7 @@ COPY practitioner_role (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: practitionerrole; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY practitionerrole (id, data, last_updated_ts) FROM stdin;
+COPY public.practitionerrole (id, data, last_updated_ts) FROM stdin;
 2	{\r\n\t"resourceType": "PractitionerRole",\r\n\t"id": "2",\r\n\t"text": {\r\n\t  "status": "generated",\r\n\t  "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n            <span style=\\"color: gray;\\">practitioner:</span> Marc Versteegh<br/><span style=\\"color: gray;\\">organization:</span> BMC<br/><span style=\\"color: gray;\\">role:</span> Care role\\n          </div>"\r\n\t},\r\n\t"practitioner": {\r\n\t  "reference": "Practitioner/2",\r\n\t  "display": "Marc Versteegh"\r\n\t},\r\n\t"organization": {\r\n\t  "reference": "Organization/2",\r\n\t  "display": "BMC"\r\n\t},\r\n\t"code": [\r\n\t  {\r\n\t\t"coding": [\r\n\t\t  {\r\n\t\t\t"system": "urn:oid:2.16.840.1.113883.2.4.15.111",\r\n\t\t\t"code": "01.000",\r\n\t\t\t"display": "Arts"\r\n\t\t  }\r\n\t\t],\r\n\t\t"text": "Care role"\r\n\t  }\r\n\t],\r\n\t"specialty": [\r\n\t  {\r\n\t\t"coding": [\r\n\t\t  {\r\n\t\t\t"system": "urn:oid:2.16.840.1.113883.2.4.15.111",\r\n\t\t\t"code": "01.011",\r\n\t\t\t"display": "Cardiothoracal surgery"\r\n\t\t  }\r\n\t\t],\r\n\t\t"text": "specialization"\r\n\t  }\r\n\t]\r\n}	2019-11-21 04:21:52.534317
 4	{\r\n\t"resourceType": "PractitionerRole",\r\n\t"id": "4",\r\n\t"text": {\r\n\t  "status": "generated",\r\n\t  "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n            <span style=\\"color: gray;\\">practitioner:</span> Adam Careful<br/><span style=\\"color: gray;\\">organization:</span> Good Health Clinic\\n          </div>"\r\n\t},\r\n\t"period": {\r\n\t  "start": "2012-01-01"\r\n\t},\r\n\t"practitioner": {\r\n\t  "reference": "Practitioner/4",\r\n\t  "display": "Adam Careful"\r\n\t},\r\n\t"organization": {\r\n\t  "reference": "Organization/4",\r\n\t  "display": "Good Health Clinic"\r\n\t}\r\n}	2019-11-21 04:25:24.143951
 3	{\r\n\t"resourceType": "PractitionerRole",\r\n\t"id": "d73e837d-685f-4422-871f-0d441f5ec6ee",\r\n\t"text": {\r\n\t  "status": "generated",\r\n\t  "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n            <span style=\\"color: gray;\\">practitioner:</span> Adam Careful<br/><span style=\\"color: gray;\\">location:</span> South Wing, second floor<br/><span style=\\"color: gray;\\">role:</span> RP<br/><span style=\\"color: gray;\\">Email:</span> dr.adam.careful@example.org<br/><span style=\\"color: gray;\\">identifier:</span> 52\\n          </div>"\r\n\t},\r\n\t"identifier": [\r\n\t  {\r\n\t\t"system": "http://example.org/role-identifier",\r\n\t\t"value": "52"\r\n\t  }\r\n\t],\r\n\t"period": {\r\n\t  "start": "2012-01-01",\r\n\t  "end": "2012-03-31"\r\n\t},\r\n\t"practitioner": {\r\n\t  "reference": "Practitioner/3",\r\n\t  "display": "Adam Careful"\r\n\t},\r\n\t"organization": {\r\n\t  "reference": "Organization/3"\r\n\t},\r\n\t"code": [\r\n\t  {\r\n\t\t"coding": [\r\n\t\t  {\r\n\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0286",\r\n\t\t\t"code": "RP"\r\n\t\t  }\r\n\t\t]\r\n\t  }\r\n\t],\r\n\t"location": [\r\n\t  {\r\n      "reference": "Location/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8",\r\n      "display": "South Wing, second floor"\r\n    }\r\n\t],\r\n\t"healthcareService": [\r\n\t  {\r\n\t\t"reference": "HealthcareService/1"\r\n\t  }\r\n\t],\r\n\t"telecom": [\r\n\t  {\r\n\t\t"system": "email",\r\n\t\t"value": "dr.adam.careful@example.org"\r\n\t  }\r\n\t],\r\n\t"endpoint": [\r\n\t  {\r\n\t\t"reference": "Endpoint/3"\r\n\t  }\r\n\t]\r\n}	2019-11-21 04:24:08.224262
@@ -2352,7 +2326,7 @@ COPY practitionerrole (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: procedure; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY procedure (id, data, last_updated_ts) FROM stdin;
+COPY public.procedure (id, data, last_updated_ts) FROM stdin;
 3	{\r\n  "resourceType": "Procedure",\r\n  "id": "3",\r\n   "meta": {  \r\n      "versionId":"1"\r\n   },\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "identifier": [\r\n    {\r\n      "value": "12345"\r\n    }\r\n  ],\r\n  "instantiatesCanonical": [\r\n    "PlanDefinition/KDN5"\r\n  ],\r\n  "instantiatesUri": [\r\n    "http://example.org/protocol-for-hypertension-during-pregnancy"\r\n  ],\r\n  "basedOn": [\r\n    {\r\n      "reference": "CarePlan/3",\r\n      "display": "Maternity care plan"\r\n    }\r\n  ],\r\n  "status": "not-done",\r\n  "statusReason": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "398254007",\r\n        "display": "  Pre-eclampsia (disorder)"\r\n      }\r\n    ],\r\n    "text": "Pre-eclampsia"\r\n  },\r\n  "code": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "62013009",\r\n        "display": "Ambulating patient (procedure)"\r\n      }\r\n    ],\r\n    "text": "Ambulation"\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/3"\r\n  },\r\n  "encounter": {\r\n    "reference": "Encounter/3",\r\n    "display": "Roel's encounter on January 28th, 2013"\r\n  },\r\n "performedDateTime": "2013-04-05",\r\n "occurrenceDateTimeDateTime": "2013-04-05",\r\n  "performedPeriod": {\r\n    "start": "2013-01-28T13:31:00+01:00",\r\n    "end": "2013-01-28T14:27:00+01:00"\r\n  },\r\n  "performedAge": {\r\n    "value": 52,\r\n    "unit": "years",\r\n    "system": "http://unitsofmeasure.org",\r\n    "code": "a"\r\n  }, \r\n  "performedRange": {\r\n        "low": {\r\n          "value": 160,\r\n          "unit": "lbs",\r\n          "system": "http://unitsofmeasure.org",\r\n          "code": "[lb_av]"\r\n        },\r\n        "high": {\r\n          "value": 180,\r\n          "unit": "lbs",\r\n          "system": "http://unitsofmeasure.org",\r\n          "code": "[lb_av]"\r\n        }\r\n      },\r\n  "performer": [\r\n    {\r\n      "actor": {\r\n        "reference": "Practitioner/3",\r\n        "display": "Carla Espinosa"\r\n      },\r\n      "onBehalfOf": {\r\n        "reference": "Organization/3",\r\n        "display": "University Medical Hospital"\r\n      }\r\n    }\r\n  ],\r\n  "location": {\r\n    "reference": "Location/3",\r\n    "display": "Burgers University Medical Center, South Wing, second floor"\r\n  },\r\n  "reasonReference": [\r\n    {\r\n      "reference": "Observation/3",\r\n      "display": "Blood Pressure"\r\n    }\r\n  ]\r\n}	2019-04-03 04:39:21.281405
 4	{\r\n  "resourceType": "Procedure",\r\n  "id": "4",\r\n   "meta": {  \r\n      "versionId":"1"\r\n   },\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "status": "completed",\r\n  "code": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "34068001",\r\n        "display": "Heart valve replacement"\r\n      }\r\n    ]\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/4",\r\n    "display": "P. van de Heuvel"\r\n  },\r\n  "encounter": {\r\n    "reference": "Encounter/4"\r\n  },\r\n  "performedPeriod": {\r\n    "start": "2011-06-26",\r\n    "end": "2011-06-27"\r\n  },\r\n  "performer": [\r\n    {\r\n      "function": {\r\n        "coding": [\r\n          {\r\n            "system": "urn:oid:2.16.840.1.113883.2.4.15.111",\r\n            "code": "01.000",\r\n            "display": "Arts"\r\n          }\r\n        ],\r\n        "text": "Care role"\r\n      },\r\n      "actor": {\r\n        "reference": "Practitioner/4",\r\n        "display": "P. Voigt"\r\n      }\r\n    }\r\n  ],\r\n  "reasonCode": [\r\n    {\r\n      "text": "Heart valve disorder"\r\n    }\r\n  ],\r\n  "bodySite": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "17401000",\r\n          "display": "Heart valve structure"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "outcome": {\r\n    "text": "improved blood circulation"\r\n  },\r\n  "report": [\r\n    {\r\n      "reference": "DiagnosticReport/4",\r\n      "display": "Lab results blood test"\r\n    }\r\n  ],\r\n  "followUp": [\r\n    {\r\n      "text": "described in care plan"\r\n    }\r\n  ]\r\n}	2019-04-03 05:53:45.412546
 8	{\r\n  "resourceType": "Procedure",\r\n  "id": "8",\r\n   "meta": {  \r\n      "versionId":"1"\r\n   },\r\n  "text": {\r\n    "status": "generated"\r\n\t},\r\n  "status": "completed",\r\n  "code": {\r\n    "coding": [\r\n      {\r\n        "system": "http://snomed.info/sct",\r\n        "code": "25267002",\r\n        "display": "Insertion of intracardiac pacemaker (procedure)"\r\n      }\r\n    ],\r\n    "text": "Implant Pacemaker"\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/8"\r\n  },\r\n  "performedDateTime": "2015-04-05",\r\n  "performer": [\r\n    {\r\n      "actor": {\r\n        "reference": "Practitioner/8",\r\n        "display": "Dr Cecil Surgeon"\r\n      }\r\n    }\r\n  ],\r\n  "reasonCode": [\r\n    {\r\n      "text": "Bradycardia"\r\n    }\r\n  ],\r\n  "followUp": [\r\n    {\r\n      "text": "ROS 5 days  - 2013-04-10"\r\n    }\r\n  ],\r\n  "note": [\r\n    {\r\n      "text": "Routine Appendectomy. Appendix was inflamed and in retro-caecal position"\r\n    }\r\n  ],\r\n  "focalDevice": [\r\n    {\r\n      "action": {\r\n        "coding": [\r\n          {\r\n            "system": "http://hl7.org/fhir/device-action",\r\n            "code": "implanted"\r\n          }\r\n        ]\r\n      },\r\n      "manipulated": {\r\n        "reference": "Device/8"\r\n      }\r\n    }\r\n  ]\r\n}	2019-04-30 09:03:43.51449
@@ -2372,7 +2346,7 @@ COPY procedure (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: provenance; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY provenance (id, data, last_updated_ts) FROM stdin;
+COPY public.provenance (id, data, last_updated_ts) FROM stdin;
 3	{\r\n  "resourceType": "Provenance",\r\n  "id": "3",\r\n  "meta": {\r\n    "versionId": "1"\r\n\t},\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">procedure record authored on 27-June 2015 by Harold Hippocrates, MD Content extracted from XDS managed CDA Referral received 26-June as authorized by a referenced Consent.</div>"\r\n  },\r\n  "target": [\r\n    {\r\n      "reference": "Patient/3"\r\n    }\r\n  ],\r\n  "occurredPeriod": {\r\n    "start": "2015-06-27",\r\n    "end": "2015-06-28"\r\n  },\r\n  "recorded": "2015-06-27T08:39:24+10:00",\r\n  "policy": [\r\n    "http://acme.com/fhir/Consent/25"\r\n  ],\r\n  "location": {\r\n    "reference": "Location/3"\r\n  },\r\n  "reason": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "3457005",\r\n          "display": "Referral"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "agent": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",\r\n            "code": "AUT"\r\n          }\r\n        ]\r\n      },\r\n      "who": {\r\n        "reference": "Practitioner/3"\r\n      }\r\n    },\r\n    {\r\n      "id": "a1",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",\r\n            "code": "DEV"\r\n          }\r\n        ]\r\n      },\r\n      "who": {\r\n        "reference": "Device/3"\r\n      }\r\n    }\r\n  ],\r\n  "entity": [\r\n    {\r\n      "role": "source",\r\n      "what": {\r\n        "reference": "DocumentReference/1",\r\n        "display": "CDA Document in XDS repository"\r\n      }\r\n    }\r\n  ]\r\n}	04:38:49.102333
 1	{\r\n  "resourceType": "Provenance",\r\n  "id": "1",\r\n  "meta": {\r\n    "versionId": "1"},\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">procedure record authored on 27-June 2015 by Harold Hippocrates, MD Content extracted from XDS managed CDA Referral received 26-June as authorized by a referenced Consent.</div>"\r\n  },\r\n  "target": [\r\n    {\r\n      "reference": "Patient/1"\r\n    }\r\n  ],\r\n  "occurredPeriod": {\r\n    "start": "2015-06-27",\r\n    "end": "2015-06-28"\r\n  },\r\n  "recorded": "2015-06-27T08:39:24+10:00",\r\n  "policy": [\r\n    "http://acme.com/fhir/Consent/25"\r\n  ],\r\n  "location": {\r\n    "reference": "Location/1"\r\n  },\r\n  "reason": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "3457005",\r\n          "display": "Referral"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "agent": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",\r\n            "code": "AUT"\r\n          }\r\n        ]\r\n      },\r\n      "who": {\r\n        "reference": "Practitioner/1"\r\n      }\r\n    },\r\n    {\r\n      "id": "a1",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",\r\n            "code": "DEV"\r\n          }\r\n        ]\r\n      },\r\n      "who": {\r\n        "reference": "Device/1"\r\n      }\r\n    }\r\n  ],\r\n  "entity": [\r\n    {\r\n      "role": "source",\r\n      "what": {\r\n        "reference": "DocumentReference/1",\r\n        "display": "CDA Document in XDS repository"\r\n      }\r\n    }\r\n  ]\r\n}	04:38:49.102333
 2	{\r\n  "resourceType": "Provenance",\r\n  "id": "2",\r\n  "meta": {\r\n    "versionId": "1"\r\n\t},\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">procedure record authored on 27-June 2015 by Harold Hippocrates, MD Content extracted from XDS managed CDA Referral received 26-June as authorized by a referenced Consent.</div>"\r\n  },\r\n  "target": [\r\n    {\r\n      "reference": "Patient/2"\r\n    }\r\n  ],\r\n  "occurredPeriod": {\r\n    "start": "2015-06-27",\r\n    "end": "2015-06-28"\r\n  },\r\n  "recorded": "2015-06-27T08:39:24+10:00",\r\n  "policy": [\r\n    "http://acme.com/fhir/Consent/25"\r\n  ],\r\n  "location": {\r\n    "reference": "Location/2"\r\n  },\r\n  "reason": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://snomed.info/sct",\r\n          "code": "3457005",\r\n          "display": "Referral"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "agent": [\r\n    {\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",\r\n            "code": "AUT"\r\n          }\r\n        ]\r\n      },\r\n      "who": {\r\n        "reference": "Practitioner/2"\r\n      }\r\n    },\r\n    {\r\n      "id": "a1",\r\n      "type": {\r\n        "coding": [\r\n          {\r\n            "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationType",\r\n            "code": "DEV"\r\n          }\r\n        ]\r\n      },\r\n      "who": {\r\n        "reference": "Device/2"\r\n      }\r\n    }\r\n  ],\r\n  "entity": [\r\n    {\r\n      "role": "source",\r\n      "what": {\r\n        "reference": "DocumentReference/2",\r\n        "display": "CDA Document in XDS repository"\r\n      }\r\n    }\r\n  ]\r\n}	04:38:49.102333
@@ -2383,7 +2357,7 @@ COPY provenance (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: relatedperson; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY relatedperson (id, data, last_updated_ts) FROM stdin;
+COPY public.relatedperson (id, data, last_updated_ts) FROM stdin;
 2	{\r\n  "resourceType": "RelatedPerson",\r\n  "id": "65b8aaa8-697a-43a9-8f6e-5615ecad344a",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n      <table>\\n        <tbody>\\n          <tr>\\n            <td>Name</td>\\n            <td>Bénédicte du Marché</td>\\n          </tr>\\n          <tr>\\n            <td>Address</td>\\n            <td>43, Place du Marché Sainte Catherine, 75004 Paris, France</td>\\n          </tr>\\n          <tr>\\n            <td>Contacts</td>\\n            <td>Phone: +33 (237) 998327</td>\\n          </tr>\\n        </tbody>\\n      </table>\\n    </div>"\r\n  },\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00"\r\n  },\r\n  "identifier": [\r\n\t{\r\n\t\t"use": "official",\r\n\t\t"system": "https://sitenv.org",\r\n\t\t"value": "5678",\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t"code": "NPI",\r\n\t\t\t\t\t"display": "National Provider Identifier"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\t\r\n  ],\r\n  "active": true,\r\n  "patient": {\r\n    "reference": "Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8"\r\n  },\r\n  "relationship": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v2-0131",\r\n          "code": "N",\r\n\t\t  "display":"Next-of-Kin"\r\n        },\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",\r\n          "code": "WIFE",\r\n\t\t  "display":"wife"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "name": [\r\n\t  {\r\n\t\t"use": "official",\r\n\t\t"family": "Duck",\r\n\t\t"given": [\r\n\t\t  "Donald"\r\n\t\t],\r\n\t\t"prefix": [\r\n\t\t  "Mr."\r\n\t\t],\r\n\t\t"suffix": [\r\n\t\t  "MSc"\r\n\t\t]\r\n\t  }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "+33 (237) 998327"\r\n    }\r\n  ],\r\n  "gender": "female",\r\n  "address": [\r\n    {\r\n      "line": [\r\n        "43, Place du Marché Sainte Catherine"\r\n      ],\r\n      "city": "Paris",\r\n      "postalCode": "75004",\r\n      "country": "FRA"\r\n    }\r\n  ]\r\n}	2020-01-01 08:25:08.931104
 1	{\r\n  "resourceType": "RelatedPerson",\r\n  "id": "074c4667-06e5-409b-a4ae-335c83fe6ed5",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n      <table>\\n        <tbody>\\n          <tr>\\n            <td>Name</td>\\n            <td>Bénédicte du Marché</td>\\n          </tr>\\n          <tr>\\n            <td>Address</td>\\n            <td>43, Place du Marché Sainte Catherine, 75004 Paris, France</td>\\n          </tr>\\n          <tr>\\n            <td>Contacts</td>\\n            <td>Phone: +33 (237) 998327</td>\\n          </tr>\\n        </tbody>\\n      </table>\\n    </div>"\r\n  },\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00"\r\n  },\r\n  "identifier": [\r\n\t{\r\n\t\t"use": "official",\r\n\t\t"system": "https://sitenv.org",\r\n\t\t"value": "1234",\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t"code": "NPI",\r\n\t\t\t\t\t"display": "National Provider Identifier"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\t\r\n  ],\r\n  "active": true,\r\n  "patient": {\r\n    "reference": "Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d"\r\n  },\r\n  "relationship": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v2-0131",\r\n          "code": "N",\r\n\t\t  "display":"Next-of-Kin"\r\n        },\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",\r\n          "code": "WIFE",\r\n\t\t  "display":"wife"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "name": [\r\n\t  {\r\n\t\t"use": "official",\r\n\t\t"family": "Douglas",\r\n\t\t"given": [\r\n\t\t  "Bradly"\r\n\t\t],\r\n\t\t"prefix": [\r\n\t\t  "Mr."\r\n\t\t],\r\n\t\t"suffix": [\r\n\t\t  "MSc"\r\n\t\t]\r\n\t  }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "+33 (237) 998327"\r\n    }\r\n  ],\r\n  "gender": "female",\r\n  "address": [\r\n    {\r\n      "line": [\r\n        "43, Place du Marché Sainte Catherine"\r\n      ],\r\n      "city": "Paris",\r\n      "postalCode": "75004",\r\n      "country": "FRA"\r\n    }\r\n  ]\r\n}	2020-01-01 08:23:53.32183
 3	{\r\n  "resourceType": "RelatedPerson",\r\n  "id": "b2cf72e8-62c2-4a61-a2b9-dcf90094aae7",\r\n  "text": {\r\n    "status": "generated",\r\n    "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\">\\n      <table>\\n        <tbody>\\n          <tr>\\n            <td>Name</td>\\n            <td>Bénédicte du Marché</td>\\n          </tr>\\n          <tr>\\n            <td>Address</td>\\n            <td>43, Place du Marché Sainte Catherine, 75004 Paris, France</td>\\n          </tr>\\n          <tr>\\n            <td>Contacts</td>\\n            <td>Phone: +33 (237) 998327</td>\\n          </tr>\\n        </tbody>\\n      </table>\\n    </div>"\r\n  },\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2019-04-23T10:30:54.819-04:00"\r\n  },\r\n  "identifier": [\r\n\t{\r\n\t\t"use": "official",\r\n\t\t"system": "https://sitenv.org",\r\n\t\t"value": "1256",\r\n\t\t"type": {\r\n\t\t\t"coding": [\r\n\t\t\t\t{\r\n\t\t\t\t\t"system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n\t\t\t\t\t"code": "NPI",\r\n\t\t\t\t\t"display": "National Provider Identifier"\r\n\t\t\t\t}\r\n\t\t\t]\r\n\t\t}\r\n\t}\t\r\n  ],\r\n  "active": true,\r\n  "patient": {\r\n    "reference": "Patient/d3457d45-9085-4572-a78d-ed69c35d0d13"\r\n  },\r\n  "relationship": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v2-0131",\r\n          "code": "N",\r\n\t\t  "display":"Next-of-Kin"\r\n        },\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",\r\n          "code": "WIFE",\r\n\t\t  "display":"wife"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  "name": [\r\n\t  {\r\n\t\t"use": "official",\r\n\t\t"family": "Notsowell",\r\n\t\t"given": [\r\n\t\t  "Simon"\r\n\t\t],\r\n\t\t"prefix": [\r\n\t\t  "Mr."\r\n\t\t],\r\n\t\t"suffix": [\r\n\t\t  "MSc"\r\n\t\t]\r\n\t  }\r\n  ],\r\n  "telecom": [\r\n    {\r\n      "system": "phone",\r\n      "value": "+33 (237) 998327"\r\n    }\r\n  ],\r\n  "gender": "female",\r\n  "address": [\r\n    {\r\n      "line": [\r\n        "43, Place du Marché Sainte Catherine"\r\n      ],\r\n      "city": "Paris",\r\n      "postalCode": "75004",\r\n      "country": "FRA"\r\n    }\r\n  ]\r\n}	2020-01-01 08:26:03.906246
@@ -2395,7 +2369,7 @@ COPY relatedperson (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: report; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY report (id, data, last_updated_ts) FROM stdin;
+COPY public.report (id, data, last_updated_ts) FROM stdin;
 7	{\r\n  "resourceType": "DiagnosticReport",\r\n  "id": "5",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-10-04T14:49:25.397-04:00",\r\n    "profile": [\r\n      "http://standardhealthrecord.org/fhir/StructureDefinition/shr-observation-Panel"\r\n    ],\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "synthea-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "status": "final",\r\n  "code": {\r\n    "coding": [\r\n      {\r\n        "system": "http://loinc.org",\r\n        "code": "57698-3",\r\n        "display": "Lipid Panel"\r\n      }\r\n    ],\r\n\t"text": "Gram Positive Rods"\r\n  },\r\n  "identifier": [\r\n          {\r\n            "system": "https://acme.org/identifiers",\r\n            "value": "growth1"\r\n          }\r\n        ],"performer": [\r\n    {\r\n      "reference": "Practitioner/5",\r\n      "display": "Schmidt Michelle"\r\n    }\r\n  ],\r\n  "category": [\r\n          {\r\n            "coding": [\r\n              {\r\n                "system": "http://terminology.hl7.org/CodeSystem/observation-category",\r\n                "code": "laboratory",\r\n                "display": "Laboratory"\r\n              },\r\n              {\r\n                "system": "http://terminology.hl7.org/CodeSystem/v2-0074",\r\n                "code": "MB",\r\n                "display": "microbiology"\r\n              }\r\n            ],\r\n            "text": "Micro"\r\n          }\r\n\t\t  ],\r\n  "subject": {\r\n    "reference": "Patient/5"\r\n  },\r\n  "context": {\r\n    "reference": "Encounter/5"\r\n  },\r\n  "effectiveDateTime": "2009-12-24T13:18:00-05:00",\r\n  "issued": "2009-12-24T13:18:00-05:00",\r\n  "result": [\r\n    {\r\n      "reference": "Observation/5",\r\n      "display": "Total Cholesterol"\r\n    }\r\n  ]\r\n}	2019-04-24 05:23:41.325517
 11	{\r\n  "resourceType": "DiagnosticReport",\r\n  "id": "9",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-10-04T16:16:16.192-04:00",\r\n    "profile": [\r\n      "http://standardhealthrecord.org/fhir/StructureDefinition/shr-observation-Panel"\r\n    ],\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "synthea-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "status": "final",\r\n  "code": {\r\n    "coding": [\r\n      {\r\n        "system": "http://loinc.org",\r\n        "code": "57698-3",\r\n        "display": "Lipid Panel"\r\n      }\r\n    ],\r\n\t"text":"Chemistry"\r\n  },\r\n  "subject": {\r\n    "reference": "Patient/9"\r\n  },\r\n  "category": [\r\n    {\r\n      "coding": [\r\n        {\r\n          "system": "http://terminology.hl7.org/CodeSystem/v2-0074",\r\n          "code": "PAT",\r\n          "display": "Pathology (gross & histopath, not surgical)"\r\n        }\r\n      ],\r\n      "text": "Pathology"\r\n    }\r\n  ],\r\n   "identifier": [\r\n    {\r\n      "system": "https://www.acmeonline.com",\r\n      "value": "P73456090"\r\n    }\r\n  ],\r\n  "context": {\r\n    "reference": "Encounter/9"\r\n  }, "performer": [\r\n    {\r\n      "reference": "Practitioner/9",\r\n      "display": "Versteegh Marc"\r\n    }\r\n  ],\r\n  "effectiveDateTime": "2010-01-15T03:13:32-05:00",\r\n  "issued": "2010-01-15T03:13:32-05:00",\r\n  "result": [\r\n    {\r\n      "reference": "Observation/9",\r\n      "display": "Total Cholesterol"\r\n    }\r\n  ]\r\n}	2019-04-24 05:34:52.315605
 4	{\r\n  "resourceType": "DiagnosticReport",\r\n  "id": "2",\r\n  "meta": {\r\n    "versionId": "1",\r\n    "lastUpdated": "2018-10-04T15:01:03.817-04:00",\r\n    "profile": [\r\n      "http://standardhealthrecord.org/fhir/StructureDefinition/shr-observation-Panel"\r\n    ],\r\n    "tag": [\r\n      {\r\n        "system": "https://smarthealthit.org/tags",\r\n        "code": "synthea-7-2017"\r\n      }\r\n    ]\r\n  },\r\n  "status": "final",\r\n  "code": {\r\n    "coding": [\r\n      {\r\n        "system": "http://loinc.org",\r\n        "code": "51990-0",\r\n        "display": "Basic Metabolic Panel"\r\n      }\r\n    ],\r\n\t"text":"Micro"\r\n  },\r\n  "identifier": [\r\n          {\r\n            "type": {\r\n              "coding": [\r\n                {\r\n                  "system": "http://terminology.hl7.org/CodeSystem/v2-0203",\r\n                  "code": "PLAC",\r\n                  "display": "Placer Identifier"\r\n                }\r\n              ]\r\n            },\r\n            "system": "https://sitenv.org",\r\n            "value": "7788"\r\n          }\r\n\t\t  ],\r\n   "category": [\r\n          {\r\n            "coding": [\r\n              {\r\n                "system": "http://hl7.org/fhir/ValueSet/diagnostic-service-sections",\r\n                "code": "PAT",\r\n                "display": "Pathology (gross & histopath, not surgical)"\r\n              }\r\n            ],\r\n          \r\n\t\t   "text": "Pathology"\r\n\t\t   }\r\n        ],\r\n  "subject": {\r\n    "reference": "Patient/2"\r\n  },"performer": [\r\n          {\r\n            "reference": "Organization/2",\r\n            "display": "Burgers University Medical Centre"\r\n          }\r\n        ],\r\n\t\t\r\n  "context": {\r\n    "reference": "Encounter/2"\r\n  },\r\n  "effectiveDateTime": "2017-06-04T03:00:20-04:00",\r\n  "issued": "2017-06-04T03:00:20-04:00",\r\n  "result": [\r\n    {\r\n      "reference": "Observation/2",\r\n      "display": "Glucose"\r\n    }\r\n  ]\r\n}	2019-04-05 06:56:45.740196
@@ -2415,7 +2389,7 @@ COPY report (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: riskassessment; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY riskassessment (id, data, last_updated_ts) FROM stdin;
+COPY public.riskassessment (id, data, last_updated_ts) FROM stdin;
 12	{\n  "resourceType": "RiskAssessment",\n  "id": "9",\n   "meta":{\n  "versionId":"1"\n  },\n  "text": {\n    "status": "additional"\n\t},\n  "status": "final",\n  "subject": {\n    "reference": "Patient/9"\n  },\n  "occurrenceDateTime": "2012-11-22",\n  "condition": {\n    "reference": "Condition/stroke",\n    "display": "Ischemic Stroke"\n  },\n  "prediction": [\n    {\n      "outcome": {\n        "coding": [\n          {\n            "system": "http://snomed.info/sct",\n            "code": "249943000:363698007=72098002,260868000=6934004"\n          }\n        ],\n        "text": "permanent weakness of the left arm"\n      },\n      "qualitativeRisk": {\n        "coding": [\n          {\n            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",\n            "code": "moderate",\n            "display": "moderate likelihood"\n          }\n        ]\n      }\n    }\n  ]\n}	2019-05-06 10:20:22.382004
 13	{\n  "resourceType": "RiskAssessment",\n  "id": "10",\n   "meta":{\n  "versionId":"1"\n  },\n  "text": {\n    "status": "additional"\n\t},\n  "status": "final",\n  "subject": {\n    "reference": "Patient/10"\n  },\n  "occurrenceDateTime": "2016-10-20",\n  "condition": {\n    "reference": "Condition/stroke",\n    "display": "Ischemic Stroke"\n  },\n  "prediction": [\n    {\n      "outcome": {\n        "coding": [\n          {\n            "system": "http://snomed.info/sct",\n            "code": "249943000:363698007=72098002,260868000=6934004"\n          }\n        ],\n        "text": "permanent weakness of the left arm"\n      },\n      "qualitativeRisk": {\n        "coding": [\n          {\n            "system": "http://terminology.hl7.org/CodeSystem/risk-probability",\n            "code": "moderate",\n            "display": "moderate likelihood"\n          }\n        ]\n      }\n    }\n  ]\n}	2019-05-06 10:20:22.382004
 2	{  \r\n   "resourceType":"RiskAssessment",\r\n   "id":"2",\r\n    "meta":{  \r\n      "versionId":"1"\r\n   },\r\n   "status":"final",\r\n   "prediction":[  \r\n      {  \r\n         "outcome":{  \r\n            "text":"permanent weakness of the left arm",\r\n            "coding":[  \r\n               {  \r\n                  "code":"249943000:363698007=72098002,260868000=6934004",\r\n                  "system":"http://snomed.info/sct"\r\n               }\r\n            ]\r\n         },\r\n         "qualitativeRisk":{  \r\n            "coding":[  \r\n               {  \r\n                  "code":"moderate",\r\n                  "system":"http://terminology.hl7.org/CodeSystem/risk-probability",\r\n                  "display":"moderate likelihood"\r\n               }\r\n            ]\r\n         }\r\n      }\r\n   ],\r\n  "occurrenceDateTime":"2010-11-22",\r\n   "condition":{  \r\n      "display":"Ischemic Stroke",\r\n      "reference":"Condition/stroke"\r\n   },\r\n   "subject":{  \r\n      "reference":"Patient/2"\r\n   }\r\n}	2019-03-22 10:52:41.377791
@@ -2436,7 +2410,7 @@ COPY riskassessment (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: servicerequest; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY servicerequest (id, data, last_updated_ts) FROM stdin;
+COPY public.servicerequest (id, data, last_updated_ts) FROM stdin;
 3	{\n    "status": "active",\n    "code": {\n        "text": "Lipid Panel",\n        "coding": [\n            {\n                "code": "LIPID",\n                "system": "http://acme.org/tests"\n            }\n        ]\n    },\n    "resourceType": "ServiceRequest",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: lipid</p><p><b>contained</b>: , </p><p><b>identifier</b>: Placer = 2345234234234</p><p><b>status</b>: active</p><p><b>intent</b>: original-order</p><p><b>code</b>: Lipid Panel <span>(Details : {http://acme.org/tests code 'LIPID' = 'LIPID)</span></p><p><b>subject</b>: <a>Patient/example</a></p><p><b>encounter</b>: <a>Encounter/example</a></p><p><b>occurrence</b>: 02/05/2013 4:16:00 PM</p><p><b>requester</b>: <a>Practitioner/example</a></p><p><b>performer</b>: <a>Practitioner/f202</a></p><p><b>reasonCode</b>: Fam hx-ischem heart dis <span>(Details : {ICD-9 code 'V173' = 'V173', given as 'Fam hx-ischem heart dis'})</span></p><p><b>supportingInfo</b>: Fasting status. Generated Summary: id: fasting; status: final; Fasting status - Reported <span>(Details : {LOINC code '49541-6' = 'Fasting status - Reported', given as 'Fasting status - Reported'})</span>; Yes <span>(Details : {http://terminology.hl7.org/CodeSystem/v2-0136 code 'Y' = 'Yes', given as 'Yes'})</span></p><p><b>specimen</b>: Serum specimen. Generated Summary: id: serum; 20150107-0012; Serum sample <span>(Details : {SNOMED CT code '119364003' = 'Serum specimen', given as 'Serum sample'})</span></p><p><b>note</b>: patient is afraid of needles</p></div>"\n    },\n    "specimen": [\n        {\n            "display": "Serum specimen",\n            "reference": "#serum"\n        }\n    ],\n    "supportingInfo": [\n        {\n            "display": "Fasting status",\n            "reference": "#fasting"\n        }\n    ],\n    "note": [\n        {\n            "text": "patient is afraid of needles"\n        }\n    ],\n    "contained": [\n        {\n            "status": "final",\n            "valueCodeableConcept": {\n                "coding": [\n                    {\n                        "code": "Y",\n                        "system": "http://terminology.hl7.org/CodeSystem/v2-0136",\n                        "display": "Yes"\n                    }\n                ]\n            },\n            "code": {\n                "coding": [\n                    {\n                        "code": "49541-6",\n                        "system": "http://loinc.org",\n                        "display": "Fasting status - Reported"\n                    }\n                ]\n            },\n            "resourceType": "Observation",\n            "id": "fasting",\n            "subject": {\n                "reference": "Patient/example"\n            }\n        },\n        {\n            "resourceType": "Specimen",\n            "collection": {\n                "collectedDateTime": "2015-08-16T06:40:17Z"\n            },\n            "identifier": [\n                {\n                    "system": "http://acme.org/specimens",\n                    "value": "20150107-0012"\n                }\n            ],\n            "type": {\n                "coding": [\n                    {\n                        "code": "119364003",\n                        "system": "http://snomed.info/sct",\n                        "display": "Serum sample"\n                    }\n                ]\n            },\n            "id": "serum",\n            "subject": {\n                "reference": "Patient/example"\n            }\n        }\n    ],\n    "performer": [\n        {\n            "reference": "Practitioner/f202"\n        }\n    ],\n    "intent": "original-order",\n    "requester": {\n        "reference": "Practitioner/example"\n    },\n    "reasonCode": [\n        {\n            "coding": [\n                {\n                    "code": "V173",\n                    "system": "http://hl7.org/fhir/sid/icd-9",\n                    "display": "Fam hx-ischem heart dis"\n                }\n            ]\n        }\n    ],\n    "occurrenceDateTime": "2013-05-02T16:16:00-07:00",\n    "identifier": [\n        {\n            "type": {\n                "text": "Placer",\n                "coding": [\n                    {\n                        "code": "PLAC",\n                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203"\n                    }\n                ]\n            },\n            "system": "urn:oid:1.3.4.5.6.7",\n            "value": "2345234234234"\n        }\n    ],\n    "id": "1",\n\t"meta":{\n\t"versionId":"3"\n\t},\n\t\n    "encounter": {\n        "reference": "Encounter/example"\n    },\n    "subject": {\n        "reference": "Patient/example"\n    }\n}	2019-04-02 15:28:27.921447
 4	{\r\n    "category": [\r\n        {\r\n            "text": "Evaluation",\r\n            "coding": [\r\n                {\r\n                    "code": "386053000",\r\n                    "system": "http://snomed.info/sct",\r\n                    "display": "Evaluation procedure (procedure)"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n\t"meta":{\r\n\t"versionId":"1"\r\n\t},\r\n    "status": "completed",\r\n    "code": {\r\n        "text": "Assessment of passive range of motion",\r\n        "coding": [\r\n            {\r\n                "code": "710830005",\r\n                "system": "http://snomed.info/sct",\r\n                "display": "Assessment of passive range of motion (procedure)"\r\n            }\r\n        ]\r\n    },\r\n    "resourceType": "ServiceRequest",\r\n    "text": {\r\n        "status": "generated",\r\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: physical-therapy</p><p><b>status</b>: completed</p><p><b>intent</b>: order</p><p><b>category</b>: Evaluation <span>(Details : {SNOMED CT code '386053000' = 'Patient evaluation procedure', given as 'Evaluation procedure (procedure)'})</span></p><p><b>code</b>: Assessment of passive range of motion <span>(Details : {SNOMED CT code '710830005' = 'Assessment of passive range of motion', given as 'Assessment of passive range of motion (procedure)'})</span></p><p><b>subject</b>: <a>Patient/example</a></p><p><b>occurrence</b>: 27/09/2016</p><p><b>authoredOn</b>: 20/09/2016</p><p><b>requester</b>: Ollie Ortho, MD</p><p><b>performer</b>: Paul Therapist, PT</p><p><b>reasonCode</b>: assessment of mobility limitations due to osteoarthritis <span>(Details )</span></p><p><b>bodySite</b>: Both knees <span>(Details : {SNOMED CT code '36701003' = 'Both knees', given as 'Both knees (body structure)'})</span></p></div>"\r\n    },\r\n    "authoredOn": "2016-09-20",\r\n    "performer": [\r\n        {\r\n            "display": "Paul Therapist, PT"\r\n        }\r\n    ],\r\n    "intent": "order",\r\n    "bodySite": [\r\n        {\r\n            "text": "Both knees",\r\n            "coding": [\r\n                {\r\n                    "code": "36701003",\r\n                    "system": "http://snomed.info/sct",\r\n                    "display": "Both knees (body structure)"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    "requester": {\r\n        "display": "Ollie Ortho, MD"\r\n    },\r\n    "reasonCode": [\r\n        {\r\n            "text": "assessment of mobility limitations due to osteoarthritis"\r\n        }\r\n    ],\r\n    "occurrenceDateTime": "2016-09-27",\r\n    "id": "2",\r\n    "subject": {\r\n        "reference": "Patient/example"\r\n    }\r\n}	2019-04-02 17:12:24.564288
 5	{\r\n    "status": "active",\r\n    "code": {\r\n        "text": "Lipid Panel",\r\n        "coding": [\r\n            {\r\n                "code": "LIPID",\r\n                "system": "http://acme.org/tests"\r\n            }\r\n        ]\r\n    },\r\n    "resourceType": "ServiceRequest",\r\n    "text": {\r\n        "status": "generated",\r\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: lipid</p><p><b>contained</b>: , </p><p><b>identifier</b>: Placer = 2345234234234</p><p><b>status</b>: active</p><p><b>intent</b>: original-order</p><p><b>code</b>: Lipid Panel <span>(Details : {http://acme.org/tests code 'LIPID' = 'LIPID)</span></p><p><b>subject</b>: <a>Patient/example</a></p><p><b>encounter</b>: <a>Encounter/example</a></p><p><b>occurrence</b>: 02/05/2013 4:16:00 PM</p><p><b>requester</b>: <a>Practitioner/example</a></p><p><b>performer</b>: <a>Practitioner/f202</a></p><p><b>reasonCode</b>: Fam hx-ischem heart dis <span>(Details : {ICD-9 code 'V173' = 'V173', given as 'Fam hx-ischem heart dis'})</span></p><p><b>supportingInfo</b>: Fasting status. Generated Summary: id: fasting; status: final; Fasting status - Reported <span>(Details : {LOINC code '49541-6' = 'Fasting status - Reported', given as 'Fasting status - Reported'})</span>; Yes <span>(Details : {http://terminology.hl7.org/CodeSystem/v2-0136 code 'Y' = 'Yes', given as 'Yes'})</span></p><p><b>specimen</b>: Serum specimen. Generated Summary: id: serum; 20150107-0012; Serum sample <span>(Details : {SNOMED CT code '119364003' = 'Serum specimen', given as 'Serum sample'})</span></p><p><b>note</b>: patient is afraid of needles</p></div>"\r\n    },\r\n\t"meta":{\r\n\t"versionId":"1"\r\n\t},\r\n    "specimen": [\r\n        {\r\n            "display": "Serum specimen",\r\n            "reference": "serum"\r\n        }\r\n    ],\r\n    "supportingInfo": [\r\n        {\r\n            "display": "Fasting status",\r\n            "reference": "#fasting"\r\n        }\r\n    ],\r\n    "note": [\r\n        {\r\n            "text": "patient is afraid of needles"\r\n        }\r\n    ],\r\n    "contained": [\r\n        {\r\n            "status": "final",\r\n            "valueCodeableConcept": {\r\n                "coding": [\r\n                    {\r\n                        "code": "Y",\r\n                        "system": "http://terminology.hl7.org/CodeSystem/v2-0136",\r\n                        "display": "Yes"\r\n                    }\r\n                ]\r\n            },\r\n            "code": {\r\n                "coding": [\r\n                    {\r\n                        "code": "49541-6",\r\n                        "system": "http://loinc.org",\r\n                        "display": "Fasting status - Reported"\r\n                    }\r\n                ]\r\n            },\r\n            "resourceType": "Observation",\r\n            "id": "fasting",\r\n            "subject": {\r\n                "reference": "Patient/example"\r\n            }\r\n        },\r\n        {\r\n            "resourceType": "Specimen",\r\n            "collection": {\r\n                "collectedDateTime": "2015-08-16T06:40:17Z"\r\n            },\r\n            "identifier": [\r\n                {\r\n                    "system": "http://acme.org/specimens",\r\n                    "value": "20150107-0012"\r\n                }\r\n            ],\r\n            "type": {\r\n                "coding": [\r\n                    {\r\n                        "code": "119364003",\r\n                        "system": "http://snomed.info/sct",\r\n                        "display": "Serum sample"\r\n                    }\r\n                ]\r\n            },\r\n            "id": "serum",\r\n            "subject": {\r\n                "reference": "Patient/example"\r\n            }\r\n        }\r\n    ],\r\n    "performer": [\r\n        {\r\n            "reference": "Practitioner/f202"\r\n        }\r\n    ],\r\n    "intent": "original-order",\r\n    "requester": {\r\n        "reference": "Practitioner/example"\r\n    },\r\n    "reasonCode": [\r\n        {\r\n            "coding": [\r\n                {\r\n                    "code": "V173",\r\n                    "system": "http://hl7.org/fhir/sid/icd-9",\r\n                    "display": "Fam hx-ischem heart dis"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    "occurrenceDateTime": "2013-05-02T16:16:00-07:00",\r\n    "identifier": [\r\n        {\r\n            "type": {\r\n                "text": "Placer",\r\n                "coding": [\r\n                    {\r\n                        "code": "PLAC",\r\n                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203"\r\n                    }\r\n                ]\r\n            },\r\n            "system": "urn:oid:1.3.4.5.6.7",\r\n            "value": "2345234234234"\r\n        }\r\n    ],\r\n    "id": "3",\r\n    "encounter": {\r\n        "reference": "Encounter/example"\r\n    },\r\n    "subject": {\r\n        "reference": "Patient/example"\r\n    }\r\n}	2019-04-04 06:28:21.736162
@@ -2456,7 +2430,7 @@ COPY servicerequest (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: specimen; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY specimen (id, data, last_updated_ts) FROM stdin;
+COPY public.specimen (id, data, last_updated_ts) FROM stdin;
 3	{\n    "status": "available",\n    "container": [\n        {\n            "capacity": {\n                "unit": "mL",\n                "value": 10\n            },\n            "description": "Green Gel tube",\n            "additiveReference": {\n                "reference": "#hep"\n            },\n            "specimenQuantity": {\n                "unit": "mL",\n                "value": 6\n            },\n            "identifier": [\n                {\n                    "value": "48736-15394-75465"\n                }\n            ],\n            "type": {\n                "text": "Vacutainer"\n            }\n        }\n    ],\n    "accessionIdentifier": {\n        "system": "http://lab.acme.org/specimens/2011",\n        "value": "X352356"\n    },\n    "resourceType": "Specimen",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: 101</p><p><b>contained</b>: </p><p><b>identifier</b>: 23234352356</p><p><b>accessionIdentifier</b>: X352356</p><p><b>status</b>: available</p><p><b>type</b>: Venous blood specimen <span>(Details : {SNOMED CT code '122555007' = 'Venous blood specimen', given as 'Venous blood specimen'})</span></p><p><b>subject</b>: <a>Peter Patient</a></p><p><b>receivedTime</b>: 04/03/2011 7:03:00 AM</p><p><b>request</b>: <a>ServiceRequest/example</a></p><h3>Collections</h3><table><tr><td>-</td><td><b>Collector</b></td><td><b>Collected[x]</b></td><td><b>Quantity</b></td><td><b>Method</b></td><td><b>BodySite</b></td></tr><tr><td>*</td><td><a>Practitioner/example</a></td><td>30/05/2011 6:15:00 AM</td><td>6 mL</td><td>Line, Venous <span>(Details : {http://terminology.hl7.org/CodeSystem/v2-0488 code 'LNV' = 'Line, Venous)</span></td><td>Right median cubital vein <span>(Details : {SNOMED CT code '49852007' = 'Median cubital vein', given as 'Structure of median cubital vein (body structure)'})</span></td></tr></table><h3>Containers</h3><table><tr><td>-</td><td><b>Identifier</b></td><td><b>Description</b></td><td><b>Type</b></td><td><b>Capacity</b></td><td><b>SpecimenQuantity</b></td><td><b>Additive[x]</b></td></tr><tr><td>*</td><td>48736-15394-75465</td><td>Green Gel tube</td><td>Vacutainer <span>(Details )</span></td><td>10 mL</td><td>6 mL</td><td>id: hep; Lithium/Li Heparin <span>(Details : {http://terminology.hl7.org/CodeSystem/v3-EntityCode code 'HEPL' = 'Lithium/Li Heparin)</span></td></tr></table><p><b>note</b>: Specimen is grossly lipemic</p></div>"\n    },\n    "receivedTime": "2011-03-04T07:03:00Z",\n    "request": [\n        {\n            "reference": "ServiceRequest/example"\n        }\n    ],\n    "collection": {\n        "bodySite": {\n            "text": "Right median cubital vein",\n            "coding": [\n                {\n                    "code": "49852007",\n                    "system": "http://snomed.info/sct",\n                    "display": "Structure of median cubital vein (body structure)"\n                }\n            ]\n        },\n        "collectedDateTime": "2011-05-30T06:15:00Z",\n        "collector": {\n            "reference": "Practitioner/example"\n        },\n        "method": {\n            "coding": [\n                {\n                    "code": "LNV",\n                    "system": "http://terminology.hl7.org/CodeSystem/v2-0488"\n                }\n            ]\n        },\n        "quantity": {\n            "unit": "mL",\n            "value": 6\n        }\n    },\n    "note": [\n        {\n            "text": "Specimen is grossly lipemic"\n        }\n    ],\n    "contained": [\n        {\n            "resourceType": "Substance",\n            "code": {\n                "coding": [\n                    {\n                        "code": "HEPL",\n                        "system": "http://terminology.hl7.org/CodeSystem/v3-EntityCode"\n                    }\n                ]\n            },\n            "id": "hep"\n        }\n    ],\n    "meta": {\n        "versionId": "3"\n    },\n    "identifier": [\n        {\n            "system": "http://ehr.acme.org/identifiers/collections",\n            "value": "23234352356"\n        }\n    ],\n    "type": {\n        "coding": [\n            {\n                "code": "122555007",\n                "system": "http://snomed.info/sct",\n                "display": "Venous blood specimen"\n            }\n        ]\n    },\n    "id": "1",\n    "subject": {\n        "display": "Peter Patient",\n        "reference": "Patient/example"\n    }\n}	2019-03-27 13:26:30.039843
 6	{\n    "container": [\n        {\n            "type": {\n                "coding": [\n                    {\n                        "code": "SST",\n                        "system": "http://acme.com/labs",\n                        "display": "Serum Separator Tube"\n                    }\n                ]\n            }\n        }\n    ],\n    "accessionIdentifier": {\n        "system": "http://acme.com/labs/accession-ids",\n        "value": "20150816-00124"\n    },\n    "resourceType": "Specimen",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: sst</p><p><b>accessionIdentifier</b>: 20150816-00124</p><p><b>type</b>: Serum sample <span>(Details : {SNOMED CT code '119364003' = 'Serum specimen', given as 'Serum sample'})</span></p><p><b>subject</b>: <a>Patient/pat2</a></p><p><b>request</b>: <a>ServiceRequest/ft4</a></p><h3>Collections</h3><table><tr><td>-</td><td><b>Collector</b></td><td><b>Collected[x]</b></td></tr><tr><td>*</td><td><a>Practitioner/f202</a></td><td>16/08/2015 6:40:17 AM</td></tr></table><h3>Containers</h3><table><tr><td>-</td><td><b>Type</b></td></tr><tr><td>*</td><td>Serum Separator Tube <span>(Details : {http://acme.com/labs code 'SST' = 'SST', given as 'Serum Separator Tube'})</span></td></tr></table></div>"\n    },\n    "request": [\n        {\n            "reference": "ServiceRequest/ft4"\n        }\n    ],\n    "collection": {\n        "collectedDateTime": "2015-08-16T06:40:17Z",\n        "collector": {\n            "reference": "Practitioner/f202"\n        }\n    },\n    "meta": {\n        "versionId": "1"\n    },\n    "type": {\n        "coding": [\n            {\n                "code": "119364003",\n                "system": "http://snomed.info/sct",\n                "display": "Serum sample"\n            }\n        ]\n    },\n    "id": "4",\n    "subject": {\n        "reference": "Patient/pat2"\n    }\n}	2019-05-02 09:02:39.45574
 7	{\n    "container": [\n        {\n            "type": {\n                "text": "Red Top Blood Collection Tube",\n                "coding": [\n                    {\n                        "code": "RTT",\n                        "system": "https://vetmed.iastate.edu/vdl",\n                        "display": "Red Top Tube"\n                    }\n                ]\n            }\n        }\n    ],\n    "accessionIdentifier": {\n        "system": "https://vetmed.iastate.edu/vdl",\n        "value": "20171120-1234"\n    },\n    "resourceType": "Specimen",\n    "text": {\n        "status": "generated",\n        "div": "<div xmlns=\\"http://www.w3.org/1999/xhtml\\"><p><b>Generated Narrative with Details</b></p><p><b>id</b>: pooled-serum</p><p><b>accessionIdentifier</b>: 20171120-1234</p><p><b>type</b>: Pooled serum sample <span>(Details : {https://vetmed.iastate.edu/vdl code 'Serum sample, pooled' = 'Serum sample, pooled', given as 'Serum sample, pooled'})</span></p><p><b>subject</b>: <a>Group/herd1</a></p><h3>Collections</h3><table><tr><td>-</td><td><b>Collector</b></td><td><b>Collected[x]</b></td></tr><tr><td>*</td><td>James Herriot, FRCVS</td><td>14/11/2017</td></tr></table><h3>Containers</h3><table><tr><td>-</td><td><b>Type</b></td></tr><tr><td>*</td><td>Red Top Blood Collection Tube <span>(Details : {https://vetmed.iastate.edu/vdl code 'RTT' = 'RTT', given as 'Red Top Tube'})</span></td></tr></table><p><b>note</b>: Pooled serum sample from 30 individuals</p></div>"\n    },\n    "collection": {\n        "collectedDateTime": "2017-11-14",\n        "collector": {\n            "display": "James Herriot, FRCVS"\n        }\n    },\n    "note": [\n        {\n            "text": "Pooled serum sample from 30 individuals"\n        }\n    ],\n    "meta": {\n        "versionId": "1"\n    },\n    "type": {\n        "text": "Pooled serum sample",\n        "coding": [\n            {\n                "code": "Serum sample, pooled",\n                "system": "https://vetmed.iastate.edu/vdl",\n                "display": "Serum sample, pooled"\n            }\n        ]\n    },\n    "id": "5",\n    "subject": {\n        "reference": "Group/herd1"\n    }\n}	2019-05-02 09:02:39.45574
@@ -2476,7 +2450,7 @@ COPY specimen (id, data, last_updated_ts) FROM stdin;
 -- Data for Name: unmstjkgfsgg; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY unmstjkgfsgg (filename) FROM stdin;
+COPY public.unmstjkgfsgg (filename) FROM stdin;
 \.
 
 
@@ -2484,7 +2458,7 @@ COPY unmstjkgfsgg (filename) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY users (user_id, user_name, user_email, user_full_name, user_password, last_updated_ts, temp_password, is_pass) FROM stdin;
+COPY public.users (user_id, user_name, user_email, user_full_name, user_password, last_updated_ts, temp_password, is_pass) FROM stdin;
 1	tarunkumar	tarunkumar985@gmail.com	tarun	rgeT01JiJx2fHdQ4Io34mQ==	2019-06-05 09:22:47.42023	\N	t
 2	demouser	demo@sitenv.org	Demo User	X+zyYwGOEw44HEp8JBBkJg==	2019-07-11 07:22:59.061218	\N	t
 \.
@@ -2494,280 +2468,278 @@ COPY users (user_id, user_name, user_email, user_full_name, user_password, last_
 -- Name: allergy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('allergy_id_seq', 1, true);
+SELECT pg_catalog.setval('public.allergy_id_seq', 1, true);
 
 
 --
 -- Name: auth_temp_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('auth_temp_id_seq', 3, true);
+SELECT pg_catalog.setval('public.auth_temp_id_seq', 3, true);
 
 
 --
 -- Name: bulk_data_requests_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('bulk_data_requests_id_seq', 37, true);
+SELECT pg_catalog.setval('public.bulk_data_requests_id_seq', 24, true);
 
 
 --
 -- Name: careplan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('careplan_id_seq', 13, true);
+SELECT pg_catalog.setval('public.careplan_id_seq', 13, true);
 
 
 --
 -- Name: claim_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('claim_id_seq', 5, true);
+SELECT pg_catalog.setval('public.claim_id_seq', 5, true);
 
 
 --
 -- Name: clients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('clients_id_seq', 11, true);
+SELECT pg_catalog.setval('public.clients_id_seq', 11, true);
 
 
 --
 -- Name: condition_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('condition_id_seq', 9, true);
+SELECT pg_catalog.setval('public.condition_id_seq', 9, true);
 
 
 --
 -- Name: coverage_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('coverage_id_seq', 4, true);
+SELECT pg_catalog.setval('public.coverage_id_seq', 4, true);
 
 
 --
 -- Name: device_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('device_id_seq', 1, false);
+SELECT pg_catalog.setval('public.device_id_seq', 1, false);
 
 
 --
 -- Name: documentreference_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('documentreference_id_seq', 5, true);
+SELECT pg_catalog.setval('public.documentreference_id_seq', 5, true);
 
 
 --
 -- Name: encounter_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('encounter_id_seq', 12, true);
+SELECT pg_catalog.setval('public.encounter_id_seq', 12, true);
 
 
 --
 -- Name: familymemberhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('familymemberhistory_id_seq', 1, false);
+SELECT pg_catalog.setval('public.familymemberhistory_id_seq', 1, false);
 
 
 --
 -- Name: goal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('goal_id_seq', 1, false);
+SELECT pg_catalog.setval('public.goal_id_seq', 1, false);
 
 
 --
 -- Name: groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('groups_id_seq', 21, true);
+SELECT pg_catalog.setval('public.groups_id_seq', 26, true);
 
 
 --
 -- Name: healthcareservice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('healthcareservice_id_seq', 1, false);
+SELECT pg_catalog.setval('public.healthcareservice_id_seq', 1, false);
 
 
 --
 -- Name: hibernate_sequence; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('hibernate_sequence', 1, false);
+SELECT pg_catalog.setval('public.hibernate_sequence', 1, false);
 
 
 --
 -- Name: imagingstudy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('imagingstudy_id_seq', 1, false);
+SELECT pg_catalog.setval('public.imagingstudy_id_seq', 1, false);
 
 
 --
 -- Name: immunization_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('immunization_id_seq', 1, false);
+SELECT pg_catalog.setval('public.immunization_id_seq', 1, false);
 
 
 --
 -- Name: insuranceplan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('insuranceplan_id_seq', 1, false);
+SELECT pg_catalog.setval('public.insuranceplan_id_seq', 1, false);
 
 
 --
 -- Name: jwks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('jwks_id_seq', 1, false);
+SELECT pg_catalog.setval('public.jwks_id_seq', 1, false);
 
 
 --
 -- Name: location_location_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('location_location_id_seq', 1, false);
+SELECT pg_catalog.setval('public.location_location_id_seq', 1, false);
 
 
 --
 -- Name: medication_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('medication_id_seq', 1, false);
+SELECT pg_catalog.setval('public.medication_id_seq', 1, false);
 
 
 --
 -- Name: medicationadministration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('medicationadministration_id_seq', 7, true);
+SELECT pg_catalog.setval('public.medicationadministration_id_seq', 7, true);
 
 
 --
 -- Name: medicationdispense_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('medicationdispense_id_seq', 9, true);
+SELECT pg_catalog.setval('public.medicationdispense_id_seq', 9, true);
 
 
 --
 -- Name: medicationrequest_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('medicationrequest_id_seq', 1, false);
+SELECT pg_catalog.setval('public.medicationrequest_id_seq', 1, false);
 
 
 --
 -- Name: medicationstatement_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('medicationstatement_id_seq', 9, true);
+SELECT pg_catalog.setval('public.medicationstatement_id_seq', 9, true);
 
 
 --
 -- Name: observation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('observation_id_seq', 1, false);
+SELECT pg_catalog.setval('public.observation_id_seq', 1, false);
 
 
 --
 -- Name: patient_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('patient_id_seq1', 10, true);
+SELECT pg_catalog.setval('public.patient_id_seq1', 6, true);
 
 
 --
 -- Name: patient_json_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('patient_json_id_seq', 1, false);
+SELECT pg_catalog.setval('public.patient_json_id_seq', 1, false);
 
 
 --
 -- Name: practitioner_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('practitioner_id_seq', 17, true);
+SELECT pg_catalog.setval('public.practitioner_id_seq', 13, true);
 
 
 --
 -- Name: practitioner_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('practitioner_role_id_seq', 1, false);
+SELECT pg_catalog.setval('public.practitioner_role_id_seq', 1, false);
 
 
 --
 -- Name: practitionerrole_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('practitionerrole_id_seq', 4, true);
+SELECT pg_catalog.setval('public.practitionerrole_id_seq', 4, true);
 
 
 --
 -- Name: procedure_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('procedure_id_seq', 1, false);
+SELECT pg_catalog.setval('public.procedure_id_seq', 1, false);
 
 
 --
 -- Name: procedure_procedure_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('procedure_procedure_id_seq', 1, false);
+SELECT pg_catalog.setval('public.procedure_procedure_id_seq', 1, false);
 
 
 --
 -- Name: relatedperson_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('relatedperson_id_seq', 4, true);
+SELECT pg_catalog.setval('public.relatedperson_id_seq', 4, true);
 
 
 --
 -- Name: report_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('report_id_seq', 13, true);
+SELECT pg_catalog.setval('public.report_id_seq', 13, true);
 
 
 --
 -- Name: riskassessment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('riskassessment_id_seq', 1, false);
+SELECT pg_catalog.setval('public.riskassessment_id_seq', 1, false);
 
 
 --
 -- Name: specimen_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('specimen_id_seq', 5, true);
+SELECT pg_catalog.setval('public.specimen_id_seq', 5, true);
 
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('users_user_id_seq', 2, true);
+SELECT pg_catalog.setval('public.users_user_id_seq', 2, true);
 
 
 --
--- Data for Name: BLOBS; Type: BLOBS; Schema: -; Owner: 
+-- Data for Name: BLOBS; Type: BLOBS; Schema: -; Owner: -
 --
-
-SET search_path = pg_catalog;
 
 BEGIN;
 
@@ -2822,13 +2794,11 @@ SELECT pg_catalog.lo_close(0);
 
 COMMIT;
 
-SET search_path = public, pg_catalog;
-
 --
 -- Name: allergy allergy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY allergy
+ALTER TABLE ONLY public.allergy
     ADD CONSTRAINT allergy_pkey PRIMARY KEY (id);
 
 
@@ -2836,7 +2806,7 @@ ALTER TABLE ONLY allergy
 -- Name: auth_temp auth_temp_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY auth_temp
+ALTER TABLE ONLY public.auth_temp
     ADD CONSTRAINT auth_temp_pkey PRIMARY KEY (id);
 
 
@@ -2844,7 +2814,7 @@ ALTER TABLE ONLY auth_temp
 -- Name: bulk_data_requests bulk_data_requests_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY bulk_data_requests
+ALTER TABLE ONLY public.bulk_data_requests
     ADD CONSTRAINT bulk_data_requests_pkey PRIMARY KEY (id);
 
 
@@ -2852,7 +2822,7 @@ ALTER TABLE ONLY bulk_data_requests
 -- Name: careplan careplan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY careplan
+ALTER TABLE ONLY public.careplan
     ADD CONSTRAINT careplan_pkey PRIMARY KEY (id);
 
 
@@ -2860,7 +2830,7 @@ ALTER TABLE ONLY careplan
 -- Name: careteam careteam_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY careteam
+ALTER TABLE ONLY public.careteam
     ADD CONSTRAINT careteam_pkey PRIMARY KEY (id);
 
 
@@ -2868,7 +2838,7 @@ ALTER TABLE ONLY careteam
 -- Name: claim claim_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY claim
+ALTER TABLE ONLY public.claim
     ADD CONSTRAINT claim_pkey PRIMARY KEY (id);
 
 
@@ -2876,7 +2846,7 @@ ALTER TABLE ONLY claim
 -- Name: clients clients_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY clients
+ALTER TABLE ONLY public.clients
     ADD CONSTRAINT clients_pkey PRIMARY KEY (id);
 
 
@@ -2884,7 +2854,7 @@ ALTER TABLE ONLY clients
 -- Name: condition condition_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY condition
+ALTER TABLE ONLY public.condition
     ADD CONSTRAINT condition_pkey PRIMARY KEY (id);
 
 
@@ -2892,7 +2862,7 @@ ALTER TABLE ONLY condition
 -- Name: coverage coverage_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY coverage
+ALTER TABLE ONLY public.coverage
     ADD CONSTRAINT coverage_pkey PRIMARY KEY (id);
 
 
@@ -2900,7 +2870,7 @@ ALTER TABLE ONLY coverage
 -- Name: device device_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY device
+ALTER TABLE ONLY public.device
     ADD CONSTRAINT device_pkey PRIMARY KEY (id);
 
 
@@ -2908,7 +2878,7 @@ ALTER TABLE ONLY device
 -- Name: documentreference documentreference_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY documentreference
+ALTER TABLE ONLY public.documentreference
     ADD CONSTRAINT documentreference_pkey PRIMARY KEY (id);
 
 
@@ -2916,7 +2886,7 @@ ALTER TABLE ONLY documentreference
 -- Name: encounter encounter_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY encounter
+ALTER TABLE ONLY public.encounter
     ADD CONSTRAINT encounter_pkey PRIMARY KEY (id);
 
 
@@ -2924,7 +2894,7 @@ ALTER TABLE ONLY encounter
 -- Name: familymemberhistory familymemberhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY familymemberhistory
+ALTER TABLE ONLY public.familymemberhistory
     ADD CONSTRAINT familymemberhistory_pkey PRIMARY KEY (id);
 
 
@@ -2932,7 +2902,7 @@ ALTER TABLE ONLY familymemberhistory
 -- Name: goal goal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY goal
+ALTER TABLE ONLY public.goal
     ADD CONSTRAINT goal_pkey PRIMARY KEY (id);
 
 
@@ -2940,7 +2910,7 @@ ALTER TABLE ONLY goal
 -- Name: groups groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY groups
+ALTER TABLE ONLY public.groups
     ADD CONSTRAINT groups_pkey PRIMARY KEY (id);
 
 
@@ -2948,7 +2918,7 @@ ALTER TABLE ONLY groups
 -- Name: healthcareservice healthcareservice_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY healthcareservice
+ALTER TABLE ONLY public.healthcareservice
     ADD CONSTRAINT healthcareservice_pkey PRIMARY KEY (id);
 
 
@@ -2956,7 +2926,7 @@ ALTER TABLE ONLY healthcareservice
 -- Name: imagingstudy imagingstudy_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY imagingstudy
+ALTER TABLE ONLY public.imagingstudy
     ADD CONSTRAINT imagingstudy_pkey PRIMARY KEY (id);
 
 
@@ -2964,7 +2934,7 @@ ALTER TABLE ONLY imagingstudy
 -- Name: immunization immunization_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY immunization
+ALTER TABLE ONLY public.immunization
     ADD CONSTRAINT immunization_pkey PRIMARY KEY (id);
 
 
@@ -2972,7 +2942,7 @@ ALTER TABLE ONLY immunization
 -- Name: insuranceplan insuranceplan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY insuranceplan
+ALTER TABLE ONLY public.insuranceplan
     ADD CONSTRAINT insuranceplan_pkey PRIMARY KEY (id);
 
 
@@ -2980,7 +2950,7 @@ ALTER TABLE ONLY insuranceplan
 -- Name: jwks jwks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY jwks
+ALTER TABLE ONLY public.jwks
     ADD CONSTRAINT jwks_pkey PRIMARY KEY (id);
 
 
@@ -2988,7 +2958,7 @@ ALTER TABLE ONLY jwks
 -- Name: location location_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY location
+ALTER TABLE ONLY public.location
     ADD CONSTRAINT location_pkey PRIMARY KEY (id);
 
 
@@ -2996,7 +2966,7 @@ ALTER TABLE ONLY location
 -- Name: medication medication_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medication
+ALTER TABLE ONLY public.medication
     ADD CONSTRAINT medication_pkey PRIMARY KEY (id);
 
 
@@ -3004,7 +2974,7 @@ ALTER TABLE ONLY medication
 -- Name: medicationadministration medicationadministration_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationadministration
+ALTER TABLE ONLY public.medicationadministration
     ADD CONSTRAINT medicationadministration_pkey PRIMARY KEY (id);
 
 
@@ -3012,7 +2982,7 @@ ALTER TABLE ONLY medicationadministration
 -- Name: medicationdispense medicationdispense_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationdispense
+ALTER TABLE ONLY public.medicationdispense
     ADD CONSTRAINT medicationdispense_pkey PRIMARY KEY (id);
 
 
@@ -3020,7 +2990,7 @@ ALTER TABLE ONLY medicationdispense
 -- Name: medicationrequest medicationrequest_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationrequest
+ALTER TABLE ONLY public.medicationrequest
     ADD CONSTRAINT medicationrequest_pkey PRIMARY KEY (id);
 
 
@@ -3028,7 +2998,7 @@ ALTER TABLE ONLY medicationrequest
 -- Name: medicationstatement medicationstatement_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY medicationstatement
+ALTER TABLE ONLY public.medicationstatement
     ADD CONSTRAINT medicationstatement_pkey PRIMARY KEY (id);
 
 
@@ -3036,7 +3006,7 @@ ALTER TABLE ONLY medicationstatement
 -- Name: observation observation_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY observation
+ALTER TABLE ONLY public.observation
     ADD CONSTRAINT observation_pkey PRIMARY KEY (id);
 
 
@@ -3044,7 +3014,7 @@ ALTER TABLE ONLY observation
 -- Name: organization organization_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY organization
+ALTER TABLE ONLY public.organization
     ADD CONSTRAINT organization_pkey PRIMARY KEY (id);
 
 
@@ -3052,7 +3022,7 @@ ALTER TABLE ONLY organization
 -- Name: patient_json patient_json_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY patient_json
+ALTER TABLE ONLY public.patient_json
     ADD CONSTRAINT patient_json_pkey PRIMARY KEY (id);
 
 
@@ -3060,7 +3030,7 @@ ALTER TABLE ONLY patient_json
 -- Name: patient patient_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY patient
+ALTER TABLE ONLY public.patient
     ADD CONSTRAINT patient_pkey PRIMARY KEY (id);
 
 
@@ -3068,7 +3038,7 @@ ALTER TABLE ONLY patient
 -- Name: plandefinition plandefinition_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY plandefinition
+ALTER TABLE ONLY public.plandefinition
     ADD CONSTRAINT plandefinition_pkey PRIMARY KEY (id);
 
 
@@ -3076,7 +3046,7 @@ ALTER TABLE ONLY plandefinition
 -- Name: practitioner practitioner_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY practitioner
+ALTER TABLE ONLY public.practitioner
     ADD CONSTRAINT practitioner_pkey PRIMARY KEY (id);
 
 
@@ -3084,7 +3054,7 @@ ALTER TABLE ONLY practitioner
 -- Name: practitioner_role practitioner_role_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY practitioner_role
+ALTER TABLE ONLY public.practitioner_role
     ADD CONSTRAINT practitioner_role_pkey PRIMARY KEY (id);
 
 
@@ -3092,7 +3062,7 @@ ALTER TABLE ONLY practitioner_role
 -- Name: practitionerrole practitionerrole_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY practitionerrole
+ALTER TABLE ONLY public.practitionerrole
     ADD CONSTRAINT practitionerrole_pkey PRIMARY KEY (id);
 
 
@@ -3100,7 +3070,7 @@ ALTER TABLE ONLY practitionerrole
 -- Name: procedure procedure_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY procedure
+ALTER TABLE ONLY public.procedure
     ADD CONSTRAINT procedure_pkey PRIMARY KEY (id);
 
 
@@ -3108,7 +3078,7 @@ ALTER TABLE ONLY procedure
 -- Name: provenance provenance_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY provenance
+ALTER TABLE ONLY public.provenance
     ADD CONSTRAINT provenance_pkey PRIMARY KEY (id);
 
 
@@ -3116,7 +3086,7 @@ ALTER TABLE ONLY provenance
 -- Name: relatedperson relatedperson_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY relatedperson
+ALTER TABLE ONLY public.relatedperson
     ADD CONSTRAINT relatedperson_pkey PRIMARY KEY (id);
 
 
@@ -3124,7 +3094,7 @@ ALTER TABLE ONLY relatedperson
 -- Name: report report_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY report
+ALTER TABLE ONLY public.report
     ADD CONSTRAINT report_pkey PRIMARY KEY (id);
 
 
@@ -3132,7 +3102,7 @@ ALTER TABLE ONLY report
 -- Name: riskassessment riskassessment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY riskassessment
+ALTER TABLE ONLY public.riskassessment
     ADD CONSTRAINT riskassessment_pkey PRIMARY KEY (id);
 
 
@@ -3140,7 +3110,7 @@ ALTER TABLE ONLY riskassessment
 -- Name: servicerequest servicerequest_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY servicerequest
+ALTER TABLE ONLY public.servicerequest
     ADD CONSTRAINT servicerequest_pkey PRIMARY KEY (id);
 
 
@@ -3148,7 +3118,7 @@ ALTER TABLE ONLY servicerequest
 -- Name: specimen specimen_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY specimen
+ALTER TABLE ONLY public.specimen
     ADD CONSTRAINT specimen_pkey PRIMARY KEY (id);
 
 
@@ -3156,7 +3126,7 @@ ALTER TABLE ONLY specimen
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
 
 
@@ -3164,266 +3134,266 @@ ALTER TABLE ONLY users
 -- Name: xpkallergy; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkallergy ON allergy USING btree (id);
+CREATE UNIQUE INDEX xpkallergy ON public.allergy USING btree (id);
 
 
 --
 -- Name: xpkauth_temp; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkauth_temp ON auth_temp USING btree (id);
+CREATE UNIQUE INDEX xpkauth_temp ON public.auth_temp USING btree (id);
 
 
 --
 -- Name: xpkbulk_data_requests; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkbulk_data_requests ON bulk_data_requests USING btree (id);
+CREATE UNIQUE INDEX xpkbulk_data_requests ON public.bulk_data_requests USING btree (id);
 
 
 --
 -- Name: xpkcareplan; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkcareplan ON careplan USING btree (id);
+CREATE UNIQUE INDEX xpkcareplan ON public.careplan USING btree (id);
 
 
 --
 -- Name: xpkcareteam; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkcareteam ON careteam USING btree (id);
+CREATE UNIQUE INDEX xpkcareteam ON public.careteam USING btree (id);
 
 
 --
 -- Name: xpkclaim; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkclaim ON claim USING btree (id);
+CREATE UNIQUE INDEX xpkclaim ON public.claim USING btree (id);
 
 
 --
 -- Name: xpkclients; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkclients ON clients USING btree (id);
+CREATE UNIQUE INDEX xpkclients ON public.clients USING btree (id);
 
 
 --
 -- Name: xpkcondition; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkcondition ON condition USING btree (id);
+CREATE UNIQUE INDEX xpkcondition ON public.condition USING btree (id);
 
 
 --
 -- Name: xpkcoverage; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkcoverage ON coverage USING btree (id);
+CREATE UNIQUE INDEX xpkcoverage ON public.coverage USING btree (id);
 
 
 --
 -- Name: xpkdevice; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkdevice ON device USING btree (id);
+CREATE UNIQUE INDEX xpkdevice ON public.device USING btree (id);
 
 
 --
 -- Name: xpkdocumentreference; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkdocumentreference ON documentreference USING btree (id);
+CREATE UNIQUE INDEX xpkdocumentreference ON public.documentreference USING btree (id);
 
 
 --
 -- Name: xpkencounter; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkencounter ON encounter USING btree (id);
+CREATE UNIQUE INDEX xpkencounter ON public.encounter USING btree (id);
 
 
 --
 -- Name: xpkfamilymemberhistory; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkfamilymemberhistory ON familymemberhistory USING btree (id);
+CREATE UNIQUE INDEX xpkfamilymemberhistory ON public.familymemberhistory USING btree (id);
 
 
 --
 -- Name: xpkgoal; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkgoal ON goal USING btree (id);
+CREATE UNIQUE INDEX xpkgoal ON public.goal USING btree (id);
 
 
 --
 -- Name: xpkgroups; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkgroups ON groups USING btree (id);
+CREATE UNIQUE INDEX xpkgroups ON public.groups USING btree (id);
 
 
 --
 -- Name: xpkhealthcareservice; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkhealthcareservice ON healthcareservice USING btree (id);
+CREATE UNIQUE INDEX xpkhealthcareservice ON public.healthcareservice USING btree (id);
 
 
 --
 -- Name: xpkimagingstudy; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkimagingstudy ON imagingstudy USING btree (id);
+CREATE UNIQUE INDEX xpkimagingstudy ON public.imagingstudy USING btree (id);
 
 
 --
 -- Name: xpkimmunization; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkimmunization ON immunization USING btree (id);
+CREATE UNIQUE INDEX xpkimmunization ON public.immunization USING btree (id);
 
 
 --
 -- Name: xpkinsuranceplan; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkinsuranceplan ON insuranceplan USING btree (id);
+CREATE UNIQUE INDEX xpkinsuranceplan ON public.insuranceplan USING btree (id);
 
 
 --
 -- Name: xpkjwks; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkjwks ON jwks USING btree (id);
+CREATE UNIQUE INDEX xpkjwks ON public.jwks USING btree (id);
 
 
 --
 -- Name: xpklocation; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpklocation ON location USING btree (id);
+CREATE UNIQUE INDEX xpklocation ON public.location USING btree (id);
 
 
 --
 -- Name: xpkmedication; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkmedication ON medication USING btree (id);
+CREATE UNIQUE INDEX xpkmedication ON public.medication USING btree (id);
 
 
 --
 -- Name: xpkmedicationadministration; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkmedicationadministration ON medicationadministration USING btree (id);
+CREATE UNIQUE INDEX xpkmedicationadministration ON public.medicationadministration USING btree (id);
 
 
 --
 -- Name: xpkmedicationdispense; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkmedicationdispense ON medicationdispense USING btree (id);
+CREATE UNIQUE INDEX xpkmedicationdispense ON public.medicationdispense USING btree (id);
 
 
 --
 -- Name: xpkmedicationrequest; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkmedicationrequest ON medicationrequest USING btree (id);
+CREATE UNIQUE INDEX xpkmedicationrequest ON public.medicationrequest USING btree (id);
 
 
 --
 -- Name: xpkmedicationstatement; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkmedicationstatement ON medicationstatement USING btree (id);
+CREATE UNIQUE INDEX xpkmedicationstatement ON public.medicationstatement USING btree (id);
 
 
 --
 -- Name: xpkobservation; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkobservation ON observation USING btree (id);
+CREATE UNIQUE INDEX xpkobservation ON public.observation USING btree (id);
 
 
 --
 -- Name: xpkorganization; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkorganization ON organization USING btree (id);
+CREATE UNIQUE INDEX xpkorganization ON public.organization USING btree (id);
 
 
 --
 -- Name: xpkpatient; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkpatient ON patient USING btree (id);
+CREATE UNIQUE INDEX xpkpatient ON public.patient USING btree (id);
 
 
 --
 -- Name: xpkpractitioner; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkpractitioner ON practitioner USING btree (id);
+CREATE UNIQUE INDEX xpkpractitioner ON public.practitioner USING btree (id);
 
 
 --
 -- Name: xpkpractitionerrole; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkpractitionerrole ON practitionerrole USING btree (id);
+CREATE UNIQUE INDEX xpkpractitionerrole ON public.practitionerrole USING btree (id);
 
 
 --
 -- Name: xpkprocedure; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkprocedure ON procedure USING btree (id);
+CREATE UNIQUE INDEX xpkprocedure ON public.procedure USING btree (id);
 
 
 --
 -- Name: xpkrelatedperson; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkrelatedperson ON relatedperson USING btree (id);
+CREATE UNIQUE INDEX xpkrelatedperson ON public.relatedperson USING btree (id);
 
 
 --
 -- Name: xpkreport; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkreport ON report USING btree (id);
+CREATE UNIQUE INDEX xpkreport ON public.report USING btree (id);
 
 
 --
 -- Name: xpkriskassessment; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkriskassessment ON riskassessment USING btree (id);
+CREATE UNIQUE INDEX xpkriskassessment ON public.riskassessment USING btree (id);
 
 
 --
 -- Name: xpkservicerequest; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkservicerequest ON servicerequest USING btree (id);
+CREATE UNIQUE INDEX xpkservicerequest ON public.servicerequest USING btree (id);
 
 
 --
 -- Name: xpkspecimen; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkspecimen ON specimen USING btree (id);
+CREATE UNIQUE INDEX xpkspecimen ON public.specimen USING btree (id);
 
 
 --
 -- Name: xpkusers; Type: INDEX; Schema: public; Owner: postgres
 --
 
-CREATE UNIQUE INDEX xpkusers ON users USING btree (user_id);
+CREATE UNIQUE INDEX xpkusers ON public.users USING btree (user_id);
 
 
 --

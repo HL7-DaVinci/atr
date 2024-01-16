@@ -1,38 +1,11 @@
 {
 	"info": {
-		"_postman_id": "b4629479-67d9-4c72-89c4-a4b839252ceb",
-		"name": "MAL API's",
+		"_postman_id": "e4eab9c8-f611-4cd6-ba0f-920c1002e5a1",
+		"name": "MAL-API-2024",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2665566"
 	},
 	"item": [
-		{
-			"name": "Create bundle with base url",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/fhir+json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"resourceType\": \"Bundle\",\r\n\t\"id\": \"1131e3a6-c81e-46fa-969c-270ebc6626fb\",\r\n\t\"type\": \"transaction\",\r\n\t\"entry\": [{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"6d12255b-f7ab-4c70-846d-284b8d5711a2\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:35.392600+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"b02886ea-3925-41d4-b606-377ae05eea78\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"b02886ea-3925-41d4-b606-377ae05eea78\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"999-14-7088\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"S99933145\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X51147095X\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"1111\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"1SQ3F00AA00\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"a006edba97087f2911a35706e46bf1287d21d8fa515024ace44d589bdef9d819\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Prosacco716\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Jonathan639\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1943-06-08\",\r\n\t\t\t\t\"generalPractitioner\": [{\r\n\t\t\t\t\t\"reference\": \"Practitioner/eb7d4097-ac35-4051-9eb9-a311b26d2b1b\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"d4c99312-cacf-4921-b976-48b879ce9d0d\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"a238ebf2-392b-44be-9a17-da07a15js78\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"a238ebf2-392b-44be-9a17-fbsfbskfas\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"999-99-7580\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"S9994LKJ98\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X18916767X\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"2222\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"5S58A00AA90\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d35350fce12f555089f938c0323af057a4191fd450c2b90\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Savitha\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Gregg522\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-282-38944\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1991-02-10\",\r\n\t\t\t\t\"managingOrganization\": {\r\n\t\t\t\t\t\"reference\": \"Organization/90eafc0e-2844-4b75-8c99-96f9f0929977\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"0e13d2fe-b259-4c77-9401-e34ef542ef70\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"a238ebf2-392b-44be-9a17-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"a238ebf2-392b-44be-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"999-99-34568\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"S9994289809\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X19416762542\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"3333\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"5S5284K00AA00\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a13122622123038e8af057a4191fd450c2b90\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Hettinger594\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Gregg522\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-282-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1994-08-10\"\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"8ccc45d0-d9f3-4e8f-932c-eb7fe7205ec8\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"a238ebf2-89gh-44be-9a17-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"a238ebf2-392b-9008-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"990-88-34568\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"S9994285659\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X194167623235\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"4444\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"7x5284L00AA00\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a13122622123dbsb80057a4191fd450c2b90\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Sihi\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Gregg522\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-290-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1967-02-15\",\r\n\t\t\t\t\"managingOrganization\": {\r\n\t\t\t\t\t\"reference\": \"Organization/2923588a-f188-449c-8d24-3b853e3c003e\"\r\n\t\t\t\t},\r\n\t\t\t\t\"generalPractitioner\": [{\r\n\t\t\t\t\t\"reference\": \"Practitioner/0a133640-74c0-47f2-a738-f40ff7bba5ff\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"67f8ea8a-5c83-4689-bab0-e2d469fb176b\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"sfh678hb-89gh-44be-9a17-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"89ehju-392b-9008-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"789-76-34568\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"S99908285659\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X19416769090583\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"5555\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"7x5284L00AX67\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a159495nnskhi9057a4191fd450c2b90\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Gubbi\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Raj\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-000-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1978-02-15\",\r\n\t\t\t\t\"generalPractitioner\": [{\r\n\t\t\t\t\t\t\"reference\": \"Practitioner/08625b65-8fd6-47eb-bd5d-ebac059fa375\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"reference\": \"Organization/4c0aa7fc-a44f-476b-a400-991788e63eac\"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"54e8fb7b-8b40-406a-b906-735c76182109\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"sfh678hb-89gh-44be-89ui-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"89ehju-392b-9090-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"789-76-090898\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"SBDJSKSSI90\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X1941670583\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"6666\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"7x5284L00AX67\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a159495nnskhi9057a4191fd450c2b90\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Gubbi\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Raj\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-000-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1978-02-15\",\r\n\t\t\t\t\"generalPractitioner\": [{\r\n\t\t\t\t\t\"reference\": \"Practitioner/b1648e0d-dd40-4900-bbb8-1c26d6501660\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"f431b0ad-be2c-485a-a717-cf3fa04f164e\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"sfh678hb-bjsbs-44be-89ui-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"89ehju-8976-9090-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"789-76-123123\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"SBDJSKSSI89\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X19416708989\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"7777\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"7x5284L00AX89\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a159495nnskhi9057a7777fd4890c2b90\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Disi\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Dinesha\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-7777-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1978-02-15\",\r\n\t\t\t\t\"managingOrganization\": {\r\n\t\t\t\t\t\"reference\": \"Organization/4\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"68d95287-78d9-4a3c-976c-9891809bbff2\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"sfh678hb-8888-44be-89ui-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"89ehju-8976-8888-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"789-76-888888\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"SBDJSKS8888\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X19416708888\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"8888\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"7x5284L00AX8888\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a159495nnskhi9057a7777fd4890c2b8888\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Dinesh\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Munireddy\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-8888-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1988-08-18\"\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"7401f4ab-74b1-403f-ab50-64e91e7c8f99\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"sfh678hb-9999-44be-89ui-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"89ehju-8976-9999-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"789-76-99999\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"SBDJSKS9999\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X19416709999\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"1010\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"7x5284L00AX9999\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a159495nnskhi9057a7777fd4890c2b9999\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Chaithra\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Muniraj\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-9999-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1999-09-19\",\r\n\t\t\t\t\"generalPractitioner\": [{\r\n\t\t\t\t\t\"reference\": \"Practitioner/5\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Patient\",\r\n\t\t\t\t\"id\": \"980f54cf-4914-4f37-a4f9-e303675e3231\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2019-04-09T12:25:36.451316+00:00\",\r\n\t\t\t\t\t\"profile\": [\r\n\t\t\t\t\t\t\"https://dpc.cms.gov/api/v1/StructureDefinition/dpc-profile-patient\"\r\n\t\t\t\t\t]\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\t\"system\": \"https://github.com/synthetichealth/synthea\",\r\n\t\t\t\t\t\t\"value\": \"sfh678hb-1111-44be-89ui-da07a15220e789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"MR\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Medical Record Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Medical Record Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hospital.smarthealthit.org\",\r\n\t\t\t\t\t\t\"value\": \"89ehju-8976-1111-9a17-da07a1522686\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/identifier-type\",\r\n\t\t\t\t\t\t\t\t\"code\": \"SB\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Social Security Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Social Security Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-ssn\",\r\n\t\t\t\t\t\t\"value\": \"789-76-11111\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"DL\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Driver's License\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Driver's License\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"urn:oid:2.16.840.1.113883.4.3.25\",\r\n\t\t\t\t\t\t\"value\": \"SBDJSKS1111\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/v2/0203\",\r\n\t\t\t\t\t\t\t\t\"code\": \"PPN\",\r\n\t\t\t\t\t\t\t\t\"display\": \"Passport Number\"\r\n\t\t\t\t\t\t\t}],\r\n\t\t\t\t\t\t\t\"text\": \"Passport Number\"\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"system\": \"http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber\",\r\n\t\t\t\t\t\t\"value\": \"X19416701111\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\t\"value\": \"1111\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-mbi\",\r\n\t\t\t\t\t\t\"value\": \"7x5284L00AX1111\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/identifier/mbi-hash\",\r\n\t\t\t\t\t\t\"value\": \"d8c0323a159495nnskhi9057a7777fd4890c2b9999\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"use\": \"official\",\r\n\t\t\t\t\t\"family\": \"Muniraj\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"papanna\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Mr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"555-1111-3590\",\r\n\t\t\t\t\t\"use\": \"home\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\",\r\n\t\t\t\t\"birthDate\": \"1999-11-11\",\r\n\t\t\t\t\"managingOrganization\": {\r\n\t\t\t\t\t\"reference\": \"Organization/5\"\r\n\t\t\t\t}\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Practitioner\",\r\n\t\t\t\t\"id\": \"eb7d4097-ac35-4051-9eb9-a311b26d2b1b\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"11111\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"family\": \"MacGyver246\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Chang901\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Dr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"email\",\r\n\t\t\t\t\t\"value\": \"Chang901.MacGyver246@example.com\",\r\n\t\t\t\t\t\"use\": \"work\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"55 FOGG ROAD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"SOUTH WEYMOUTH\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"02190\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\"\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Practitioner\",\r\n\t\t\t\t\"id\": \"0a133640-74c0-47f2-a738-f40ff7bba5ff\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"22222\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"family\": \"Chandan\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Chang901\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Dr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"email\",\r\n\t\t\t\t\t\"value\": \"Chang901.MacGyver246@example.com\",\r\n\t\t\t\t\t\"use\": \"work\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"55 FOGG ROAD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"SOUTH WEYMOUTH\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"02190\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\"\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Practitioner\",\r\n\t\t\t\t\"id\": \"08625b65-8fd6-47eb-bd5d-ebac059fa375\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"33333\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"family\": \"Sindhu\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Chang901\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Dr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"email\",\r\n\t\t\t\t\t\"value\": \"Chang901.MacGyver246@example.com\",\r\n\t\t\t\t\t\"use\": \"work\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"55 FOGG ROAD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"SOUTH WEYMOUTH\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"02190\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\"\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Practitioner\",\r\n\t\t\t\t\"id\": \"c83ba64a-8a94-405e-bc46-e1038c33e2c2\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"66666\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"name\": [{\r\n\t\t\t\t\t\"family\": \"Venkatesh\",\r\n\t\t\t\t\t\"given\": [\r\n\t\t\t\t\t\t\"Chang901\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"prefix\": [\r\n\t\t\t\t\t\t\"Dr.\"\r\n\t\t\t\t\t]\r\n\t\t\t\t}],\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"email\",\r\n\t\t\t\t\t\"value\": \"Chang901.MacGyver246@example.com\",\r\n\t\t\t\t\t\"use\": \"work\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"55 FOGG ROAD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"SOUTH WEYMOUTH\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"02190\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"gender\": \"male\"\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Organization\",\r\n\t\t\t\t\"id\": \"90eafc0e-2844-4b75-8c99-96f9f0929977\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"11111\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"type\": [{\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\r\n\t\t\t\t\t\t\"code\": \"prov\",\r\n\t\t\t\t\t\t\"display\": \"Healthcare Provider\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t}],\r\n\t\t\t\t\"name\": \"BNG Hospital111\",\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"978-111-0770\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"25 COBB RD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"ASHBURNHAM\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"01430-1210\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Organization\",\r\n\t\t\t\t\"id\": \"2923588a-f188-449c-8d24-3b853e3c003e\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"22222\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"type\": [{\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\r\n\t\t\t\t\t\t\"code\": \"prov\",\r\n\t\t\t\t\t\t\"display\": \"Healthcare Provider\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t}],\r\n\t\t\t\t\"name\": \"BNG Hospital222\",\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"978-222-0770\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"25 COBB RD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"ASHBURNHAM\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"01430-1210\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Organization\",\r\n\t\t\t\t\"id\": \"4c0aa7fc-a44f-476b-a400-991788e63eac\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"33333\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"type\": [{\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\r\n\t\t\t\t\t\t\"code\": \"prov\",\r\n\t\t\t\t\t\t\"display\": \"Healthcare Provider\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t}],\r\n\t\t\t\t\"name\": \"BNG Hospital333\",\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"978-333-0770\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"25 COBB RD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"ASHBURNHAM\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"01430-1210\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Organization\",\r\n\t\t\t\t\"id\": \"059081f0-44f2-4610-9610-eef8b68db713\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-17T12:13:07.683+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\t\t\t\"value\": \"66666\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"active\": true,\r\n\t\t\t\t\"type\": [{\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\r\n\t\t\t\t\t\t\"code\": \"prov\",\r\n\t\t\t\t\t\t\"display\": \"Healthcare Provider\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t}],\r\n\t\t\t\t\"name\": \"BNG Hospital333\",\r\n\t\t\t\t\"telecom\": [{\r\n\t\t\t\t\t\"system\": \"phone\",\r\n\t\t\t\t\t\"value\": \"978-333-0770\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"address\": [{\r\n\t\t\t\t\t\"line\": [\r\n\t\t\t\t\t\t\"[\\\"25 COBB RD\\\"]\"\r\n\t\t\t\t\t],\r\n\t\t\t\t\t\"city\": \"ASHBURNHAM\",\r\n\t\t\t\t\t\"state\": \"MA\",\r\n\t\t\t\t\t\"postalCode\": \"01430-1210\",\r\n\t\t\t\t\t\"country\": \"US\"\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Coverage\",\r\n\t\t\t\t\"id\": \"d8c981f1-7e4c-4c27-8c3f-ddf5e6bc8e50\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-08T07:06:17.000+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"status\": \"active\",\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\"value\": \"3333\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"subscriber\": {\r\n\t\t\t\t\t\"reference\": \"Patient/6d12255b-f7ab-4c70-846d-284b8d5711a2\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t},\r\n\t\t\t\t\"subscriberId\": \"111111\",\r\n\t\t\t\t\"beneficiary\": {\r\n\t\t\t\t\t\"reference\": \"Patient/0e13d2fe-b259-4c77-9401-e34ef542ef70\"\r\n\t\t\t\t},\r\n\t\t\t\t\"dependent\": \"1\",\r\n\t\t\t\t\"relationship\": {\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/subscriber-relationship\",\r\n\t\t\t\t\t\t\"code\": \"common\",\r\n\t\t\t\t\t\t\"display\": \"COMMON LAW SPOUSE\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t},\r\n\t\t\t\t\"period\": {\r\n\t\t\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\t\t\"end\": \"2020-05-08T07:06:17+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"payor\": [{\r\n\t\t\t\t\t\"reference\": \"Patient/17f3cfdd-bc0f-4413-942b-523c7c85e50e\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"class\": [{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"group\",\r\n\t\t\t\t\t\t\t\t\"display\": \"GROUP\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"1781\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"plan\",\r\n\t\t\t\t\t\t\t\t\"display\": \"PLAN\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"111111111\",\r\n\t\t\t\t\t\t\"name\": \"Test Plan 001\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"order\": 1,\r\n\t\t\t\t\"costToBeneficiary\": [{\r\n\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-copay-type\",\r\n\t\t\t\t\t\t\t\"code\": \"copay\",\r\n\t\t\t\t\t\t\t\"display\": \"COPAY AMOUNT\"\r\n\t\t\t\t\t\t}]\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"valueQuantity\": {\r\n\t\t\t\t\t\t\"value\": 0.01,\r\n\t\t\t\t\t\t\"unit\": \"%\",\r\n\t\t\t\t\t\t\"system\": \"http://unitsofmeasure.org\",\r\n\t\t\t\t\t\t\"code\": \"%\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Coverage\",\r\n\t\t\t\t\"id\": \"1cb3377a-05c3-4df4-9cf8-09e8fe359128\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-08T07:06:17.000+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"status\": \"active\",\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\"value\": \"5555\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"subscriber\": {\r\n\t\t\t\t\t\"reference\": \"Patient/d4c99312-cacf-4921-b976-48b879ce9d0d\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t},\r\n\t\t\t\t\"subscriberId\": \"222222\",\r\n\t\t\t\t\"beneficiary\": {\r\n\t\t\t\t\t\"reference\": \"Patient/67f8ea8a-5c83-4689-bab0-e2d469fb176b\"\r\n\t\t\t\t},\r\n\t\t\t\t\"dependent\": \"1\",\r\n\t\t\t\t\"relationship\": {\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/subscriber-relationship\",\r\n\t\t\t\t\t\t\"code\": \"common\",\r\n\t\t\t\t\t\t\"display\": \"COMMON LAW SPOUSE\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t},\r\n\t\t\t\t\"period\": {\r\n\t\t\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\t\t\"end\": \"2020-05-08T07:06:17+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"payor\": [{\r\n\t\t\t\t\t\"reference\": \"Patient/17f3cfdd-bc0f-4413-942b-523c7c85e50e\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"class\": [{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"group\",\r\n\t\t\t\t\t\t\t\t\"display\": \"GROUP\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"5789\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"plan\",\r\n\t\t\t\t\t\t\t\t\"display\": \"PLAN\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"8989\",\r\n\t\t\t\t\t\t\"name\": \"Test Plan 001\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"order\": 1,\r\n\t\t\t\t\"costToBeneficiary\": [{\r\n\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-copay-type\",\r\n\t\t\t\t\t\t\t\"code\": \"copay\",\r\n\t\t\t\t\t\t\t\"display\": \"COPAY AMOUNT\"\r\n\t\t\t\t\t\t}]\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"valueQuantity\": {\r\n\t\t\t\t\t\t\"value\": 0.01,\r\n\t\t\t\t\t\t\"unit\": \"%\",\r\n\t\t\t\t\t\t\"system\": \"http://unitsofmeasure.org\",\r\n\t\t\t\t\t\t\"code\": \"%\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Coverage\",\r\n\t\t\t\t\"id\": \"b57da73c-e497-488f-afdc-233907074c15\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-08T07:06:17.000+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"status\": \"active\",\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\"value\": \"9999\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"subscriber\": {\r\n\t\t\t\t\t\"reference\": \"Patient/0e13d2fe-b259-4c77-9401-e34ef542ef70\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t},\r\n\t\t\t\t\"subscriberId\": \"333333\",\r\n\t\t\t\t\"beneficiary\": {\r\n\t\t\t\t\t\"reference\": \"Patient/a72a82c4-0e23-45dc-8557-6b07ded883ea\"\r\n\t\t\t\t},\r\n\t\t\t\t\"dependent\": \"1\",\r\n\t\t\t\t\"relationship\": {\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/subscriber-relationship\",\r\n\t\t\t\t\t\t\"code\": \"common\",\r\n\t\t\t\t\t\t\"display\": \"COMMON LAW SPOUSE\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t},\r\n\t\t\t\t\"period\": {\r\n\t\t\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\t\t\"end\": \"2020-05-08T07:06:17+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"payor\": [{\r\n\t\t\t\t\t\"reference\": \"Patient/17f3cfdd-bc0f-4413-942b-523c7c85e50e\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"class\": [{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"group\",\r\n\t\t\t\t\t\t\t\t\"display\": \"GROUP\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"7856\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"plan\",\r\n\t\t\t\t\t\t\t\t\"display\": \"PLAN\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"46776\",\r\n\t\t\t\t\t\t\"name\": \"Test Plan 001\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"order\": 1,\r\n\t\t\t\t\"costToBeneficiary\": [{\r\n\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-copay-type\",\r\n\t\t\t\t\t\t\t\"code\": \"copay\",\r\n\t\t\t\t\t\t\t\"display\": \"COPAY AMOUNT\"\r\n\t\t\t\t\t\t}]\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"valueQuantity\": {\r\n\t\t\t\t\t\t\"value\": 0.01,\r\n\t\t\t\t\t\t\"unit\": \"%\",\r\n\t\t\t\t\t\t\"system\": \"http://unitsofmeasure.org\",\r\n\t\t\t\t\t\t\"code\": \"%\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Coverage\",\r\n\t\t\t\t\"id\": \"db8a082d-4667-4501-871f-33f6caa54710\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-08T07:06:17.000+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"status\": \"active\",\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\"value\": \"1010\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"subscriber\": {\r\n\t\t\t\t\t\"reference\": \"Patient/8ccc45d0-d9f3-4e8f-932c-eb7fe7205ec8\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t},\r\n\t\t\t\t\"subscriberId\": \"333333\",\r\n\t\t\t\t\"beneficiary\": {\r\n\t\t\t\t\t\"reference\": \"Patient/7401f4ab-74b1-403f-ab50-64e91e7c8f99\"\r\n\t\t\t\t},\r\n\t\t\t\t\"dependent\": \"1\",\r\n\t\t\t\t\"relationship\": {\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/subscriber-relationship\",\r\n\t\t\t\t\t\t\"code\": \"common\",\r\n\t\t\t\t\t\t\"display\": \"COMMON LAW SPOUSE\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t},\r\n\t\t\t\t\"period\": {\r\n\t\t\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\t\t\"end\": \"2020-05-08T07:06:17+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"payor\": [{\r\n\t\t\t\t\t\"reference\": \"Patient/17f3cfdd-bc0f-4413-942b-523c7c85e50e\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"class\": [{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"group\",\r\n\t\t\t\t\t\t\t\t\"display\": \"GROUP\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"78596\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"plan\",\r\n\t\t\t\t\t\t\t\t\"display\": \"PLAN\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"4677676\",\r\n\t\t\t\t\t\t\"name\": \"Test Plan 001\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"order\": 1,\r\n\t\t\t\t\"costToBeneficiary\": [{\r\n\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-copay-type\",\r\n\t\t\t\t\t\t\t\"code\": \"copay\",\r\n\t\t\t\t\t\t\t\"display\": \"COPAY AMOUNT\"\r\n\t\t\t\t\t\t}]\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"valueQuantity\": {\r\n\t\t\t\t\t\t\"value\": 0.01,\r\n\t\t\t\t\t\t\"unit\": \"%\",\r\n\t\t\t\t\t\t\"system\": \"http://unitsofmeasure.org\",\r\n\t\t\t\t\t\t\"code\": \"%\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Coverage\",\r\n\t\t\t\t\"id\": \"033f4d6b-adc0-4a8b-95b1-df1e45663db8\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-08T07:06:17.000+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"status\": \"active\",\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\"value\": \"1111\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"subscriber\": {\r\n\t\t\t\t\t\"reference\": \"Patient/67f8ea8a-5c83-4689-bab0-e2d469fb176b\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t},\r\n\t\t\t\t\"subscriberId\": \"333333\",\r\n\t\t\t\t\"beneficiary\": {\r\n\t\t\t\t\t\"reference\": \"Patient/980f54cf-4914-4f37-a4f9-e303675e3231\"\r\n\t\t\t\t},\r\n\t\t\t\t\"dependent\": \"2\",\r\n\t\t\t\t\"relationship\": {\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/subscriber-relationship\",\r\n\t\t\t\t\t\t\"code\": \"common\",\r\n\t\t\t\t\t\t\"display\": \"COMMON LAW SPOUSE\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t},\r\n\t\t\t\t\"period\": {\r\n\t\t\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\t\t\"end\": \"2020-05-08T07:06:17+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"payor\": [{\r\n\t\t\t\t\t\"reference\": \"Patient/1f15b223-dd55-4d47-8482-aad9ee4e2b85\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"class\": [{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"group\",\r\n\t\t\t\t\t\t\t\t\"display\": \"GROUP\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"7857796\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"plan\",\r\n\t\t\t\t\t\t\t\t\"display\": \"PLAN\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"467777676\",\r\n\t\t\t\t\t\t\"name\": \"Test Plan 001\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"order\": 1,\r\n\t\t\t\t\"costToBeneficiary\": [{\r\n\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-copay-type\",\r\n\t\t\t\t\t\t\t\"code\": \"copay\",\r\n\t\t\t\t\t\t\t\"display\": \"COPAY AMOUNT\"\r\n\t\t\t\t\t\t}]\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"valueQuantity\": {\r\n\t\t\t\t\t\t\"value\": 0.01,\r\n\t\t\t\t\t\t\"unit\": \"%\",\r\n\t\t\t\t\t\t\"system\": \"http://unitsofmeasure.org\",\r\n\t\t\t\t\t\t\"code\": \"%\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"resource\": {\r\n\t\t\t\t\"resourceType\": \"Coverage\",\r\n\t\t\t\t\"id\": \"55c87581-ace5-476e-9c04-85bdf78cf66d\",\r\n\t\t\t\t\"meta\": {\r\n\t\t\t\t\t\"versionId\": \"1\",\r\n\t\t\t\t\t\"lastUpdated\": \"2020-04-08T07:06:17.000+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"status\": \"active\",\r\n\t\t\t\t\"identifier\": [{\r\n\t\t\t\t\t\"system\": \"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\t\t\t\"value\": \"6896\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"subscriber\": {\r\n\t\t\t\t\t\"reference\": \"Patient/6d12255b-f7ab-4c70-846d-284b8d5711a2\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t},\r\n\t\t\t\t\"subscriberId\": \"333333\",\r\n\t\t\t\t\"dependent\": \"2\",\r\n\t\t\t\t\"relationship\": {\r\n\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/subscriber-relationship\",\r\n\t\t\t\t\t\t\"code\": \"common\",\r\n\t\t\t\t\t\t\"display\": \"COMMON LAW SPOUSE\"\r\n\t\t\t\t\t}]\r\n\t\t\t\t},\r\n\t\t\t\t\"period\": {\r\n\t\t\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\t\t\"end\": \"2020-05-08T07:06:17+00:00\"\r\n\t\t\t\t},\r\n\t\t\t\t\"payor\": [{\r\n\t\t\t\t\t\"reference\": \"Patient/6495e8a1-b851-402e-b5b5-88cec45a1354\",\r\n\t\t\t\t\t\"type\": \"Patient\"\r\n\t\t\t\t}],\r\n\t\t\t\t\"class\": [{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"group\",\r\n\t\t\t\t\t\t\t\t\"display\": \"GROUP\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"7857796\"\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\r\n\t\t\t\t\t\t\t\t\"code\": \"plan\",\r\n\t\t\t\t\t\t\t\t\"display\": \"PLAN\"\r\n\t\t\t\t\t\t\t}]\r\n\t\t\t\t\t\t},\r\n\t\t\t\t\t\t\"value\": \"467777676\",\r\n\t\t\t\t\t\t\"name\": \"Test Plan 001\"\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"order\": 1,\r\n\t\t\t\t\"costToBeneficiary\": [{\r\n\t\t\t\t\t\"type\": {\r\n\t\t\t\t\t\t\"coding\": [{\r\n\t\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-copay-type\",\r\n\t\t\t\t\t\t\t\"code\": \"copay\",\r\n\t\t\t\t\t\t\t\"display\": \"COPAY AMOUNT\"\r\n\t\t\t\t\t\t}]\r\n\t\t\t\t\t},\r\n\t\t\t\t\t\"valueQuantity\": {\r\n\t\t\t\t\t\t\"value\": 0.01,\r\n\t\t\t\t\t\t\"unit\": \"%\",\r\n\t\t\t\t\t\t\"system\": \"http://unitsofmeasure.org\",\r\n\t\t\t\t\t\t\"code\": \"%\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}]\r\n\t\t\t},\r\n\t\t\t\"request\": {\r\n\t\t\t\t\"method\": \"POST\"\r\n\t\t\t}\r\n\t\t}\r\n\t]\r\n}"
-				},
-				"url": {
-					"raw": "{{base_url}}/fhir",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"fhir"
-					]
-				}
-			},
-			"response": []
-		},
 		{
 			"name": "Create group",
 			"request": {
@@ -46,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"resourceType\": \"Group\",\r\n\t\"meta\": {\r\n\t\t\"versionId\": \"1\",\r\n\t\t\"lastUpdated\": \"2019-06-06T03:04:12.348-04:00\"\r\n\t},\r\n\t\"identifier\": [\r\n\t\t{\r\n\t\t\t\"use\": \"official\",\r\n\t\t\t\"system\": \"https://sitenv.org\",\r\n\t\t\t\"value\": \"1316206222\",\r\n\t\t\t\"type\": {\r\n\t\t\t\t\"coding\": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n\t\t\t\t\t\t\"code\": \"NPI\",\r\n\t\t\t\t\t\t\"display\": \"National Provider Identifier\"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"use\": \"official\",\r\n\t\t\t\"system\": \"https://sitenv.org\",\r\n\t\t\t\"value\": \"789456232\",\r\n\t\t\t\"type\": {\r\n\t\t\t\t\"coding\": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n\t\t\t\t\t\t\"code\": \"TAX\",\r\n\t\t\t\t\t\t\"display\": \"Tax ID Number\"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t}\r\n\t],\r\n\t\"type\": \"person\",\r\n\t\"active\": true,\r\n\t\"actual\": true,\r\n\t\"name\": \"Transaction Group Test\",\r\n\t\"managingEntity\": {\r\n\t\t\"reference\": \"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864\",\r\n\t\t\"display\": \"HL7 International\"\r\n\t},\r\n\t\"characteristic\": [\r\n\t\t{\r\n\t\t\t\"code\": {\r\n\t\t\t\t\"text\": \"Members Attributed based on Contract\"\r\n\t\t\t},\r\n\t\t\t\"valueReference\": {\r\n\t\t\t\t\"reference\": \"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0\"\r\n\t\t\t},\r\n\t\t\t\"exclude\": false\r\n\t\t}\r\n\t]\r\n}",
+					"raw": "{\r\n\t\"resourceType\": \"Group\",\r\n\t\"meta\": {\r\n\t\t\"versionId\": \"1\",\r\n\t\t\"lastUpdated\": \"2019-06-06T03:04:12.348-04:00\"\r\n\t},\r\n\t\"identifier\": [\r\n\t\t{\r\n\t\t\t\"use\": \"official\",\r\n\t\t\t\"system\": \"https://sitenv.org\",\r\n\t\t\t\"value\": \"159357\",\r\n\t\t\t\"type\": {\r\n\t\t\t\t\"coding\": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n\t\t\t\t\t\t\"code\": \"NPI\",\r\n\t\t\t\t\t\t\"display\": \"National Provider Identifier\"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"use\": \"official\",\r\n\t\t\t\"system\": \"https://sitenv.org\",\r\n\t\t\t\"value\": \"789456\",\r\n\t\t\t\"type\": {\r\n\t\t\t\t\"coding\": [\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\r\n\t\t\t\t\t\t\"code\": \"TAX\",\r\n\t\t\t\t\t\t\"display\": \"Tax ID Number\"\r\n\t\t\t\t\t}\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t}\r\n\t],\r\n\t\"type\": \"person\",\r\n\t\"active\": true,\r\n\t\"actual\": true,\r\n\t\"name\": \"DrajerTest\",\r\n\t\"managingEntity\": {\r\n\t\t\"reference\": \"Organzation/9118ee2c-9f6d-4a40-9988-4f26ff766864\",\r\n\t\t\"display\": \"HL7 International\"\r\n\t},\r\n\t\"characteristic\": [\r\n\t\t{\r\n\t\t\t\"code\": {\r\n\t\t\t\t\"text\": \"Members Attributed based on Contract\"\r\n\t\t\t},\r\n\t\t\t\"valueReference\": {\r\n\t\t\t\t\"reference\": \"InsurancePlan/32cae09a-5262-4a48-83ff-ba44f74631b0\"\r\n\t\t\t},\r\n\t\t\t\"exclude\": false\r\n\t\t}\r\n\t]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -54,11 +27,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/fhir/Group",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group"
 					]
@@ -72,14 +49,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/fhir/Group/2ae4a7d0-56b5-44e5-9809-500079f74f0b",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group/a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group",
-						"2ae4a7d0-56b5-44e5-9809-500079f74f0b"
+						"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd"
 					]
 				}
 			},
@@ -97,22 +78,26 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/fhir/Group?identifier=identifier=http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CNPI%7C1316206222&identifier=http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CTAX%7C789456232",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group?identifier=http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CNPI%7C159357&identifier=http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CTAX%7C789456",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group"
 					],
 					"query": [
 						{
 							"key": "identifier",
-							"value": "identifier=http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CNPI%7C1316206222"
+							"value": "http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CNPI%7C159357"
 						},
 						{
 							"key": "identifier",
-							"value": "http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CTAX%7C789456232"
+							"value": "http%3A%2F%2Fterminology.hl7.org%2FCodeSystem%2Fv2-0203%7CTAX%7C789456"
 						}
 					]
 				}
@@ -132,17 +117,21 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"resourceType\": \"Parameters\",\r\n  \"parameter\": [\r\n    {\r\n      \"name\": \"memberId\",\r\n      \"valueIdentifier\": {\r\n\t\t\"system\":\"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\"value\":\"3333\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"providerNpi\",\r\n       \"valueIdentifier\": {\r\n\t\t\"system\":\"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\"value\":\"11111\"\r\n\t  }\r\n    }\r\n  ]\r\n}"
+					"raw": "{\r\n  \"resourceType\": \"Parameters\",\r\n  \"parameter\": [\r\n    {\r\n      \"name\": \"memberId\",\r\n      \"valueIdentifier\": {\r\n\t\t\"system\":\"http://hospital.smarthealthit.org\",\r\n\t\t\"value\":\"786778\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"providerNpi\",\r\n       \"valueIdentifier\": {\r\n\t\t\"system\":\"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\"value\":\"66666\"\r\n\t  }\r\n    },\r\n\t{\r\n\t\t\"name\": \"attributionPeriod\",\r\n\t\t\"valuePeriod\": {\r\n\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\"end\": \"2025-05-08T07:06:17+00:00\"\r\n\t\t}\r\n\t}\r\n  ]\r\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/fhir/Group/2ae4a7d0-56b5-44e5-9809-500079f74f0b/$member-add",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group/a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd/$member-add",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group",
-						"2ae4a7d0-56b5-44e5-9809-500079f74f0b",
+						"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd",
 						"$member-add"
 					]
 				}
@@ -150,26 +139,7 @@
 			"response": []
 		},
 		{
-			"name": "Read group after member add - new and version increment",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{base_url}}/fhir/Group/2ae4a7d0-56b5-44e5-9809-500079f74f0b",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"fhir",
-						"Group",
-						"2ae4a7d0-56b5-44e5-9809-500079f74f0b"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Member add - attribution period - change",
+			"name": "Group member remove",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -181,53 +151,22 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"resourceType\": \"Parameters\",\r\n  \"parameter\": [\r\n    {\r\n      \"name\": \"memberId\",\r\n      \"valueIdentifier\": {\r\n\t\t\"system\":\"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\"value\":\"3333\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"providerNpi\",\r\n       \"valueIdentifier\": {\r\n\t\t\"system\":\"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\"value\":\"11111\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"attributionPeriod\",\r\n      \"valuePeriod\": {\r\n          \"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\"end\": \"2023-05-08T07:06:17+00:00\"\r\n      }\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\r\n  \"resourceType\": \"Parameters\",\r\n  \"parameter\": [\r\n    {\r\n      \"name\": \"memberId\",\r\n      \"valueIdentifier\": {\r\n\t\t\"system\":\"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\"value\":\"19990000002209\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"providerNpi\",\r\n       \"valueIdentifier\": {\r\n\t\t\"system\":\"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\"value\":\"33333\"\r\n\t  }\r\n    },\r\n\t{\r\n\t\t\"name\": \"attributionPeriod\",\r\n\t\t\"valuePeriod\": {\r\n\t\t\t\"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\t\"end\": \"2020-05-08T07:06:17+00:00\"\r\n\t\t}\r\n\t}\r\n  ]\r\n}"
 				},
 				"url": {
-					"raw": "{{base_url}}/fhir/Group/2ae4a7d0-56b5-44e5-9809-500079f74f0b/$member-add",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$member-remove",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group",
-						"2ae4a7d0-56b5-44e5-9809-500079f74f0b",
-						"$member-add"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Group member add with same memberId + diff providerNpi",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/fhir+json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"resourceType\": \"Parameters\",\r\n  \"parameter\": [\r\n    {\r\n      \"name\": \"memberId\",\r\n      \"valueIdentifier\": {\r\n\t\t\"system\":\"https://bluebutton.cms.gov/resources/variables/bene_id\",\r\n\t\t\"value\":\"3333\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"providerNpi\",\r\n       \"valueIdentifier\": {\r\n\t\t\"system\":\"http://hl7.org/fhir/sid/us-npi\",\r\n\t\t\"value\":\"22222\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"attributionPeriod\",\r\n      \"valuePeriod\": {\r\n          \"start\": \"2020-04-08T07:06:17+00:00\",\r\n\t\t\"end\": \"2023-05-08T07:06:17+00:00\"\r\n      }\r\n    }\r\n  ]\r\n}"
-				},
-				"url": {
-					"raw": "{{base_url}}/fhir/Group/2ae4a7d0-56b5-44e5-9809-500079f74f0b/$member-add",
-					"host": [
-						"{{base_url}}"
-					],
-					"path": [
-						"fhir",
-						"Group",
-						"2ae4a7d0-56b5-44e5-9809-500079f74f0b",
-						"$member-add"
+						"a80cec68-7518-429f-9f68-4ada6992700e",
+						"$member-remove"
 					]
 				}
 			},
@@ -239,16 +178,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/fhir/Group/2ae4a7d0-56b5-44e5-9809-500079f74f0b/_history/3",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/_history/8",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group",
-						"2ae4a7d0-56b5-44e5-9809-500079f74f0b",
+						"a80cec68-7518-429f-9f68-4ada6992700e",
 						"_history",
-						"3"
+						"8"
 					]
 				}
 			},
@@ -271,20 +214,28 @@
 					}
 				],
 				"url": {
-					"raw": "{{base_url}}/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$export?_type=Patient,Practitioner,PractitionerRole,Location,Organization,RelatedPerson,Coverage",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$davinci-data-export?resourceTypes=Patient,Practitioner,PractitionerRole,Location,Organization,RelatedPerson,Coverage&exportType=hl7.fhir.us.davinci-atr",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group",
 						"a80cec68-7518-429f-9f68-4ada6992700e",
-						"$export"
+						"$davinci-data-export"
 					],
 					"query": [
 						{
-							"key": "_type",
+							"key": "resourceTypes",
 							"value": "Patient,Practitioner,PractitionerRole,Location,Organization,RelatedPerson,Coverage"
+						},
+						{
+							"key": "exportType",
+							"value": "hl7.fhir.us.davinci-atr"
 						}
 					]
 				}
@@ -303,7 +254,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://ecr.drajer.com/bulk-api-r4/bulkdata/38",
+					"raw": "http://ecr.drajer.com/mal/bulkdata/23",
 					"protocol": "http",
 					"host": [
 						"ecr",
@@ -311,9 +262,9 @@
 						"com"
 					],
 					"path": [
-						"bulk-api-r4",
+						"mal",
 						"bulkdata",
-						"38"
+						"23"
 					],
 					"query": [
 						{
@@ -338,7 +289,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://ecr.drajer.com/bulk-api-r4/bulkdata/download/24/Patient.ndjson",
+					"raw": "http://ecr.drajer.com/mal/bulkdata/download/23/Patient.ndjson",
 					"protocol": "http",
 					"host": [
 						"ecr",
@@ -346,10 +297,10 @@
 						"com"
 					],
 					"path": [
-						"bulk-api-r4",
+						"mal",
 						"bulkdata",
 						"download",
-						"24",
+						"23",
 						"Patient.ndjson"
 					],
 					"query": [
@@ -378,11 +329,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/fhir/Patient",
+					"raw": "http://ecr.drajer.com/mal/fhir/Patient",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Patient"
 					]
@@ -405,11 +360,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/fhir/Practitioner",
+					"raw": "http://ecr.drajer.com/mal/fhir/Practitioner",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Practitioner"
 					]
@@ -432,11 +391,15 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/fhir/Coverage",
+					"raw": "http://ecr.drajer.com/mal/fhir/Coverage",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Coverage"
 					]
@@ -445,24 +408,43 @@
 			"response": []
 		},
 		{
-			"name": "Group $atr-export",
+			"name": "Confirm-Attrobution-List",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://ecr.drajer.com/mal/fhir/Group/a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd/$confirm-attribution-list",
+					"protocol": "http",
+					"host": [
+						"ecr",
+						"drajer",
+						"com"
+					],
+					"path": [
+						"mal",
+						"fhir",
+						"Group",
+						"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd",
+						"$confirm-attribution-list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attribution-Status",
 			"request": {
 				"method": "POST",
 				"header": [
 					{
-						"key": "prefer",
-						"value": "respond-async",
-						"type": "text"
-					},
-					{
-						"key": "Accept",
+						"key": "Content-Type",
 						"value": "application/fhir+json",
 						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"resourceType\": \"Parameters\",\r\n\t\"parameter\": [\r\n\t\t{\r\n\t\t\t\"name\": \"memberReference\",\r\n\t\t\t\"valueReference\": {\r\n\t\t\t\t\"reference\": \"Patient/63434e8f-7821-4ecf-a4c6-07045d03fd0d\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"memberReference\",\r\n\t\t\t\"valueReference\": {\r\n\t\t\t\t\"reference\": \"Patient/5f355ff8-9f2d-4047-b3dd-91a9a5e75bd8\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"exportType\",\r\n\t\t\t\"valueUrl\": \"hl7.fhir.us.davinci-atr\"\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"extractionPeriod\",\r\n\t\t\t\"valuePeriod\": {\r\n\t\t\t\t\"start\": \"2021-02-01T12:30:02Z\",\r\n\t\t\t\t\"end\": \"2022-02-01T12:30:02Z\"\r\n\t\t\t}\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"name\": \"resourceTypes\",\r\n\t\t\t\"valueString\": \"Patient,Coverage,Organization,Practitioner,PractitionerRole,RelatedPerson\"\r\n\t\t}\r\n\t]\r\n}",
+					"raw": "{\r\n  \"resourceType\": \"Parameters\",\r\n  \"parameter\": [\r\n    {\r\n      \"name\": \"memberId\",\r\n      \"valueIdentifier\": {\r\n\t\t\"system\":\"http://hospital.smarthealthit.org\",\r\n\t\t\"value\":\"786778\"\r\n\t  }\r\n    },\r\n    {\r\n      \"name\": \"patientReference\",\r\n       \"valueReference\": {\r\n\t\t\"reference\":\"Patient/d3457d45-9085-4572-a78d-ed69c35d0d13\"\r\n\t  }\r\n    }\r\n  ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -470,15 +452,41 @@
 					}
 				},
 				"url": {
-					"raw": "{{base_url}}/fhir/Group/a80cec68-7518-429f-9f68-4ada6992700e/$atr-export",
+					"raw": "http://ecr.drajer.com/mal/fhir/Group/a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd/$attribution-status",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"ecr",
+						"drajer",
+						"com"
 					],
 					"path": [
+						"mal",
 						"fhir",
 						"Group",
-						"a80cec68-7518-429f-9f68-4ada6992700e",
-						"$atr-export"
+						"a5b6880b-1cb7-46a1-a738-c9e6a1eaaddd",
+						"$attribution-status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CapabilityStatement-Producer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ecr.drajer.com/mal/fhir/metadata",
+					"protocol": "http",
+					"host": [
+						"ecr",
+						"drajer",
+						"com"
+					],
+					"path": [
+						"mal",
+						"fhir",
+						"metadata"
 					]
 				}
 			},
