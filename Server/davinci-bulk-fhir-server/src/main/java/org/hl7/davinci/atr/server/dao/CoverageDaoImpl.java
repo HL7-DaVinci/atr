@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.model.api.IQueryParameterType;
@@ -34,10 +35,6 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 	@Autowired
 	FhirContext fhirContext;
 	
-	@Autowired
-    private SessionFactory sessionFactory;
-	
-	@SuppressWarnings({"unchecked", "deprecation"})
 	public DafCoverage getCoverageForPatientsBulkData(String coverageIds, Date start, Date end){
     	
 		Criteria criteria = getSession().createCriteria(DafCoverage.class);
@@ -56,7 +53,6 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
     	return (DafCoverage) criteria.list().get(0);
     }
 	
-	@SuppressWarnings({"unchecked", "deprecation"})
 	public List<DafCoverage> getCoverageForBulkData(Date start, Date end){
     	
 		Criteria criteria = getSession().createCriteria(DafCoverage.class);
@@ -70,23 +66,16 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
     	return criteria.list();
     }
 
-	@Override
 	public DafCoverage updateCoverageById(int theId, Coverage theCoverage) {
 		DafCoverage dafCoverage = new DafCoverage();
 		IParser jsonParser = fhirContext.newJsonParser();
 		dafCoverage.setId(theId);
 		dafCoverage.setData(jsonParser.encodeResourceToString(theCoverage));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.update(dafCoverage);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafCoverage);
 		return dafCoverage;
 	}
 
-	@Override
 	public Coverage createCoverage(Coverage theCoverage) {
-		Session session = sessionFactory.openSession();
 		DafCoverage dafCoverage = new DafCoverage();
 		IParser jsonParser = fhirContext.newJsonParser();
 		Meta meta = new Meta();
@@ -114,14 +103,10 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 			logger.info(" setting the uuid ");
 		}
 		dafCoverage.setData(jsonParser.encodeResourceToString(theCoverage));
-		session.beginTransaction();
-		session.save(dafCoverage);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafCoverage);
 		return theCoverage;
 	}
 
-	@Override
 	public DafCoverage getCoverageById(String id) {
 		DafCoverage dafCoverage = null;
 		try {
@@ -140,10 +125,9 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<DafCoverage> search(SearchParameterMap theMap) {
 		@SuppressWarnings("deprecation")
-		Criteria criteria = getSession().createCriteria(DafCondition.class)
+		Criteria criteria = getSession().createCriteria(DafCoverage.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		// build criteria for id
@@ -255,7 +239,6 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 					.getSingleResult();
 	}
 
-	@Override
 	public DafCoverage getCoverageByPatientReference(String patientMemberId) {
 		DafCoverage dafCoverage = null;
 		try {
@@ -271,7 +254,6 @@ public class CoverageDaoImpl extends AbstractDao implements CoverageDao {
 		return dafCoverage;
 	}
 
-	@Override
 	public DafCoverage getCoverageByIdentifier(String system, String value) {
 		DafCoverage dafCoverage = null;
 		try {

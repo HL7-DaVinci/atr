@@ -31,7 +31,6 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 	@Autowired
 	FhirContext fhirContext;
 	
-	@Override
 	public PractitionerRole getPractitionerRoleByVersionId(String id, String versionIdPart) {
 		PractitionerRole practitionerRole = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -43,7 +42,6 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		return practitionerRole;
 	}
 
-	@Override
 	public PractitionerRole getPractitionerRoleById(String id) {
 		PractitionerRole practitionerRole = null;
 		IParser jsonParser = fhirContext.newJsonParser();
@@ -55,7 +53,6 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		return practitionerRole;
 	}
 
-	@Override
 	public List<PractitionerRole> search(SearchParameterMap paramMap) {
 		PractitionerRole practitionerRole = null;
 		List<PractitionerRole> practitionerRoleList = new ArrayList<>();
@@ -71,7 +68,6 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		return practitionerRoleList;
 	}
 
-	@Override
 	public List<PractitionerRole> getPractitionerRoleForBulkData(List<String> patientList, Date start, Date end) {
 		PractitionerRole practitionerRole = null;
 		List<PractitionerRole> practitionerRoleList = new ArrayList<>();
@@ -91,7 +87,6 @@ public class PractitionerRoleServiceImpl implements PractitionerRoleService {
 		return practitionerRoleList;
 	}
 
-	@Override
 	public PractitionerRole getPractitionerRoleByIdentifier(String system, String value) {
 		PractitionerRole practitionerRole = null;
 		try {

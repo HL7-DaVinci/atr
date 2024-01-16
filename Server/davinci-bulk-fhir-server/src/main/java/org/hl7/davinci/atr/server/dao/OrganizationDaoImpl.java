@@ -36,9 +36,6 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
 	@Autowired
 	FhirContext fhirContext;
 
-	@Autowired
-    private SessionFactory sessionFactory;
-	
 	/**
 	 * This method builds criteria for fetching organization record by id.
 	 * 
@@ -71,7 +68,6 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
 	 * @param versionId : version of the organization record
 	 * @return : DAF object of the organization
 	 */
-	@Override
 	public DafOrganization getOrganizationByVersionId(String theId, String versionId) {
 		return getSession().createNativeQuery(
 				"select * from organization where id = '"+theId+"' and data->'meta'->>'versionId' = '"+versionId+"'", 
@@ -686,11 +682,9 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
      * This method builds criteria for creating the patient
      * @return : patient record
      */
-    @Override
 	public Organization createOrganization(Organization theOrganization) {
 		DafOrganization dafOrganization = new DafOrganization();
     	try {
-    		Session session = sessionFactory.openSession();
     		IParser jsonParser = fhirContext.newJsonParser();
     		Meta meta = new Meta();
     		if(theOrganization.hasMeta()) {
@@ -717,10 +711,7 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
     			logger.info(" setting the uuid ");
     		}
     		dafOrganization.setData(jsonParser.encodeResourceToString(theOrganization));
-    		session.beginTransaction();
-    		session.save(dafOrganization);
-    		session.getTransaction().commit();
-    		session.close();
+    		getSession().saveOrUpdate(dafOrganization);
     	}
     	catch(Exception e) {
     		logger.error("Exception in createOrganization of OrganizationDaoImpl ", e);
@@ -728,21 +719,15 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
 		return theOrganization;
 	}
 
-	@Override
 	public DafOrganization updateOrganizationById(int theId, Organization theDafOrganization) {
 		DafOrganization dafOrganization = new DafOrganization();
 		IParser jsonParser = fhirContext.newJsonParser();
 		dafOrganization.setId(theId);
 		dafOrganization.setData(jsonParser.encodeResourceToString(theDafOrganization));
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.update(dafOrganization);
-		session.getTransaction().commit();
-		session.close();
+		getSession().saveOrUpdate(dafOrganization);
 		return dafOrganization;
 	}
 	
-	@SuppressWarnings({"unchecked", "deprecation"})
 	public DafOrganization getOrganizationForBulkData(String organizations, Date start, Date end){
 	
 		Criteria criteria = getSession().createCriteria(DafOrganization.class);
@@ -758,7 +743,6 @@ public class OrganizationDaoImpl extends AbstractDao implements OrganizationDao 
     	return (DafOrganization) criteria.list().get(0);
 	}
 
-	@Override
 	public DafOrganization getOrganizationByProviderIdentifier(String theSystem, String theValue) {
 		DafOrganization dafOrganization = null;
 		try {
